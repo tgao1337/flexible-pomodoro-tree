@@ -10,4 +10,8 @@
 
 ### Description
 
-A tree shaped device for flexible studying habits
+A tree shaped device for flexible studying habits. 
+
+The device will have three modes, one for a classic Pomodoro study session, another to track how many task are done, and one to take breaks based on a break budget.
+
+
