@@ -19,10 +19,12 @@ The device will have three modes, one for a classic Pomodoro study session, anot
 ### LED and Drivers
 Parts:
 - LEDs and Drivers
+  - 74HC595 Shift Register [datasheet: https://brightspace.nyu.edu/d2l/le/lessons/57774/topics/6119651]
 
 ### Display
 Parts:
 - OLED Display
+  - SSD1106 Driver [link: https://www.amazon.com/MakerFocus-128X64-1-3-Inch-SSD1106/dp/B08V97FYD2]
 
 ### User Control
 Parts:
@@ -31,3 +33,4 @@ Parts:
 ### Timer
 Parts:
 - Buzzer
+  - PS1240 [datasheet https://www.jp.tdk.com/tefe02/ef532_ps.pdf]
