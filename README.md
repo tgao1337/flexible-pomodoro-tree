@@ -25,7 +25,7 @@ Parts:
 Parts:
 - OLED Display
   - SSD1106 Driver [link: https://www.amazon.com/MakerFocus-128X64-1-3-Inch-SSD1106/dp/B08V97FYD2]
-
+  - SH1106 library used from Waveshare (https://www.waveshare.com/wiki/1.3inch_OLED_HAT) for SSD1106 display
 ### User Control
 Parts:
 - Buttons
