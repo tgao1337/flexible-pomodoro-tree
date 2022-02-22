@@ -1,6 +1,7 @@
 import pigpio
 import time
 
+rest = 0
 C4 = 262
 D4 = 294
 E4 = 330
