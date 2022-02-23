@@ -1,7 +1,6 @@
 import RPi.GPIO as GPIO
 from smbus import SMBus
 import time
-import numpy as np
 
 OLED_WIDTH = 128
 OLED_HEIGHT = 64
