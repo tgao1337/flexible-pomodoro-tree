@@ -1,4 +1,3 @@
-import RPi.GPIO as GPIO
 from smbus import SMBus
 import time
 
