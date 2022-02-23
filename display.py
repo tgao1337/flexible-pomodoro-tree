@@ -49,7 +49,7 @@ def invert(img):
      return img.rotate(180)
 
 # Test code below
-'''
+
 if __name__ == "__main__":
      show()
      time.sleep(2)
@@ -68,4 +68,4 @@ if __name__ == "__main__":
      time.sleep(2)
      clear()
      show()
-'''
+
