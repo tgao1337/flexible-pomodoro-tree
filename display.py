@@ -1,11 +1,11 @@
-import SH1106, config
+import SSD1106
 import time
 from PIL import Image,ImageDraw,ImageFont
 
 # Setup the display by creating an SH1106 object
-display = SH1106.SH1106()
+display = SSD1106.SSD1106()
 # Initialize it
-display.Init()
+display.setup()
 # Create a new image
 image = Image.new('1', (display.width, display.height), "WHITE")
 draw = ImageDraw.Draw(image)

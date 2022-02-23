@@ -1,9 +1,9 @@
-import SH1106, config
+import SSD1106
 from PIL import Image
 
 # Initialise a display
-display = SH1106.SH1106()
-display.Init()
+display = SSD1106.SSD1106()
+display.setup()
 display.clear()
 
 # Creating a blank canvas
