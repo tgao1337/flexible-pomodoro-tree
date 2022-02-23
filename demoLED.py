@@ -11,7 +11,7 @@ RCLK=15
 SRCLK=18
 SRCLR= 23
 
-NUM_LEDS=8
+NUM_LEDS=24
 
 def setup():
   GPIO.setup(SRCLR, GPIO.OUT)
@@ -41,15 +41,15 @@ def passToLEDs(outputString):
   GPIO.output(RCLK, GPIO.HIGH)
 
 ''' Pass in LED # to turn on.LED 0 is output A of first driver. '''
-def turnOnSingleLed(num)
+def turnOnSingleLed(num):
    if (num<NUM_LEDS):
      output=""
-    for i in range(NUM_LEDS):
-      if i=num:
+     for i in range(NUM_LEDS):
+      if i==num:
         output+="1"
       else:
         output+="0"
-    passToLEDs(output[::-1])
+     passToLEDs(output[::-1])
    else:
     raise Exception("LED passed in exceeds number of LEDs available")
 
@@ -69,13 +69,13 @@ def turnAllOff():
 '''Turn on entire driver LEDs by specifying driver sequence in chain. 1 is the first driver'''
 def turnOnEntireDriver(num):
   output=""
-  if(num*8 <= NUM_LEDS):
+  if(num*8 <= NUM_LEDS and num>0):
    for i in range(NUM_LEDS):
-    if (i >=num*8 -8 and i< num *8)
+    if (i >=num*8 -8 and i< num *8):
       output+="1"
     else:
       output+="0" 
-   passToLEDS(output[::-1])
+   passToLEDs(output[::-1])
   else:
    raise Exception("Driver specified exceeds numver of available LEDs")
 
@@ -83,7 +83,7 @@ def turnOnEntireDriver(num):
 def turnOnLEDsWithSpacing(num):
   if(num >NUM_LEDS):
     turnAllOff()
-  else if(num ==0):
+  elif(num ==0):
     turnAllOn()
   else:
    output=""
@@ -92,4 +92,40 @@ def turnOnLEDsWithSpacing(num):
       output+="1"
     else:
       output+="0"
-  passToLEDs(output[::-1])
+   passToLEDs(output[::-1])
+
+# test code 
+if __name__ == '__main__':
+  setup()
+#testing the singleLED
+  turnOnSingleLed(8)
+  time.sleep(0.5)
+  turnOnSingleLed(3)
+  time.sleep(0.5)
+  turnOnSingleLed(17)
+  time.sleep(0.5)
+#  turnOnSingleLed(39)  to check exception handling 
+  turnAllOff()
+  time.sleep(0.5)
+  turnAllOn()
+  time.sleep(0.5)
+  turnAllOff()
+  turnOnEntireDriver(3)
+  time.sleep(0.05)
+  turnOnEntireDriver(2)
+  time.sleep(0.5)
+  turnOnEntireDriver(1)
+#  turnOnEntireDriver(6) to check exception handling
+  turnOnLEDsWithSpacing(5)
+  time.sleep(0.5)
+  turnOnLEDsWithSpacing(4)
+  time.sleep(0.5)
+  turnOnLEDsWithSpacing(3)
+  time.sleep(0.5)
+  turnOnLEDsWithSpacing(2)
+  time.sleep(0.5)
+  turnOnLEDsWithSpacing(1)
+  time.sleep(0.5)
+  turnOnLEDsWithSpacing(0)
+  time.sleep(0.5)
+  turnOnLEDsWithSpacing(32) #will turn all off since spacing exceeds NUM_LEDS
