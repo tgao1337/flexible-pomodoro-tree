@@ -34,7 +34,7 @@ def setup():
   GPIO.output(RCLK, GPIO.LOW)
   GPIO.output(SRCLK, GPIO.LOW)
   GPIO.output(SRCLR, GPIO.HIGH)
-
+  clearAll()
 #using the commonly connected SRCLR to all the drivers, pulsing RCLK while this is 0  will clear all drivers and LEDs oFF?.
 def clearAll():
   GPIO.output(SRCLR, GPIO.LOW)
@@ -43,13 +43,13 @@ def clearAll():
   GPIO.output(RCLK, GPIO.HIGH)
   GPIO.output(SRCLR, GPIO.HIGH)
 
-  clusterStatus=[0]*(NUM_CLUSTERS*NUM_COLORS) #update the status array
+  for i in range(NUM_COLORS *NUM_CLUSTERS):
+   clusterStatus[i]=0
 
 '''Given a certain string of 1010, this function will set the serial input and pulse the SRCLK and RCLK so the 
 given pattern from the string is displayed corrrectly on the LEDS
 Arguements: string clusterStatus'''
 def passToLEDs(clusterStatus):
-  
   for led in clusterStatus:
     if(led=="0"):
       GPIO.output(SER, GPIO.LOW)
@@ -59,72 +59,125 @@ def passToLEDs(clusterStatus):
     GPIO.output(SRCLK, GPIO.LOW)
     time.sleep(0.05)
     GPIO.output(SRCLK, GPIO.HIGH)
- 
+
+def display():
   GPIO.output(RCLK, GPIO.LOW) #pulse RCLK after all the inputs are loaded for a given cluster
   time.sleep(0.05)
   GPIO.output(RCLK, GPIO.HIGH)
 
 '''This function allows you to turn on a given color group of a given cluster
 Arguements: int cluster (1-4), char color( r,y,g)'''
-def selectClusterON( cluster, color)
-   #get current status of the LEDs
+def selectClusterColorON( cluster, color):
+  #get current status of the LEDs
   cluster1= readClusterStatus(1)
   cluster2=readClusterStatus(2)
   cluster3=readClusterStatus(3)
   cluster4= readClusterStatus(4)
   newCluster=""
-  
+
   #determine new string that will be passed into the desire cluster based on the color desired. 
   if(color=='g'):
    newCluster=GREEN_YELLOW_RED
-  else if (color == 'y'):
+  elif (color == 'y'):
    newCluster= YELLOW_RED
-  else if (color == 'r'):
+  elif (color == 'r'):
    newCluster=RED
   else:
-    print("invalid color selection in selectClusterON(), choose g, y, r ")
-    break
-  
+    raise Exception("invalid color selection in selectClusterON(), choose g, y, r ")
   #keep the other clusters the same while updating the desired cluster LEDS
   if(cluster ==1):
+    passToLEDs(cluster4)
+    passToLEDs(cluster3)
+    passToLEDs(cluster2)
     passToLEDs(newCluster)
-  else if(cluster ==2):
+  elif(cluster ==2):
+    passToLEDs(cluster4)
+    passToLEDs(cluster3)
     passToLEDs(newCluster)
     passToLEDs(cluster1)
-  else if(cluster ==3)
+  elif(cluster ==3):
+    passToLEDs(cluster4)
     passToLEDs(newCluster)
     passToLEDs(cluster2)
     passToLEDs(cluster1)
-  else if(cluster ==4)
+  elif(cluster ==4):
     passToLEDs(newCluster)
     passToLEDs(cluster3)
     passToLEDs(cluster2)
     passToLEDs(cluster1)
-   else:
-     print("invlaid cluster selection in selectClusterON()")
-     break
+  else:
+     raise Exception("Number clusters invalid, must be an int>0 and less than NUM_CLUSTERS=",NUM_CLUSTERS)
 # update the status array
   updateClusterStatus(cluster, True, color)
+  display()
+
+'''This function allows you to turn off a given color group of a given cluster
+Arguements: int cluster (1-4), char color( r,y,g)'''
+def selectClusterColorOFF( cluster, color):
+  #get current status of the LEDs
+  cluster1= readClusterStatus(1)
+  cluster2=readClusterStatus(2)
+  cluster3=readClusterStatus(3)
+  cluster4= readClusterStatus(4)
+  oldCluster=readClusterStatus(cluster)
+
+  #determine new string that will be passed into the desire cluster based on the color desired off.
+  if(color=='g'):
+   newCluster=oldCluster[0]+"000"+oldCluster[4:]
+  elif (color == 'y'):
+   newCluster= oldCluster[:4]+"000"+oldCluster[7]
+  elif (color == 'r'):
+   newCluster=oldCluster[:7]+"0"
+  else:
+    raise Exception("invalid color selection in selectClusterON(), choose g, y, r ")
+  #keep the other clusters the same while updating the desired cluster LEDS
+  if(cluster ==1):
+    passToLEDs(cluster4)
+    passToLEDs(cluster3)
+    passToLEDs(cluster2)
+    passToLEDs(newCluster)
+  elif(cluster ==2):
+    passToLEDs(cluster4)
+    passToLEDs(cluster3)
+    passToLEDs(newCluster)
+    passToLEDs(cluster1)
+  elif(cluster ==3):
+    passToLEDs(cluster4)
+    passToLEDs(newCluster)
+    passToLEDs(cluster2)
+    passToLEDs(cluster1)
+  elif(cluster ==4):
+    passToLEDs(newCluster)
+    passToLEDs(cluster3)
+    passToLEDs(cluster2)
+    passToLEDs(cluster1)
+  else:
+     raise Exception("Number clusters invalid, must be an int>0 and less than NUM_CLUSTERS=",NUM_CLUSTERS)
+# update the status array
+  updateClusterStatus(cluster, False, color)
+  display()
+
 
 '''This  function keeps track of changes made to  the clusters by updating the status array so that it is accurate.
 Arugmetns: int cluster, bool on/off (T/F), char color( r,y,g,x) '''
-def updateClusterStatus(int cluster, bool on_off, char color='x'):
+def updateClusterStatus(cluster, on_off, color='x'):
   # find cluster's position in the array
   index=0
   index +=(cluster-1)*3
-
 #this happens when updating an entire cluster to turn off, since I only pass in two parameters from the OFF() funcction. 
   if(color== 'x'):
    clusterStatus[index]=0
    clusterStatus[index+1]=0
    clusterStatus[index+2]=0
-  else:           #updating a cluster with a new color being turned on or off
-    if(color =='y'):
+  else:  #updating a cluster with a new color being turned on or off
+    if (color =='r'):
+      pass     #the index is already in the position for the r index
+    elif(color =='y'):
       index+=1
-    else if(color =='g'):
+    elif(color =='g'):
       index+=2
     else:
-      print("color erro in updateCLusterStatus() use r,y,g")
+      raise Exception("color error in updateCLusterStatus() use r,y,g")
     if(on_off):
       clusterStatus[index]=1
     else:
@@ -135,28 +188,15 @@ representation of the actual LED sequence to be passed in to the seriel input of
 Arugment: int cluster                 Returns: binary string'''
 def readClusterStatus(cluster):
   start=(cluster-1)*3
-  stop=cluster*3
 
- '''the first digit of a cluster's 3 digits in the status Array corresponds to the red led, which there
-is only 1. The enxt two digits correspond to yellow and green and there are three of them. If the digit in
-the array is 1 this would correspond to all three yellow or green Leds being on, hence 111 or 000 if digit is 0. '''
-  ledString=""
-  for i in range(start,stop):
-   if(i%3 ==0):
-     if (clusterStatus[i]==0): 
-        ledString+= "0"
-     else:
-        ledString+="1"
-   else:
-      if(clusterStatus[i]==0):
-          ledString+="000"
-      else:
-          ledString+="111"
-  ledString+="0" #add additional last 0 at the end for the last port of the  driver which has no led attached. 
-
-  '''I then return the reverse of the string since the driver inputs the values backwards, 
-the first input corresponds to the last output'''
-  return ledString[::-1]
+  if(clusterStatus[start+2]==1): 
+   return GREEN_YELLOW_RED
+  elif(clusterStatus[start+1]==1):
+   return YELLOW_RED
+  elif(clusterStatus[start]==1):
+   return RED
+  else:
+   return OFF
 
 '''This function will turn off an entire cluster no matter which LEDS are currently on 
 Arguments: int cluster'''
@@ -167,22 +207,85 @@ def selectClusterOFF(cluster):
   cluster4= readClusterStatus(4)
   newCluster=OFF
 
+  #keep the other clusters the same while updating the desired cluster  OFF
   if(cluster ==1):
+    passToLEDs(cluster4)
+    passToLEDs(cluster3)
+    passToLEDs(cluster2)
     passToLEDs(newCluster)
-  else if(cluster ==2):
+  elif(cluster ==2):
+    passToLEDs(cluster4)
+    passToLEDs(cluster3)
     passToLEDs(newCluster)
     passToLEDs(cluster1)
-  else if(cluster ==3)
+  elif(cluster ==3):
+    passToLEDs(cluster4)
     passToLEDs(newCluster)
     passToLEDs(cluster2)
     passToLEDs(cluster1)
-  else if(cluster ==4)
+  elif(cluster ==4):
     passToLEDs(newCluster)
     passToLEDs(cluster3)
     passToLEDs(cluster2)
     passToLEDs(cluster1)
-   else:
-     print("invlaid cluster selection in selectClusterOFF()")
-     break
-  
+  else:
+     raise Exception("Number clusters invalid, must be an int>0 and less than NUM_CLUSTERS=",NUM_CLUSTERS)
+
   updateClusterStatus(cluster, False)
+  display()
+
+#test code 
+
+if __name__ == '__main__':
+  setup()
+  selectClusterColorON(1,'g')
+  time.sleep(0.3)
+  selectClusterColorON(2,'g')
+  time.sleep(0.3)
+  selectClusterColorON(3,'g')
+  time.sleep(0.3)
+  selectClusterOFF(2)
+  time.sleep(0.3)
+  selectClusterOFF(3)
+  time.sleep(0.3)
+  clearAll()
+
+  #simulating the tree lighting up fully and then dimming fully 
+  selectClusterColorON(1,'r')
+  time.sleep(0.3)
+  selectClusterColorON(2,'r')
+  time.sleep(0.3)
+  selectClusterColorON(3,'r')
+  time.sleep(0.3)
+  selectClusterColorON(1,'y')
+  time.sleep(0.3)
+  selectClusterColorON(2,'y')
+  time.sleep(0.3)
+  selectClusterColorON(3,'y')
+  time.sleep(0.3)
+  selectClusterColorON(1,'g')
+  time.sleep(0.3)
+  selectClusterColorON(2,'g')
+  time.sleep(0.3)
+  selectClusterColorON(3,'g')
+  time.sleep(0.3)
+
+# now starting to dim 
+  selectClusterColorOFF(1,'g')
+  time.sleep(0.3)
+  selectClusterColorOFF(2,'g')
+  time.sleep(0.3)
+  selectClusterColorOFF(3,'g')
+  time.sleep(0.3)
+  selectClusterColorOFF(1,'y')
+  time.sleep(0.3)
+  selectClusterColorOFF(2,'y')
+  time.sleep(0.3)
+  selectClusterColorOFF(3,'y')
+  time.sleep(0.3)
+  selectClusterColorOFF(1,'r')
+  time.sleep(0.3)
+  selectClusterColorOFF(2,'r')
+  time.sleep(0.3)
+  selectClusterColorOFF(3,'r')
+  time.sleep(0.3)
