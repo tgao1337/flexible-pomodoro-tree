@@ -38,7 +38,7 @@ class SSD1106(object):
         self.write(0x12)        # Set Sequential/Alternative Mode
         self.write(0xDB)	# Set VCOM Deselect Level Mode Set
         self.write(0x40)	# Set VCOM Deselect Level Data
-        self.write(0x20)	# Set Page Addressing Mode (0x00/0x01/0x02) -----
+        self.write(0x20)	# Set Page Addressing Mode
         self.write(0xA4)	# Set Entire Display Off
         time.sleep(0.1)
         self.write(0xAF)	# Turn on OLED panel
