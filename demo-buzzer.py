@@ -32,5 +32,4 @@ def playHCB():
   playFreq(3520)
   playFreq(3136)
 
-playHCB()
-
+playList(((B6, .4), (A6, .4), (G6, .4)))
