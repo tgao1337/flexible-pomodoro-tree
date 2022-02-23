@@ -32,7 +32,7 @@ A7 = 3520
 B7 = 3951
 C8 = 4186
 
-pi
+pi = 0
 
 def buzzerSetup():
   global pi 
