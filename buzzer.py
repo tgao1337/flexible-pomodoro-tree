@@ -32,10 +32,16 @@ A7 = 3520
 B7 = 3951
 C8 = 4186
 
+pi = 0
+
+def buzzerSetup():
+  global pi 
+  pi = pigpio.pi()
+
 def playTime(seconds):
   # This will play the buzzer at the default 4kHz for 
   # (seconds) amount of seconds.
-  pi = pigpio.pi()
+
   # first arg is pin number,
   # second arg is frequency in Hz,
   # third arg is number of ON units out of 1000000
@@ -45,7 +51,7 @@ def playTime(seconds):
   
 def playFreq(freq):
   # This will play buzzer at a given frequency for 0.5 seconds.
-  pi = pigpio.pi()
+
   pi.hardware_PWM(13, freq, 500000) 
   time.sleep(0.5)
   pi.hardware_PWM(13, freq, 0)
@@ -53,7 +59,7 @@ def playFreq(freq):
 def playFreqTime(freq, seconds):
   # This function plays a specified frequency for a specified time.
   # freq=0 is for a rest note.
-  pi = pigpio.pi()
+
   if freq == 0:
    pi.hardware_PWM(13, freq, 0)
   else:
