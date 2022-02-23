@@ -60,4 +60,5 @@ def playMario():
            (831, .119 ),     (A5, .119 ),     (C6, .119 ),   (rest, .121 ))
   playList(mario)
 
+buzzerSetup()
 playMario()
