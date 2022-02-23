@@ -33,6 +33,8 @@ def playHCB():
   playFreq(3136)
   
 def playMario():
+  # this song was found on midi here: https://bitmidi.com/mario-bros-super-mario-bros-theme-mid
+  # this converter helped with the timings: https://sparks.gogo.co.nz/midi_tone.html
   mario = ( (E6, .000 ),     (C6, .111 ),  (rest, .001 ),     (E6, .000 ), 
             (C6, .239 ),  (rest, .001 ),     (E6, .000 ),     (C6, .119 ), 
          (rest, .121 ),     (C6, .119 ),  (rest, .001 ),     (E6, .119 ), 
