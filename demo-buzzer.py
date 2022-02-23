@@ -217,5 +217,5 @@ def playJingle():
   playList(jingle)
 
 buzzerSetup()
-# playMario()
-playJingle()
+playMario()
+# playJingle() # sounds bad :(
