@@ -33,7 +33,7 @@ B7 = 3951
 C8 = 4186
 
 def buzzerSetup():
-  pi = pigpio.pi()
+  global pi = pigpio.pi()
 
 def playTime(seconds):
   # This will play the buzzer at the default 4kHz for 
