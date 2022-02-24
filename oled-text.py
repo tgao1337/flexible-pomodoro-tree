@@ -30,7 +30,7 @@ draw.line([(127,0),(127,63)])
 draw.text((6,0), "Flexible Pomodoro Tree", font = font1)
 draw.text((28,20), "CompE DP II", font = font2)
 
-# Rotate the canvas based on your OLED's orienntation
+# Rotate the canvas based on your OLED's orientation
 canvas = canvas.rotate(180)
 # Call ShowImage to display canvas on the OLED
 display.ShowImage(display.getbuffer(canvas))
