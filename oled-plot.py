@@ -8,8 +8,8 @@ display.setup()
 display.clear()
 
 # Creatinng a plot figure of size 1.3x0.9 inches (OLED display size)
-fig = plt.figure(figsize=(1.3, 0.9), dpi=98)
-ax = fig.add_axes((0.15, 0.25, 0.8, 0.7))
+fig = plt.figure(figsize=(1.28, 0.64), dpi=100)
+ax = fig.add_axes((0.15, 0.35, 0.8, 0.5))
 
 # ===== PLOT 1
 '''
@@ -55,7 +55,7 @@ plt.savefig("plot.png", format="png")
 image = Image.new('1', (128,64), 255)
 
 # Open the plot
-plot = Image.open("plot.png").resize((128,64), Image.LANCZOS)
+plot = Image.open("plot.png")
 # Paste plot on existing canvas
 
 image.paste(plot)
