@@ -50,11 +50,14 @@ def playTime(seconds):
   pi.hardware_PWM(13, 4000, 0)
   
 def playFreq(freq):
-  # This will play buzzer at a given frequency for 0.5 seconds.
+  # This will play buzzer at a given frequency. It will not be stopped unless playStop() is used.
 
-  pi.hardware_PWM(13, freq, 500000) 
-  time.sleep(0.5)
-  pi.hardware_PWM(13, freq, 0)
+  pi.hardware_PWM(13, freq, 500000)
+  
+def playStop():
+  # This will stop any buzzer sounds.
+  
+  pi.hardware_PWM(13, 0, 0)
   
 def playFreqTime(freq, seconds):
   # This function plays a specified frequency for a specified time.
