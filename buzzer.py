@@ -33,7 +33,6 @@ B7 = 3951
 C8 = 4186
 
 def buzzerSetup():
-  pi = 0
   global pi 
   pi = pigpio.pi()
 
