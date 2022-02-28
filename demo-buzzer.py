@@ -5,7 +5,7 @@ def playScale():
   C7 = 2093
 
   # creating a list of tuples containing frequencies and duration
-  scale = [(1382, 1), (1397, 1), (1568, 1), (1760, 1), (1976, 1), (C7, 1)]
+  scale = [(1319, 1), (1397, 1), (1568, 1), (1760, 1), (1976, 1), (C7, 1)]
 
   # Run setup code to start hardware PWM
   buzzerSetup()
