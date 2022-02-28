@@ -1,5 +1,26 @@
 from buzzer import *
 
+def playScale():
+  # Set frequency as a variable
+  C7 = 2093
+
+  # creating a list of tuples containing frequencies and duration
+  Scale = [(1382, 1), (1397, 1), (1568, 1), (1760, 1), (1976, 1), (C7, 1)]
+
+  # Run setup code to start hardware PWM
+  buzzerSetup()
+
+  # Play 4000 Hz for 1 second
+  playTime(1)
+
+  # Then using different methods, play a scale
+  playFreq(1047) # Frequency for C6
+  time.sleep(1) # Wait one second
+  playStop() # Stop playing after one second
+  playFreqTime(1175, 1) # Play D6 for one second
+  playList(scale) # play E6, F6, G6, A6, B6, and C7 for one second each. 
+  # Variables can also be used as seen for C7. A list of variables can be found in the next section.
+
 def playHCB():
   playFreq(3951)
   playFreq(3520)
@@ -215,6 +236,9 @@ def playJingle():
          (rest, .000 ))
   playList(jingle)
 
-buzzerSetup()
-playMario()
+# buzzerSetup()
+# playMario()
+
 # playJingle() # sounds bad :(
+
+playScale() # This has the buzzerSetup already
