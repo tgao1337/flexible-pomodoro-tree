@@ -69,7 +69,9 @@ def playFreqTime(freq, seconds):
   pi.hardware_PWM(13, freq, 0)
   
 def playList(lst):
-  # Given a list of ((freq, seconds), (freq, seconds), ... ), play through the list
+  # Given a list of [(freq, seconds), (freq, seconds), ... ], play through the list
+  # list also works as ((freq, seconds), (freq, seconds), ... )
+
   for elem in lst:
     playFreqTime(elem[0], elem[1])
 
