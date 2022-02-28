@@ -57,16 +57,16 @@ def playMario():
   # this song was found on midi here: https://bitmidi.com/mario-bros-super-mario-bros-theme-mid
   # this converter helped with the timings: https://sparks.gogo.co.nz/midi_tone.html
   mario = [ (E6, .000 ),     (C6, .111 ),  (rest, .001 ),     (E6, .000 ), 
-            (C6, .239 ),  (rest, .001 ),     (E6, .000 ),     (C6, .119 ), 
-         (rest, .121 ),     (C6, .119 ),  (rest, .001 ),     (E6, .119 ), 
-         (rest, .121 ),     (G6, .000 ),     (B5, .239 ),  (rest, .241 ), 
+            (C6, .239 ),   (rest, .001 ),    (E6, .000 ),     (C6, .119 ), 
+          (rest, .121 ),     (C6, .119 ),  (rest, .001 ),     (E6, .119 ), 
+          (rest, .121 ),     (G6, .000 ),     (B5, .239 ),  (rest, .241 ), 
             (G5, .000 ),     (B4, .239 ),  (rest, .241 ),     (C6, .239 ), 
-         (rest, .121 ),     (G5, .239 ),  (rest, .121 ),     (E5, .239 ), 
-         (rest, .121 ),     (A5, .239 ),  (rest, .001 ),     (B5, .239 ), 
-         (rest, .001 ),    (932, .119 ),  (rest, .001 ),     (A5, .119 ), 
-         (rest, .121 ),     (G5, .159 ),  (rest, .001 ),     (E6, .159 ), 
-         (rest, .001 ),     (G6, .159 ),  (rest, .001 ),     (A6, .239 ), 
-         (rest, .001 ),     (F6, .119 ),  (rest, .001 ),     (G6, .119 ), 
+          (rest, .121 ),    (G5, .239 ),  (rest, .121 ),     (E5, .239 ), 
+          (rest, .121 ),    (A5, .239 ),  (rest, .001 ),     (B5, .239 ), 
+           (rest, .001 ),   (932, .119 ),  (rest, .001 ),     (A5, .119 ), 
+           (rest, .121 ),    (G5, .159 ),  (rest, .001 ),     (E6, .159 ), 
+         (rest, .001 ),      (G6, .159 ),  (rest, .001 ),     (A6, .239 ), 
+         (rest, .001 ),      (F6, .119 ),  (rest, .001 ),     (G6, .119 ), 
          (rest, .121 ),     (E6, .239 ),  (rest, .001 ),     (C6, .119 ), 
          (rest, .001 ),     (D6, .119 ),  (rest, .001 ),     (B5, .119 ), 
          (rest, .241 ),     (C6, .239 ),  (rest, .121 ),     (G5, .239 ), 
@@ -239,6 +239,6 @@ def playJingle():
 # buzzerSetup()
 # playMario()
 
-# playJingle() # sounds bad :(
+# playJingle() # sounds bad :( likely due to overlapping notes the buzzer cannot play correctly
 
 playScale() # This has the buzzerSetup already
