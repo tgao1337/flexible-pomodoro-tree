@@ -168,7 +168,7 @@ class OLED(object):
         draw.rectangle((0,0,128,64), outline=255, fill=255) 
 
     # Functions for displaying on OLED
-    def display_text(self, text, x, y, size=10):
+    def text(self, text, x, y, size=10):
         font = ImageFont.truetype("Font.ttf", size)
         draw.text ((x,y), text, font=font, fill=0)
         self.show()
@@ -176,3 +176,7 @@ class OLED(object):
     def show(self):
         self.ShowImage(self.getbuffer(canvas.rotate(180)))
 
+    def draw_line(self, w, x, y ,z):
+        # From (w,x) to (y,x)
+        draw.line([(w,x),(y,z)])
+        self.show()

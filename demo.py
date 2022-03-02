@@ -21,7 +21,8 @@ def buzz():
 
 def test_display():
     display = OLED()
-    display.display_text("Pomodoro", 25, 30, 15)
+    display.text("Pomodoro Tree", 10, 0, 15)
+    display.draw_line(0,20,127,20)
 
 if __name__ == "__main__":
     test_display()
