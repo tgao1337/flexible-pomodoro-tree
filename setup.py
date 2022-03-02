@@ -6,6 +6,6 @@ setup(name='pomodorotree',
 	author='Tommy Gao, Shahzeb Naseer, Nick Coluccio',
 	author_email='tommygao@nyu.edu',
 	url='https://github.com/tgao1337/flexible-pomodoro-tree',
-	install_requires=['smbus', 'PIL'],
+	install_requires=['smbus', 'PIL', 'pigpio', 'time'],
 	py_modules=['pomodorotree'],
        )
