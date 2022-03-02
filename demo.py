@@ -1,6 +1,6 @@
 # this is the start for pomodoro demo
 
-from buzzer import *
+from pomodoro import *
 
 def buzz():
   # Set frequency as a variable
