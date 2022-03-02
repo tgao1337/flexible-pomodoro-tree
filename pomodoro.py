@@ -3,9 +3,15 @@ import pigpio
 import time
 
 from smbus import SMBus
+from PIL import Image,ImageDraw,ImageFont
 
 OLED_WIDTH = 128
 OLED_HEIGHT = 64
+
+# Create a new blank canvas
+canvas = Image.new('1', (OLED_WIDTH, OLED_HEIGHT), 255)
+# Set up draw for the canvas
+draw = ImageDraw.Draw(canvas)
 
 # This section begins the buzzer subsystem for hardware PWM.
 # Software PWM is a potential for simplicity.
@@ -155,5 +161,18 @@ class OLED(object):
                 self.bus.write_byte_data(self.address, 0x40, ~pBuf[i+self.width*page])
 
     def clear(self):
+        # Clearing the buffer / display
         _buffer = [0xff]*(self.width * self.height//8)
         self.ShowImage(_buffer)
+        # Clearing the canvas
+        draw.rectangle((0,0,128,64), outline=255, fill=255) 
+
+    # Functions for displaying on OLED
+    def display_text(self, text, x, y, size=10):
+        font = ImageFont.truetype("Font.ttf", size)
+        draw.text ((x,y), text, font=font, fill=0)
+        self.show()
+
+    def show(self):
+        display.ShowImage(display.getbuffer(canvas.rotate(180)))
+
