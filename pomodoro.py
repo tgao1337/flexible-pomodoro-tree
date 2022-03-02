@@ -174,5 +174,5 @@ class OLED(object):
         self.show()
 
     def show(self):
-        display.ShowImage(display.getbuffer(canvas.rotate(180)))
+        self.ShowImage(self.getbuffer(canvas.rotate(180)))
 
