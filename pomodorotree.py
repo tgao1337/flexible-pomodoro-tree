@@ -9,3 +9,15 @@ def buzzDown():
 
 def setup_display():
     pass
+
+def startPomodoro():
+    print("pomodoro!")
+    
+def startBBreak():
+    print("budget break")
+
+def startTaskMode():
+    print("task mode")
+    
+def pomodoroBreak():
+    pass
