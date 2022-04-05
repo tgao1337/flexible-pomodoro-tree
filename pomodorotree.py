@@ -10,7 +10,7 @@ global pomoBreak
 global taskNum
 global breakBTime
 global pressedOnce
-mode = 0
+mode = 3  # mode 3 is a menu screen with tree picture, says press mode button to continue
 buttonA = 0
 pomoTime = 25 * 60  # these are default values
 pomoBreak = 5 * 60  # these are default values
@@ -39,17 +39,38 @@ def startTaskMode():
 def pomodoroBreak():
     pass
 
+def resetValues(): # reset the values to default
+    global pomoTime
+    global pomoBreak
+    global taskNum
+    global breakBTime
+    pomoTime = 25*60
+    pomoBreak = 5*60
+    taskNum = 3
+    breakBTime = 5*60
+
 def checkButtonA():  # changes different modes based on button 3 way toggle
     global mode
     risingA = False
-    
     while True:
         if readButton(pinA): # 1 button pressed, 0 button not pressed
             if risingA == False:
                 risingA = True
-                mode = (mode + 1) % 3:
+                mode = (mode + 1) % 4:
         else:
             risingA = False
+            
+def checkButtonR():  # reset button
+    risingR = False
+    while True:
+        if readButton(pinR): # 1 button pressed, 0 button not pressed
+            if risingR == False:
+                risingR = True
+                resetValues()
+                # TODO: stop clock and reset clock
+                clearAll() # reset LEDs
+        else:
+            risingR = False
             
 def checkButtonE():  # opens settings menu
     global mode
@@ -158,6 +179,10 @@ t4 = Thread(target=countDn)
 t4.start()
 t5 = Thread(target=buttonSS)
 t5.start()
+
+# TODO: Threads to add later:
+#    display check if settingMenu or display mode
+#    reset button
 
 t1.join()
 t2.join()
