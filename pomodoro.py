@@ -5,7 +5,7 @@ import time
 from smbus import SMBus
 from PIL import Image,ImageDraw,ImageFont
 
-
+default_font = ImageFont.truetype('Font.ttf', 10)
 OLED_WIDTH = 128
 OLED_HEIGHT = 64
 
