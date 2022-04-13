@@ -211,7 +211,7 @@ class OLED(object):
         self.show()
 
 #LED driver functions 
-def setup():
+def led_setup():
   GPIO.setup(SRCLR, GPIO.OUT)
   GPIO.setup(SER, GPIO.OUT)
   GPIO.setup(RCLK, GPIO.OUT)
