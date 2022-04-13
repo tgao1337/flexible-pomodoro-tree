@@ -10,11 +10,14 @@ global pomoBreak
 global taskNum
 global breakBTime
 global pressedOnce
+global inBreak
 mode = 3  # mode 3 is a menu screen with tree picture, says press mode button to continue
 buttonA = 0
 pomoTime = 25 * 60  # these are default values
 pomoBreak = 5 * 60  # these are default values
+inBreak = 0
 taskNum = 3  # these are default values
+currentTask = 1
 breakBTime = 60 * 60  # these are default values
 pressedOnce = 0 # tracks mode 0 second setting
 
@@ -25,16 +28,43 @@ def buzzDown():
     playList([(C5, 0.25), (G4, 0.25), (E4, 0.25), (C4, 0.25)])
 
 def setup_display():
-    pass
+    display = OLED()
+    display.setup()
+    display.clear()
+    # Drawing a border
+    display.draw_line(0, 0, 127 ,0)
+    display.draw_line(0, 0, 0 ,63)
+    display.draw_line(0, 63, 127 ,63)
+    display.draw_line(127, 0, 127 ,63)
+    # Making a line
+    display.draw_line(0, 12, 127 ,12)
+    
+    # Pomodoro text
+    display.write('Flexible Pomodoro Tree', 6, 0):
+    display.show()
 
 def startPomodoro():
+    global pomoTime
+    global pomoBreak
+    
+    if inBreak:
+        x = pomoBreak + 1
+        for i in range(x):
+            pomoBreak = pomoBreak - 1
+            time.sleep(1)
+    else:
+        x = pomoTime + 1
+        for i in range(x):
+            pomoTime = pomoTime - 1
+            time.sleep(1)
+        
     print("pomodoro!")
     
-def startBBreak():
-    print("budget break")
-
 def startTaskMode():
     print("task mode")
+
+def startBBreak():
+    print("budget break")
     
 def pomodoroBreak():
     pass
@@ -57,6 +87,13 @@ def checkButtonA():  # changes different modes based on button 3 way toggle
             if risingA == False:
                 risingA = True
                 mode = (mode + 1) % 4:
+                
+                if mode == 0:
+                    startPomodoro()
+                elif mode == 1:
+                    startTaskMode()
+                elif mode == 2:
+                    startBBreak()
         else:
             risingA = False
             
@@ -169,6 +206,39 @@ def buttonSS():  # button Start Stop
         else:
             risingSS = False
 
+
+def convertTime(value):
+    hours = value // 3600
+    minutes = (value % 3600) // 60
+    seconds = value % 60
+    time = str(hours) + ':' + str(minutes) + ':' + str(seconds)
+    return time
+            
+def updateDisplay():
+    while True:
+        setup_display()
+        if mode == 0:
+            display.clear()
+            if inBreak:
+                display.write('Remaining break time:', 20, 0)
+                display.write(convertTime(pomoBreak), 30, 0) # will need to adjust axes
+            else:
+                display.write('Remaining work time:', 20, 0)
+                display.write(convertTime(pomoTime), 30, 0) # will need to adjust axes
+        elif mode == 1:
+                display.write('Remaining tasks:', 20, 0):
+                display.write(taskNum, 30, 0) # will need to adjust axes
+                display.write('Working on task:', 40, 0):
+                display.write(currentTask, 50, 0) # will need to adjust axes
+        elif mode == 2:
+                display.write('Remaining break time:', 20, 0):
+                display.write(convertTime(breakBTime), 30, 0) # will need to adjust axes
+
+        display.show()        
+        time.sleep(1)
+        
+            
+
 t1 = Thread(target=checkButtonA)
 t1.start()
 t2 = Thread(target=checkButtonE)
@@ -179,6 +249,8 @@ t4 = Thread(target=countDn)
 t4.start()
 t5 = Thread(target=buttonSS)
 t5.start()
+t6 = Thread(target=updateDisplay)
+t6.start()
 
 # TODO: Threads to add later:
 #    display check if settingMenu or display mode
@@ -189,3 +261,4 @@ t2.join()
 t3.join()
 t4.join()
 t5.join()
+t6.join()
