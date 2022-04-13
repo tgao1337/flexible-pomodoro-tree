@@ -11,6 +11,7 @@ global taskNum
 global breakBTime
 global pressedOnce
 global inBreak
+global startStop
 mode = 3  # mode 3 is a menu screen with tree picture, says press mode button to continue
 buttonA = 0
 pomoTime = 25 * 60  # these are default values
@@ -20,6 +21,7 @@ taskNum = 3  # these are default values
 currentTask = 1
 breakBTime = 60 * 60  # these are default values
 pressedOnce = 0 # tracks mode 0 second setting
+startStop = False
 
 def buzzUp():
     playList([(C4, 0.25), (E4, 0.25), (G4, 0.25), (C5, 0.25)])
@@ -47,20 +49,26 @@ def startPomodoro():
     global pomoTime
     global pomoBreak
     
-    if mode == 0 : # this needs to check if the pomo session is actually started. review code
+    if mode == 0 and startStop: # this needs to check if the pomo session is actually started. review code
         print("pomodoro!")
         if inBreak:
             x = pomoBreak + 1
             for i in range(x):
+                if startStop == False:
+                    break
                 pomoBreak = pomoBreak - 1
                 time.sleep(1)
             inBreak = 0  # changes to pomo
+            
         else:  # do we need an else? or can we do "elif not inBreak and mode == 0 and startStop"?
             x = pomoTime + 1
             for i in range(x):
+                if startStop == False:
+                    break
                 pomoTime = pomoTime - 1
                 time.sleep(1)
             inBreak = 1  # changes to break
+            startPomodoro()
     
 def startTaskMode():
     if mode == 1:
