@@ -4,7 +4,7 @@ from threading import Thread, Event, Lock
 from pomodoro import *
 
 global mode
-global buttonA
+global buttonA  # maybe remove this
 global pomoTime
 global pomoBreak
 global taskNum
@@ -47,24 +47,28 @@ def startPomodoro():
     global pomoTime
     global pomoBreak
     
-    if inBreak:
-        x = pomoBreak + 1
-        for i in range(x):
-            pomoBreak = pomoBreak - 1
-            time.sleep(1)
-    else:
-        x = pomoTime + 1
-        for i in range(x):
-            pomoTime = pomoTime - 1
-            time.sleep(1)
-        
-    print("pomodoro!")
+    if mode == 0 : # this needs to check if the pomo session is actually started. review code
+        print("pomodoro!")
+        if inBreak:
+            x = pomoBreak + 1
+            for i in range(x):
+                pomoBreak = pomoBreak - 1
+                time.sleep(1)
+            inBreak = 0  # changes to pomo
+        else:  # do we need an else? or can we do "elif not inBreak and mode == 0 and startStop"?
+            x = pomoTime + 1
+            for i in range(x):
+                pomoTime = pomoTime - 1
+                time.sleep(1)
+            inBreak = 1  # changes to break
     
 def startTaskMode():
-    print("task mode")
+    if mode == 1:
+        print("task mode")
 
 def startBBreak():
-    print("budget break")
+    if mode == 2:
+        print("budget break")
     
 def pomodoroBreak():
     pass
@@ -88,12 +92,14 @@ def checkButtonA():  # changes different modes based on button 3 way toggle
                 risingA = True
                 mode = (mode + 1) % 4:
                 
-                if mode == 0:
+                ```if mode == 0:  # this part needs to rethink. This is to toggle to different modes, not to start the pomodoro or task or budgetBreak. perhaps we have an event so it can run in another thread. I havent fully thought it out but can explain it later.
+                    # i think perhaps this shouldn't be here but in the buttons for startStop. either we have startStop run startPomodoro() or we keep running startPomodoro() and run that in a thread.
+                    # or i think we should have an event as mentioned earlier that puts startPomodoro() in a thread and keeps running it. This way it will keep running in the background even if changed to another mode or setting menu while pomodoro is still going. or we have a lock so they have to finish pomodoro to change setting or go to another mode. that might work better and not be as confusing for the user
                     startPomodoro()
                 elif mode == 1:
                     startTaskMode()
                 elif mode == 2:
-                    startBBreak()
+                    startBBreak()```
         else:
             risingA = False
             
@@ -207,7 +213,7 @@ def buttonSS():  # button Start Stop
             risingSS = False
 
 
-def convertTime(value):
+def convertTime(value):  # given a number of seconds, returns string in HH:MM:SS format
     hours = value // 3600
     minutes = (value % 3600) // 60
     seconds = value % 60
