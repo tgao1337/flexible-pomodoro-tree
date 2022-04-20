@@ -1,7 +1,7 @@
 # This will be the foo.py in the example slides Professor Fund showed.
 import pigpio
 import time
-
+import RPi.GPIO as GPIO
 from smbus import SMBus
 from PIL import Image,ImageDraw,ImageFont
 
@@ -14,20 +14,32 @@ canvas = Image.new('1', (OLED_WIDTH, OLED_HEIGHT), 255)
 # Set up draw for the canvas
 draw = ImageDraw.Draw(canvas)
 
-#LED setup
-import RPi.GPIO as GPIO
-
+# GPIO setup
 GPIO.setmode(GPIO.BCM)
 
-# pins used
-SER=14
-RCLK=15
-SRCLK=18
-SRCLR= 23
+# Buttons
+pinA = #TODO
+pinB = #TODO
+pinC = #TODO
+pinD = #TODO
+pinE = #TODO
+pinF = #TODO
+GPIO.setup(pinA, GPIO.IN)
+GPIO.setup(pinB, GPIO.IN)
+GPIO.setup(pinC, GPIO.IN)
+GPIO.setup(pinD, GPIO.IN)
+GPIO.setup(pinE, GPIO.IN)
+GPIO.setup(pinF, GPIO.IN)
 
-NUM_CLUSTERS=4
+# Pins used for driver
+SER = 14
+RCLK = 15
+SRCLK = 18
+SRCLR = 23
 
-#creating dictionary to store current status of leds
+NUM_CLUSTERS = 4
+
+# Creating dictionary to store current status of leds
 ledDict= {}
 ledDict["r1"]=[0]
 ledDict["y1"]=[0,0,0]
@@ -416,4 +428,8 @@ def allOn():
   
   display()
   time.sleep(2)
+  
+# Returns the state of button at given pin
+def readButton(pin):
+  return GPIO.input(pin)
 
