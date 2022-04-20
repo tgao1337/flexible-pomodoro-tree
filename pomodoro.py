@@ -18,12 +18,12 @@ draw = ImageDraw.Draw(canvas)
 GPIO.setmode(GPIO.BCM)
 
 # Buttons
-pinA = #TODO
-pinB = #TODO
-pinC = #TODO
-pinD = #TODO
-pinE = #TODO
-pinF = #TODO
+pinA = 4
+pinB = 5
+pinC = 6
+pinD = 16
+pinE = 24
+pinF = 26
 GPIO.setup(pinA, GPIO.IN)
 GPIO.setup(pinB, GPIO.IN)
 GPIO.setup(pinC, GPIO.IN)
