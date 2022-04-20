@@ -32,10 +32,10 @@ GPIO.setup(pinE, GPIO.IN)
 GPIO.setup(pinF, GPIO.IN)
 
 # Pins used for driver
-SER = 14
-RCLK = 15
-SRCLK = 18
-SRCLR = 23
+SER = 10
+RCLK = 8
+SRCLK = 11
+SRCLR = 17
 
 NUM_CLUSTERS = 4
 
