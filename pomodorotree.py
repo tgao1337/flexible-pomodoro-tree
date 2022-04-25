@@ -38,7 +38,7 @@ def checkReset(): # Done for day button
     global reset
     
     while True:
-    	if readpin(pinB):
+    	if readButton(pinB):
             reset = (reset + 1) % 2
             if reset == 0:
                 print("Start for the day")
@@ -50,7 +50,7 @@ def checkPlayPauseComplete(): # Play pause check
     global PlayPauseCheckB
     
     while True:
-        if readpin(pinA):
+        if readButton(pinA):
             PlayPauseCheckB=True
             print("Play Pause Complete Button Pressed")
     time.sleep(1)
@@ -59,7 +59,7 @@ def checkSettings(): #thread
     global settingsButton
     
     while True:
-        if readpin(pinC):
+        if readButton(pinC):
             settingsButton = True
             print("Settings Button Pressed")
     time.sleep(1)
@@ -68,7 +68,7 @@ def checkUp(): #thread
     global upButton
     
     while True:
-        if readpin(pinD):
+        if readButton(pinD):
             upButton=True
             print("Up Button Pressed")
     time.sleep(1)
@@ -77,7 +77,7 @@ def checkDown(): #thread
     global downButton
     
     while True:
-        if readpin(pinE):
+        if readButton(pinE):
             downButton=True
             print("Down Button Pressed")
     time.sleep(1)
