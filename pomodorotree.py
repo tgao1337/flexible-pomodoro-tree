@@ -116,7 +116,7 @@ def logic(): #thread
                 
             
                 if settingsButton: #want to update settings more
-                
+                    settingsButton = False
                     if mode == 0:
                         pomSett()
                     elif mode == 1:
@@ -124,17 +124,17 @@ def logic(): #thread
                     elif mode == 2:
                         budgSett()
                     
-                    isSure = check()
+#                     isSure = check()
                         
-                    if isSure:
-                        if mode==0:
-                            goPomo()
-                        if mode==1:
-                            goTask()
-                        if mode==2:
-                            goBudget()
-                    else:
-                        selection()          
+#                     if isSure:
+#                         if mode==0:
+#                             goPomo()
+#                         if mode==1:
+#                             goTask()
+#                         if mode==2:
+#                             goBudget()
+#                     else:
+#                         selection()          
             
             else: 
                 displayWelcome()  
