@@ -206,7 +206,7 @@ class OLED(object):
         _buffer = [0xff]*(self.width * self.height//8)
         self.ShowImage(_buffer)
         # Clearing the canvas
-        #draw.rectangle((0,0,128,64), outline=255, fill=255) 
+        draw.rectangle((0,0,128,64), outline=255, fill=255) 
 
     # Functions for displaying on OLED
     def text(self, text, x, y, size=10):
