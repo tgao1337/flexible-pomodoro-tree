@@ -108,7 +108,7 @@ def logic(): #thread
     isSure = False
     
     while True:
-        if reset == 1:
+        if reset == 0:
             if settingsButton or PlayPauseCheckB: #maybe they can press settings or play button to go into the settings screen?
                 settingsButton = False
                 PlayPauseCheckB = False
