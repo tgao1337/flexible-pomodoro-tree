@@ -147,7 +147,7 @@ def displayWelcome():
     #with dispLock:
         display.clear()
         display.draw_line(0, 45, 127 ,45)
-        display.write("Welcome", 40, 43, 12)
+        display.text("Welcome", 40, 43, 12)
         display.show()
 
 def selection():
@@ -162,10 +162,10 @@ def selection():
             if mode==0:
                 display.clear()
                 display.draw_line(0, 45, 127 ,45)
-                display.write("Select Mode", 10,0,12)
-                display.write("> Pomodoro", 20,0,14)
-                display.write("Task", 32,12,14)
-                display.write("Budget", 32,24,14)
+                display.text("Select Mode", 10,0,12)
+                display.text("> Pomodoro", 20,0,14)
+                display.text("Task", 32,12,14)
+                display.text("Budget", 32,24,14)
                 
                 if downButton:
                     mode = 1
@@ -177,10 +177,10 @@ def selection():
             elif mode == 1:
                 display.clear()
                 display.draw_line(0, 45, 127 ,45)
-                display.write("Select Mode", 10,0,12)
-                display.write("Pomodoro", 32,0,14)
-                display.write("> Task", 20,12,14)
-                display.write("Budget", 32,24,14)
+                display.text("Select Mode", 10,0,12)
+                display.text("Pomodoro", 32,0,14)
+                display.text("> Task", 20,12,14)
+                display.text("Budget", 32,24,14)
                 
                 if downButton:
                     mode = 2
@@ -192,10 +192,10 @@ def selection():
             elif mode == 2:
                 display.clear()
                 display.draw_line(0, 45, 127 ,45)
-                display.write("Select Mode", 10,0,12)
-                display.write("Pomodoro", 32,0,14)
-                display.write("Task", 32,12,14)
-                display.write("> Budget", 20,24,14)
+                display.text("Select Mode", 10,0,12)
+                display.text("Pomodoro", 32,0,14)
+                display.text("Task", 32,12,14)
+                display.text("> Budget", 20,24,14)
                 
                 if downButton:
                     mode=2
@@ -228,10 +228,10 @@ def pomSett():
                     
             display.clear()
             display.draw_line(0, 45, 127 ,45)
-            display.write("P | Settings | 4", 20,45,12)
+            display.text("P | Settings | 4", 20,45,12)
             
-            display.write("Set Work Time:", 25, 0, 12)
-            display.write(convert(pomoTime), 30, 10, 25)
+            display.text("Set Work Time:", 25, 0, 12)
+            display.text(convert(pomoTime), 30, 10, 25)
             display.show()
             
     settingsButton = False
@@ -250,10 +250,10 @@ def pomSett():
                     
             display.clear()
             display.draw_line(0, 45, 127 ,45)
-            display.write("P | Settings | 4", 20,45,12)
+            display.text("P | Settings | 4", 20,45,12)
             
-            display.write("Set Break Time:", 20, 0, 12)
-            display.write(convert(pomoTime), 30, 10, 25)
+            display.text("Set Break Time:", 20, 0, 12)
+            display.text(convert(pomoTime), 30, 10, 25)
             display.show()
             
             
@@ -277,12 +277,12 @@ def taskSett():
                       taskNum -= 1
              display.clear()
              display.draw_line(0, 45, 127 ,45)
-             display.write("T | Settings", 35,45,12)
-             display.write("Set Tasks:", 40, 0, 12)
+             display.text("T | Settings", 35,45,12)
+             display.text("Set Tasks:", 40, 0, 12)
              if taskNum > 9:
-                 display.write(taskNum, 50, 10, 25)
+                 display.text(taskNum, 50, 10, 25)
              else:
-                 display.write(taskNum, 60, 10, 25)
+                 display.text(taskNum, 60, 10, 25)
              display.show()  
              
              
@@ -306,9 +306,9 @@ def budgSett():
                     breakBTime -= 600
             display.clear()
             display.draw_line(0, 45, 127 ,45)
-            display.write("B | Settings", 35,45,12)
-            display.write("Set Break Time:", 20, 0, 12)
-            display.write(convert(breakBTime), 30, 10,25)
+            display.text("B | Settings", 35,45,12)
+            display.text("Set Break Time:", 20, 0, 12)
+            display.text(convert(breakBTime), 30, 10,25)
             display.show()     
     settingsButton = False
     
@@ -325,23 +325,23 @@ def check():
     with dispLock:
         if mode==0:
              display.clear()
-             display.write('Flexible Pomodoro Tree', 6, 0)
-             display.write('Settings OK ? Press play -->', 12 ,0)
-             display.write( 'NO ? press settings', 14, 0)
-             display.write('Study' + convert(pomoTime), 20, 0)
-             display.write('Break' + convert(pomoBreak), 24,0)
+             display.text('Flexible Pomodoro Tree', 6, 0)
+             display.text('Settings OK ? Press play -->', 12 ,0)
+             display.text( 'NO ? press settings', 14, 0)
+             display.text('Study' + convert(pomoTime), 20, 0)
+             display.text('Break' + convert(pomoBreak), 24,0)
         if mode ==1:
              display.clear()
-             display.write('Flexible Pomodoro Tree', 6, 0)
-             display.write('Settings OK ? Press play -->', 12 ,0)
-             display.write( 'NO ? press settings', 14, 0)
-             display.write('# tasks' + str(taskNum), 20, 0)
+             display.text('Flexible Pomodoro Tree', 6, 0)
+             display.text('Settings OK ? Press play -->', 12 ,0)
+             display.text( 'NO ? press settings', 14, 0)
+             display.text('# tasks' + str(taskNum), 20, 0)
         if mode==2:  
              display.clear()
-             display.write('Flexible Pomodoro Tree', 6, 0)
-             display.write('Settings OK ? Press play -->', 12 ,0)
-             display.write( 'NO ? press settings', 14, 0)
-             display.write('Total break time' + convert(breakBTime), 20, 0)
+             display.text('Flexible Pomodoro Tree', 6, 0)
+             display.text('Settings OK ? Press play -->', 12 ,0)
+             display.text( 'NO ? press settings', 14, 0)
+             display.text('Total break time' + convert(breakBTime), 20, 0)
         display.show()
         
     while True:
@@ -372,7 +372,7 @@ def buzzDown():
 #     display.draw_line(0, 12, 127 ,12)
     
 #     # Pomodoro text
-#     display.write('Flexible Pomodoro Tree', 6, 0)
+#     display.text('Flexible Pomodoro Tree', 6, 0)
 #     display.show()
 
 # def startPomodoro():
@@ -564,19 +564,19 @@ def convertTime(value):  # given a number of seconds, returns string in HH:MM:SS
 #         if mode == 0:
 #             display.clear()
 #             if inBreak:
-#                 display.write('Remaining break time:', 20, 0)
-#                 display.write(convertTime(pomoBreak), 30, 0) # will need to adjust axes
+#                 display.text('Remaining break time:', 20, 0)
+#                 display.text(convertTime(pomoBreak), 30, 0) # will need to adjust axes
 #             else:
-#                 display.write('Remaining work time:', 20, 0)
-#                 display.write(convertTime(pomoTime), 30, 0) # will need to adjust axes
+#                 display.text('Remaining work time:', 20, 0)
+#                 display.text(convertTime(pomoTime), 30, 0) # will need to adjust axes
 #         elif mode == 1:
-#                 display.write('Remaining tasks:', 20, 0):
-#                 display.write(taskNum, 30, 0) # will need to adjust axes
-#                 display.write('Working on task:', 40, 0):
-#                 display.write(currentTask, 50, 0) # will need to adjust axes
+#                 display.text('Remaining tasks:', 20, 0):
+#                 display.text(taskNum, 30, 0) # will need to adjust axes
+#                 display.text('Working on task:', 40, 0):
+#                 display.text(currentTask, 50, 0) # will need to adjust axes
 #         elif mode == 2:
-#                 display.write('Remaining break time:', 20, 0):
-#                 display.write(convertTime(breakBTime), 30, 0) # will need to adjust axes
+#                 display.text('Remaining break time:', 20, 0):
+#                 display.text(convertTime(breakBTime), 30, 0) # will need to adjust axes
 
 #         display.show()        
 #         time.sleep(1)
