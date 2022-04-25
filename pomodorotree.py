@@ -142,7 +142,7 @@ def logic(): #thread
             
             
 def displayWelcome():
-    with dispLock:
+    #with dispLock:
         display.clear()
         display.draw_line(0, 45, 127 ,45)
         display.write("Welcome", 40, 43, 12)
@@ -596,8 +596,9 @@ t4.start()
 t5 = Thread(target=checkDown)
 t5.start()
 
-t6 = Thread(target=logic)
-t6.start()
+# t6 = Thread(target=logic)
+# t6.start()
+displayWelcome()
 
 # TODO: Threads to add later:
 #    display check if settingMenu or display mode
@@ -608,4 +609,4 @@ t2.join()
 t3.join()
 t4.join()
 t5.join()
-t6.join()
+#t6.join()
