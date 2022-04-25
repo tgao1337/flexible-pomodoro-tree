@@ -301,13 +301,13 @@ def check():
              display.clear()
              display.write('Flexible Pomodoro Tree', 6, 0)
              display.write('Settings OK ? Press play -->', 12 ,0)
-             display.write( 'NO ? press settings, 14, 0)
+             display.write( 'NO ? press settings', 14, 0)
              display.write('# tasks' + str(taskNum), 20, 0)
         if mode==2:  
              display.clear()
              display.write('Flexible Pomodoro Tree', 6, 0)
              display.write('Settings OK ? Press play -->', 12 ,0)
-             display.write( 'NO ? press settings, 14, 0)
+             display.write( 'NO ? press settings', 14, 0)
              display.write('Total break time' + convert(breakBTime), 20, 0)
         display.show()
         
