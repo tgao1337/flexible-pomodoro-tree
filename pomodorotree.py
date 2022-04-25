@@ -518,12 +518,12 @@ def buzzDown():
 #             risingSS = False
 
 
-# def convertTime(value):  # given a number of seconds, returns string in HH:MM:SS format
-#     hours = value // 3600
-#     minutes = (value % 3600) // 60
-#     seconds = value % 60
-#     time = str(hours) + ':' + str(minutes) + ':' + str(seconds)
-#     return time
+def convertTime(value):  # given a number of seconds, returns string in HH:MM:SS format
+    hours = value // 3600
+    minutes = (value % 3600) // 60
+    seconds = value % 60
+    time = str(hours) + ':' + str(minutes) + ':' + str(seconds)
+    return time
             
 # def updateDisplay():
 #     while True:
