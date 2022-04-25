@@ -339,7 +339,7 @@ def setup_display():
     display.draw_line(0, 12, 127 ,12)
     
     # Pomodoro text
-    display.write('Flexible Pomodoro Tree', 6, 0):
+    display.write('Flexible Pomodoro Tree', 6, 0)
     display.show()
 
 def startPomodoro():
