@@ -314,10 +314,10 @@ def check():
     while True:
         if PlayPauseCheckB:
             PlayPauseCheckB = False
-	    return True
+            return True
         if settingsButton:
-	    settingsButton = False
-	    return False
+            settingsButton = False
+            return False
                   
                            
 def buzzUp():
