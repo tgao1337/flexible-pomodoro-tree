@@ -11,108 +11,95 @@ global breakBTime
 global pressedOnce
 global inBreak
 
-global offB
-global startStopB
-global settB
-global upB
-global downB
+global reset
+global PlayPauseCheckB
+global settingsButton
+global upButton
+global downButton
 
 dispLock=Lock()
 
 mode = 0  # study mode
-pomoTime = 25 * 60  # these are default values
-pomoBreak = 5 * 60  # these are default values
+pomoTime = 25 * 60  # These are default values
+pomoBreak = 5 * 60  # These are default values
 inBreak = 0
 taskNum = 3  # these are default values
 currentTask = 1
 breakBTime = 60 * 60  # these are default values
 pressedOnce = 0 # tracks mode 0 second setting
 
-offB=False
-startStopB = False
-settB= False
-upB=False
-downB=False
+reset = 0 # 0: Start for the day, 1: End for the day
+PlayPauseCheckB = False
+settingsButton = False
+upButton = False
+downButton = False
 
-def checkOFF(): #thread
-    global offB
+def checkReset(): # Done for day button
+    global reset
     
     while True:
         if readpin(offPin):
-            offB=True
+            reset = (reset + 1) % 2:
     time.sleep(1)
     
-def checkStrt(): #thread
-    global startStopB
+def checkPlayPauseComplete(): # Play pause check
+    global PlayPauseCheckB
     
     while True:
         if readpin(startPin):
-           startStopB=True
+           PlayPauseCheckB=True
     time.sleep(1)
     
-def checkSett(): #thread
-    global settB
+def checkSettings(): #thread
+    global settingsButton
     
     while True:
         if readpin(settPin):
-            settB=True
+            settingsButton = True
     time.sleep(1)
     
 def checkUp(): #thread
-    global upB
+    global upButton
     
     while True:
         if readpin(upPin):
-            upB=True
+            upButton=True
     time.sleep(1)
     
 def checkDown(): #thread
-    global downB
+    global downButton
     
     while True:
         if readpin(downPin):
-            downB=True
+            downButton=True
     time.sleep(1)
     
 def logic(): #thread
-    global offB
-    global startStopB
-    global settB
-    global upB
-    global downB 
-    isSure=False
+    global reset
+    global PlayPauseCheckB
+    global settingsButton
+    global upButton
+    global downButton 
+    isSure = False
     
     while True:
-        if not offB:
-            if settB or startStopB: #maybe they can press settings or play button to go into the settings screen?
-                settB=False
-                startStopB=False
+        if reset == 1:
+            if settingsButton or PlayPauseCheckB: #maybe they can press settings or play button to go into the settings screen?
+                settingsButton = False
+                PlayPauseCheckB = False
                 selection()
                 
-                if startStopB: #pressed play button from sttings selection, want to use preset values
-                    startStopB= False
-                    isSure= check()
-                    
-                    if isSure:
-                        if mode==0:
-                            goPomo()
-                        if mode==1:
-                            goTask()
-                        if mode==2:
-                            goBudget()
-                    else:
-                        selection()
             
-                else if settB: #want to update settings more
-                    settB=False
-                    if mode==0:
+                if settingsButton: #want to update settings more
+                
+                    if mode == 0:
                         pomSett()
-                    else if mode==1:
+                    elif mode == 1:
                         taskSett()
-                    else:
+                    elif mode == 2:
                         budgSett()
                     
-                    isSure=check()
+                    isSure = check()
                         
                     if isSure:
                         if mode==0:
@@ -125,27 +112,27 @@ def logic(): #thread
                         selection()          
             
             else: 
-                welcome()  
+                displayWelcome()  
         else:
-            welcome()
+            displayWelcome()
             
             
             
-def welcome():
+def displayWelcome():
     with dispLock:
         display.clear()
         display.write('Flexible Pomodoro Tree', 6, 0)
-        display.write("Welcome", 15,0)
+        display.write("displayWelcome", 15,0)
         display.show()
 
 def selection():
     global mode
-    global upB
-    global downB
-    global settB
-    global startStopB
+    global upButton
+    global downButton
+    global settingsButton
+    global PlayPauseCheckB
     
-    while not settB and not startStopB: #need to press settings or stop start to make a selection
+    while not settingsButton: #need to press settings or stop start to make a selection
         with dispLock:
             if mode==0:
                 display.clear()
@@ -154,59 +141,62 @@ def selection():
                 display.write(' Task Mode', 14,0)
                 display.write(' Budget Mode', 16,0)
                 
-                if upB:
-                    mode=1
-                    upB=False
-                else if downB():
-                    mode=0
-                    downB=False
-            else if mode==1:
+                if downButton:
+                    mode = 1
+                    downButton = False
+                else if upButton:
+                    mode = 0
+                    upButton = False
+                    
+            else if mode == 1:
                 display.clear()
                 display.write('Flexible Pomodoro Tree', 6, 0)
                 display.write(' Pomodoro Mode', 12,0)
                 display.write(' > Task Mode', 14,0)
                 display.write(' Budget Mode', 16,0)
                 
-                if upB:
-                    mode=2
-                    upB=False
-                else if downB():
-                    mode=0
-                    downB=False
-            else if mode ==2:
+                if downButton:
+                    mode = 2
+                    downButton = False
+                else if upButton:
+                    mode = 0
+                    upButton = False
+                    
+            else if mode == 2:
               display.clear()
                 display.write('Flexible Pomodoro Tree', 6, 0)
                 display.write(' Pomodoro Mode', 12,0)
                 display.write(' Task Mode', 14,0)
                 display.write(' > Budget Mode', 16,0)
                 
-                if upB:
+                if downButton:
                     mode=2
-                    upB=False
-                else if downB():
-                    mode=1
-                    DownB=False
+                    downButton = False
+                else if upButton:
+                    mode = 1
+                    upButton = False
                     
             display.show()
+        settingsButton = False
             
 def pomSett():
-    global upB
-    global downB
-    global settB
+    global upButton
+    global downButton
+    global settingsButton
     global pomoTime
     global pomoBreak
     
-    while not settB:
+    while not settingsButton:
         with dispLock:
             
-            if upB: 
-                upB=False
-                if pomoTime< 7200: #upper limit 2 hours for pomodoro time or shoudl go infintieyl up?
-                    pomoTime +=300
-            if downB:
-                downB=False
-                if pomoTime>=600:
-                    pomoTime-=300
+            if upButton: 
+                upButton = False
+                if pomoTime < 7200: #upper limit 2 hours for pomodoro time or shoudl go infintieyl up?
+                    pomoTime += 300
+            if downButton:
+                downButton = False
+                if pomoTime >= 600:
+                    pomoTime -= 300
                     
             display.clear()
             display.write('Flexible Pomodoro Tree', 6, 0)
@@ -214,77 +204,78 @@ def pomSett():
             display.write(convert(pomoTime), 25, 0)
             display.show()
             
-    settB=False
-    while not settB:
+    settingsButton = False
+    
+    while not settingsButton:
          with dispLock:
             
-            if upB: 
-                upB=False
+            if upButton: 
+                upButton = False
                 if pomoBreak < 3600: #upper limit 1 hours for pomodoro break time ?
-                    pomoBreak +=300
-            if downB:
-                downB=False
-                if pomoBreak >300:
-                    pomoBreak-=300
+                    pomoBreak += 300
+            if downButton:
+                downButton = False
+                if pomoBreak > 300:
+                    pomoBreak -= 300
                     
             display.clear()
             display.write('Flexible Pomodoro Tree', 6, 0)
             display.write('Set Break Time', 10, 0)
             display.write(convert(pomoBreak), 25, 0)
             display.show()
-    settB=False
+    settingsButton = False
     
 def taskSett():
-    global upB
-    global downB
-    global settB
+    global upButton
+    global downButton
+    global settingsButton
     global taskNum
     
-    while not settB:
+    while not settingsButton:
         with dispLock:
-             if upB: 
-                  upB=False
+             if upButton: 
+                  upButton = False
                   if taskNum < 100: #upper limit 100 tasks
-                      taskNum +=1
-             if downB:
-                  downB=False
-                  if taskNum >1:
-                      taskNum-=1
+                      taskNum += 1
+             if downButton:
+                  downButton=False
+                  if taskNum > 1:
+                      taskNum -= 1
              display.clear()
              display.write('Flexible Pomodoro Tree', 6, 0)
              display.write('Set Num Tasks', 10, 0)
              display.write(str(taskNum), 25, 0)
              display.show()     
-    settB=False
+    settingsButton = False
     
 def budgSett():
-    global upB
-    global downB
-    global settB
+    global upButton
+    global downButton
+    global settingsButton
     global breakBTime
     
-    while not settB:
+    while not settingsButton:
         with dispLock:
-            if upB: 
-                  upB=False
+            if upButton: 
+                  upButton = False
                   if breakBTime < 18000: #upper limit 5 hours
-                      breakBTime +=300 #maybe more tan 5 min increments for this one? 
-             if downB:
-                  downB=False
-                  if breakBTime >300:
-                      breakBTime-=300
+                      breakBTime += 600 # maybe more than 10 min increments for this one
+             if downButton:
+                  downButton=False
+                  if breakBTime > 600:
+                      breakBTime -= 600
              display.clear()
              display.write('Flexible Pomodoro Tree', 6, 0)
              display.write('Set Total Break Time', 10, 0)
              display.write(convert(breakBTime), 25, 0)
              display.show()     
-    settB=False
+    settingsButton = False
     
     
 def check():
     global mode
-    global startstopB
-    global settB
+    global PlayPauseCheckB
+    global settingsButton
     global pomoTime
     global pomoBreak
     global taskNum
@@ -310,16 +301,16 @@ def check():
              display.write('Settings OK ? Press play -->', 12 ,0)
              display.write( 'NO ? press settings, 14, 0)
              display.write('Total break time' + convert(breakBTime), 20, 0)
-        while not startStopB and not settB:
-            display.show()
-            if startStopB:
-               startStopB=False
-               return True
-            if settB:
-               settB=False
+        display.show()
+        
+        while True:
+	        if PlayPauseCheckB:
+    	        PlayPauseCheckB = False
+        	    return True
+        	if settingsButton:
+               settingsButton = False
                return False
-                       #smthn is weird below here whenever U try to make a function here it doesnt like it i cant find space issue
- ########################################################################################################                         
+                  
                            
 def buzzUp():
     playList([(C4, 0.25), (E4, 0.25), (G4, 0.25), (C5, 0.25)])
@@ -551,18 +542,23 @@ def updateDisplay():
         
             
 
-t1 = Thread(target=checkButtonA)
+t1 = Thread(target=checkReset)
 t1.start()
-t2 = Thread(target=checkButtonE)
+
+t2 = Thread(target=checkPlayPauseComplete)
 t2.start()
-t3 = Thread(target=countUp)
+
+t3 = Thread(target=checkSettings)
 t3.start()
-t4 = Thread(target=countDn)
+
+t4 = Thread(target=checkUp)
 t4.start()
-t5 = Thread(target=buttonSS)
+
+t5 = Thread(target=checkDown)
 t5.start()
-t6 = Thread(target=updateDisplay)
-t6.start()
+
+# t6 = Thread(target=updateDisplay)
+# t6.start()
 
 # TODO: Threads to add later:
 #    display check if settingMenu or display mode
@@ -573,4 +569,4 @@ t2.join()
 t3.join()
 t4.join()
 t5.join()
-t6.join()
+# t6.join()
