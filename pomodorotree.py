@@ -17,6 +17,8 @@ global settingsButton
 global upButton
 global downButton
 
+display = OLED()
+
 dispLock=Lock()
 
 mode = 0  # study mode
