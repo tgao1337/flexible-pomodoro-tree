@@ -395,7 +395,7 @@ def checkButtonA():  # changes different modes based on button 3 way toggle
         if readButton(pinA): # 1 button pressed, 0 button not pressed
             if risingA == False:
                 risingA = True
-                mode = (mode + 1) % 4:
+                mode = (mode + 1) % 4
                 
                 ```if mode == 0:  # this part needs to rethink. This is to toggle to different modes, not to start the pomodoro or task or budgetBreak. perhaps we have an event so it can run in another thread. I havent fully thought it out but can explain it later.
                     # i think perhaps this shouldn't be here but in the buttons for startStop. either we have startStop run startPomodoro() or we keep running startPomodoro() and run that in a thread.
