@@ -152,11 +152,11 @@ def selection():
                 if downButton:
                     mode = 1
                     downButton = False
-                else if upButton:
+                elif upButton:
                     mode = 0
                     upButton = False
                     
-            else if mode == 1:
+            elif mode == 1:
                 display.clear()
                 display.write('Flexible Pomodoro Tree', 6, 0)
                 display.write(' Pomodoro Mode', 12,0)
@@ -166,11 +166,11 @@ def selection():
                 if downButton:
                     mode = 2
                     downButton = False
-                else if upButton:
+                elif upButton:
                     mode = 0
                     upButton = False
                     
-            else if mode == 2:
+            elif mode == 2:
               display.clear()
                 display.write('Flexible Pomodoro Tree', 6, 0)
                 display.write(' Pomodoro Mode', 12,0)
@@ -180,7 +180,7 @@ def selection():
                 if downButton:
                     mode=2
                     downButton = False
-                else if upButton:
+                elif upButton:
                     mode = 1
                     upButton = False
                     
