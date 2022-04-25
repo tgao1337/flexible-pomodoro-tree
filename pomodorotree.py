@@ -38,16 +38,16 @@ def checkReset(): # Done for day button
     global reset
     debouncePinB = False
     while True:
-    	if readButton(pinB):
-         if debouncePinB == False:
-             debouncePinB = True
-             reset = (reset + 1) % 2
-             if reset == 0:
-                 print("Start for the day")
-             else:
-                 print("End for the day")
-      else:
-          debouncePinB = False
+        if readButton(pinB):
+            if debouncePinB == False:
+                debouncePinB = True
+                reset = (reset + 1) % 2
+                if reset == 0:
+                    print("Start for the day")
+                else:
+                    print("End for the day")
+        else:
+            debouncePinB = False
     
 def checkPlayPauseComplete(): # Play pause check
     global PlayPauseCheckB
