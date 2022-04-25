@@ -39,6 +39,7 @@ def checkReset(): # Done for day button
     
     while True:
     	if readButton(pinB):
+      
             reset = (reset + 1) % 2
             if reset == 0:
                 print("Start for the day")
@@ -129,8 +130,8 @@ def logic(): #thread
 def displayWelcome():
     with dispLock:
         display.clear()
-        display.write('Flexible Pomodoro Tree', 6, 0)
-        display.write("displayWelcome", 15,0)
+        display.draw_line(0, 45, 127 ,45)
+        display.write("Welcome", 40, 43, 12)
         display.show()
 
 def selection():
@@ -144,10 +145,11 @@ def selection():
         with dispLock:
             if mode==0:
                 display.clear()
-                display.write('Flexible Pomodoro Tree', 6, 0)
-                display.write(' > Pomodoro Mode', 12,0)
-                display.write(' Task Mode', 14,0)
-                display.write(' Budget Mode', 16,0)
+                display.draw_line(0, 45, 127 ,45)
+                display.write("Select Mode", 10,0,12)
+                display.write("> Pomodoro", 20,0,14)
+                display.write("Task", 32,12,14)
+                display.write("Budget", 32,24,14)
                 
                 if downButton:
                     mode = 1
@@ -158,10 +160,11 @@ def selection():
                     
             elif mode == 1:
                 display.clear()
-                display.write('Flexible Pomodoro Tree', 6, 0)
-                display.write(' Pomodoro Mode', 12,0)
-                display.write(' > Task Mode', 14,0)
-                display.write(' Budget Mode', 16,0)
+                display.draw_line(0, 45, 127 ,45)
+                display.write("Select Mode", 10,0,12)
+                display.write("Pomodoro", 32,0,14)
+                display.write("> Task", 20,12,14)
+                display.write("Budget", 32,24,14)
                 
                 if downButton:
                     mode = 2
@@ -172,10 +175,11 @@ def selection():
                     
             elif mode == 2:
                 display.clear()
-                display.write('Flexible Pomodoro Tree', 6, 0)
-                display.write(' Pomodoro Mode', 12,0)
-                display.write(' Task Mode', 14,0)
-                display.write(' > Budget Mode', 16,0)
+                display.draw_line(0, 45, 127 ,45)
+                display.write("Select Mode", 10,0,12)
+                display.write("Pomodoro", 32,0,14)
+                display.write("Task", 32,12,14)
+                display.write("> Budget", 20,24,14)
                 
                 if downButton:
                     mode=2
@@ -207,9 +211,11 @@ def pomSett():
                     pomoTime -= 300
                     
             display.clear()
-            display.write('Flexible Pomodoro Tree', 6, 0)
-            display.write('Set Work Time', 10, 0)
-            display.write(convert(pomoTime), 25, 0)
+            display.draw_line(0, 45, 127 ,45)
+            display.write("P | Settings | 4", 20,45,12)
+            
+            display.write("Set Work Time:", 25, 0, 12)
+            display.write(convert(pomoTime), 30, 10, 25)
             display.show()
             
     settingsButton = False
@@ -227,10 +233,14 @@ def pomSett():
                     pomoBreak -= 300
                     
             display.clear()
-            display.write('Flexible Pomodoro Tree', 6, 0)
-            display.write('Set Break Time', 10, 0)
-            display.write(convert(pomoBreak), 25, 0)
+            display.draw_line(0, 45, 127 ,45)
+            display.write("P | Settings | 4", 20,45,12)
+            
+            display.write("Set Break Time:", 20, 0, 12)
+            display.write(convert(pomoTime), 30, 10, 25)
             display.show()
+            
+            
     settingsButton = False
     
 def taskSett():
@@ -250,10 +260,16 @@ def taskSett():
                   if taskNum > 1:
                       taskNum -= 1
              display.clear()
-             display.write('Flexible Pomodoro Tree', 6, 0)
-             display.write('Set Num Tasks', 10, 0)
-             display.write(str(taskNum), 25, 0)
-             display.show()     
+            display.draw_line(0, 45, 127 ,45)
+            display.write("T | Settings", 35,45,12)
+            display.write("Set Tasks:", 40, 0, 12)
+            if taskNum > 9:
+                display.write(taskNum, 50, 10, 25)
+            else:
+                display.write(taskNum, 60, 10, 25)
+            display.show()  
+             
+             
     settingsButton = False
     
 def budgSett():
@@ -273,9 +289,10 @@ def budgSett():
                 if breakBTime > 600:
                     breakBTime -= 600
             display.clear()
-            display.write('Flexible Pomodoro Tree', 6, 0)
-            display.write('Set Total Break Time', 10, 0)
-            display.write(convert(breakBTime), 25, 0)
+            display.draw_line(0, 45, 127 ,45)
+            display.write("B | Settings", 35,45,12)
+            display.write("Set Break Time:", 20, 0, 12)
+            display.write(convert(breakBTime), 30, 10,25)
             display.show()     
     settingsButton = False
     
