@@ -52,7 +52,7 @@ def checkPlayPauseComplete(): # Play pause check
     while True:
         if readpin(pinA):
             PlayPauseCheckB=True
-            print("Play Pause Complete Button Pressed")
+	    print("Play Pause Complete Button Pressed")
     time.sleep(1)
     
 def checkSettings(): #thread
