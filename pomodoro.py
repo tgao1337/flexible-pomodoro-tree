@@ -18,18 +18,18 @@ draw = ImageDraw.Draw(canvas)
 GPIO.setmode(GPIO.BCM)
 
 # Buttons
-pinA = 4
-pinB = 5
-pinC = 6
-pinD = 16
-pinE = 24
-pinF = 26
+#pinA = 4
+pinA = 5
+pinB = 6
+pinC = 16
+pinD = 24
+pinE = 26
 GPIO.setup(pinA, GPIO.IN)
 GPIO.setup(pinB, GPIO.IN)
 GPIO.setup(pinC, GPIO.IN)
 GPIO.setup(pinD, GPIO.IN)
 GPIO.setup(pinE, GPIO.IN)
-GPIO.setup(pinF, GPIO.IN)
+#GPIO.setup(pinF, GPIO.IN)
 
 # Pins used for driver
 SER = 10
