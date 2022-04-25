@@ -344,13 +344,13 @@ def check():
              display.text('Total break time' + convert(breakBTime), 20, 0)
         display.show()
         
-    while True:
-        if PlayPauseCheckB:
-            PlayPauseCheckB = False
-            return True
-        if settingsButton:
-            settingsButton = False
-            return False
+        while True:
+            if PlayPauseCheckB:
+                PlayPauseCheckB = False
+                return True
+            if settingsButton:
+                settingsButton = False
+                return False
                   
                            
 def buzzUp():
