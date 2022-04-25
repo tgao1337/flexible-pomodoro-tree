@@ -38,12 +38,12 @@ def checkReset(): # Done for day button
     global reset
     
     while True:
-        if readpin(pinB):
+    	if readpin(pinB):
             reset = (reset + 1) % 2
-	    if reset == 0:
-		print("Start for the day")
+		if reset == 0:
+			print("Start for the day")
 	    else:
-		print("End for the day")
+			print("End for the day")
     time.sleep(1)
     
 def checkPlayPauseComplete(): # Play pause check
