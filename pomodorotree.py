@@ -61,7 +61,7 @@ def checkSettings(): #thread
     while True:
         if readpin(pinC):
             settingsButton = True
-	    print("Settings Button Pressed")
+            print("Settings Button Pressed")
     time.sleep(1)
     
 def checkUp(): #thread
@@ -70,7 +70,7 @@ def checkUp(): #thread
     while True:
         if readpin(pinD):
             upButton=True
-	    print("Up Button Pressed")
+            print("Up Button Pressed")
     time.sleep(1)
     
 def checkDown(): #thread
@@ -79,7 +79,7 @@ def checkDown(): #thread
     while True:
         if readpin(pinE):
             downButton=True
-	    print("Down Button Pressed")
+            print("Down Button Pressed")
     time.sleep(1)
     
 def logic(): #thread
