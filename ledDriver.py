@@ -245,11 +245,11 @@ if __name__ == '__main__':
   clearAll()
   print(ledDict)
   
-  for i in range(22):
+  for i in range(24):
    toggleNextLed(True)
   clearAll()
   print(ledDict)
-  for i in range(22):
+  for i in range(24):
    toggleNextLed(False)
 
 
