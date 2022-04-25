@@ -144,7 +144,7 @@ def logic(): #thread
             
             
 def displayWelcome():
-    #with dispLock:
+    with dispLock:
         display.clear()
         display.draw_line(0, 45, 127 ,45)
         display.text("Welcome", 40, 43, 12)
@@ -158,7 +158,7 @@ def selection():
     global PlayPauseCheckB
     
     while not settingsButton: #need to press settings or stop start to make a selection
-        #with dispLock:
+        with dispLock:
             if mode==0:
                 display.clear()
                 display.draw_line(0, 45, 127 ,45)
@@ -215,7 +215,7 @@ def pomSett():
     global pomoBreak
     
     while not settingsButton:
-        #with dispLock:
+        with dispLock:
             
             if upButton: 
                 upButton = False
@@ -237,7 +237,7 @@ def pomSett():
     settingsButton = False
     
     while not settingsButton:
-         #with dispLock:
+         with dispLock:
             
             if upButton: 
                 upButton = False
@@ -266,7 +266,7 @@ def taskSett():
     global taskNum
     
     while not settingsButton:
-        #with dispLock:
+        with dispLock:
              if upButton: 
                   upButton = False
                   if taskNum < 100: #upper limit 100 tasks
@@ -295,7 +295,7 @@ def budgSett():
     global breakBTime
     
     while not settingsButton:
-        #with dispLock:
+        with dispLock:
             if upButton: 
                 upButton = False
                 if breakBTime < 18000: #upper limit 5 hours
@@ -314,15 +314,15 @@ def budgSett():
     
     
 def check():
-        global mode
-        global PlayPauseCheckB
-        global settingsButton
-        global pomoTime
-        global pomoBreak
-        global taskNum
-        global breakBTime
+    global mode
+    global PlayPauseCheckB
+    global settingsButton
+    global pomoTime
+    global pomoBreak
+    global taskNum
+    global breakBTime
     
-    #with dispLock:
+    with dispLock:
         if mode==0:
              display.clear()
              display.text('Flexible Pomodoro Tree', 6, 0)
@@ -344,13 +344,13 @@ def check():
              display.text('Total break time' + convert(breakBTime), 20, 0)
         display.show()
         
-        while True:
-            if PlayPauseCheckB:
-                PlayPauseCheckB = False
-                return True
-            if settingsButton:
-                settingsButton = False
-                return False
+    while True:
+        if PlayPauseCheckB:
+            PlayPauseCheckB = False
+            return True
+        if settingsButton:
+            settingsButton = False
+            return False
                   
                            
 def buzzUp():
