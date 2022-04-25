@@ -7,10 +7,10 @@ import time
 GPIO.setmode(GPIO.BCM)
 
 # pins I am using for now
-SER=14
-RCLK=15
-SRCLK=18
-SRCLR= 23
+SER=10
+RCLK=8
+SRCLK=11
+SRCLR= 17
 
 NUM_CLUSTERS=4
 NUM_COLORS=3
