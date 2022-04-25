@@ -162,7 +162,7 @@ def selection():
             if mode==0:
                 display.clear()
                 display.draw_line(0, 45, 127 ,45)
-                display.text("Select Mode", 10,43,12)
+                display.text("Select Mode", 30,45,12)
                 display.text("> Pomodoro", 20,0,14)
                 display.text("Task", 32,12,14)
                 display.text("Budget", 32,24,14)
@@ -177,7 +177,7 @@ def selection():
             elif mode == 1:
                 display.clear()
                 display.draw_line(0, 45, 127 ,45)
-                display.text("Select Mode", 10,43,12)
+                display.text("Select Mode", 30,45,12)
                 display.text("Pomodoro", 32,0,14)
                 display.text("> Task", 20,12,14)
                 display.text("Budget", 32,24,14)
@@ -192,7 +192,7 @@ def selection():
             elif mode == 2:
                 display.clear()
                 display.draw_line(0, 45, 127 ,45)
-                display.text("Select Mode", 10,43,12)
+                display.text("Select Mode", 30,45,12)
                 display.text("Pomodoro", 32,0,14)
                 display.text("Task", 32,12,14)
                 display.text("> Budget", 20,24,14)
