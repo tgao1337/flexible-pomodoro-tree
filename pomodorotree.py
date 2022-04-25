@@ -205,7 +205,7 @@ def selection():
                     upButton = False
                     
             display.show()
-        settingsButton = False
+            settingsButton = False
             
 def pomSett():
     global upButton
