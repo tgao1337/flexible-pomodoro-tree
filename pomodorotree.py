@@ -171,7 +171,7 @@ def selection():
                     upButton = False
                     
             elif mode == 2:
-              display.clear()
+                display.clear()
                 display.write('Flexible Pomodoro Tree', 6, 0)
                 display.write(' Pomodoro Mode', 12,0)
                 display.write(' Task Mode', 14,0)
