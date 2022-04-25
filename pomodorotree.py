@@ -314,13 +314,13 @@ def budgSett():
     
     
 def check():
-    global mode
-    global PlayPauseCheckB
-    global settingsButton
-    global pomoTime
-    global pomoBreak
-    global taskNum
-    global breakBTime
+        global mode
+        global PlayPauseCheckB
+        global settingsButton
+        global pomoTime
+        global pomoBreak
+        global taskNum
+        global breakBTime
     
     #with dispLock:
         if mode==0:
