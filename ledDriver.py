@@ -12,23 +12,9 @@ RCLK=8
 SRCLK=11
 SRCLR= 17
 
-NUM_CLUSTERS=4
-NUM_COLORS=3
+NUM_LEDS= 32
 
-ledDict= {}
-ledDict["r1"]=[0]
-ledDict["y1"]=[0,0,0]
-ledDict["g1"]=[0,0,0]
-ledDict["r2"]=[0]
-ledDict["y2"]=[0,0,0]
-ledDict["g2"]=[0,0,0]
-ledDict["r3"]=[0]
-ledDict["y3"]=[0,0,0]
-ledDict["g3"]=[0,0,0]
-ledDict["r4"]=[0]
-ledDict["y4"]=[0,0,0]
-ledDict["g4"]=[0,0,0]
-
+ledList= [0]* NUM_LEDS
 
 #setup the pins as outputs and set the clocks initally to low and the clear initially to high. 
 def setup():
@@ -49,11 +35,8 @@ def clearAll():
   GPIO.output(RCLK, GPIO.HIGH)
   GPIO.output(SRCLR, GPIO.HIGH)
 
-  for key in ledDict:
-   if "r" in key:
-      ledDict[key]=[0]
-   else:
-      ledDict[key]=[0,0,0]
+  for led in ledList:
+    led=0
 
 '''Given a certain string of 1010, this function will set the serial input and pulse the SRCLK and RCLK so the 
 given pattern from the string is displayed corrrectly on the LEDS
@@ -69,28 +52,12 @@ def passToLEDs(clusterStatus):
     time.sleep(0.05)
     GPIO.output(SRCLK, GPIO.HIGH)
 
-def display():
+def displayLED():
   GPIO.output(RCLK, GPIO.LOW) #pulse RCLK after all the inputs are loaded for a given cluster
   time.sleep(0.05)
   GPIO.output(RCLK, GPIO.HIGH)
 
-'''This function allows you to turn on a given color group of a given cluster
-Arguements: int cluster (1-4), char color( r,y,g), bool on or off '''
-def toggleClusterColorGroup( cluster,color,turnOn):
 
-  if (color != 'r' and color != 'y' and color != 'g'):
-    raise Exception("invalid color selection in ClusterColorON(), choose'g', 'y', 'r' ")
-  if(cluster <1  or  cluster >NUM_CLUSTERS):
-    raise Exception("Number clusters invalid, must be an int>0 and less than NUM_CLUSTERS=",NUM_CLUSTERS)
-  if(turnOn):
-   updateClusterStatus(cluster,True,color,True)
-  else:
-   updateClusterStatus(cluster,True,color,False)
-
-  for i in range(NUM_CLUSTERS,0,-1):
-   passToLEDs(readClusterStatus(i))
-
-  display()
 
 '''This function allows you to turn on the lowest currently off led in the chain or turn off the highedst currently on led in the chain
 Arguements: bool on or off'''
@@ -106,7 +73,7 @@ def toggleNextLed(turnOn):
   for i in range(NUM_CLUSTERS,0,-1):
    passToLEDs(readClusterStatus(i))
 
-  display()
+  displayLED()
 '''This function (not to be called) will update the ledDict based on what led/s have turned on/off. 
 If we wanted we could call any led from here to see if there is something wrong with it. 
 Arugments: int cluster, bool turnWholeClusterOn, char color, bool turnLedOn'''
