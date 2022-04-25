@@ -265,18 +265,18 @@ def budgSett():
     while not settingsButton:
         with dispLock:
             if upButton: 
-                  upButton = False
-                  if breakBTime < 18000: #upper limit 5 hours
-                      breakBTime += 600 # maybe more than 10 min increments for this one
-             if downButton:
-                  downButton=False
-                  if breakBTime > 600:
-                      breakBTime -= 600
-             display.clear()
-             display.write('Flexible Pomodoro Tree', 6, 0)
-             display.write('Set Total Break Time', 10, 0)
-             display.write(convert(breakBTime), 25, 0)
-             display.show()     
+                upButton = False
+                if breakBTime < 18000: #upper limit 5 hours
+                    breakBTime += 600 # maybe more than 10 min increments for this one
+            if downButton:
+                downButton=False
+                if breakBTime > 600:
+                    breakBTime -= 600
+            display.clear()
+            display.write('Flexible Pomodoro Tree', 6, 0)
+            display.write('Set Total Break Time', 10, 0)
+            display.write(convert(breakBTime), 25, 0)
+            display.show()     
     settingsButton = False
     
     
