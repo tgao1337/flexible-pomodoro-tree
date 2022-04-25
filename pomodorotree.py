@@ -39,7 +39,7 @@ def checkReset(): # Done for day button
     
     while True:
         if readpin(offPin):
-            reset = (reset + 1) % 2:
+            reset = (reset + 1) % 2
     time.sleep(1)
     
 def checkPlayPauseComplete(): # Play pause check
