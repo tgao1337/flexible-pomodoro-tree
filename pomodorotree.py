@@ -262,14 +262,14 @@ def taskSett():
                   if taskNum > 1:
                       taskNum -= 1
              display.clear()
-            display.draw_line(0, 45, 127 ,45)
-            display.write("T | Settings", 35,45,12)
-            display.write("Set Tasks:", 40, 0, 12)
-            if taskNum > 9:
-                display.write(taskNum, 50, 10, 25)
-            else:
-                display.write(taskNum, 60, 10, 25)
-            display.show()  
+             display.draw_line(0, 45, 127 ,45)
+             display.write("T | Settings", 35,45,12)
+             display.write("Set Tasks:", 40, 0, 12)
+             if taskNum > 9:
+                 display.write(taskNum, 50, 10, 25)
+             else:
+                 display.write(taskNum, 60, 10, 25)
+             display.show()  
              
              
     settingsButton = False
