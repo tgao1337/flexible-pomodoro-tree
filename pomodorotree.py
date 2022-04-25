@@ -40,6 +40,10 @@ def checkReset(): # Done for day button
     while True:
         if readpin(pinB):
             reset = (reset + 1) % 2
+	    if reset == 0:
+		print("Start for the day")
+	    else:
+		print("End for the day")
     time.sleep(1)
     
 def checkPlayPauseComplete(): # Play pause check
@@ -47,7 +51,8 @@ def checkPlayPauseComplete(): # Play pause check
     
     while True:
         if readpin(pinA):
-           PlayPauseCheckB=True
+            PlayPauseCheckB=True
+	    print("Play Pause Complete Button Pressed")
     time.sleep(1)
     
 def checkSettings(): #thread
@@ -56,6 +61,7 @@ def checkSettings(): #thread
     while True:
         if readpin(pinC):
             settingsButton = True
+	    print("Settings Button Pressed")
     time.sleep(1)
     
 def checkUp(): #thread
@@ -64,6 +70,7 @@ def checkUp(): #thread
     while True:
         if readpin(pinD):
             upButton=True
+	    print("Up Button Pressed")
     time.sleep(1)
     
 def checkDown(): #thread
@@ -72,6 +79,7 @@ def checkDown(): #thread
     while True:
         if readpin(pinE):
             downButton=True
+	    print("Down Button Pressed")
     time.sleep(1)
     
 def logic(): #thread
