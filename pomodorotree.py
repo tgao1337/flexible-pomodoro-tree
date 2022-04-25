@@ -108,7 +108,7 @@ def logic(): #thread
     isSure = False
     
     while True:
-        if reset == 0:
+        if reset == 1:
             if settingsButton or PlayPauseCheckB: #maybe they can press settings or play button to go into the settings screen?
                 settingsButton = False
                 PlayPauseCheckB = False
@@ -598,9 +598,9 @@ t4.start()
 t5 = Thread(target=checkDown)
 t5.start()
 
-# t6 = Thread(target=logic)
-# t6.start()
-displayWelcome()
+t6 = Thread(target=logic)
+t6.start()
+
 
 # TODO: Threads to add later:
 #    display check if settingMenu or display mode
@@ -611,4 +611,4 @@ t2.join()
 t3.join()
 t4.join()
 t5.join()
-#t6.join()
+t6.join()
