@@ -51,39 +51,51 @@ def checkReset(): # Done for day button
     
 def checkPlayPauseComplete(): # Play pause check
     global PlayPauseCheckB
-    
+    debouncePinA = False
     while True:
         if readButton(pinA):
-            PlayPauseCheckB=True
-            print("Play Pause Complete Button Pressed")
-    time.sleep(1)
+            if debouncePinA == False:
+                debouncePinA = True
+                PlayPauseCheckB = True
+                print("Play Pause Complete Button Pressed")
+        else:
+            debouncePinA = False
     
 def checkSettings(): #thread
     global settingsButton
-    
+    debouncePinC = False
     while True:
         if readButton(pinC):
-            settingsButton = True
-            print("Settings Button Pressed")
-    time.sleep(1)
+            if debouncePinC = False:
+                debouncePinC = True
+                settingsButton = True
+                print("Settings Button Pressed")
+        else:
+            debouncePinC = False
     
 def checkUp(): #thread
     global upButton
-    
+    debouncePinD = False
     while True:
         if readButton(pinD):
-            upButton=True
-            print("Up Button Pressed")
-    time.sleep(1)
+            if debouncePinD = False:
+                debouncePinD = True
+                upButton=True
+                print("Up Button Pressed")
+        else:
+            debouncePinD = False
     
 def checkDown(): #thread
     global downButton
-    
+    debouncePinE = False
     while True:
         if readButton(pinE):
-            downButton=True
-            print("Down Button Pressed")
-    time.sleep(1)
+            if debouncePinE = False
+                debouncePinE = True
+                downButton=True
+                print("Down Button Pressed")
+        else:
+            debouncePinE = False
     
 def logic(): #thread
     global reset
