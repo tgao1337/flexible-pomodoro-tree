@@ -108,6 +108,7 @@ def logic(): #thread
     isSure = False
     
     while True:
+        time.sleep(0.1)
         if reset == 1:
             if settingsButton or PlayPauseCheckB: #maybe they can press settings or play button to go into the settings screen?
                 settingsButton = False
@@ -158,6 +159,7 @@ def selection():
     global PlayPauseCheckB
     
     while not settingsButton: #need to press settings or stop start to make a selection
+        time.sleep(0.1)
         with dispLock:
             if mode==0:
                 display.clear()
