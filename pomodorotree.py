@@ -4,16 +4,22 @@ from threading import Thread, Event, Lock
 from pomodoro import *
 
 global mode
-global buttonA  # maybe remove this
 global pomoTime
 global pomoBreak
 global taskNum
 global breakBTime
 global pressedOnce
 global inBreak
-global startStop
-mode = 3  # mode 3 is a menu screen with tree picture, says press mode button to continue
-buttonA = 0
+
+global offB
+global startStopB
+global settB
+global upB
+global downB
+
+dispLock=Lock()
+
+mode = 0  # study mode
 pomoTime = 25 * 60  # these are default values
 pomoBreak = 5 * 60  # these are default values
 inBreak = 0
@@ -21,8 +27,300 @@ taskNum = 3  # these are default values
 currentTask = 1
 breakBTime = 60 * 60  # these are default values
 pressedOnce = 0 # tracks mode 0 second setting
-startStop = False
 
+offB=False
+startStopB = False
+settB= False
+upB=False
+downB=False
+
+def checkOFF(): #thread
+    global offB
+    
+    while True:
+        if readpin(offPin):
+            offB=True
+    time.sleep(1)
+    
+def checkStrt(): #thread
+    global startStopB
+    
+    while True:
+        if readpin(startPin):
+           startStopB=True
+    time.sleep(1)
+    
+def checkSett(): #thread
+    global settB
+    
+    while True:
+        if readpin(settPin):
+            settB=True
+    time.sleep(1)
+    
+def checkUp(): #thread
+    global upB
+    
+    while True:
+        if readpin(upPin):
+            upB=True
+    time.sleep(1)
+    
+def checkDown(): #thread
+    global downB
+    
+    while True:
+        if readpin(downPin):
+            downB=True
+    time.sleep(1)
+    
+def logic(): #thread
+    global offB
+    global startStopB
+    global settB
+    global upB
+    global downB 
+    isSure=False
+    
+    while True:
+        if not offB:
+            if settB or startStopB: #maybe they can press settings or play button to go into the settings screen?
+                settB=False
+                startStopB=False
+                selection()
+                
+                if startStopB: #pressed play button from sttings selection, want to use preset values
+                    startStopB= False
+                    isSure= check()
+                    
+                    if isSure:
+                        if mode==0:
+                            goPomo()
+                        if mode==1:
+                            goTask()
+                        if mode==2:
+                            goBudget()
+                    else:
+                        selection()
+            
+                else if settB: #want to update settings more
+                    settB=False
+                    if mode==0:
+                        pomSett()
+                    else if mode==1:
+                        taskSett()
+                    else:
+                        budgSett()
+                    
+                    isSure=check()
+                        
+                    if isSure:
+                        if mode==0:
+                            goPomo()
+                        if mode==1:
+                            goTask()
+                        if mode==2:
+                            goBudget()
+                    else:
+                        selection()          
+            
+            else: 
+                welcome()  
+        else:
+            welcome()
+            
+            
+            
+def welcome():
+    with dispLock:
+        display.clear()
+        display.write('Flexible Pomodoro Tree', 6, 0)
+        display.write("Welcome", 15,0)
+        display.show()
+
+def selection():
+    global mode
+    global upB
+    global downB
+    global settB
+    global startStopB
+    
+    while not settB and not startStopB: #need to press settings or stop start to make a selection
+        with dispLock:
+            if mode==0:
+                display.clear()
+                display.write('Flexible Pomodoro Tree', 6, 0)
+                display.write(' > Pomodoro Mode', 12,0)
+                display.write(' Task Mode', 14,0)
+                display.write(' Budget Mode', 16,0)
+                
+                if upB:
+                    mode=1
+                    upB=False
+                else if downB():
+                    mode=0
+                    downB=False
+            else if mode==1:
+                display.clear()
+                display.write('Flexible Pomodoro Tree', 6, 0)
+                display.write(' Pomodoro Mode', 12,0)
+                display.write(' > Task Mode', 14,0)
+                display.write(' Budget Mode', 16,0)
+                
+                if upB:
+                    mode=2
+                    upB=False
+                else if downB():
+                    mode=0
+                    downB=False
+            else if mode ==2:
+              display.clear()
+                display.write('Flexible Pomodoro Tree', 6, 0)
+                display.write(' Pomodoro Mode', 12,0)
+                display.write(' Task Mode', 14,0)
+                display.write(' > Budget Mode', 16,0)
+                
+                if upB:
+                    mode=2
+                    upB=False
+                else if downB():
+                    mode=1
+                    DownB=False
+                    
+            display.show()
+            
+def pomSett():
+    global upB
+    global downB
+    global settB
+    global pomoTime
+    global pomoBreak
+    
+    while not settB:
+        with dispLock:
+            
+            if upB: 
+                upB=False
+                if pomoTime< 7200: #upper limit 2 hours for pomodoro time or shoudl go infintieyl up?
+                    pomoTime +=300
+            if downB:
+                downB=False
+                if pomoTime>=600:
+                    pomoTime-=300
+                    
+            display.clear()
+            display.write('Flexible Pomodoro Tree', 6, 0)
+            display.write('Set Work Time', 10, 0)
+            display.write(convert(pomoTime), 25, 0)
+            display.show()
+            
+    settB=False
+    while not settB:
+         with dispLock:
+            
+            if upB: 
+                upB=False
+                if pomoBreak < 3600: #upper limit 1 hours for pomodoro break time ?
+                    pomoBreak +=300
+            if downB:
+                downB=False
+                if pomoBreak >300:
+                    pomoBreak-=300
+                    
+            display.clear()
+            display.write('Flexible Pomodoro Tree', 6, 0)
+            display.write('Set Break Time', 10, 0)
+            display.write(convert(pomoBreak), 25, 0)
+            display.show()
+    settB=False
+    
+def taskSett():
+    global upB
+    global downB
+    global settB
+    global taskNum
+    
+    while not settB:
+        with dispLock:
+             if upB: 
+                  upB=False
+                  if taskNum < 100: #upper limit 100 tasks
+                      taskNum +=1
+             if downB:
+                  downB=False
+                  if taskNum >1:
+                      taskNum-=1
+             display.clear()
+             display.write('Flexible Pomodoro Tree', 6, 0)
+             display.write('Set Num Tasks', 10, 0)
+             display.write(str(taskNum), 25, 0)
+             display.show()     
+    settB=False
+    
+def budgSett():
+    global upB
+    global downB
+    global settB
+    global breakBTime
+    
+    while not settB:
+        with dispLock:
+            if upB: 
+                  upB=False
+                  if breakBTime < 18000: #upper limit 5 hours
+                      breakBTime +=300 #maybe more tan 5 min increments for this one? 
+             if downB:
+                  downB=False
+                  if breakBTime >300:
+                      breakBTime-=300
+             display.clear()
+             display.write('Flexible Pomodoro Tree', 6, 0)
+             display.write('Set Total Break Time', 10, 0)
+             display.write(convert(breakBTime), 25, 0)
+             display.show()     
+    settB=False
+    
+    
+def check():
+    global mode
+    global startstopB
+    global settB
+    global pomoTime
+    global pomoBreak
+    global taskNum
+    global breakBTime
+    
+    with dispLock:
+        if mode==0:
+             display.clear()
+             display.write('Flexible Pomodoro Tree', 6, 0)
+             display.write('Settings OK ? Press play -->', 12 ,0)
+             display.write( 'NO ? press settings, 14, 0)
+             display.write('Study' + convert(pomoTime), 20, 0)
+             display.write('Break' + convert(pomoBreak), 24,0)
+        if mode ==1:
+             display.clear()
+             display.write('Flexible Pomodoro Tree', 6, 0)
+             display.write('Settings OK ? Press play -->', 12 ,0)
+             display.write( 'NO ? press settings, 14, 0)
+             display.write('# tasks' + str(taskNum), 20, 0)
+        if mode==2:  
+             display.clear()
+             display.write('Flexible Pomodoro Tree', 6, 0)
+             display.write('Settings OK ? Press play -->', 12 ,0)
+             display.write( 'NO ? press settings, 14, 0)
+             display.write('Total break time' + convert(breakBTime), 20, 0)
+        while not startStopB and not settB:
+            display.show()
+            if startStopB:
+               startStopB=False
+               return True
+            if settB:
+               settB=False
+               return False
+                       #smthn is weird below here whenever U try to make a function here it doesnt like it i cant find space issue
+ ########################################################################################################                         
+                           
 def buzzUp():
     playList([(C4, 0.25), (E4, 0.25), (G4, 0.25), (C5, 0.25)])
 
