@@ -90,7 +90,7 @@ def checkDown(): #thread
     debouncePinE = False
     while True:
         if readButton(pinE):
-            if debouncePinE == False
+            if debouncePinE == False:
                 debouncePinE = True
                 downButton=True
                 print("Down Button Pressed")
