@@ -123,6 +123,7 @@ def logic(): #thread
                     taskSett()
                 elif result == 2:
                     budgSett()
+                settingsSaved = True
 
 #                 if settingsButton: #want to update settings more
 #                     settingsButton = False
@@ -132,7 +133,7 @@ def logic(): #thread
 #                     taskSett()
 #                 elif mode == 2:
 #                     budgSett()
-#                 settingsSaved = True
+
 #                     isSure = check()
                         
 #                     if isSure:
@@ -246,6 +247,7 @@ def selection():
                     
             
 def pomSett():
+    print("In pomSett")
     global upButton
     global downButton
     global settingsButton
@@ -264,13 +266,13 @@ def pomSett():
                 if pomoTime >= 600:
                     pomoTime -= 300
                     
-            display.clear()
-            display.draw_line(0, 45, 127 ,45)
-            display.text("P | Settings | 4", 20,45,12)
+            #display.clear()
+            #display.draw_line(0, 45, 127 ,45)
+            #display.text("P | Settings | 4", 20,45,12)
             
-            display.text("Set Work Time:", 25, 0, 12)
-            display.text(convertTime(pomoTime), 30, 10, 25)
-            display.show()
+            #display.text("Set Work Time:", 25, 0, 12)
+            #display.text(convertTime(pomoTime), 30, 10, 25)
+            #display.show()
             
     settingsButton = False
     
