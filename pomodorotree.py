@@ -243,7 +243,7 @@ def pomSett():
             display.text("P | Settings | 4", 20,45,12)
             
             display.text("Set Work Time:", 25, 0, 12)
-            display.text(convert(pomoTime), 30, 10, 25)
+            display.text(convertTime(pomoTime), 30, 10, 25)
             display.show()
             
     settingsButton = False
@@ -265,7 +265,7 @@ def pomSett():
             display.text("P | Settings | 4", 20,45,12)
             
             display.text("Set Break Time:", 20, 0, 12)
-            display.text(convert(pomoTime), 30, 10, 25)
+            display.text(convertTime(pomoTime), 30, 10, 25)
             display.show()
             
             
@@ -320,7 +320,7 @@ def budgSett():
             display.draw_line(0, 45, 127 ,45)
             display.text("B | Settings", 35,45,12)
             display.text("Set Break Time:", 20, 0, 12)
-            display.text(convert(breakBTime), 30, 10,25)
+            display.text(convertTime(breakBTime), 30, 10,25)
             display.show()     
     settingsButton = False
     
@@ -340,8 +340,8 @@ def check():
              display.text('Flexible Pomodoro Tree', 6, 0)
              display.text('Settings OK ? Press play -->', 12 ,0)
              display.text( 'NO ? press settings', 14, 0)
-             display.text('Study' + convert(pomoTime), 20, 0)
-             display.text('Break' + convert(pomoBreak), 24,0)
+             display.text('Study' + convertTimepomoTime), 20, 0)
+             display.text('Break' + convertTime(pomoBreak), 24,0)
         if mode ==1:
              display.clear()
              display.text('Flexible Pomodoro Tree', 6, 0)
@@ -353,7 +353,7 @@ def check():
              display.text('Flexible Pomodoro Tree', 6, 0)
              display.text('Settings OK ? Press play -->', 12 ,0)
              display.text( 'NO ? press settings', 14, 0)
-             display.text('Total break time' + convert(breakBTime), 20, 0)
+             display.text('Total break time' + convertTime(breakBTime), 20, 0)
         display.show()
         
     while True:
