@@ -49,9 +49,9 @@ def checkReset(): # Done for day button
                 debouncePinB = True
                 reset = (reset + 1) % 2
                 if reset == 0:
-                    print("Start for the day")
-                else:
                     print("End for the day")
+                else:
+                    print("Start for the day")
         else:
             debouncePinB = False
     
@@ -114,21 +114,25 @@ def logic(): #thread
     
     while True:
         if reset == 1:
-            if settingsButton or PlayPauseCheckB: #maybe they can press settings or play button to go into the settings screen?
+            if settingsButton: # if settings button pressed go into selection
                 settingsButton = False
-                PlayPauseCheckB = False
-                selection()
-                
-            
-                if settingsButton: #want to update settings more
-                    settingsButton = False
-                    if mode == 0:
-                        pomSett()
-                    elif mode == 1:
-                        taskSett()
-                    elif mode == 2:
-                        budgSett()
-                    settingsSaved = True
+                result = selection()
+                if result == 0:
+                    pomSett()
+                elif result == 1:
+                    taskSett()
+                elif result == 2:
+                    budgSett()
+
+#                 if settingsButton: #want to update settings more
+#                     settingsButton = False
+#                 if mode == 0:
+#                     pomSett()
+#                 elif mode == 1:
+#                     taskSett()
+#                 elif mode == 2:
+#                     budgSett()
+#                 settingsSaved = True
 #                     isSure = check()
                         
 #                     if isSure:
@@ -145,17 +149,16 @@ def logic(): #thread
                 displayWelcome()  
         else:
             displayWelcome()
-            
-            
+           
             
 def displayWelcome():
     with dispLock:
         print("Welcome! Press Settings to select a mode")
-        display.clear()
+        #display.clear()
         # draw tree
-        display.draw_line(0, 45, 127 ,45)
-        display.text("Welcome", 40, 43, 12)
-        display.show()
+        #display.draw_line(0, 45, 127 ,45)
+        #display.text("Welcome", 40, 43, 12)
+        #display.show()
    
 def selection():
     print("In selection menu!")
@@ -169,9 +172,9 @@ def selection():
     while True: #need to press settings or stop start to make a selection
         with dispLock:
             if mode == 0:
-                display.clear()
-                display.text("Select Mode:\n > Pomodoro \n    Task \n    Budget", 20,0,12)
-                display.show()
+                #display.clear()
+                #display.text("Select Mode:\n > Pomodoro \n    Task \n    Budget", 20,0,12)
+                #display.show()
                 print("==========")
                 print("> Pomodoro \n  Task \n  Budget")
                       
@@ -194,9 +197,9 @@ def selection():
                     return 0
                 
             elif mode == 1:
-                display.clear()
-                display.text("Select Mode:\n    Pomodoro \n > Task \n    Budget", 20,0,12)
-                display.show()
+                #display.clear()
+                #display.text("Select Mode:\n    Pomodoro \n > Task \n    Budget", 20,0,12)
+                #display.show()
                 print("==========")
                 print("  Pomodoro \n> Task \n  Budget")
 #                 display.draw_line(0, 45, 127 ,45)
@@ -218,9 +221,9 @@ def selection():
                     return 1
                     
             elif mode == 2:
-                display.clear()
-                display.text("Select Mode:\n    Pomodoro \n    Task \n > Budget", 20,0,12)
-                display.show()
+                #display.clear()
+                #display.text("Select Mode:\n    Pomodoro \n    Task \n > Budget", 20,0,12)
+                #display.show()
                 print("==========")
                 print("  Pomodoro \n  Task \n> Budget")
 #                 display.draw_line(0, 45, 127 ,45)
