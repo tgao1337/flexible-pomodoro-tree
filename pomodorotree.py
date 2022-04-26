@@ -166,7 +166,6 @@ def selection():
     global settingsSaved
     
     while not settingsButton: #need to press settings or stop start to make a selection
-        time.sleep(0.1)
         with dispLock:
             if mode==0:
                 display.clear()
