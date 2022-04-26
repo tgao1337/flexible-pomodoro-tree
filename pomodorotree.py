@@ -156,6 +156,7 @@ def displayWelcome():
         display.show()
    
 def selection():
+    print("In selection menu!)
     global mode
     global upButton
     global downButton
