@@ -396,7 +396,7 @@ def startPomodoro():
             x = pomoTime + 1
             for i in range(x):
                 print(convertTime(pomoTime))
-                if startStop == False:
+                if PlayPauseCheckB == False:
                     break
                 pomoTime = pomoTime - 1
                 time.sleep(1)
