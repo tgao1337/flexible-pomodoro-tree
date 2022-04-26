@@ -565,7 +565,7 @@ def updateDisplay():
     global settingsSaved
     while True:
         display.clear()
-        if settingsSaved == False
+        if settingsSaved == False:
             if mode == 0:
                 display.clear()
                 if inPomoBreak:
@@ -608,6 +608,9 @@ t6.start()
 t7 = Thread(target=updateDisplay)
 t7.start()
 
+t8 = Thread(target=Tree)
+t8.start()
+
 t1.join()
 t2.join()
 t3.join()
@@ -615,3 +618,4 @@ t4.join()
 t5.join()
 t6.join()
 t7.join()
+t8.join()
