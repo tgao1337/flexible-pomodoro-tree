@@ -575,7 +575,7 @@ def updateDisplay():
                     display.text("Break Time:", 25, 0, 12)
                     display.text(convert(pomoTime), 30, 10,25)
             elif mode == 1:
-                    display.text('Tasks:', 30, 0, 12):
+                    display.text('Tasks:', 30, 0, 12)
                     display.text(str(taskNum), 30, 10, 35) # will need to adjust axes
 
             elif mode == 2:
