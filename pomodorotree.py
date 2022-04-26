@@ -62,7 +62,7 @@ def checkPlayPauseComplete(): # Play pause check
         if readButton(pinA):
             if debouncePinA == False:
                 debouncePinA = True
-                PlayPauseCheckB = True
+                PlayPauseCheckB = not PlayPauseCheckB
                 print("Play Pause Complete Button Pressed")
         else:
             debouncePinA = False
@@ -74,7 +74,7 @@ def checkSettings(): #thread
         if readButton(pinC):
             if debouncePinC == False:
                 debouncePinC = True
-                settingsButton = True
+                settingsButton = not settingsButton
                 print("Settings Button Pressed")
         else:
             debouncePinC = False
@@ -86,7 +86,7 @@ def checkUp(): #thread
         if readButton(pinD):
             if debouncePinD == False:
                 debouncePinD = True
-                upButton=True
+                upButton = not upButton
                 print("Up Button Pressed")
         else:
             debouncePinD = False
@@ -98,7 +98,7 @@ def checkDown(): #thread
         if readButton(pinE):
             if debouncePinE == False:
                 debouncePinE = True
-                downButton=True
+                downButton = not downButton
                 print("Down Button Pressed")
         else:
             debouncePinE = False
