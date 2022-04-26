@@ -190,6 +190,7 @@ def selection():
                     upButton = False
                 if settingsButton:
                     settingsButton = False
+                    print("Selection made: Pomodoro)
                     break;
                 
             elif mode == 1:
@@ -213,6 +214,7 @@ def selection():
          
                 if settingsButton:
                     settingsButton = False
+                    print("Selection made: Task)
                     break;
                     
             elif mode == 2:
@@ -236,6 +238,7 @@ def selection():
          
                 if settingsButton:
                     settingsButton = False
+                    print("Selection made: Budget)
                     break;
                     
             
