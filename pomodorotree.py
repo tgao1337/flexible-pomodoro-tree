@@ -340,7 +340,7 @@ def check():
              display.text('Flexible Pomodoro Tree', 6, 0)
              display.text('Settings OK ? Press play -->', 12 ,0)
              display.text( 'NO ? press settings', 14, 0)
-             display.text('Study' + convertTimepomoTime), 20, 0)
+             display.text('Study' + convertTime(pomoTime), 20, 0)
              display.text('Break' + convertTime(pomoBreak), 24,0)
         if mode ==1:
              display.clear()
