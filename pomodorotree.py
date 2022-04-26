@@ -169,6 +169,8 @@ def selection():
             if mode==0:
                 display.clear()
                 display.text("Select Mode:\n > Pomodoro \n    Task \n    Budget", 20,0,12)
+                print("> Pomodoro \n    Task \n    Budget")
+                      
 #                 display.draw_line(0, 45, 127 ,45)
 #                 display.text("Select Mode", 30,45,12)
 #                 display.text("> Pomodoro", 20,0,14)
