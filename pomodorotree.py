@@ -156,7 +156,7 @@ def displayWelcome():
         display.show()
    
 def selection():
-    print("In selection menu!)
+    print("In selection menu!")
     global mode
     global upButton
     global downButton
@@ -170,7 +170,7 @@ def selection():
             if mode==0:
                 display.clear()
                 display.text("Select Mode:\n > Pomodoro \n    Task \n    Budget", 20,0,12)
-                print("> Pomodoro \n    Task \n    Budget")
+                print("> Pomodoro \n Task \n Budget")
                       
 #                 display.draw_line(0, 45, 127 ,45)
 #                 display.text("Select Mode", 30,45,12)
@@ -189,6 +189,7 @@ def selection():
             elif mode == 1:
                 display.clear()
                 display.text("Select Mode:\n    Pomodoro \n > Task \n    Budget", 20,0,12)
+                print(" Pomodoro \n> Task \n Budget")
 #                 display.draw_line(0, 45, 127 ,45)
 #                 display.text("Select Mode", 30,45,12)
 #                 display.text("Pomodoro", 32,0,14)
@@ -205,6 +206,7 @@ def selection():
             elif mode == 2:
                 display.clear()
                 display.text("Select Mode:\n    Pomodoro \n    Task \n > Budget", 20,0,12)
+                print(" Pomodoro \n Task \n> Budget")
 #                 display.draw_line(0, 45, 127 ,45)
 #                 display.text("Select Mode", 30,45,12)
 #                 display.text("Pomodoro", 32,0,14)
