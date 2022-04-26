@@ -190,8 +190,8 @@ def selection():
                     upButton = False
                 if settingsButton:
                     settingsButton = False
-                    print("Selection made: Pomodoro)
-                    break;
+                    print("Selection made: Pomodoro")
+                    return 0
                 
             elif mode == 1:
                 display.clear()
@@ -214,8 +214,8 @@ def selection():
          
                 if settingsButton:
                     settingsButton = False
-                    print("Selection made: Task)
-                    break;
+                    print("Selection made: Task")
+                    return 1
                     
             elif mode == 2:
                 display.clear()
@@ -238,8 +238,8 @@ def selection():
          
                 if settingsButton:
                     settingsButton = False
-                    print("Selection made: Budget)
-                    break;
+                    print("Selection made: Budget")
+                    return 2
                     
             
 def pomSett():
