@@ -150,6 +150,7 @@ def displayWelcome():
         display.draw_line(0, 45, 127 ,45)
         display.text("Welcome", 40, 43, 12)
         display.show()
+        
 
 def selection():
     global mode
@@ -163,11 +164,13 @@ def selection():
         with dispLock:
             if mode==0:
                 display.clear()
-                display.draw_line(0, 45, 127 ,45)
-                display.text("Select Mode", 30,45,12)
-                display.text("> Pomodoro", 20,0,14)
-                display.text("Task", 32,12,14)
-                display.text("Budget", 32,24,14)
+                display.text("Select Mode:\n > Pomodoro \n    Task \n    Budget", 20,0,12)
+#                 display.draw_line(0, 45, 127 ,45)
+#                 display.text("Select Mode", 30,45,12)
+#                 display.text("> Pomodoro", 20,0,14)
+#                 display.text("Task", 32,12,14)
+#                 display.text("Budget", 32,24,14)
+                
                 
                 if downButton:
                     mode = 1
@@ -178,11 +181,12 @@ def selection():
                     
             elif mode == 1:
                 display.clear()
-                display.draw_line(0, 45, 127 ,45)
-                display.text("Select Mode", 30,45,12)
-                display.text("Pomodoro", 32,0,14)
-                display.text("> Task", 20,12,14)
-                display.text("Budget", 32,24,14)
+                display.text("Select Mode:\n    Pomodoro \n > Task \n    Budget", 20,0,12)
+#                 display.draw_line(0, 45, 127 ,45)
+#                 display.text("Select Mode", 30,45,12)
+#                 display.text("Pomodoro", 32,0,14)
+#                 display.text("> Task", 20,12,14)
+#                 display.text("Budget", 32,24,14)
                 
                 if downButton:
                     mode = 2
@@ -193,11 +197,12 @@ def selection():
                     
             elif mode == 2:
                 display.clear()
-                display.draw_line(0, 45, 127 ,45)
-                display.text("Select Mode", 30,45,12)
-                display.text("Pomodoro", 32,0,14)
-                display.text("Task", 32,12,14)
-                display.text("> Budget", 20,24,14)
+                display.text("Select Mode:\n    Pomodoro \n    Task \n > Budget", 20,0,12)
+#                 display.draw_line(0, 45, 127 ,45)
+#                 display.text("Select Mode", 30,45,12)
+#                 display.text("Pomodoro", 32,0,14)
+#                 display.text("Task", 32,12,14)
+#                 display.text("> Budget", 20,24,14)
                 
                 if downButton:
                     mode=2
