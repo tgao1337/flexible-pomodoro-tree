@@ -74,7 +74,7 @@ def checkSettings(): #thread
         if readButton(pinC):
             if debouncePinC == False:
                 debouncePinC = True
-                settingsButton = not settingsButton
+                settingsButton = True
                 print("Settings Button Pressed")
         else:
             debouncePinC = False
@@ -86,7 +86,7 @@ def checkUp(): #thread
         if readButton(pinD):
             if debouncePinD == False:
                 debouncePinD = True
-                upButton = not upButton
+                upButton = True
                 print("Up Button Pressed")
         else:
             debouncePinD = False
@@ -98,7 +98,7 @@ def checkDown(): #thread
         if readButton(pinE):
             if debouncePinE == False:
                 debouncePinE = True
-                downButton = not downButton
+                downButton = True
                 print("Down Button Pressed")
         else:
             debouncePinE = False
@@ -166,11 +166,12 @@ def selection():
     global PlayPauseCheckB
     global settingsSaved
     
-    while not settingsButton: #need to press settings or stop start to make a selection
+    while True: #need to press settings or stop start to make a selection
         with dispLock:
-            if mode==0:
+            if mode == 0:
                 display.clear()
                 display.text("Select Mode:\n > Pomodoro \n    Task \n    Budget", 20,0,12)
+                display.show()
                 print("==========")
                 print("> Pomodoro \n  Task \n  Budget")
                       
@@ -187,10 +188,14 @@ def selection():
                 elif upButton:
                     mode = 0
                     upButton = False
-                    
+                if settingsButton:
+                    settingsButton = False
+                    break;
+                
             elif mode == 1:
                 display.clear()
                 display.text("Select Mode:\n    Pomodoro \n > Task \n    Budget", 20,0,12)
+                display.show()
                 print("==========")
                 print("  Pomodoro \n> Task \n  Budget")
 #                 display.draw_line(0, 45, 127 ,45)
@@ -205,10 +210,15 @@ def selection():
                 elif upButton:
                     mode = 0
                     upButton = False
+         
+                if settingsButton:
+                    settingsButton = False
+                    break;
                     
             elif mode == 2:
                 display.clear()
                 display.text("Select Mode:\n    Pomodoro \n    Task \n > Budget", 20,0,12)
+                display.show()
                 print("==========")
                 print("  Pomodoro \n  Task \n> Budget")
 #                 display.draw_line(0, 45, 127 ,45)
@@ -223,10 +233,11 @@ def selection():
                 elif upButton:
                     mode = 1
                     upButton = False
+         
+                if settingsButton:
+                    settingsButton = False
+                    break;
                     
-            display.show()
-    #settingsButton = False
-
             
 def pomSett():
     global upButton
