@@ -9,22 +9,25 @@ global pomoBreak
 global taskNum
 global breakBTime
 global pressedOnce
-global inBreak
+global inPomoBreak
 
 global reset
 global PlayPauseCheckB
 global settingsButton
+global settingsSaved
 global upButton
 global downButton
 
 display = OLED()
+display.setup()
+display.clear()
 
 dispLock=Lock()
 
 mode = 0  # study mode
 pomoTime = 25 * 60  # These are default values
 pomoBreak = 5 * 60  # These are default values
-inBreak = 0
+inPomoBreak = False
 taskNum = 3  # these are default values
 currentTask = 1
 breakBTime = 60 * 60  # these are default values
@@ -108,7 +111,6 @@ def logic(): #thread
     isSure = False
     
     while True:
-        time.sleep(0.1)
         if reset == 1:
             if settingsButton or PlayPauseCheckB: #maybe they can press settings or play button to go into the settings screen?
                 settingsButton = False
@@ -147,17 +149,18 @@ def logic(): #thread
 def displayWelcome():
     with dispLock:
         display.clear()
+        # draw tree
         display.draw_line(0, 45, 127 ,45)
         display.text("Welcome", 40, 43, 12)
         display.show()
-        
-
+   
 def selection():
     global mode
     global upButton
     global downButton
     global settingsButton
     global PlayPauseCheckB
+    global settingsSaved
     
     while not settingsButton: #need to press settings or stop start to make a selection
         time.sleep(0.1)
@@ -213,6 +216,7 @@ def selection():
                     
             display.show()
     #settingsButton = False
+    settingsSaved = True
             
 def pomSett():
     global upButton
@@ -358,65 +362,57 @@ def check():
         if settingsButton:
             settingsButton = False
             return False
-                  
-                           
+                      
 def buzzUp():
     playList([(C4, 0.25), (E4, 0.25), (G4, 0.25), (C5, 0.25)])
 
 def buzzDown():
     playList([(C5, 0.25), (G4, 0.25), (E4, 0.25), (C4, 0.25)])
+  
+  
+# ==========================
+def Tree():
+    global PlayPauseCheckB
+    while True:
+        if PlayPauseCheckB:
+            if mode == 0:
+                startPomodoro()
+                print("Starting Pomodoro")
+            elif mode == 1:
+                startTask()
+            elif mode == 2:
+                startBudget()
 
-# def setup_display():
-#     display = OLED()
-#     display.setup()
-#     display.clear()
-#     # Drawing a border
-#     display.draw_line(0, 0, 127 ,0)
-#     display.draw_line(0, 0, 0 ,63)
-#     display.draw_line(0, 63, 127 ,63)
-#     display.draw_line(127, 0, 127 ,63)
-#     # Making a line
-#     display.draw_line(0, 12, 127 ,12)
+def startPomodoro():
+    global pomoTime
+    global pomoBreak
+    global inPomoBreak
     
-#     # Pomodoro text
-#     display.text('Flexible Pomodoro Tree', 6, 0)
-#     display.show()
-
-# def startPomodoro():
-#     global pomoTime
-#     global pomoBreak
-    
-#     if mode == 0 and startStop: # this needs to check if the pomo session is actually started. review code
-#         print("pomodoro!")
-#         if inBreak:
-#             x = pomoBreak + 1
-#             for i in range(x):
-#                 if startStop == False:
-#                     break
-#                 pomoBreak = pomoBreak - 1
-#                 time.sleep(1)
-#             inBreak = 0  # changes to pomo
+    if PlayPauseCheckB:
+     
+        if not inPomoBreak:
+            print("Mode: Pomodoro, Work")
+            x = pomoTime + 1
+            for i in range(x):
+                print(convertTime(pomoTime))
+                if startStop == False:
+                    break
+                pomoTime = pomoTime - 1
+                time.sleep(1)
+            inPomoBreak = True  # changes to break
             
-#         else:  # do we need an else? or can we do "elif not inBreak and mode == 0 and startStop"?
-#             x = pomoTime + 1
-#             for i in range(x):
-#                 if startStop == False:
-#                     break
-#                 pomoTime = pomoTime - 1
-#                 time.sleep(1)
-#             inBreak = 1  # changes to break
-#             startPomodoro()
-    
-# def startTaskMode():
-#     if mode == 1:
-#         print("task mode")
+        if inPomoBreak:
+            print("Mode: Pomodoro, Break")
+            x = pomoBreak + 1
+            for i in range(x):
+                print(convertTime(pomoBreak))
+                if PlayPauseCheckB == False:
+                    break
+                pomoBreak = pomoBreak - 1
+                time.sleep(1)
+            inPomoBreak = False  # changes to work
+            
 
-# def startBBreak():
-#     if mode == 2:
-#         print("budget break")
-    
-# def pomodoroBreak():
-#     pass
 
 # def resetValues(): # reset the values to default
 #     global pomoTime
@@ -562,31 +558,32 @@ def convertTime(value):  # given a number of seconds, returns string in HH:MM:SS
     hours = value // 3600
     minutes = (value % 3600) // 60
     seconds = value % 60
-    time = str(hours) + ':' + str(minutes) + ':' + str(seconds)
+    time = str(hours).ljust(2,'0') + ':' + str(minutes).ljust(2,'0') + ':' + str(seconds).ljust(2,'0')
     return time
             
-# def updateDisplay():
-#     while True:
-#         setup_display()
-#         if mode == 0:
-#             display.clear()
-#             if inBreak:
-#                 display.text('Remaining break time:', 20, 0)
-#                 display.text(convertTime(pomoBreak), 30, 0) # will need to adjust axes
-#             else:
-#                 display.text('Remaining work time:', 20, 0)
-#                 display.text(convertTime(pomoTime), 30, 0) # will need to adjust axes
-#         elif mode == 1:
-#                 display.text('Remaining tasks:', 20, 0):
-#                 display.text(taskNum, 30, 0) # will need to adjust axes
-#                 display.text('Working on task:', 40, 0):
-#                 display.text(currentTask, 50, 0) # will need to adjust axes
-#         elif mode == 2:
-#                 display.text('Remaining break time:', 20, 0):
-#                 display.text(convertTime(breakBTime), 30, 0) # will need to adjust axes
+def updateDisplay():
+    global settingsSaved
+    while True:
+        display.clear()
+        if settingsSaved == False
+            if mode == 0:
+                display.clear()
+                if inPomoBreak:
+                    display.text("Break Time:", 25, 0, 12)
+                    display.text(convert(pomoBreak), 30, 10,25)
+                else:
+                    display.text("Break Time:", 25, 0, 12)
+                    display.text(convert(pomoTime), 30, 10,25)
+            elif mode == 1:
+                    display.text('Tasks:', 30, 0, 12):
+                    display.text(str(taskNum), 30, 10, 35) # will need to adjust axes
 
-#         display.show()        
-#         time.sleep(1)
+            elif mode == 2:
+                    display.text("Break Time:", 25, 0, 12)
+                    display.text(convert(breakBTime), 30, 10,25)
+
+            display.show()        
+            time.sleep(1)
         
             
 
@@ -608,10 +605,8 @@ t5.start()
 t6 = Thread(target=logic)
 t6.start()
 
-
-# TODO: Threads to add later:
-#    display check if settingMenu or display mode
-#    reset button
+t7 = Thread(target=updateDisplay)
+t7.start()
 
 t1.join()
 t2.join()
@@ -619,3 +614,4 @@ t3.join()
 t4.join()
 t5.join()
 t6.join()
+t7.join()
