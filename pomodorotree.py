@@ -62,7 +62,7 @@ def checkPlayPauseComplete(): # Play pause check
         if readButton(pinA):
             if debouncePinA == False:
                 debouncePinA = True
-                PlayPauseCheckB = not PlayPauseCheckB
+                PlayPauseCheckB = True
                 print("Play Pause Complete Button Pressed")
         else:
             debouncePinA = False
@@ -123,7 +123,6 @@ def logic(): #thread
                     taskSett()
                 elif result == 2:
                     budgSett()
-                settingsSaved = True
 
 #                 if settingsButton: #want to update settings more
 #                     settingsButton = False
@@ -251,6 +250,7 @@ def pomSett():
     global upButton
     global downButton
     global settingsButton
+    global settingsSaved
     global pomoTime
     global pomoBreak
     
@@ -296,14 +296,15 @@ def pomSett():
             display.text(convertTime(pomoTime), 30, 10, 25)
             display.show()
             
-            
     settingsButton = False
+    settingsSaved = True
     
 def taskSett():
     global upButton
     global downButton
     global settingsButton
     global taskNum
+    global settingsSaved
     
     while not settingsButton:
         with dispLock:
@@ -327,12 +328,14 @@ def taskSett():
              
              
     settingsButton = False
-    
+    settingsSaved = True
+       
 def budgSett():
     global upButton
     global downButton
     global settingsButton
     global breakBTime
+    global settingsSaved
     
     while not settingsButton:
         with dispLock:
@@ -351,8 +354,10 @@ def budgSett():
             display.text(convertTime(breakBTime), 30, 10,25)
             display.show()     
     settingsButton = False
-    
-    
+    settingsSaved = True
+
+'''
+# ignore
 def check():
     global mode
     global PlayPauseCheckB
@@ -391,7 +396,7 @@ def check():
         if settingsButton:
             settingsButton = False
             return False
-                      
+'''
 def buzzUp():
     playList([(C4, 0.25), (E4, 0.25), (G4, 0.25), (C5, 0.25)])
 
@@ -418,7 +423,6 @@ def startPomodoro():
     global inPomoBreak
     
     if PlayPauseCheckB:
-     
         if not inPomoBreak:
             print("Mode: Pomodoro, Work")
             x = pomoTime + 1
