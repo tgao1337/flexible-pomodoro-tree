@@ -36,6 +36,7 @@ pressedOnce = 0 # tracks mode 0 second setting
 reset = 0 # 0: Start for the day, 1: End for the day
 PlayPauseCheckB = False
 settingsButton = False
+settingsSaved = False
 upButton = False
 downButton = False
 
