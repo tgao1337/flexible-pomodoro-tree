@@ -104,6 +104,7 @@ def checkDown(): #thread
             debouncePinE = False
     
 def logic(): #thread
+    print("In logic")
     global reset
     global PlayPauseCheckB
     global settingsButton
