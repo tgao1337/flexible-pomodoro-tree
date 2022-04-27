@@ -67,17 +67,18 @@ def passToLEDs(clusterStatus):
     
 def displayLED():
   global ledList
-  spi.xfer(ledList[::-1])
   
-  '''d1=bin(int(ledList[7::-1], base=2))
+  
+  d1=bin(int(ledList[7::-1], base=2))
   d2=bin(int(ledList[16:7:-1],base=2))
   d3=bin(int(ledList[24:16:-1],base=2))
   d4=bin(int(ledList[:24:-1],base=2))
   
   spi.xfer(d4)
   spi.xfer(d3)
-  spi.xfer
-  GPIO.output(RCLK, GPIO.LOW) #pulse RCLK after all the inputs are loaded for a given cluster
+  spi.xfer(d2)
+  spi.xfer(d1)
+  '''GPIO.output(RCLK, GPIO.LOW) #pulse RCLK after all the inputs are loaded for a given cluster
   time.sleep(0.05)
   GPIO.output(RCLK, GPIO.HIGH)
   '''
