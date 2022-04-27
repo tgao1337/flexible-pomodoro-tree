@@ -74,8 +74,8 @@ def checkSettings(): #thread
         if readButton(pinC):
             if debouncePinC == False:
                 debouncePinC = True
-                settingsButton = True
-                print("Settings Button Pressed")
+                settingsButton = not settingsButton
+                print("Settings Button Pressed: " , settingsButton)
         else:
             debouncePinC = False
     
