@@ -51,63 +51,99 @@ settingsSaved = False
 upButton = False
 downButton = False
 
-def buzzUp():
-    playList([(C4, 0.25), (E4, 0.25), (G4, 0.25), (C5, 0.25)])
-
-def buzzDown():
-    playList([(C5, 0.25), (G4, 0.25), (E4, 0.25), (C4, 0.25)])
-
 def checkReset(): # Done for day button
     global resetRequired
     global settingsSaved 
-
+    debouncePinB = False
     while True:
-        waitRising(pinB)
-        time.sleep(0.2)
-        resetRequired = not resetRequired
-        
-        if resetRequired:
-            print("Start for the day. resetRequired:", resetRequired)
-            resetMode()
-            settingsSaved = False
+        if readButton(pinB):
+            if debouncePinB == False:
+                debouncePinB = True
+                resetRequired = not resetRequired
+                
+                if resetRequired:
+                    print("Start for the day")
+                    resetMode()
+                    settingsSaved = False
+                else:
+                    print("End for the day")
         else:
-            print("End for the day. resetRequired:", resetRequired)
-          
+            debouncePinB = False
+    
 def checkPlayPauseComplete(): # Play pause check
     global playPauseCheckB
+    debouncePinA = False
     while True:
-        waitRising(pinA)
-        time.sleep(0.2)
-        playPauseCheckB = not playPauseCheckB
-        print("PlayPauseComplete Button Pressed. playPauseCheckB:", playPauseCheckB)
-
+        if readButton(pinA):
+            if debouncePinA == False:
+                debouncePinA = True
+                if settingsSaved == True:
+                    playPauseCheckB = not playPauseCheckB
+                else:
+                    playPauseCheckB = False
+                print("Play Pause Complete Button Pressed:", playPauseCheckB)
+        else:
+            debouncePinA = False
+    
 def checkSettings():
-    global settingsButton 
+    global settingsButton
+    global settingsSaved 
+    global resetRequired
+    debouncePinC = False
     while True:
-        waitButton(pinC)
-        time.sleep(0.2)
-        settingsButton = True      
-        print("Settings Button Pressed. settingsButton:", settingsButton)
-
-def checkUp():
+        if readButton(pinC):
+            if debouncePinC == False:
+                debouncePinC = True
+                settingsSaved = False # Whenever Settings button is pressed change settingsSaved to False
+                print("resetRequired:", resetRequired)
+                if resetRequired:
+                    print("settingButtons set to True")
+                    settingsButton = True
+#                     eventSettings.set()
+                else: 
+                    print("settingButtons set to False")
+                    settingsButton = False
+                print("Settings Button Pressed: " , settingsButton)
+                
+             
+        else:
+            debouncePinC = False
+    
+def checkUp(): #thread
+    print("Running thread: CheckUp")
     global upButton
     global settingsButton
+    debouncePinD = False
     while True:
-        waitButton(pinD)
-        time.sleep(0.2)
-        upButton = True
-        print("Up Button Pressed. upButton:", upButton)
+        if readButton(pinD):
+            if debouncePinD == False:
+                debouncePinD = True
+#                 if settingsButton:
+                upButton = True
+                print("Up Button Pressed")
+#                 else: 
+#                     upButton = False
+        else:
+            debouncePinD = False
     
-def checkDown():
+def checkDown(): #thread
+    print("Running thread: CheckDown")
     global downButton
+    debouncePinE = False
     while True:
-        waitButton(pinE)
-        time.sleep(0.2)
-        downButton = True
-        print("Down Button Pressed. downButton:", downButton)
-
+        if readButton(pinE):
+            if debouncePinE == False:
+                debouncePinE = True
+#                 if settingsButton:
+                downButton = True
+                print("Down Button Pressed")
+#                 else:
+#                     downButton = False
+        else:
+            debouncePinE = False
     
-def logic():
+def logic(): #thread
+    print("Thread running: logic")
     global reset
     global playPauseCheckB
     global settingsButton
@@ -126,6 +162,7 @@ def logic():
             elif result == 2:
                 budgSett()
               
+#         print("playPauseCheckB:", playPauseCheckB, "settingsSaved:", settingsSaved, "resetRequired:", resetRequired)
         if playPauseCheckB and settingsSaved and resetRequired: # If the playPauseCheckB has been pressed and settingsSaved start Tree
             if mode == 0:
                 startPomodoro()
@@ -134,12 +171,55 @@ def logic():
                 startTask()
             elif mode == 2:
                 startBudget()
+        
+#         if reset: # Start for the day, begin with selecting mode but wait for settings button being pressed
+#             event.wait()
+#             if settingsButton: # if settings button pressed go into selection
+#                 settingsButton = False
+#                 result = selection()
+#                 if result == 0:
+#                     pomSett()
+#                 elif result == 1:
+#                     taskSett()
+#                 elif result == 2:
+#                     budgSett()
+
+#                 if settingsButton: #want to update settings more
+#                     settingsButton = False
+#                 if mode == 0:
+#                     pomSett()
+#                 elif mode == 1:
+#                     taskSett()
+#                 elif mode == 2:
+#                     budgSett()
+
+#                     isSure = check()
+                        
+#                     if isSure:
+#                         if mode==0:
+#                             goPomo()
+#                         if mode==1:
+#                             goTask()
+#                         if mode==2:
+#                             goBudget()
+#                     else:
+#                         selection()          
+            
+#             else: 
+#                 displayWelcome()  
+#         else:
+#             displayWelcome()
            
             
 def displayWelcome():
     with dispLock:
 #         while not resetRequired:
         print("Welcome! Press Start and Settings to select a mode")
+#         display.clear()
+# #         draw tree
+#         display.draw_line(0, 45, 127 ,45)
+#         display.text("Welcome", 40, 43, 12)
+#         display.show()
         with canvas(device) as draw:
             draw.line((0, 45, 127 ,45), fill="white")
             draw.text((40, 43), "Welcome", fill="white")
@@ -158,6 +238,9 @@ def selection():
     while True:
         with dispLock:
             if mode == 0:
+                #display.clear()
+                #display.text("Select Mode:\n > Pomodoro \n    Task \n    Budget", 20,0,12)
+                #display.show()
                 with canvas(device) as draw:
                     draw.text((20, 0), "Select Mode:\n > Pomodoro \n    Task \n    Budget", fill="white")
                 if modeChangeDetected:
@@ -165,6 +248,11 @@ def selection():
                     print("==========")
                     print("> Pomodoro \n  Task \n  Budget")
                       
+#                 display.draw_line(0, 45, 127 ,45)
+#                 display.text("Select Mode", 30,45,12)
+#                 display.text("> Pomodoro", 20,0,14)
+#                 display.text("Task", 32,12,14)
+#                 display.text("Budget", 32,24,14)
                 with canvas(device) as draw:
                     draw.line((0, 45, 127 ,45), fill="white")
                     draw.text((30,45), "Select Mode", fill="white")
@@ -187,13 +275,20 @@ def selection():
 
                 
             elif mode == 1:
+                #display.clear()
+                #display.text("Select Mode:\n    Pomodoro \n > Task \n    Budget", 20,0,12)
+                #display.show()
                 with canvas(device) as draw:
                     draw.text((20, 0), "Select Mode:\n    Pomodoro \n > Task \n    Budget", fill="white")
                 if modeChangeDetected:
                     modeChangeDetected = False
                     print("==========")
                     print("  Pomodoro \n> Task \n  Budget")
-
+#                 display.draw_line(0, 45, 127 ,45)
+#                 display.text("Select Mode", 30,45,12)
+#                 display.text("Pomodoro", 32,0,14)
+#                 display.text("> Task", 20,12,14)
+#                 display.text("Budget", 32,24,14)
                 with canvas(device) as draw:
                     draw.line((0, 45, 127 ,45), fill="white")
                     draw.text((30,45), "Select Mode", fill="white")
@@ -216,14 +311,20 @@ def selection():
               
                 
             elif mode == 2:
-
+                #display.clear()
+                #display.text("Select Mode:\n    Pomodoro \n    Task \n > Budget", 20,0,12)
+                #display.show()
                 with canvas(device) as draw:
                     draw.text((20, 0), "Select Mode:\n    Pomodoro \n    Task \n > Budget", fill="white")
                 if modeChangeDetected:
                     modeChangeDetected = False
                     print("==========")            
                     print("  Pomodoro \n  Task \n> Budget")
-
+#                 display.draw_line(0, 45, 127 ,45)
+#                 display.text("Select Mode", 30,45,12)
+#                 display.text("Pomodoro", 32,0,14)
+#                 display.text("Task", 32,12,14)
+#                 display.text("> Budget", 20,24,14)
                 with canvas(device) as draw:
                     draw.line((0, 45, 127 ,45), fill="white")
                     draw.text((30,45), "Select Mode", fill="white")
@@ -270,6 +371,13 @@ def pomSett():
                     pomoWorkTime -= 300
                     print("New work time:", pomoWorkTime)
 
+            #display.clear()
+            #display.draw_line(0, 45, 127 ,45)
+            #display.text("P | Settings | 4", 20,45,12)
+            
+            #display.text("Set Work Time:", 25, 0, 12)
+            #display.text(convertTime(pomoWorkTime), 30, 10, 25)
+            #display.show()
             with canvas(device) as draw:
                 draw.line((0, 45, 127 ,45), fill="white")
                 draw.text((20,45), "P | Settings | 4", fill="white")
@@ -293,7 +401,14 @@ def pomSett():
                 if pomoBreakTime > 300:
                     pomoBreakTime -= 300
                     print("New break time:", pomoBreakTime)
-
+                    
+#             display.clear()
+#             display.draw_line(0, 45, 127 ,45)
+#             display.text("P | Settings | 4", 20,45,12)
+            
+#             display.text("Set Break Time:", 20, 0, 12)
+#             display.text(convertTime(pomoBreakTime), 30, 10, 25)  # changed pomoWorkTime to pomoBreakTime
+#             display.show()
             with canvas(device) as draw:
                 draw.line((0, 45, 127 ,45), fill="white")
                 draw.text((20,45), "P | Settings | 4", fill="white")
@@ -329,11 +444,17 @@ def taskSett():
                 draw.line((0, 45, 127 ,45), fill="white")
                 draw.text((35,45), "T | Settings", fill="white")
                 draw.text((40, 0), "Set Tasks:", fill="white")
-                
+             # display.clear()
+             # display.draw_line(0, 45, 127 ,45)
+             # display.text("T | Settings", 35,45,12)
+             # display.text("Set Tasks:", 40, 0, 12)
                 if taskNum > 9:
                     draw.text((50, 10), str(taskNum), fill="white")
+                   # display.text(str(taskNum), 50, 10, 25)
                 else:
                     draw.text((60, 10), str(taskNum), fill="white")
+                    # display.text(str(taskNum), 60, 10, 25)
+             # display.show()  
              
              
     settingsButton = False
@@ -358,16 +479,99 @@ def budgSett():
                 downButton=False
                 if budgetTime > 600:
                     budgetTime -= 600
- 
+            ''' display.clear()
+            display.draw_line(0, 45, 127 ,45)
+            display.text("B | Settings", 35,45,12)
+            display.text("Set Break Time:", 20, 0, 12)
+            display.text(convertTime(budgetTime), 30, 10,25)
+            display.show()'''
             with canvas(device) as draw:
                 draw.line((0, 45, 127 ,45), fill="white")
                 draw.text((35,45), "B | Settings", fill="white")
                 draw.text((20, 0), "Set Break Time:", fill="white")
                 draw.text((30, 10), convertTime(budgetTime), fill="white")
-       
     settingsButton = False
     uBudgetTime = budgetTime
     settingsSaved = True
+
+'''
+# ignore
+def check():
+    global mode
+    global playPauseCheckB
+    global settingsButton
+    global pomoWorkTime
+    global pomoBreakTime
+    global taskNum
+    global budgetTime
+    
+    with dispLock:
+        if mode==0:
+            # display.clear()
+            # display.text('Flexible Pomodoro Tree', 6, 0)
+            # display.text('Settings OK ? Press play -->', 12 ,0)
+            # display.text( 'NO ? press settings', 14, 0)
+            # display.text('Study ' + convertTime(pomoWorkTime), 20, 0)
+            # display.text('Break ' + convertTime(pomoBreakTime), 24,0)
+            with canvas(device) as draw:
+                draw.text((6, 0), "Flexible Pomodoro Tree", fill="white")
+                draw.text((12, 0), "Settings OK ? Press play -->", fill="white")
+                draw.text((14, 0), "NO ? press settings", fill="white")
+                draw.text((20, 0), "Study: "+convertTime(pomoWorkTime), fill="white")
+                draw.text((24,0), "Break: "+convertTime(pomoBreakTime), fill="white")
+        if mode ==1:
+            # display.clear()
+            # display.text('Flexible Pomodoro Tree', 6, 0)
+            # display.text('Settings OK ? Press play -->', 12 ,0)
+            # display.text( 'NO ? press settings', 14, 0)
+            # display.text('# tasks' + str(taskNum), 20, 0)
+            with canvas(device) as draw:
+                draw.text((6, 0), "Flexible Pomodoro Tree", fill="white")
+                draw.text((12, 0), "Settings OK ? Press play -->", fill="white")
+                draw.text((14, 0), "NO ? press settings", fill="white")
+                draw.text((20, 0), '# tasks: ' + str(taskNum), fill="white")
+        if mode==2:  
+            # display.clear()
+            # display.text('Flexible Pomodoro Tree', 6, 0)
+            # display.text('Settings OK ? Press play -->', 12 ,0)
+            # display.text( 'NO ? press settings', 14, 0)
+            # display.text('Total break time' + convertTime(budgetTime), 20, 0)
+            with canvas(device) as draw:
+                draw.text((6, 0), "Flexible Pomodoro Tree", fill="white")
+                draw.text((12, 0), "Settings OK ? Press play -->", fill="white")
+                draw.text((14, 0), "NO ? press settings", fill="white")
+                draw.text((20, 0), 'Total break time: ' + convertTime(budgetTime), fill="white")
+             
+        # display.show()
+        
+    while True:
+        if playPauseCheckB:
+            playPauseCheckB = False
+            return True
+        if settingsButton:
+            settingsButton = False
+            return False
+'''
+def buzzUp():
+    playList([(C4, 0.25), (E4, 0.25), (G4, 0.25), (C5, 0.25)])
+
+def buzzDown():
+    playList([(C5, 0.25), (G4, 0.25), (E4, 0.25), (C4, 0.25)])
+  
+  
+# ==========================
+# def Tree():
+#     global playPauseCheckB
+#     global settingsSaved
+#     while True:
+#         if playPauseCheckB and settingsSaved:
+#             if mode == 0:
+#                 startPomodoro()
+#                 print("Starting Pomodoro")
+#             elif mode == 1:
+#                 startTask()
+#             elif mode == 2:
+#                 startBudget()
 
 def startPomodoro():
     global pomoWorkTime
@@ -417,13 +621,144 @@ def resetMode(): # reset the values to default
     taskNum = uTaskNum
     budgetTime = uBudgetTime
     
+
+# def checkButtonA():  # changes different modes based on button 3 way toggle
+#     global mode
+#     risingA = False
+#     while True:
+#         if readButton(pinA): # 1 button pressed, 0 button not pressed
+#             if risingA == False:
+#                 risingA = True
+#                 mode = (mode + 1) % 4
+                
+#                 if mode == 0:  # this part needs to rethink. This is to toggle to different modes, not to start the pomodoro or task or budgetBreak. perhaps we have an event so it can run in another thread. I havent fully thought it out but can explain it later.
+#                     # i think perhaps this shouldn't be here but in the buttons for startStop. either we have startStop run startPomodoro() or we keep running startPomodoro() and run that in a thread.
+#                     # or i think we should have an event as mentioned earlier that puts startPomodoro() in a thread and keeps running it. This way it will keep running in the background even if changed to another mode or setting menu while pomodoro is still going. or we have a lock so they have to finish pomodoro to change setting or go to another mode. that might work better and not be as confusing for the user
+#                     startPomodoro()
+#                 elif mode == 1:
+#                     startTaskMode()
+#                 elif mode == 2:
+#                     startBBreak()
+#         else:
+#             risingA = False
+            
+# def checkButtonR():  # reset button
+#     risingR = False
+#     while True:
+#         if readButton(pinR): # 1 button pressed, 0 button not pressed
+#             if risingR == False:
+#                 risingR = True
+#                 resetValues()
+#                 # TODO: stop clock and reset clock
+#                 clearAll() # reset LEDs
+#         else:
+#             risingR = False
+            
+# def checkButtonE():  # opens settings menu
+#     global mode
+#     global settingMenu
+#     global pressedOnce
+#     settingMenu = False
+#     risingE = False
+#     pressedOnce = 0
+    
+#     while True:
+#         if readButton(pinE): # 1 button pressed, 0 button not pressed
+#             if risingE == False:
+#                 risingE = True
+#                 if mode == 0 and pressedOnce == 1:
+#                     pressedOnce = pressedOnce + 1
+#                 elif mode == 0:
+#                     pressedOnce = pressedOnce + 1
+#                     settingMenu = not settingMenu
+#                     if pressedOnce > 1:
+#                         pressedOnce = 0
+#                 else:
+#                     settingMenu = not settingMenu
+#         else:
+#             risingE = False
+            
+# def countUp():  # count up
+#     global mode
+#     global settingMenu
+#     global pressedOnce
+#     global pomoWorkTime
+#     global pomoBreakTime
+#     global taskNum
+#     global budgetTime
+#     risingCntUp = False
+    
+#     while True:
+#         if readButton(pinB): # 1 button pressed, 0 button not pressed
+#             if risingCntUp == False and settingMenu:
+#                 risingCntUp = True
+#                 if mode == 0:
+#                     if pressedOnce == 1:
+#                         pomoWorkTime+=300 # increment pomo time by 5 min
+#                     elif pressedOnce == 2:
+#                         pomoBreakTime+=300 # increment pomo break time by 5 min
+#                 elif mode == 1:
+#                     taskNum+=1 # increment tasks
+#                 else:
+#                     budgetTime+=300 # increment break time by 5 min
+#         else:
+#             risingCntUp = False        
+            
+# def countDn():  # count down
+#     global mode
+#     global settingMenu
+#     global pressedOnce
+#     global pomoWorkTime
+#     global pomoBreakTime
+#     global taskNum
+#     global budgetTime
+#     risingCntDn = False
+    
+#     while True:
+#         if readButton(pinC): # 1 button pressed, 0 button not pressed
+#             if risingCntDn == False and settingMenu:
+#                 risingCntDn = True
+#                 if mode == 0:
+#                     if pressedOnce == 1:
+#                         pomoWorkTime-=300 # decrement pomo time by 5 min
+#                         if pomoWorkTime < 300:
+#                             pomoWorkTime = 300
+#                     elif pressedOnce == 2:
+#                         pomoBreakTime-=300 # decrement pomo break time by 5 min
+#                         if pomoBreakTime < 300:
+#                             pomoBreakTime = 300
+#                 elif mode == 1:
+#                     if taskNum > 1:
+#                         taskNum-=1 # decrement tasks
+#                 else:
+#                     budgetTime-=300 # decrement break time by 5 min
+#                     if budgetTime < 300:
+#                         budgetTime = 300
+#         else:
+#             risingCntDn = False
+            
+# def buttonSS():  # button Start Stop
+#     global mode
+#     global startStop
+#     startStop = False
+#     risingSS = False
+    
+#     while True:
+#         if readButton(pinSS): # 1 button pressed, 0 button not pressed
+#             if risingSS == False:
+#                 risingSS = True
+#                 startStop = not startStop
+#         else:
+#             risingSS = False
+
+
 def convertTime(value):  # given a number of seconds, returns string in HH:MM:SS format
     hours = value // 3600
     minutes = (value % 3600) // 60
     seconds = value % 60
     time = str(hours).rjust(2,'0') + ':' + str(minutes).rjust(2,'0') + ':' + str(seconds).rjust(2,'0')
     return time
-   
+            
 # def updateDisplay():
 #     global settingsSaved
 #     while True:
@@ -447,7 +782,7 @@ def convertTime(value):  # given a number of seconds, returns string in HH:MM:SS
 
 #             display.show()        
 #             time.sleep(1)
-            
+        
             
 displayWelcome()
 t1 = Thread(target=checkReset)
@@ -456,17 +791,17 @@ t1.start()
 t2 = Thread(target=checkPlayPauseComplete)
 t2.start()
 
-# t3 = Thread(target=checkSettings)
-# t3.start()
+t3 = Thread(target=checkSettings)
+t3.start()
 
-# t4 = Thread(target=checkUp)
-# t4.start()
+t4 = Thread(target=checkUp)
+t4.start()
 
-# t5 = Thread(target=checkDown)
-# t5.start()
+t5 = Thread(target=checkDown)
+t5.start()
 
-# t6 = Thread(target=logic)
-# t6.start()
+t6 = Thread(target=logic)
+t6.start()
 
 # t7 = Thread(target=updateDisplay)
 # t7.start()
@@ -476,9 +811,9 @@ t2.start()
 
 t1.join()
 t2.join()
-# t3.join()
-# t4.join()
-# t5.join()
-# t6.join()
+t3.join()
+t4.join()
+t5.join()
+t6.join()
 # t7.join()
 # t8.join()
