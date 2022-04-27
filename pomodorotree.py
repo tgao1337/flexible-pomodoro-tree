@@ -274,6 +274,7 @@ def pomSett():
             #display.text(convertTime(pomoTime), 30, 10, 25)
             #display.show()
             
+    print("Settings button = False, Work time set")
     settingsButton = False
     
     while not settingsButton:
@@ -295,7 +296,7 @@ def pomSett():
             display.text("Set Break Time:", 20, 0, 12)
             display.text(convertTime(pomoTime), 30, 10, 25)
             display.show()
-            
+    print("Settings button = False, Break time set")
     settingsButton = False
     settingsSaved = True
     
