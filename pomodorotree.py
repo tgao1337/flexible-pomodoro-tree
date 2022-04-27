@@ -645,7 +645,7 @@ def convertTime(value):  # given a number of seconds, returns string in HH:MM:SS
     hours = value // 3600
     minutes = (value % 3600) // 60
     seconds = value % 60
-    time = str(hours).ljust(2,'0') + ':' + str(minutes).ljust(2,'0') + ':' + str(seconds).ljust(2,'0')
+    time = str(hours).rjust(2,'0') + ':' + str(minutes).rjust(2,'0') + ':' + str(seconds).rjust(2,'0')
     return time
             
 def updateDisplay():
