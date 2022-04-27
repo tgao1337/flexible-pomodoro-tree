@@ -98,7 +98,7 @@ def checkUp():
 def checkDown():
     global downButton
     while True:
-        waitButton(pinE):
+        waitButton(pinE)
         downButton = True
         print("Down Button Pressed. downButton:", downButton)
 
