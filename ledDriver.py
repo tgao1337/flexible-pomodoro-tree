@@ -1,23 +1,34 @@
-'''I am assuming that each cluster of 7 LEDS will be on its own individual drivers, red is output A, 3 yellow is outputs B,C,D, 3 green is outputs E,F,G
-I am assuming that the  last daisy chained driver will correspond to driver #4. '''
+
 
 import RPi.GPIO as GPIO
+import spidev
 import time
 
 GPIO.setmode(GPIO.BCM)
 
-# pins I am using for now
-SER=10
-RCLK=8
-SRCLK=11
-SRCLR= 17
-
 NUM_LEDS= 32
+available_led = NUM_LEDS
 
 ledList= [0]* NUM_LEDS
 
+
 #setup the pins as outputs and set the clocks initally to low and the clear initially to high. 
 def setup():
+  SER=10
+  RCLK=8
+  SRCLK=11
+  SRCLR= 17
+
+  spi=spidev.SpiDev()
+  spi.open(0,0)
+  spi.mode=0b00
+  spi.max_speed_hz= 7629
+  
+  GPIO.setup(RCLK, GPIO.IN) #set ce0 to input 
+  
+  GPIO.setup(SRCLR, GPIO.OUT) #set SRCLR as output and high
+  GPIO.output(SRCLR, GPIO.HIGH)
+  '''
   GPIO.setup(SRCLR, GPIO.OUT)
   GPIO.setup(SER, GPIO.OUT)
   GPIO.setup(RCLK, GPIO.OUT)
@@ -26,7 +37,7 @@ def setup():
   GPIO.output(RCLK, GPIO.LOW)
   GPIO.output(SRCLK, GPIO.LOW)
   GPIO.output(SRCLR, GPIO.HIGH)
-
+  '''
 #using the commonly connected SRCLR to all the drivers, pulsing RCLK while this is 0  will clear all drivers and LEDs oFF?.
 def clearAll():
   GPIO.output(SRCLR, GPIO.LOW)
@@ -52,33 +63,64 @@ def passToLEDs(clusterStatus):
     time.sleep(0.05)
     GPIO.output(SRCLK, GPIO.HIGH)
 
+    
 def displayLED():
+  spi.xfer2(ledList[::-1])
+  
+  '''d1=bin(int(ledList[7::-1], base=2))
+  d2=bin(int(ledList[16:7:-1],base=2))
+  d3=bin(int(ledList[24:16:-1],base=2))
+  d4=bin(int(ledList[:24:-1],base=2))
+  
+  spi.xfer(d4)
+  spi.xfer(d3)
+  spi.xfer
   GPIO.output(RCLK, GPIO.LOW) #pulse RCLK after all the inputs are loaded for a given cluster
   time.sleep(0.05)
   GPIO.output(RCLK, GPIO.HIGH)
-
+  '''
 
 
 '''This function allows you to turn on the lowest currently off led in the chain or turn off the highedst currently on led in the chain
 Arguements: bool on or off'''
-def toggleNextLed(turnOn):
-
-  if(turnOn):
-    if(not (findNextLedToUpdateOn())):
-     print("ALL LEDS ON ALREADY\n")
-  else:
-   if(not(findNextLedToUpdateOff())):
-    print("ALL LEDS OFF ALREADY\n")
-
-  for i in range(NUM_CLUSTERS,0,-1):
-   passToLEDs(readClusterStatus(i))
-
+def toggleNextLed(amount,turnOn):
+  
+  ledNum= findNextLed(turnOn) 
+  if(ledNum != -1):
+    if turnOn:
+      if amount > available_led:
+        for i in range(available_led):
+          ledList[ledNum+ i]=1
+         available_led =0
+      else:
+        for i in range(amount):
+          ledList[ledNum +i] =1
+        available_led -= amount  
+    else:
+      if amount > (NUM_LEDS-available_led):
+        for i in range(NUM_LEDS-available_led):
+          ledList[ledNum+ i]=0
+         available_led =NUM_LEDS
+      else:
+        for i in range(amount):
+          ledList[ledNum +i] =0
+        available_led -= amount 
+        
+  
   displayLED()
+  else: 
+    print("ALL leds on or off")
+    
+  
 '''This function (not to be called) will update the ledDict based on what led/s have turned on/off. 
 If we wanted we could call any led from here to see if there is something wrong with it. 
 Arugments: int cluster, bool turnWholeClusterOn, char color, bool turnLedOn'''
-def updateClusterStatus(cluster,turnWholeClusterOn,color,turnLedOn):
-  if (color != 'r' and color != 'y' and color != 'g'):
+def updateLEDStatus(amount,turnLedOn):
+  
+    
+  
+  
+  '''if (color != 'r' and color != 'y' and color != 'g'):
    raise Exception( "Need to pass r,y,g in updateDictionary()")
 
   key= color + str(cluster)
@@ -99,12 +141,19 @@ def updateClusterStatus(cluster,turnWholeClusterOn,color,turnLedOn):
     if(turnLedOn):
        findNextLedToUpdateOn(key)
     else:
-       findNextLedToUpdateOff(key)
+       findNextLedToUpdateOff(key)'''
 '''This is a recursive function which finds the first 0 in the LedDict and then updates the dict to turn that 
 LED on. It starts at the first driver, which would be the lowest physically on the tree and looks to see if any
 leds in any color groups are off and then moves onto the next one and next one.'''
-def findNextLedToUpdateOn(key="x"):
-  if (key != "x"): 
+def findNextLed(turnOn):
+  
+  for i in range len(ledList): #if turning on or off, find first 1 or 0 
+    if ledList[i]== int(turnOn):
+      return i
+    else:
+      return -1
+    
+  '''if (key != "x"): 
    found=False
    arr=ledDict.get(key)
    for i in range(3):
@@ -127,7 +176,7 @@ def findNextLedToUpdateOn(key="x"):
       if(findNextLedToUpdateOn(grKey)):
           return True
    return False
-
+'''
 '''This is a recursive function which finds the first 1 in the LedDict and then updates the dict to turn that
 LED off. It starts at the fourth driver, which would be the highest physically on the tree and looks to see if any
 leds in any color groups are on and then moves onto the lower one and so on.'''
@@ -193,9 +242,9 @@ def selectClusterOFF(cluster):
    passToLEDs(readClusterStatus(i))
 
   display()
+  
 '''This function turns on all LEDs'''
 def allOn():
-
   
   for i in range(NUM_CLUSTERS,0,-1):
    passToLEDs("11111111")
@@ -212,15 +261,25 @@ if __name__ == '__main__':
   clearAll()
   print(ledDict)
   
-  for i in range(24):
+  for i in range(32):
    toggleNextLed(True)
    print(ledDict)
-  clearAll()
+  
 
-  for i in range(24):
+  for i in range(32):
    toggleNextLed(False)
+  
+  toggleNextLed(4, True)
+  time.sleep(1)
+  toggleNextLed(8,True)
+  time.sleep(1)
+  toggleNextLed(15,False)
+  time.sleep(1)
+  toggleNextLed(22,True)
+  time.sleep(1)
+  toggleNextLed(13 False)
 
-
+'''
   toggleClusterColorGroup(1,'r',True)
   toggleClusterColorGroup(2,'r',True)
   toggleClusterColorGroup(3,'r',True)
@@ -273,3 +332,4 @@ if __name__ == '__main__':
   selectClusterOFF(3)
   toggleNextLed(True)
   selectClusterOFF(1)
+'''
