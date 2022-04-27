@@ -260,12 +260,12 @@ if __name__ == '__main__':
   print(ledList)
   
   for i in range(32):
-   toggleNextLed(True)
+   toggleNextLed(1,True)
    print(ledList)
   
 
   for i in range(32):
-   toggleNextLed(False)
+   toggleNextLed(1,False)
   
   toggleNextLed(4, True)
   time.sleep(1)
