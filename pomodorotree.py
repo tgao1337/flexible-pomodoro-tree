@@ -217,6 +217,9 @@ def displayWelcome():
 #         display.draw_line(0, 45, 127 ,45)
 #         display.text("Welcome", 40, 43, 12)
 #         display.show()
+        with canvas(device) as draw:
+            draw.draw_line((0, 45, 127 ,45), fill="white")
+            draw.text((40, 43), "Welcome", fill="white")
    
 def selection():
     print("Please select a mode from the following:")
@@ -235,6 +238,8 @@ def selection():
                 #display.clear()
                 #display.text("Select Mode:\n > Pomodoro \n    Task \n    Budget", 20,0,12)
                 #display.show()
+                with canvas(device) as draw:
+                    draw.text((20, 0), "Select Mode:\n > Pomodoro \n    Task \n    Budget", fill="white")
                 if modeChangeDetected:
                     modeChangeDetected = False
                     print("==========")
@@ -245,7 +250,13 @@ def selection():
 #                 display.text("> Pomodoro", 20,0,14)
 #                 display.text("Task", 32,12,14)
 #                 display.text("Budget", 32,24,14)
-                
+                with canvas(device) as draw:
+                    draw.draw_line((0, 45, 127 ,45), fill="white")
+                    draw.text((30,45), "Select Mode", fill="white")
+                    draw.text((20,0), "> Pomodoro", fill="white")
+                    draw.text((32,12), "Task", fill="white")
+                    draw.text((32,24), "Budget", fill="white")
+ 
                 if downButton:
                     mode = 1
                     downButton = False
@@ -264,6 +275,8 @@ def selection():
                 #display.clear()
                 #display.text("Select Mode:\n    Pomodoro \n > Task \n    Budget", 20,0,12)
                 #display.show()
+                with canvas(device) as draw:
+                    draw.text((20, 0), "Select Mode:\n    Pomodoro \n > Task \n    Budget", fill="white")
                 if modeChangeDetected:
                     modeChangeDetected = False
                     print("==========")
@@ -273,6 +286,12 @@ def selection():
 #                 display.text("Pomodoro", 32,0,14)
 #                 display.text("> Task", 20,12,14)
 #                 display.text("Budget", 32,24,14)
+                with canvas(device) as draw:
+                    draw.draw_line((0, 45, 127 ,45), fill="white")
+                    draw.text((30,45), "Select Mode", fill="white")
+                    draw.text((32,0), "Pomodoro", fill="white")
+                    draw.text((20,12), "> Task", fill="white")
+                    draw.text((32,24), "Budget", fill="white")
                 
                 if downButton:
                     mode = 2
@@ -292,6 +311,8 @@ def selection():
                 #display.clear()
                 #display.text("Select Mode:\n    Pomodoro \n    Task \n > Budget", 20,0,12)
                 #display.show()
+                with canvas(device) as draw:
+                    draw.text((20, 0), "Select Mode:\n    Pomodoro \n    Task \n > Budget", fill="white")
                 if modeChangeDetected:
                     modeChangeDetected = False
                     print("==========")            
@@ -301,6 +322,12 @@ def selection():
 #                 display.text("Pomodoro", 32,0,14)
 #                 display.text("Task", 32,12,14)
 #                 display.text("> Budget", 20,24,14)
+                with canvas(device) as draw:
+                    draw.draw_line((0, 45, 127 ,45), fill="white")
+                    draw.text((30,45), "Select Mode", fill="white")
+                    draw.text((32,0), "Pomodoro", fill="white")
+                    draw.text((32,12), "Task", fill="white")
+                    draw.text((20,24), "> Budget", fill="white")
                 
                 if downButton:
                     mode=2
@@ -348,6 +375,11 @@ def pomSett():
             #display.text("Set Work Time:", 25, 0, 12)
             #display.text(convertTime(pomoWorkTime), 30, 10, 25)
             #display.show()
+            with canvas(device) as draw:
+                draw.draw_line((0, 45, 127 ,45), fill="white")
+                draw.text((20,45), "P | Settings | 4", fill="white")
+                draw.text((25, 0), "Set Work Time:", fill="white")
+                draw.text((30, 10), convertTime(pomoWorkTime), fill="white")
             
     settingsButton = False
     print("WORK TIME SET TO:", pomoWorkTime)
@@ -372,8 +404,13 @@ def pomSett():
 #             display.text("P | Settings | 4", 20,45,12)
             
 #             display.text("Set Break Time:", 20, 0, 12)
-#             display.text(convertTime(pomoWorkTime), 30, 10, 25)
+#             display.text(convertTime(pomoBreakTime), 30, 10, 25)  # changed pomoWorkTime to pomoBreakTime
 #             display.show()
+            with canvas(device) as draw:
+                draw.draw_line((0, 45, 127 ,45), fill="white")
+                draw.text((20,45), "P | Settings | 4", fill="white")
+                draw.text((20, 0), "Set Break Time:", fill="white")
+                draw.text((30, 10), convertTime(pomoBreakTime), fill="white")
    
     settingsButton = False
     print("BREAK TIME SET TO:", pomoBreakTime)
@@ -400,15 +437,21 @@ def taskSett():
                   downButton=False
                   if taskNum > 1:
                       taskNum -= 1
-             display.clear()
-             display.draw_line(0, 45, 127 ,45)
-             display.text("T | Settings", 35,45,12)
-             display.text("Set Tasks:", 40, 0, 12)
-             if taskNum > 9:
-                 display.text(str(taskNum), 50, 10, 25)
-             else:
-                 display.text(str(taskNum), 60, 10, 25)
-             display.show()  
+             with canvas(device) as draw:
+                draw.draw_line((0, 45, 127 ,45), fill="white")
+                draw.text((35,45), "T | Settings", fill="white")
+                draw.text((40, 0), "Set Tasks:", fill="white")
+             # display.clear()
+             # display.draw_line(0, 45, 127 ,45)
+             # display.text("T | Settings", 35,45,12)
+             # display.text("Set Tasks:", 40, 0, 12)
+                if taskNum > 9:
+                    draw.text((50, 10), str(taskNum", fill="white")
+                   # display.text(str(taskNum), 50, 10, 25)
+                else:
+                    draw.text((60, 10), str(taskNum, fill="white")
+                    # display.text(str(taskNum), 60, 10, 25)
+             # display.show()  
              
              
     settingsButton = False
@@ -433,12 +476,17 @@ def budgSett():
                 downButton=False
                 if budgetTime > 600:
                     budgetTime -= 600
-            display.clear()
+           ''' display.clear()
             display.draw_line(0, 45, 127 ,45)
             display.text("B | Settings", 35,45,12)
             display.text("Set Break Time:", 20, 0, 12)
             display.text(convertTime(budgetTime), 30, 10,25)
-            display.show()     
+            display.show()'''
+            with canvas(device) as draw:
+                draw.draw_line((0, 45, 127 ,45), fill="white")
+                draw.text((35,45), "B | Settings", fill="white")
+                draw.text((20, 0), "Set Break Time:", fill="white")
+                draw.text((30, 10), convertTime(budgetTime), fill="white")
     settingsButton = False
     uBudgetTime = budgetTime
     settingsSaved = True
@@ -456,25 +504,42 @@ def check():
     
     with dispLock:
         if mode==0:
-             display.clear()
-             display.text('Flexible Pomodoro Tree', 6, 0)
-             display.text('Settings OK ? Press play -->', 12 ,0)
-             display.text( 'NO ? press settings', 14, 0)
-             display.text('Study' + convertTime(pomoWorkTime), 20, 0)
-             display.text('Break' + convertTime(pomoBreakTime), 24,0)
+            '''display.clear()
+            display.text('Flexible Pomodoro Tree', 6, 0)
+            display.text('Settings OK ? Press play -->', 12 ,0)
+            display.text( 'NO ? press settings', 14, 0)
+            display.text('Study ' + convertTime(pomoWorkTime), 20, 0)
+            display.text('Break ' + convertTime(pomoBreakTime), 24,0)'''
+            with canvas(device) as draw:
+                draw.text((6, 0), "Flexible Pomodoro Tree", fill="white")
+                draw.text((12, 0), "Settings OK ? Press play -->", fill="white")
+                draw.text((14, 0), "NO ? press settings", fill="white")
+                draw.text((20, 0), "Study: "+convertTime(pomoWorkTime), fill="white")
+                draw.text((24,0), "Break: "+convertTime(pomoBreakTime), fill="white")
         if mode ==1:
-             display.clear()
-             display.text('Flexible Pomodoro Tree', 6, 0)
-             display.text('Settings OK ? Press play -->', 12 ,0)
-             display.text( 'NO ? press settings', 14, 0)
-             display.text('# tasks' + str(taskNum), 20, 0)
+            '''display.clear()
+            display.text('Flexible Pomodoro Tree', 6, 0)
+            display.text('Settings OK ? Press play -->', 12 ,0)
+            display.text( 'NO ? press settings', 14, 0)
+            display.text('# tasks' + str(taskNum), 20, 0)'''
+            with canvas(device) as draw:
+                draw.text((6, 0), "Flexible Pomodoro Tree", fill="white")
+                draw.text((12, 0), "Settings OK ? Press play -->", fill="white")
+                draw.text((14, 0), "NO ? press settings", fill="white")
+                draw.text((20, 0), '# tasks: ' + str(taskNum), fill="white")
         if mode==2:  
-             display.clear()
-             display.text('Flexible Pomodoro Tree', 6, 0)
-             display.text('Settings OK ? Press play -->', 12 ,0)
-             display.text( 'NO ? press settings', 14, 0)
-             display.text('Total break time' + convertTime(budgetTime), 20, 0)
-        display.show()
+            '''display.clear()
+            display.text('Flexible Pomodoro Tree', 6, 0)
+            display.text('Settings OK ? Press play -->', 12 ,0)
+            display.text( 'NO ? press settings', 14, 0)
+            display.text('Total break time' + convertTime(budgetTime), 20, 0)'''
+            with canvas(device) as draw:
+                draw.text((6, 0), "Flexible Pomodoro Tree", fill="white")
+                draw.text((12, 0), "Settings OK ? Press play -->", fill="white")
+                draw.text((14, 0), "NO ? press settings", fill="white")
+                draw.text((20, 0), 'Total break time: ' + convertTime(budgetTime), fill="white")
+             
+        # display.show()
         
     while True:
         if playPauseCheckB:
