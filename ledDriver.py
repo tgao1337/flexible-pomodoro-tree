@@ -108,8 +108,7 @@ def toggleNextLed(amount,turnOn):
         
   
   displayLED()
-  else: 
-    print("ALL leds on or off")
+
     
   
 '''This function (not to be called) will update the ledDict based on what led/s have turned on/off. 
