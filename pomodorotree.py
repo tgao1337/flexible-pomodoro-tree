@@ -505,7 +505,7 @@ def startPomodoro():
             x = pomoWorkTime + 1
             
             for i in range(x):
-                if playPauseCheckB == False or resetRequired == False:
+                if playPauseCheckB == False or resetRequired == True:
                     return
                 print(convertTime(pomoWorkTime))
                 pomoWorkTime = pomoWorkTime - 1
