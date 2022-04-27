@@ -218,7 +218,7 @@ def displayWelcome():
 #         display.text("Welcome", 40, 43, 12)
 #         display.show()
         with canvas(device) as draw:
-            draw.draw_line((0, 45, 127 ,45), fill="white")
+            draw.line((0, 45, 127 ,45), fill="white")
             draw.text((40, 43), "Welcome", fill="white")
    
 def selection():
@@ -251,7 +251,7 @@ def selection():
 #                 display.text("Task", 32,12,14)
 #                 display.text("Budget", 32,24,14)
                 with canvas(device) as draw:
-                    draw.draw_line((0, 45, 127 ,45), fill="white")
+                    draw.line((0, 45, 127 ,45), fill="white")
                     draw.text((30,45), "Select Mode", fill="white")
                     draw.text((20,0), "> Pomodoro", fill="white")
                     draw.text((32,12), "Task", fill="white")
@@ -287,7 +287,7 @@ def selection():
 #                 display.text("> Task", 20,12,14)
 #                 display.text("Budget", 32,24,14)
                 with canvas(device) as draw:
-                    draw.draw_line((0, 45, 127 ,45), fill="white")
+                    draw.line((0, 45, 127 ,45), fill="white")
                     draw.text((30,45), "Select Mode", fill="white")
                     draw.text((32,0), "Pomodoro", fill="white")
                     draw.text((20,12), "> Task", fill="white")
@@ -323,7 +323,7 @@ def selection():
 #                 display.text("Task", 32,12,14)
 #                 display.text("> Budget", 20,24,14)
                 with canvas(device) as draw:
-                    draw.draw_line((0, 45, 127 ,45), fill="white")
+                    draw.line((0, 45, 127 ,45), fill="white")
                     draw.text((30,45), "Select Mode", fill="white")
                     draw.text((32,0), "Pomodoro", fill="white")
                     draw.text((32,12), "Task", fill="white")
@@ -376,7 +376,7 @@ def pomSett():
             #display.text(convertTime(pomoWorkTime), 30, 10, 25)
             #display.show()
             with canvas(device) as draw:
-                draw.draw_line((0, 45, 127 ,45), fill="white")
+                draw.line((0, 45, 127 ,45), fill="white")
                 draw.text((20,45), "P | Settings | 4", fill="white")
                 draw.text((25, 0), "Set Work Time:", fill="white")
                 draw.text((30, 10), convertTime(pomoWorkTime), fill="white")
@@ -407,7 +407,7 @@ def pomSett():
 #             display.text(convertTime(pomoBreakTime), 30, 10, 25)  # changed pomoWorkTime to pomoBreakTime
 #             display.show()
             with canvas(device) as draw:
-                draw.draw_line((0, 45, 127 ,45), fill="white")
+                draw.line((0, 45, 127 ,45), fill="white")
                 draw.text((20,45), "P | Settings | 4", fill="white")
                 draw.text((20, 0), "Set Break Time:", fill="white")
                 draw.text((30, 10), convertTime(pomoBreakTime), fill="white")
@@ -438,7 +438,7 @@ def taskSett():
                   if taskNum > 1:
                       taskNum -= 1
              with canvas(device) as draw:
-                draw.draw_line((0, 45, 127 ,45), fill="white")
+                draw.line((0, 45, 127 ,45), fill="white")
                 draw.text((35,45), "T | Settings", fill="white")
                 draw.text((40, 0), "Set Tasks:", fill="white")
              # display.clear()
@@ -483,7 +483,7 @@ def budgSett():
             display.text(convertTime(budgetTime), 30, 10,25)
             display.show()'''
             with canvas(device) as draw:
-                draw.draw_line((0, 45, 127 ,45), fill="white")
+                draw.line((0, 45, 127 ,45), fill="white")
                 draw.text((35,45), "B | Settings", fill="white")
                 draw.text((20, 0), "Set Break Time:", fill="white")
                 draw.text((30, 10), convertTime(budgetTime), fill="white")
