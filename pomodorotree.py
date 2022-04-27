@@ -504,12 +504,12 @@ def check():
     
     with dispLock:
         if mode==0:
-            '''display.clear()
-            display.text('Flexible Pomodoro Tree', 6, 0)
-            display.text('Settings OK ? Press play -->', 12 ,0)
-            display.text( 'NO ? press settings', 14, 0)
-            display.text('Study ' + convertTime(pomoWorkTime), 20, 0)
-            display.text('Break ' + convertTime(pomoBreakTime), 24,0)'''
+            # display.clear()
+            # display.text('Flexible Pomodoro Tree', 6, 0)
+            # display.text('Settings OK ? Press play -->', 12 ,0)
+            # display.text( 'NO ? press settings', 14, 0)
+            # display.text('Study ' + convertTime(pomoWorkTime), 20, 0)
+            # display.text('Break ' + convertTime(pomoBreakTime), 24,0)
             with canvas(device) as draw:
                 draw.text((6, 0), "Flexible Pomodoro Tree", fill="white")
                 draw.text((12, 0), "Settings OK ? Press play -->", fill="white")
@@ -517,22 +517,22 @@ def check():
                 draw.text((20, 0), "Study: "+convertTime(pomoWorkTime), fill="white")
                 draw.text((24,0), "Break: "+convertTime(pomoBreakTime), fill="white")
         if mode ==1:
-            '''display.clear()
-            display.text('Flexible Pomodoro Tree', 6, 0)
-            display.text('Settings OK ? Press play -->', 12 ,0)
-            display.text( 'NO ? press settings', 14, 0)
-            display.text('# tasks' + str(taskNum), 20, 0)'''
+            # display.clear()
+            # display.text('Flexible Pomodoro Tree', 6, 0)
+            # display.text('Settings OK ? Press play -->', 12 ,0)
+            # display.text( 'NO ? press settings', 14, 0)
+            # display.text('# tasks' + str(taskNum), 20, 0)
             with canvas(device) as draw:
                 draw.text((6, 0), "Flexible Pomodoro Tree", fill="white")
                 draw.text((12, 0), "Settings OK ? Press play -->", fill="white")
                 draw.text((14, 0), "NO ? press settings", fill="white")
                 draw.text((20, 0), '# tasks: ' + str(taskNum), fill="white")
         if mode==2:  
-            '''display.clear()
-            display.text('Flexible Pomodoro Tree', 6, 0)
-            display.text('Settings OK ? Press play -->', 12 ,0)
-            display.text( 'NO ? press settings', 14, 0)
-            display.text('Total break time' + convertTime(budgetTime), 20, 0)'''
+            # display.clear()
+            # display.text('Flexible Pomodoro Tree', 6, 0)
+            # display.text('Settings OK ? Press play -->', 12 ,0)
+            # display.text( 'NO ? press settings', 14, 0)
+            # display.text('Total break time' + convertTime(budgetTime), 20, 0)
             with canvas(device) as draw:
                 draw.text((6, 0), "Flexible Pomodoro Tree", fill="white")
                 draw.text((12, 0), "Settings OK ? Press play -->", fill="white")
