@@ -155,7 +155,7 @@ def displayWelcome():
     with dispLock:
         print("Welcome! Press Settings to select a mode")
         display.clear()
-        draw tree
+#         draw tree
         display.draw_line(0, 45, 127 ,45)
         display.text("Welcome", 40, 43, 12)
         display.show()
