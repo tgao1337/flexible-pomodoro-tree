@@ -91,7 +91,7 @@ def checkUp():
     global upButton
     global settingsButton
     while True:
-        waitButton(pinD):
+        waitButton(pinD)
         upButton = True
         print("Up Button Pressed. upButton:", upButton)
     
