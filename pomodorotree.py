@@ -519,9 +519,9 @@ def startPomodoro():
                 time.sleep(1)
             inPomoBreak = False  # changes to work
          
-         resetMode()
-         print("Done with a cycle! Please press play button to start new cycle")
-         playPauseCheckB = False
+        resetMode()
+        print("Done with a cycle! Please press play button to start new cycle")
+        playPauseCheckB = False
          
 def resetMode(): # reset the values to default
     global pomoWorkTime
