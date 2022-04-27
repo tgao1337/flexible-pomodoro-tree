@@ -67,7 +67,7 @@ def passToLEDs(clusterStatus):
     
 def displayLED():
   global ledList
-  spi.xfer2(ledList[::-1])
+  spi.xfer(ledList[::-1])
   
   '''d1=bin(int(ledList[7::-1], base=2))
   d2=bin(int(ledList[16:7:-1],base=2))
