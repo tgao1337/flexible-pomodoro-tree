@@ -10,6 +10,7 @@ NUM_LEDS= 32
 global available_led
 available_led = NUM_LEDS
 
+global ledList
 ledList= [0]* NUM_LEDS
 
 spi=spidev.SpiDev()
@@ -65,6 +66,7 @@ def passToLEDs(clusterStatus):
 
     
 def displayLED():
+  global ledList
   spi.xfer2(ledList[::-1])
   
   '''d1=bin(int(ledList[7::-1], base=2))
@@ -85,6 +87,7 @@ def displayLED():
 Arguements: bool on or off'''
 def toggleNextLed(amount,turnOn):
   global available_led
+  global ledList
   
   ledNum= findNextLed(turnOn) 
   if(ledNum != -1):
@@ -146,6 +149,7 @@ def updateLEDStatus(amount,turnLedOn):
 LED on. It starts at the first driver, which would be the lowest physically on the tree and looks to see if any
 leds in any color groups are off and then moves onto the next one and next one.'''
 def findNextLed(turnOn):
+  global ledList
   
   for i in range (len(ledList)): #if turning on or off, find first 1 or 0 
     if ledList[i]== int(turnOn):
