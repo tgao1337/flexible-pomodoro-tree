@@ -110,6 +110,7 @@ def checkSettings():
             debouncePinC = False
     
 def checkUp(): #thread
+    print("Running thread: CheckUp")
     global upButton
     global settingsButton
     debouncePinD = False
@@ -126,6 +127,7 @@ def checkUp(): #thread
             debouncePinD = False
     
 def checkDown(): #thread
+    print("Running thread: CheckDown")
     global downButton
     debouncePinE = False
     while True:
