@@ -476,7 +476,7 @@ def budgSett():
                 downButton=False
                 if budgetTime > 600:
                     budgetTime -= 600
-           ''' display.clear()
+            ''' display.clear()
             display.draw_line(0, 45, 127 ,45)
             display.text("B | Settings", 35,45,12)
             display.text("Set Break Time:", 20, 0, 12)
