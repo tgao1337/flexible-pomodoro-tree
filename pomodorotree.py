@@ -213,15 +213,16 @@ def logic(): #thread
             
 def displayWelcome():
     with dispLock:
-        print("Welcome! Press Start and Settings to select a mode")
+        while not resetRequired:
+            print("Welcome! Press Start and Settings to select a mode")
 #         display.clear()
 # #         draw tree
 #         display.draw_line(0, 45, 127 ,45)
 #         display.text("Welcome", 40, 43, 12)
 #         display.show()
-        with canvas(device) as draw:
-            draw.line((0, 45, 127 ,45), fill="white")
-            draw.text((40, 43), "Welcome", fill="white")
+            with canvas(device) as draw:
+                draw.line((0, 45, 127 ,45), fill="white")
+                draw.text((40, 43), "Welcome", fill="white")
    
 def selection():
     print("Please select a mode from the following:")
