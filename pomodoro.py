@@ -4,6 +4,12 @@ import time
 import RPi.GPIO as GPIO
 from smbus import SMBus
 from PIL import Image,ImageDraw,ImageFont
+from luma.core.interface.serial import i2c
+from luma.core.render import canvas
+from luma.oled.device import sh1106
+
+serial = i2c(port=1, address = 0x3C)
+device = sh1106(serial)
 
 default_font = ImageFont.truetype('Font.ttf', 10)
 OLED_WIDTH = 128
@@ -132,7 +138,7 @@ def playList(lst):
     
 # This section is for...
 
-
+'''
 class OLED(object):
     def __init__(self):
         self.width = OLED_WIDTH
@@ -221,7 +227,7 @@ class OLED(object):
         # From (w,x) to (y,x)
         draw.line([(w,x),(y,z)])
         self.show()
-
+'''
 #LED driver functions 
 def led_setup():
   GPIO.setup(SRCLR, GPIO.OUT)
