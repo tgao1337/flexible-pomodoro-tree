@@ -154,7 +154,7 @@ def findNextLed(turnOn):
   
   for i in range (len(ledList)): #if turning on or off, find first 1 or 0 
     print("IN FOR LLOP, i=",i, "int(turnOn)==", int(turnOn))
-    if ledList[i]== int(turnOn):
+    if ledList[i]== !(int(turnOn)):
       return i
     else:
       return -1
