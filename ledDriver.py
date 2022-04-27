@@ -91,7 +91,7 @@ def toggleNextLed(amount,turnOn):
       if amount > available_led:
         for i in range(available_led):
           ledList[ledNum+ i]=1
-         available_led =0
+        available_led =0
       else:
         for i in range(amount):
           ledList[ledNum +i] =1
@@ -100,7 +100,7 @@ def toggleNextLed(amount,turnOn):
       if amount > (NUM_LEDS-available_led):
         for i in range(NUM_LEDS-available_led):
           ledList[ledNum+ i]=0
-         available_led =NUM_LEDS
+        available_led =NUM_LEDS
       else:
         for i in range(amount):
           ledList[ledNum +i] =0
