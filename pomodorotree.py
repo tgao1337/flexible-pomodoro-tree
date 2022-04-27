@@ -149,7 +149,7 @@ def logic(): #thread
             elif result == 2:
                 budgSett()
               
-        if playPauseCheckB and settingsSaved and not resetRequired: # If the playPauseCheckB has been pressed and settingsSaved start Tree
+        if playPauseCheckB and settingsSaved and resetRequired: # If the playPauseCheckB has been pressed and settingsSaved start Tree
             if mode == 0:
                 startPomodoro()
                 print("Starting Pomodoro now!")
