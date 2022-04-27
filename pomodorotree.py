@@ -134,11 +134,11 @@ def checkDown(): #thread
         if readButton(pinE):
             if debouncePinE == False:
                 debouncePinE = True
-                if settingsButton:
-                    downButton = True
-                    print("Down Button Pressed")
-                else:
-                    downButton = False
+#                 if settingsButton:
+                downButton = True
+                print("Down Button Pressed")
+#                 else:
+#                     downButton = False
         else:
             debouncePinE = False
     
