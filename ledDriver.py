@@ -248,21 +248,21 @@ def allOn():
   for i in range(NUM_LEDS):
     ledList[i]=1
   
-  display()
-  time.sleep(2)
+  displayLED()
+  
 
 #test code
 if __name__ == '__main__':
   setup()
 
   allOn()
-  time.sleep(0.05)  
+  time.sleep(1)  
   clearAll()
-  print(ledDict)
+  print(ledList)
   
   for i in range(32):
    toggleNextLed(True)
-   print(ledDict)
+   print(ledList)
   
 
   for i in range(32):
