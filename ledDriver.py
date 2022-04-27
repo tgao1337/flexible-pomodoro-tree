@@ -152,7 +152,7 @@ leds in any color groups are off and then moves onto the next one and next one.'
 def findNextLed(turnOn):
   global ledList
   
-  for i in range (len(ledList)): #if turning on or off, find first 1 or 0 
+  for i in range (NUM_LEDS): #if turning on or off, find first 1 or 0 
     if ledList[i]== int(not turnOn):
       return i
     else:
