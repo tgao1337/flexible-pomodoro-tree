@@ -337,7 +337,7 @@ def pomSett():
     settingsButton = False
     print("BREAK TIME SET TO:", pomoBreak)
     settingsSaved = True
-    print("Settings have been saved", settingSaved)
+    print("Settings have been saved", settingsSaved)
 
 def taskSett():
     global upButton
