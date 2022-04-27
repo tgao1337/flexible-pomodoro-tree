@@ -146,7 +146,7 @@ LED on. It starts at the first driver, which would be the lowest physically on t
 leds in any color groups are off and then moves onto the next one and next one.'''
 def findNextLed(turnOn):
   
-  for i in range len(ledList): #if turning on or off, find first 1 or 0 
+  for i in range (len(ledList)): #if turning on or off, find first 1 or 0 
     if ledList[i]== int(turnOn):
       return i
     else:
