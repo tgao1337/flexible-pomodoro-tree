@@ -657,7 +657,7 @@ def updateDisplay():
             time.sleep(1)
         
             
-
+displayWelcome()
 t1 = Thread(target=checkReset)
 t1.start()
 
