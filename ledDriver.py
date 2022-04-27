@@ -42,9 +42,7 @@ def setup():
 #using the commonly connected SRCLR to all the drivers, pulsing RCLK while this is 0  will clear all drivers and LEDs oFF?.
 def clearAll():
   GPIO.output(SRCLR, GPIO.LOW)
-  GPIO.output(RCLK, GPIO.LOW)
-  time.sleep(0.05)
-  GPIO.output(RCLK, GPIO.HIGH)
+  spi.xfer[0b0]
   GPIO.output(SRCLR, GPIO.HIGH)
 
   for led in ledList:
