@@ -30,7 +30,7 @@ pinA = 5
 pinB = 6
 pinC = 16
 pinD = 24
-pinE = 26
+pinE = 4 # 26
 GPIO.setup(pinA, GPIO.IN)
 GPIO.setup(pinB, GPIO.IN)
 GPIO.setup(pinC, GPIO.IN)
