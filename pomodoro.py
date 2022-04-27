@@ -440,6 +440,10 @@ def allOn():
 def readButton(pin):
   return GPIO.input(pin)
 
+def waitButton(pin):
+  GPIO.wait_for_edge(pin, GPIO.RISING)
+  return
+
 '''with canvas(device) as draw:
     draw.line((0, 45, 127 ,45), fill="white")
     draw.text((40, 43), "Welcome", fill="white")'''
