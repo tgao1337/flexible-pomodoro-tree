@@ -4,10 +4,10 @@ from threading import Thread, Event, Lock
 from pomodoro import *
 
 global mode
-global pomoTime
-global pomoBreak
+global pomoWorkTime
+global pomoBreakTime
 global taskNum
-global breakBTime
+global budgetTime
 global pressedOnce
 global inPomoBreak
 global resetRequired
@@ -16,6 +16,11 @@ global settingsButton
 global settingsSaved
 global upButton
 global downButton
+# user set times
+global uPomoWTime
+global uPomoBTime
+global uTaskNum
+global uBudgetTime
 
 # display = OLED()
 # display.setup()
@@ -25,12 +30,18 @@ dispLock=Lock()
 eventSettings = Event()
 
 mode = 0  # study mode
-pomoTime = 25 * 60  # These are default values
-pomoBreak = 5 * 60  # These are default values
+pomoWorkTime = 25 * 60  # These are default values
+pomoBreakTime = 5 * 60  # These are default values
+taskNum = 4  # these are default values
+budgetTime = 60 * 60  # these are default values
+# changed when user modifies the following, also used to reset values to these
+uPomoWTime = 25 * 60
+uPomoBTime = 5 * 60
+uTaskNum = 4
+uBudgetTime = 60 * 60
+
 inPomoBreak = False
-taskNum = 3  # these are default values
 currentTask = 1
-breakBTime = 60 * 60  # these are default values
 pressedOnce = 0 # tracks mode 0 second setting
 
 resetRequired = False # True: Start for the day, False: End for the day
@@ -295,60 +306,64 @@ def pomSett():
     global downButton
     global settingsButton
     global settingsSaved
-    global pomoTime
-    global pomoBreak
+    global pomoWorkTime
+    global pomoBreakTime
+    global uPomoWTime
+    global uPomoBTime
     
-    print("Please set the work time. Current work time:", pomoTime)
-    while not settingsButton: # If settingsButton is not pressed keep changing pomoTime
+    print("Please set the work time. Current work time:", pomoWorkTime)
+    while not settingsButton: # If settingsButton is not pressed keep changing pomoWorkTime
         with dispLock:
             
             if upButton: 
                 upButton = False
-                if pomoTime < 7200: #upper limit 2 hours for pomodoro time or shoudl go infintieyl up?
-                    pomoTime += 300
-                    print("New work time:", pomoTime)
+                if pomoWorkTime < 7200: #upper limit 2 hours for pomodoro time or shoudl go infintieyl up?
+                    pomoWorkTime += 300
+                    print("New work time:", pomoWorkTime)
             if downButton:
                 downButton = False
-                if pomoTime >= 600:
-                    pomoTime -= 300
-                    print("New work time:", pomoTime)
+                if pomoWorkTime >= 600:
+                    pomoWorkTime -= 300
+                    print("New work time:", pomoWorkTime)
 
             #display.clear()
             #display.draw_line(0, 45, 127 ,45)
             #display.text("P | Settings | 4", 20,45,12)
             
             #display.text("Set Work Time:", 25, 0, 12)
-            #display.text(convertTime(pomoTime), 30, 10, 25)
+            #display.text(convertTime(pomoWorkTime), 30, 10, 25)
             #display.show()
             
     settingsButton = False
-    print("WORK TIME SET TO:", pomoTime)
+    print("WORK TIME SET TO:", pomoWorkTime)
 
-    print("Please set the break time. Current break time:", pomoBreak)
+    print("Please set the break time. Current break time:", pomoBreakTime)
     while not settingsButton:
          with dispLock:
             
             if upButton: 
                 upButton = False
-                if pomoBreak < 3600: #upper limit 1 hours for pomodoro break time ?
-                    pomoBreak += 300
-                    print("New break time:", pomoBreak)
+                if pomoBreakTime < 3600: #upper limit 1 hours for pomodoro break time ?
+                    pomoBreakTime += 300
+                    print("New break time:", pomoBreakTime)
             if downButton:
                 downButton = False
-                if pomoBreak > 300:
-                    pomoBreak -= 300
-                    print("New break time:", pomoBreak)
+                if pomoBreakTime > 300:
+                    pomoBreakTime -= 300
+                    print("New break time:", pomoBreakTime)
                     
 #             display.clear()
 #             display.draw_line(0, 45, 127 ,45)
 #             display.text("P | Settings | 4", 20,45,12)
             
 #             display.text("Set Break Time:", 20, 0, 12)
-#             display.text(convertTime(pomoTime), 30, 10, 25)
+#             display.text(convertTime(pomoWorkTime), 30, 10, 25)
 #             display.show()
    
     settingsButton = False
-    print("BREAK TIME SET TO:", pomoBreak)
+    print("BREAK TIME SET TO:", pomoBreakTime)
+    uPomoWTime = pomoWorkTime
+    uPomoBTime = pomoBreakTime
     settingsSaved = True
     print("Settings have been saved", settingsSaved)
 
@@ -358,6 +373,7 @@ def taskSett():
     global settingsButton
     global taskNum
     global settingsSaved
+    global uTaskNum
     
     while not settingsButton:
         with dispLock:
@@ -381,32 +397,35 @@ def taskSett():
              
              
     settingsButton = False
+    uTaskNum = taskNum
     settingsSaved = True
        
 def budgSett():
     global upButton
     global downButton
     global settingsButton
-    global breakBTime
+    global budgetTime
     global settingsSaved
+    global uBudgetTime
     
     while not settingsButton:
         with dispLock:
             if upButton: 
                 upButton = False
-                if breakBTime < 18000: #upper limit 5 hours
-                    breakBTime += 600 # maybe more than 10 min increments for this one
+                if budgetTime < 18000: #upper limit 5 hours
+                    budgetTime += 600 # maybe more than 10 min increments for this one
             if downButton:
                 downButton=False
-                if breakBTime > 600:
-                    breakBTime -= 600
+                if budgetTime > 600:
+                    budgetTime -= 600
             display.clear()
             display.draw_line(0, 45, 127 ,45)
             display.text("B | Settings", 35,45,12)
             display.text("Set Break Time:", 20, 0, 12)
-            display.text(convertTime(breakBTime), 30, 10,25)
+            display.text(convertTime(budgetTime), 30, 10,25)
             display.show()     
     settingsButton = False
+    uBudgetTime = budgetTime
     settingsSaved = True
 
 '''
@@ -415,10 +434,10 @@ def check():
     global mode
     global playPauseCheckB
     global settingsButton
-    global pomoTime
-    global pomoBreak
+    global pomoWorkTime
+    global pomoBreakTime
     global taskNum
-    global breakBTime
+    global budgetTime
     
     with dispLock:
         if mode==0:
@@ -426,8 +445,8 @@ def check():
              display.text('Flexible Pomodoro Tree', 6, 0)
              display.text('Settings OK ? Press play -->', 12 ,0)
              display.text( 'NO ? press settings', 14, 0)
-             display.text('Study' + convertTime(pomoTime), 20, 0)
-             display.text('Break' + convertTime(pomoBreak), 24,0)
+             display.text('Study' + convertTime(pomoWorkTime), 20, 0)
+             display.text('Break' + convertTime(pomoBreakTime), 24,0)
         if mode ==1:
              display.clear()
              display.text('Flexible Pomodoro Tree', 6, 0)
@@ -439,7 +458,7 @@ def check():
              display.text('Flexible Pomodoro Tree', 6, 0)
              display.text('Settings OK ? Press play -->', 12 ,0)
              display.text( 'NO ? press settings', 14, 0)
-             display.text('Total break time' + convertTime(breakBTime), 20, 0)
+             display.text('Total break time' + convertTime(budgetTime), 20, 0)
         display.show()
         
     while True:
@@ -472,44 +491,53 @@ def buzzDown():
 #                 startBudget()
 
 def startPomodoro():
-    global pomoTime
-    global pomoBreak
+    global pomoWorkTime
+    global pomoBreakTime
     global inPomoBreak
+    global 
     
     if playPauseCheckB:
         if not inPomoBreak:
             print("Mode: Pomodoro, Work")
-            x = pomoTime + 1
+            x = pomoWorkTime + 1
+            
             for i in range(x):
-                print(convertTime(pomoTime))
+                print(convertTime(pomoWorkTime))
                 if playPauseCheckB == False:
                     return
-                pomoTime = pomoTime - 1
+                pomoWorkTime = pomoWorkTime - 1
                 time.sleep(1)
             inPomoBreak = True  # changes to break
             
         if inPomoBreak:
             print("Mode: Pomodoro, Break")
-            x = pomoBreak + 1
+            x = pomoBreakTime + 1
             for i in range(x):
-                print(convertTime(pomoBreak))
+                print(convertTime(pomoBreakTime))
                 if playPauseCheckB == False:
                     return
-                pomoBreak = pomoBreak - 1
+                pomoBreakTime = pomoBreakTime - 1
                 time.sleep(1)
             inPomoBreak = False  # changes to work
-            
-
-
-# def resetValues(): # reset the values to default
-#     global pomoTime
-#     global pomoBreak
-#     global taskNum
-#     global breakBTime
-#     pomoTime = 25*60
-#     pomoBreak = 5*60
-#     taskNum = 3
-#     breakBTime = 5*60
+         
+         resetMode()
+         print("Done with a cycle! Please press play button to start new cycle")
+         playPauseCheckB = False
+         
+def resetMode(): # reset the values to default
+    global pomoWorkTime
+    global pomoBreakTime
+    global taskNum
+    global budgetTime
+    global uTaskNum
+    global uBudgetTime
+    
+    # reset to user input times
+    pomoWorkTime = uPomoWTime
+    pomoBreakTime = uPomoBTime
+    taskNum = uTaskNum
+    budgetTime = uBudgetTime
+    
 
 # def checkButtonA():  # changes different modes based on button 3 way toggle
 #     global mode
@@ -571,10 +599,10 @@ def startPomodoro():
 #     global mode
 #     global settingMenu
 #     global pressedOnce
-#     global pomoTime
-#     global pomoBreak
+#     global pomoWorkTime
+#     global pomoBreakTime
 #     global taskNum
-#     global breakBTime
+#     global budgetTime
 #     risingCntUp = False
     
 #     while True:
@@ -583,13 +611,13 @@ def startPomodoro():
 #                 risingCntUp = True
 #                 if mode == 0:
 #                     if pressedOnce == 1:
-#                         pomoTime+=300 # increment pomo time by 5 min
+#                         pomoWorkTime+=300 # increment pomo time by 5 min
 #                     elif pressedOnce == 2:
-#                         pomoBreak+=300 # increment pomo break time by 5 min
+#                         pomoBreakTime+=300 # increment pomo break time by 5 min
 #                 elif mode == 1:
 #                     taskNum+=1 # increment tasks
 #                 else:
-#                     breakBTime+=300 # increment break time by 5 min
+#                     budgetTime+=300 # increment break time by 5 min
 #         else:
 #             risingCntUp = False        
             
@@ -597,10 +625,10 @@ def startPomodoro():
 #     global mode
 #     global settingMenu
 #     global pressedOnce
-#     global pomoTime
-#     global pomoBreak
+#     global pomoWorkTime
+#     global pomoBreakTime
 #     global taskNum
-#     global breakBTime
+#     global budgetTime
 #     risingCntDn = False
     
 #     while True:
@@ -609,20 +637,20 @@ def startPomodoro():
 #                 risingCntDn = True
 #                 if mode == 0:
 #                     if pressedOnce == 1:
-#                         pomoTime-=300 # decrement pomo time by 5 min
-#                         if pomoTime < 300:
-#                             pomoTime = 300
+#                         pomoWorkTime-=300 # decrement pomo time by 5 min
+#                         if pomoWorkTime < 300:
+#                             pomoWorkTime = 300
 #                     elif pressedOnce == 2:
-#                         pomoBreak-=300 # decrement pomo break time by 5 min
-#                         if pomoBreak < 300:
-#                             pomoBreak = 300
+#                         pomoBreakTime-=300 # decrement pomo break time by 5 min
+#                         if pomoBreakTime < 300:
+#                             pomoBreakTime = 300
 #                 elif mode == 1:
 #                     if taskNum > 1:
 #                         taskNum-=1 # decrement tasks
 #                 else:
-#                     breakBTime-=300 # decrement break time by 5 min
-#                     if breakBTime < 300:
-#                         breakBTime = 300
+#                     budgetTime-=300 # decrement break time by 5 min
+#                     if budgetTime < 300:
+#                         budgetTime = 300
 #         else:
 #             risingCntDn = False
             
@@ -648,29 +676,29 @@ def convertTime(value):  # given a number of seconds, returns string in HH:MM:SS
     time = str(hours).rjust(2,'0') + ':' + str(minutes).rjust(2,'0') + ':' + str(seconds).rjust(2,'0')
     return time
             
-def updateDisplay():
-    global settingsSaved
-    while True:
-        display.clear()
-        if settingsSaved == False:
-            if mode == 0:
-                display.clear()
-                if inPomoBreak:
-                    display.text("Break Time:", 25, 0, 12)
-                    display.text(convertTime(pomoBreak), 30, 10,25)
-                else:
-                    display.text("Break Time:", 25, 0, 12)
-                    display.text(convertTime(pomoTime), 30, 10,25)
-            elif mode == 1:
-                    display.text('Tasks:', 30, 0, 12)
-                    display.text(str(taskNum), 30, 10, 35) # will need to adjust axes
+# def updateDisplay():
+#     global settingsSaved
+#     while True:
+#         display.clear()
+#         if settingsSaved == False:
+#             if mode == 0:
+#                 display.clear()
+#                 if inPomoBreak:
+#                     display.text("Break Time:", 25, 0, 12)
+#                     display.text(convertTime(pomoBreakTime), 30, 10,25)
+#                 else:
+#                     display.text("Break Time:", 25, 0, 12)
+#                     display.text(convertTime(pomoWorkTime), 30, 10,25)
+#             elif mode == 1:
+#                     display.text('Tasks:', 30, 0, 12)
+#                     display.text(str(taskNum), 30, 10, 35) # will need to adjust axes
 
-            elif mode == 2:
-                    display.text("Break Time:", 25, 0, 12)
-                    display.text(convertTime(breakBTime), 30, 10,25)
+#             elif mode == 2:
+#                     display.text("Break Time:", 25, 0, 12)
+#                     display.text(convertTime(budgetTime), 30, 10,25)
 
-            display.show()        
-            time.sleep(1)
+#             display.show()        
+#             time.sleep(1)
         
             
 displayWelcome()
