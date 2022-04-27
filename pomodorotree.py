@@ -150,7 +150,7 @@ def logic(): #thread
     isSure = False
     
     while True:
-        if settingsButton and resetRequired:
+        if settingsButton:
             settingsButton = False
             result = selection()
             if result == 0:
