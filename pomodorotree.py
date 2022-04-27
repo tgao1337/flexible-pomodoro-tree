@@ -201,14 +201,17 @@ def selection():
     global playPauseCheckB
     global settingsSaved
     
+    print("> Pomodoro \n  Task \n  Budget")
+    modeChangeDetected = False
     while True:
         with dispLock:
             if mode == 0:
                 #display.clear()
                 #display.text("Select Mode:\n > Pomodoro \n    Task \n    Budget", 20,0,12)
                 #display.show()
-                print("==========")
-                print("> Pomodoro \n  Task \n  Budget")
+                if modeChangeDetected:
+                    print("==========")
+                    print("> Pomodoro \n  Task \n  Budget")
                       
 #                 display.draw_line(0, 45, 127 ,45)
 #                 display.text("Select Mode", 30,45,12)
@@ -219,20 +222,25 @@ def selection():
                 if downButton:
                     mode = 1
                     downButton = False
+                    modeChangeDetected = True
                 elif upButton:
                     mode = 0
                     upButton = False
+                    modeChangeDetected = True
                 if settingsButton:
                     settingsButton = False
+
                     print("POMODORO MODE SELECTED")
                     return 0
+                modeChangeDetected = False
                 
             elif mode == 1:
                 #display.clear()
                 #display.text("Select Mode:\n    Pomodoro \n > Task \n    Budget", 20,0,12)
                 #display.show()
-                print("==========")
-                print("  Pomodoro \n> Task \n  Budget")
+                if modeChangeDetected:
+                    print("==========")
+                    print("  Pomodoro \n> Task \n  Budget")
 #                 display.draw_line(0, 45, 127 ,45)
 #                 display.text("Select Mode", 30,45,12)
 #                 display.text("Pomodoro", 32,0,14)
@@ -242,21 +250,25 @@ def selection():
                 if downButton:
                     mode = 2
                     downButton = False
+                    modeChangeDetected = True
                 elif upButton:
                     mode = 0
                     upButton = False
-         
+                    modeChangeDetected = True
                 if settingsButton:
                     settingsButton = False
                     print("TASK MODE SELECTED")
                     return 1
-                    
+               
+                modeChangeDetected = False
+                
             elif mode == 2:
                 #display.clear()
                 #display.text("Select Mode:\n    Pomodoro \n    Task \n > Budget", 20,0,12)
                 #display.show()
-                print("==========")
-                print("  Pomodoro \n  Task \n> Budget")
+                if modeChangeDetected:
+                    print("==========")            
+                    print("  Pomodoro \n  Task \n> Budget")
 #                 display.draw_line(0, 45, 127 ,45)
 #                 display.text("Select Mode", 30,45,12)
 #                 display.text("Pomodoro", 32,0,14)
@@ -266,15 +278,16 @@ def selection():
                 if downButton:
                     mode=2
                     downButton = False
+                    modeChangeDetected = True
                 elif upButton:
                     mode = 1
                     upButton = False
-         
+                    modeChangeDetected = True
                 if settingsButton:
                     settingsButton = False
                     print("BUDGET MODE SELECTED")
                     return 2
-                    
+                modeChangeDetected = False
 
 def pomSett():
     print("In Pomodoro Settings")
