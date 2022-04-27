@@ -257,9 +257,12 @@ if __name__ == '__main__':
   setup()
 
   allOn()
-  time.sleep(1)  
+  print("ALLON")
+  time.sleep(5)  
   clearAll()
+  print("CLEAR ALL")
   print(ledList)
+  time.sleep(5)
   
   for i in range(32):
    toggleNextLed(1,True)
