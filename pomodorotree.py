@@ -210,6 +210,7 @@ def selection():
                 #display.text("Select Mode:\n > Pomodoro \n    Task \n    Budget", 20,0,12)
                 #display.show()
                 if modeChangeDetected:
+                    modeChangeDetected = False
                     print("==========")
                     print("> Pomodoro \n  Task \n  Budget")
                       
@@ -229,16 +230,16 @@ def selection():
                     modeChangeDetected = True
                 if settingsButton:
                     settingsButton = False
-
                     print("POMODORO MODE SELECTED")
                     return 0
-                modeChangeDetected = False
+
                 
             elif mode == 1:
                 #display.clear()
                 #display.text("Select Mode:\n    Pomodoro \n > Task \n    Budget", 20,0,12)
                 #display.show()
                 if modeChangeDetected:
+                    modeChangeDetected = False
                     print("==========")
                     print("  Pomodoro \n> Task \n  Budget")
 #                 display.draw_line(0, 45, 127 ,45)
@@ -259,14 +260,14 @@ def selection():
                     settingsButton = False
                     print("TASK MODE SELECTED")
                     return 1
-               
-                modeChangeDetected = False
+              
                 
             elif mode == 2:
                 #display.clear()
                 #display.text("Select Mode:\n    Pomodoro \n    Task \n > Budget", 20,0,12)
                 #display.show()
                 if modeChangeDetected:
+                    modeChangeDetected = False
                     print("==========")            
                     print("  Pomodoro \n  Task \n> Budget")
 #                 display.draw_line(0, 45, 127 ,45)
@@ -287,7 +288,6 @@ def selection():
                     settingsButton = False
                     print("BUDGET MODE SELECTED")
                     return 2
-                modeChangeDetected = False
 
 def pomSett():
     print("In Pomodoro Settings")
