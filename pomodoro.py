@@ -16,10 +16,10 @@ default_font = ImageFont.truetype('Font.ttf', 10)
 OLED_WIDTH = 128
 OLED_HEIGHT = 64
 
-# Create a new blank canvas
+'''# Create a new blank canvas
 canvas = Image.new('1', (OLED_WIDTH, OLED_HEIGHT), 255)
 # Set up draw for the canvas
-draw = ImageDraw.Draw(canvas)
+draw = ImageDraw.Draw(canvas)'''
 
 # GPIO setup
 GPIO.setmode(GPIO.BCM)
