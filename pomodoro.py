@@ -4,6 +4,7 @@ import time
 import RPi.GPIO as GPIO
 from smbus import SMBus
 # from PIL import Image,ImageDraw,ImageFont
+from PIL import ImageFont
 from luma.core.interface.serial import i2c
 from luma.core.render import canvas
 from luma.oled.device import sh1106
