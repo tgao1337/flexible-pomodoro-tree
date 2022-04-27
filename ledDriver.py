@@ -88,8 +88,9 @@ Arguements: bool on or off'''
 def toggleNextLed(amount,turnOn):
   global available_led
   global ledList
-  
+  print("in toggle")
   ledNum= findNextLed(turnOn) 
+  print("Led found is ", ledNum)
   if(ledNum != -1):
     if turnOn:
       if amount > available_led:
@@ -108,7 +109,7 @@ def toggleNextLed(amount,turnOn):
       else:
         for i in range(amount):
           ledList[ledNum +i] =0
-        available_led -= amount 
+        available_led += amount 
         
   
   displayLED()
