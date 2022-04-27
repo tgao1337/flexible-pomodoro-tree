@@ -441,7 +441,6 @@ def readButton(pin):
   return GPIO.input(pin)
 
 def waitButton(pin):
-  time.sleep(0.01)
   GPIO.wait_for_edge(pin, GPIO.RISING)
   return
 
