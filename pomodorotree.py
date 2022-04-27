@@ -53,14 +53,18 @@ downButton = False
 
 def checkReset(): # Done for day button
     global resetRequired
+    global settingsSaved 
     debouncePinB = False
     while True:
         if readButton(pinB):
             if debouncePinB == False:
                 debouncePinB = True
                 resetRequired = not resetRequired
+                
                 if resetRequired:
                     print("Start for the day")
+                    resetMode()
+                    settingsSaved = False
                 else:
                     print("End for the day")
         else:
@@ -149,7 +153,7 @@ def logic(): #thread
             elif result == 2:
                 budgSett()
               
-        print("playPauseCheckB:", playPauseCheckB, "settingsSaved:", settingsSaved, "resetRequired:", resetRequired)
+#         print("playPauseCheckB:", playPauseCheckB, "settingsSaved:", settingsSaved, "resetRequired:", resetRequired)
         if playPauseCheckB and settingsSaved and resetRequired: # If the playPauseCheckB has been pressed and settingsSaved start Tree
             if mode == 0:
                 startPomodoro()
