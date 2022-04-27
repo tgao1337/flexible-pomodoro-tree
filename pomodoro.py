@@ -441,5 +441,5 @@ def readButton(pin):
   return GPIO.input(pin)
 
 with canvas(device) as draw:
-    draw.draw_line((0, 45, 127 ,45), fill="white")
+    draw.line((0, 45, 127 ,45), fill="white")
     draw.text((40, 43), "Welcome", fill="white")
