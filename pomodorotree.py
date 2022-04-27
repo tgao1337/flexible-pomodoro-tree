@@ -407,8 +407,9 @@ def buzzDown():
 # ==========================
 def Tree():
     global PlayPauseCheckB
+    global settingsSaved
     while True:
-        if PlayPauseCheckB:
+        if PlayPauseCheckB and settingsSaved:
             if mode == 0:
                 startPomodoro()
                 print("Starting Pomodoro")
