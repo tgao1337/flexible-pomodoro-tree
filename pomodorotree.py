@@ -73,8 +73,11 @@ def checkPlayPauseComplete(): # Play pause check
         if readButton(pinA):
             if debouncePinA == False:
                 debouncePinA = True
-                playPauseCheckB = not playPauseCheckB
-                print("Play Pause Complete Button Pressed")
+                if settingsSaved == True:
+                    playPauseCheckB = not playPauseCheckB
+                else:
+                    playPauseCheckB = False
+                print("Play Pause Complete Button Pressed:", playPauseCheckB)
         else:
             debouncePinA = False
     
