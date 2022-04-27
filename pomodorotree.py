@@ -446,10 +446,10 @@ def taskSett():
              # display.text("T | Settings", 35,45,12)
              # display.text("Set Tasks:", 40, 0, 12)
                 if taskNum > 9:
-                    draw.text((50, 10), str(taskNum", fill="white")
+                    draw.text((50, 10), str(taskNum), fill="white")
                    # display.text(str(taskNum), 50, 10, 25)
                 else:
-                    draw.text((60, 10), str(taskNum, fill="white")
+                    draw.text((60, 10), str(taskNum), fill="white")
                     # display.text(str(taskNum), 60, 10, 25)
              # display.show()  
              
