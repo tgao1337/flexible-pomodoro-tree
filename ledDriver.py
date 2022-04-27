@@ -76,7 +76,7 @@ def displayLED():
   
   spi.xfer(ledList[:24:-1])
   spi.xfer(ledList[24:16:-1])
-  spi.xfer(ledList[16:7:-1)
+  spi.xfer(ledList[16:7:-1])
   spi.xfer(ledList[7::-1])
   '''GPIO.output(RCLK, GPIO.LOW) #pulse RCLK after all the inputs are loaded for a given cluster
   time.sleep(0.05)
