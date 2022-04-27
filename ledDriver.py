@@ -74,10 +74,10 @@ def displayLED():
   d3=bin(int(ledList[24:16:-1],base=2))
   d4=bin(int(ledList[:24:-1],base=2))
   
-  spi.xfer(d4)
-  spi.xfer(d3)
-  spi.xfer(d2)
-  spi.xfer(d1)
+  spi.xfer(ledList[:24:-1])
+  spi.xfer(ledList[24:16:-1])
+  spi.xfer(ledList[16:7:-1)
+  spi.xfer(ledList[7::-1])
   '''GPIO.output(RCLK, GPIO.LOW) #pulse RCLK after all the inputs are loaded for a given cluster
   time.sleep(0.05)
   GPIO.output(RCLK, GPIO.HIGH)
