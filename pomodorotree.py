@@ -62,7 +62,7 @@ def checkReset(): # Done for day button
     global settingsSaved 
 
     while True:
-        waitButton(6)
+        waitButton(pinB)
         time.sleep(0.05)
         resetRequired = not resetRequired
         
@@ -76,14 +76,14 @@ def checkReset(): # Done for day button
 def checkPlayPauseComplete(): # Play pause check
     global playPauseCheckB
     while True:
-        waitButton(5)
+        waitButton(pinA)
         playPauseCheckB = not playPauseCheckB
         print("PlayPauseComplete Button Pressed. playPauseCheckB:", playPauseCheckB)
 
 def checkSettings():
     global settingsButton 
     while True:
-        waitButton(16)
+        waitButton(pinC)
         settingsButton = True      
         print("Settings Button Pressed. settingsButton:", settingsButton)
 
@@ -91,14 +91,14 @@ def checkUp():
     global upButton
     global settingsButton
     while True:
-        waitButton(24)
+        waitButton(pinD)
         upButton = True
         print("Up Button Pressed. upButton:", upButton)
     
 def checkDown():
     global downButton
     while True:
-        waitButton(26)
+        waitButton(pinE)
         downButton = True
         print("Down Button Pressed. downButton:", downButton)
 
@@ -449,19 +449,19 @@ displayWelcome()
 t1 = Thread(target=checkReset)
 t1.start()
 
-t2 = Thread(target=checkPlayPauseComplete)
-t2.start()
+# t2 = Thread(target=checkPlayPauseComplete)
+# t2.start()
 
-t3 = Thread(target=checkSettings)
-t3.start()
+# t3 = Thread(target=checkSettings)
+# t3.start()
 
-t4 = Thread(target=checkUp)
-t4.start()
+# t4 = Thread(target=checkUp)
+# t4.start()
 
-t5 = Thread(target=checkDown)
-t5.start()
+# t5 = Thread(target=checkDown)
+# t5.start()
 
-t6 = Thread(target=logic)
+# t6 = Thread(target=logic)
 t6.start()
 
 # t7 = Thread(target=updateDisplay)
