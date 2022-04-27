@@ -7,6 +7,7 @@ import time
 GPIO.setmode(GPIO.BCM)
 
 NUM_LEDS= 32
+global available_led
 available_led = NUM_LEDS
 
 ledList= [0]* NUM_LEDS
@@ -83,6 +84,7 @@ def displayLED():
 '''This function allows you to turn on the lowest currently off led in the chain or turn off the highedst currently on led in the chain
 Arguements: bool on or off'''
 def toggleNextLed(amount,turnOn):
+  global available_led
   
   ledNum= findNextLed(turnOn) 
   if(ledNum != -1):
