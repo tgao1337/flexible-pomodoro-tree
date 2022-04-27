@@ -80,7 +80,7 @@ def checkSettings():
                 print("resetRequired:", resetRequired)
                 if resetRequired:
                     print("settingButtons set to True")
-                    settingsButtons = True
+                    settingsButton = True
 #                     eventSettings.set()
                 else: 
                     print("settingButtons set to False")
