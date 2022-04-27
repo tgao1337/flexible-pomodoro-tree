@@ -47,7 +47,7 @@ def clearAll():
   GPIO.output(SRCLR, GPIO.HIGH)
 
   for i in range(NUM_LEDS):
-    ledList[i]=1
+    ledList[i]=0
 
 '''Given a certain string of 1010, this function will set the serial input and pulse the SRCLK and RCLK so the 
 given pattern from the string is displayed corrrectly on the LEDS
