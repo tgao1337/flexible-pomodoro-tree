@@ -77,6 +77,7 @@ def checkPlayPauseComplete(): # Play pause check
     global playPauseCheckB
     while True:
         waitButton(pinA)
+        time.sleep(0.2)
         playPauseCheckB = not playPauseCheckB
         print("PlayPauseComplete Button Pressed. playPauseCheckB:", playPauseCheckB)
 
@@ -84,6 +85,7 @@ def checkSettings():
     global settingsButton 
     while True:
         waitButton(pinC)
+        time.sleep(0.2)
         settingsButton = True      
         print("Settings Button Pressed. settingsButton:", settingsButton)
 
@@ -92,6 +94,7 @@ def checkUp():
     global settingsButton
     while True:
         waitButton(pinD)
+        time.sleep(0.2)
         upButton = True
         print("Up Button Pressed. upButton:", upButton)
     
@@ -99,6 +102,7 @@ def checkDown():
     global downButton
     while True:
         waitButton(pinE)
+        time.sleep(0.2)
         downButton = True
         print("Down Button Pressed. downButton:", downButton)
 
