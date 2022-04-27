@@ -78,7 +78,7 @@ def checkSettings():
                 debouncePinC = True
                 settingsSaved = False # Whenever Settings button is pressed change settingsSaved to False
                 if resetRequired:
-                    settingsButtons = True:
+                    settingsButtons = True
 #                     eventSettings.set()
                 else: 
                     settingsButton = False
