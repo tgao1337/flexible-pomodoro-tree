@@ -62,7 +62,7 @@ def checkReset(): # Done for day button
     global settingsSaved 
 
     while True:
-        waitButton(pinB)
+        waitRising(pinB)
         time.sleep(0.2)
         resetRequired = not resetRequired
         
@@ -76,7 +76,7 @@ def checkReset(): # Done for day button
 def checkPlayPauseComplete(): # Play pause check
     global playPauseCheckB
     while True:
-        waitButton(pinA)
+        waitRising(pinA)
         time.sleep(0.2)
         playPauseCheckB = not playPauseCheckB
         print("PlayPauseComplete Button Pressed. playPauseCheckB:", playPauseCheckB)
