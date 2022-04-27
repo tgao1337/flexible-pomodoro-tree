@@ -153,7 +153,7 @@ def findNextLed(turnOn):
   global ledList
   
   for i in range (len(ledList)): #if turning on or off, find first 1 or 0 
-    if ledList[i]== int(!turnOn):
+    if ledList[i]== int(not turnOn):
       return i
     else:
       return -1
