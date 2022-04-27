@@ -149,7 +149,7 @@ def logic(): #thread
             elif result == 2:
                 budgSett()
               
-        if playPauseCheckB and settingsSaved: # If the playPauseCheckB has been pressed and settingsSaved start Tree
+        if playPauseCheckB and settingsSaved and not resetRequired: # If the playPauseCheckB has been pressed and settingsSaved start Tree
             if mode == 0:
                 startPomodoro()
                 print("Starting Pomodoro now!")
@@ -505,7 +505,7 @@ def startPomodoro():
             x = pomoWorkTime + 1
             
             for i in range(x):
-                if playPauseCheckB == False or resetRequired == True:
+                if playPauseCheckB == False or resetRequired == False:
                     return
                 print(convertTime(pomoWorkTime))
                 pomoWorkTime = pomoWorkTime - 1
