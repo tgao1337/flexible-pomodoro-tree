@@ -470,7 +470,7 @@ def startPomodoro():
             for i in range(x):
                 print(convertTime(pomoTime))
                 if playPauseCheckB == False:
-                    break
+                    return
                 pomoTime = pomoTime - 1
                 time.sleep(1)
             inPomoBreak = True  # changes to break
@@ -481,7 +481,7 @@ def startPomodoro():
             for i in range(x):
                 print(convertTime(pomoBreak))
                 if playPauseCheckB == False:
-                    break
+                    return
                 pomoBreak = pomoBreak - 1
                 time.sleep(1)
             inPomoBreak = False  # changes to work
