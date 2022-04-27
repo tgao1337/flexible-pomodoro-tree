@@ -63,7 +63,7 @@ def checkReset(): # Done for day button
 
     while True:
         waitButton(pinB)
-        time.sleep(0.1)
+        time.sleep(0.2)
         resetRequired = not resetRequired
         
         if resetRequired:
