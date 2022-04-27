@@ -17,9 +17,9 @@ global settingsSaved
 global upButton
 global downButton
 
-display = OLED()
-display.setup()
-display.clear()
+# display = OLED()
+# display.setup()
+# display.clear()
 
 dispLock=Lock()
 eventSettings = Event()
