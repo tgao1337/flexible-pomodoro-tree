@@ -43,11 +43,11 @@ def setup():
 #using the commonly connected SRCLR to all the drivers, pulsing RCLK while this is 0  will clear all drivers and LEDs oFF?.
 def clearAll():
   GPIO.output(SRCLR, GPIO.LOW)
-  spi.xfer([0b0])
+  spi.xfer([0b000000000])
   GPIO.output(SRCLR, GPIO.HIGH)
 
-  for led in ledList:
-    led=0
+  for i in range(NUM_LEDS):
+    ledList[i]=1
 
 '''Given a certain string of 1010, this function will set the serial input and pulse the SRCLK and RCLK so the 
 given pattern from the string is displayed corrrectly on the LEDS
@@ -248,7 +248,7 @@ def allOn():
   
   for i in range(NUM_LEDS):
     ledList[i]=1
-  
+  print("IN ALL ON, disp List:", ledList)
   displayLED()
   
 
