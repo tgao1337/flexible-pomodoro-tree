@@ -245,8 +245,8 @@ def selectClusterOFF(cluster):
 '''This function turns on all LEDs'''
 def allOn():
   
-  for i in range(NUM_CLUSTERS,0,-1):
-   passToLEDs("11111111")
+  for i in range(NUM_LEDS):
+    ledList[i]=1
   
   display()
   time.sleep(2)
