@@ -446,6 +446,9 @@ def waitButton(pin):
   print("Button pressed on pin", pin)
   return
 
+def waitRising(pinn):
+  return GPIO.add_event_detect(pin, GPIO.RISING)
+
 '''with canvas(device) as draw:
     draw.line((0, 45, 127 ,45), fill="white")
     draw.text((40, 43), "Welcome", fill="white")'''
