@@ -79,11 +79,11 @@ def checkSettings():
                 settingsSaved = False # Whenever Settings button is pressed change settingsSaved to False
                 print("resetRequired:", resetRequired)
                 if resetRequired:
-                    prinnt("settingButtons set to True")
+                    print("settingButtons set to True")
                     settingsButtons = True
 #                     eventSettings.set()
                 else: 
-                    prinnt("settingButtons set to False")
+                    print("settingButtons set to False")
                     settingsButton = False
                 print("Settings Button Pressed: " , settingsButton)
                 
