@@ -11,6 +11,7 @@ available_led = NUM_LEDS
 
 ledList= [0]* NUM_LEDS
 
+spi=spidev.SpiDev()
 
 #setup the pins as outputs and set the clocks initally to low and the clear initially to high. 
 def setup():
@@ -19,7 +20,6 @@ def setup():
   SRCLK=11
   SRCLR= 17
 
-  spi=spidev.SpiDev()
   spi.open(0,0)
   spi.mode=0b00
   spi.max_speed_hz= 7629
