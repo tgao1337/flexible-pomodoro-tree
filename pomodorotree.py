@@ -111,13 +111,17 @@ def checkSettings():
     
 def checkUp(): #thread
     global upButton
+    global settingsButton
     debouncePinD = False
     while True:
         if readButton(pinD):
             if debouncePinD == False:
                 debouncePinD = True
-                upButton = True
-                print("Up Button Pressed")
+                if settingsButton:
+                    upButton = True
+                    print("Up Button Pressed")
+                else: 
+                    upButton = False
         else:
             debouncePinD = False
     
@@ -128,8 +132,11 @@ def checkDown(): #thread
         if readButton(pinE):
             if debouncePinE == False:
                 debouncePinE = True
-                downButton = True
-                print("Down Button Pressed")
+                if settingsButton:
+                    downButton = True
+                    print("Down Button Pressed")
+                else:
+                    downButton = False
         else:
             debouncePinE = False
     
