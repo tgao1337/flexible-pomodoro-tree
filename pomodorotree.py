@@ -120,7 +120,7 @@ def checkUp(): #thread
                 debouncePinD = True
 #                 if settingsButton:
                 upButton = True
-#                     print("Up Button Pressed")
+                print("Up Button Pressed")
 #                 else: 
 #                     upButton = False
         else:
