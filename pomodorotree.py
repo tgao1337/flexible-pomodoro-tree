@@ -494,7 +494,6 @@ def startPomodoro():
     global pomoWorkTime
     global pomoBreakTime
     global inPomoBreak
-    global 
     
     if playPauseCheckB:
         if not inPomoBreak:
