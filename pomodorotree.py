@@ -156,7 +156,7 @@ def updateDisplay():
                 
          
         if state == "MODE_SETTINGS":
-            print(state, mode)
+#             print(state, mode)
             with canvas(device) as draw:
                 draw.line((0, 45, 127 ,45), fill="white")
             if mode == "POMODORO":
@@ -164,6 +164,7 @@ def updateDisplay():
                 draw.text((25, 0), "Set Work Time:", fill="white")
                 draw.text((30, 10), "00:25:00", fill="white") #TODO Timing conversion printing
             if mode == "TASK":
+                print("Task mode settings!")
                 draw.text((30,45), "T | Settings", fill="white")
                 draw.text((30, 0), "Set Tasks:", fill="white")
                 draw.text((30, 10), "8", fill="white") #TODO Task count manager
