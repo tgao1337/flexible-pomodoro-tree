@@ -83,7 +83,7 @@ def watchEvents(): # THREAD
             if state == "MODE_SELECT":
                 if mode == "TASK":
                     mode = "POMODORO"
-                if mode == "BUDGET":
+                elif mode == "BUDGET":
                     mode = "TASK"                
             upBEvent.clear()
            
@@ -92,7 +92,7 @@ def watchEvents(): # THREAD
             if state == "MODE_SELECT":
                 if mode == "POMODORO":
                     mode = "TASK"
-                if mode == "TASK":
+                elif mode == "TASK":
                     mode = "BUDGET"   
           
             downBEvent.clear()
