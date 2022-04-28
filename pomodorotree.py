@@ -156,30 +156,28 @@ def updateDisplay():
                 
          
         if state == "MODE_SETTINGS":
-#             print(state, mode)
             with canvas(device) as draw:
                 draw.line((0, 45, 127 ,45), fill="white")
-            if mode == "POMODORO":
-                draw.text((30,45), "P | Settings", fill="white")  # Removed cycles
-                draw.text((25, 0), "Set Work Time:", fill="white")
-                draw.text((30, 10), "00:25:00", fill="white") #TODO Timing conversion printing
-            if mode == "TASK":
-                print("Task mode settings!")
-                draw.text((30,45), "T | Settings", fill="white")
-                draw.text((30, 0), "Set Tasks:", fill="white")
-                draw.text((30, 10), "8", fill="white") #TODO Task count manager
-            if mode == "BUDGET":
-                draw.text((20,45), "B | Settings", fill="white")
-                draw.text((25, 0), "Set Break Time:", fill="white")
-                draw.text((30, 10), "00:55:00", fill="white") # TODO Budget break timing
+                if mode == "POMODORO":
+                    draw.text((30,45), "P | Settings", fill="white")  # Removed cycles
+                    draw.text((25, 0), "Set Work Time:", fill="white")
+                    draw.text((30, 10), "00:25:00", fill="white") #TODO Timing conversion printing
+                if mode == "TASK":
+                    draw.text((30,45), "T | Settings", fill="white")
+                    draw.text((30, 0), "Set Tasks:", fill="white")
+                    draw.text((30, 10), "8", fill="white") #TODO Task count manager
+                if mode == "BUDGET":
+                    draw.text((20,45), "B | Settings", fill="white")
+                    draw.text((25, 0), "Set Break Time:", fill="white")
+                    draw.text((30, 10), "00:55:00", fill="white") # TODO Budget break timing
                 
         if state == "MODE_SETTINGS_2":
             with canvas(device) as draw:
                 draw.line((0, 45, 127 ,45), fill="white")
-            if mode == "POMODORO":
-                draw.text((30,45), "P | Settings", fill="white")  # Removed cycles
-                draw.text((25, 0), "Set Break Time:", fill="white")
-                draw.text((30, 10), "00:05:00", fill="white") #TODO Timing conversion printing
+                if mode == "POMODORO":
+                    draw.text((30,45), "P | Settings", fill="white")  # Removed cycles
+                    draw.text((25, 0), "Set Break Time:", fill="white")
+                    draw.text((30, 10), "00:05:00", fill="white") #TODO Timing conversion printing
             
             
          
