@@ -132,7 +132,7 @@ def updateDisplay():
         if state == "WELCOME":
             with canvas(device) as draw:
                 draw.line((0, 45, 127 ,45), fill="white")
-                draw.text((43, 43), "Welcome", font=fontSmall, fill="white")
+                draw.text((40, 43), "Welcome", font=fontSmall, fill="white")
           
         if state == "OVERVIEW":
             with canvas(device) as draw:
@@ -180,12 +180,12 @@ def updateDisplay():
                     draw.text((30, 10), "00:25:00", font=fontBig, fill="white") #TODO Timing conversion printing
                 if mode == "TASK":
                     draw.text((30,45), "T | Settings", font=fontSmall, fill="white")
-                    draw.text((30, 0), "Set Tasks:", font=fontSmall, fill="white")
-                    draw.text((30, 10), "8", font=fontBig, fill="white") #TODO Task count manager
+                    draw.text((35, 0), "Set Tasks:", font=fontSmall, fill="white")
+                    draw.text((45, 10), "8", font=fontBig, fill="white") #TODO Task count manager
                 if mode == "BUDGET":
-                    draw.text((20,45), "B | Settings", font=fontSmall, fill="white")
+                    draw.text((30,45), "B | Settings", font=fontSmall, fill="white")
                     draw.text((25, 0), "Set Break Time:", font=fontSmall, fill="white")
-                    draw.text((30, 10), "00:55:00", font=fontBig, fill="white") # TODO Budget break timing
+                    draw.text((30, 15), "00:55:00", font=fontBig, fill="white") # TODO Budget break timing
                 
         if state == "MODE_SETTINGS_2":
             with canvas(device) as draw:
