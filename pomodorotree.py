@@ -127,10 +127,13 @@ def updateDisplay():
                 draw.text((32,24), "Budget", fill="white")
 
                 if mode == "POMODORO":
+                    print("Pomodoro mode selected")
                     draw.text((20,0), ">", fill="white")
                 if mode == "TASK":
+                    print("TASK mode selected")
                     draw.text((20,12), ">", fill="white")
                 if mode == "BUDGET":
+                    print("Budget mode selected")
                     draw.text((20,24), ">", fill="white")
                 
          
