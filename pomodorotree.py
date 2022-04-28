@@ -177,7 +177,7 @@ def updateDisplay():
                 if mode == "POMODORO":
                     draw.text((31,45), "P | Settings", font=fontSmall, fill="white")  # Removed cycles
                     draw.text((23, 0), "Set Work Time:", font=fontSmall, fill="white")
-                    draw.text((18, 10), "00:25:00", font=fontBig, fill="white") #TODO Timing conversion printing
+                    draw.text((17, 10), "00:25:00", font=fontBig, fill="white") #TODO Timing conversion printing
                 if mode == "TASK":
                     draw.text((31,45), "T | Settings", font=fontSmall, fill="white")
                     draw.text((40, 0), "Set Tasks:", font=fontSmall, fill="white")
@@ -188,7 +188,7 @@ def updateDisplay():
                 if mode == "BUDGET":
                     draw.text((31,45), "B | Settings", font=fontSmall, fill="white")
                     draw.text((23, 0), "Set Break Time:", font=fontSmall, fill="white")
-                    draw.text((18, 10), "00:55:00", font=fontBig, fill="white") # TODO Budget break timing
+                    draw.text((17, 10), "00:55:00", font=fontBig, fill="white") # TODO Budget break timing
                 
         if state == "MODE_SETTINGS_2":
             with canvas(device) as draw:
@@ -196,7 +196,7 @@ def updateDisplay():
                 if mode == "POMODORO":
                     draw.text((31,45), "P | Settings", font=fontSmall, fill="white")  # Removed cycles
                     draw.text((23, 0), "Set Break Time:", font=fontSmall, fill="white")
-                    draw.text((18, 10), "00:05:00", font=fontBig, fill="white") #TODO Timing conversion printing
+                    draw.text((17, 10), "00:05:00", font=fontBig, fill="white") #TODO Timing conversion printing
             
             
          
