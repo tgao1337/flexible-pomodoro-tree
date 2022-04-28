@@ -6,48 +6,12 @@ from multiprocessing import Process
 import multiprocessing as mp
 
 global mode
-global pomoWorkTime
-global pomoBreakTime
-global taskNum
-global budgetTime
-global pressedOnce
-global inPomoBreak
-global resetRequired
-global playPauseCheckB
-global settingsButton
-global settingsSaved
-global upButton
-global downButton
-# user set times
-global uPomoWTime
-global uPomoBTime
-global uTaskNum
-global uBudgetTime
+global state
 
-dispLock=Lock()
-eventSettings = Event()
+mode = "POMODORO"
+state = "WELCOME" # WELCOME, OVERVIEW, RUN, MODE_SELECT, MODE_SETTINGS
 
-mode = 0  # study mode
-pomoWorkTime = 25 * 60  # These are default values
-pomoBreakTime = 5 * 60  # These are default values
-taskNum = 4  # these are default values
-budgetTime = 60 * 60  # these are default values
-# changed when user modifies the following, also used to reset values to these
-uPomoWTime = 25 * 60
-uPomoBTime = 5 * 60
-uTaskNum = 4
-uBudgetTime = 60 * 60
-
-inPomoBreak = False
-currentTask = 1
-pressedOnce = 0 # tracks mode 0 second setting
-
-resetRequired = False # True: Start for the day, False: End for the day
-playPauseCheckB = False
-settingsButton = False
-settingsSaved = False
-upButton = False
-downButton = False
+# dispLock=Lock()
 
 resetBEvent = mp.Event()
 playPauseCompleteBEvent = mp.Event()
@@ -94,15 +58,18 @@ def watchEvents(): # THREAD
     global settingsBEvent
     global upBEvent
     global downBEvent
+    global state
     
     while True:
         if resetBEvent.is_set():
             # change mode and state
             print("Reset Button was pressed")
+            state = "WELCOME"
             resetBEvent.clear()
           
         if playPauseCompleteBEvent.is_set():
             print("Play Pause Complete Button was pressed")
+            state = "RUN"
             playPauseCompleteBEvent.clear()
            
         if settingsBEvent.is_set():
