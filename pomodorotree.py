@@ -97,21 +97,21 @@ def updateDisplay():
         if state == "OVERVIEW":
             with canvas(device) as draw:
                 draw.line((0, 45, 127 ,45), fill="white")
-                if mode == "POMODORO:
+                if mode == "POMODORO":
                     draw.text((43, 43), "POM OVERVIEW", fill="white")
-                if mode == "TASK:
+                if mode == "TASK":
                     draw.text((43, 43), "TASK OVERVIEW", fill="white")
-                if mode == "BUDGET:
+                if mode == "BUDGET":
                     draw.text((43, 43), "BUDGET OVERVIEW", fill="white")
                  
         if state == "RUN":
             with canvas(device) as draw:
                 draw.line((0, 45, 127 ,45), fill="white")
-                if mode == "POMODORO:
+                if mode == "POMODORO":
                     draw.text((43, 43), "POM RUN", fill="white")
-                if mode == "TASK:
+                if mode == "TASK":
                     draw.text((43, 43), "TASK RUN", fill="white")
-                if mode == "BUDGET:
+                if mode == "BUDGET":
                     draw.text((43, 43), "BUDGET RUN", fill="white")
                  
         if state == "MODE_SELECT":
