@@ -101,9 +101,9 @@ def watchEvents(): # THREAD
             print("Reset Button was pressed")
             resetBEvent.clear()
           
-        if playPauseCompleteEvent.is_set():
+        if playPauseCompleteBEvent.is_set():
             print("Play Pause Complete Button was pressed")
-            playPauseCompleteEvent.clear()
+            playPauseCompleteBEvent.clear()
            
         if settingsBEvent.is_set():
             print("Settings Button was pressed")
