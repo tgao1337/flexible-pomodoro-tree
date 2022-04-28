@@ -59,6 +59,7 @@ def watchEvents(): # THREAD
     global upBEvent
     global downBEvent
     global state
+    global mode
     
     while True:
         if resetBEvent.is_set():
