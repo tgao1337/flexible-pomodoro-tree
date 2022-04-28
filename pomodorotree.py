@@ -83,6 +83,8 @@ def watchEvents(): # THREAD
             elif state == "PAUSE" and not mode == "TASK":
                 state = "RUN"
                 #TODO continue timer
+            elif state == "WELCOME" or state == "MODE_SELECT" or state == "OVERVIEW" or state == "MODE_SETTINGS" or state == "MODE_SETTINGS_2":
+                state = "RUN"
 
                 
 
