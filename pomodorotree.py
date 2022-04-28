@@ -83,13 +83,19 @@ def watchEvents(): # THREAD
         if downBEvent.is_set():
             print("Down Button was pressed")
             downBEvent.clear()
-           
-           
-           
-           
-           
-           
         time.sleep(0.01)
+        
+        
+def updateDisplay():
+    
+    while True:
+        if state == "WELCOME":
+            with canvas(device) as draw:
+                draw.line((0, 45, 127 ,45), fill="white")
+                draw.text((40, 43), "Welcome", fill="white")
+         
+        
+    
       
       
 # =================================================================================================================
