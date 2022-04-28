@@ -789,8 +789,12 @@ p5.start()
 
 t1 = Thread(target=watchEvents)
 t1.start()
+t2 = Thread(target=updateDisplay)
+t2.start()
 
 t1.join()
+t2.join()
+
 p1.join()
 p2.join()
 p3.join()
