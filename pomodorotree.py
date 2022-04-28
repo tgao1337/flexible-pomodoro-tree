@@ -161,7 +161,7 @@ def updateDisplay():
                 if mode == "POMODORO":
                     draw.text((30,45), "P | Settings", fill="white")  # Removed cycles
                     draw.text((25, 0), "Set Work Time:", fill="white")
-                    draw.text((30, 10), "00:25:00", fill="white") #TODO Timing conversion printing
+                    draw.text((30, 10), "00:25:00", font=fontBig) #TODO Timing conversion printing
                 if mode == "TASK":
                     draw.text((30,45), "T | Settings", fill="white")
                     draw.text((30, 0), "Set Tasks:", fill="white")
