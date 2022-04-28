@@ -442,12 +442,9 @@ def readButton(pin):
 
 def waitButton(pin):
   print("Waiting for edge on pin", pin)
-  GPIO.wait_for_edge(pin, GPIO.RISING)
+  GPIO.wait_for_edge(pin, GPIO.RISING, bouncetime=200)
   print("Button pressed on pin", pin)
   return
-
-def waitRising(pin):
-  return GPIO.add_event_detect(pin, GPIO.RISING, bouncetime=1000)
 
 '''with canvas(device) as draw:
     draw.line((0, 45, 127 ,45), fill="white")
