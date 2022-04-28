@@ -83,6 +83,7 @@ def watchEvents(): # THREAD
       
 # =================================================================================================================
     
+'''
 def checkPlayPauseComplete(): # Play pause check
     global playPauseCheckB
     debouncePinA = False
@@ -492,12 +493,7 @@ def budgSett():
                 downButton=False
                 if budgetTime > 600:
                     budgetTime -= 600
-            ''' display.clear()
-            display.draw_line(0, 45, 127 ,45)
-            display.text("B | Settings", 35,45,12)
-            display.text("Set Break Time:", 20, 0, 12)
-            display.text(convertTime(budgetTime), 30, 10,25)
-            display.show()'''
+  
             with canvas(device) as draw:
                 draw.line((0, 45, 127 ,45), fill="white")
                 draw.text((35,45), "B | Settings", fill="white")
@@ -507,7 +503,7 @@ def budgSett():
     uBudgetTime = budgetTime
     settingsSaved = True
 
-'''
+
 # ignore
 def check():
     global mode
@@ -564,7 +560,7 @@ def check():
         if settingsButton:
             settingsButton = False
             return False
-'''
+
 def buzzUp():
     playList([(C4, 0.25), (E4, 0.25), (G4, 0.25), (C5, 0.25)])
 
@@ -796,7 +792,7 @@ def convertTime(value):  # given a number of seconds, returns string in HH:MM:SS
 #             display.show()        
 #             time.sleep(1)
         
-            
+'''         
 
 t1 = Process(target=checkResetB)
 t1.start()
