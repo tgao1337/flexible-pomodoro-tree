@@ -177,18 +177,18 @@ def updateDisplay():
                 if mode == "POMODORO":
                     draw.text((31,45), "P | Settings", font=fontSmall, fill="white")  # Removed cycles
                     draw.text((23, 0), "Set Work Time:", font=fontSmall, fill="white")
-                    draw.text((23, 10), "00:25:00", font=fontBig, fill="white") #TODO Timing conversion printing
+                    draw.text((20, 10), "00:25:00", font=fontBig, fill="white") #TODO Timing conversion printing
                 if mode == "TASK":
                     draw.text((31,45), "T | Settings", font=fontSmall, fill="white")
                     draw.text((40, 0), "Set Tasks:", font=fontSmall, fill="white")
                     if taskNum > 9:
-                        draw.text((55, 10), "10", font=fontBig, fill="white") #TODO Task count manager
+                        draw.text((50, 10), "15", font=fontBig, fill="white") #TODO Task count manager
                     else:
                         draw.text((60, 10), "8", font=fontBig, fill="white") #TODO Task count manager
                 if mode == "BUDGET":
                     draw.text((31,45), "B | Settings", font=fontSmall, fill="white")
                     draw.text((23, 0), "Set Break Time:", font=fontSmall, fill="white")
-                    draw.text((23, 10), "00:55:00", font=fontBig, fill="white") # TODO Budget break timing
+                    draw.text((20, 10), "00:55:00", font=fontBig, fill="white") # TODO Budget break timing
                 
         if state == "MODE_SETTINGS_2":
             with canvas(device) as draw:
@@ -196,7 +196,7 @@ def updateDisplay():
                 if mode == "POMODORO":
                     draw.text((31,45), "P | Settings", font=fontSmall, fill="white")  # Removed cycles
                     draw.text((23, 0), "Set Break Time:", font=fontSmall, fill="white")
-                    draw.text((23, 10), "00:05:00", font=fontBig, fill="white") #TODO Timing conversion printing
+                    draw.text((20, 10), "00:05:00", font=fontBig, fill="white") #TODO Timing conversion printing
             
             
          
