@@ -13,7 +13,7 @@ serial = i2c(port=1, address = 0x3C)
 device = sh1106(serial)
 
 fontBig = ImageFont.truetype('Font.ttf', 18)
-fontSmall = ImageFont.truetype('Font.ttf', 18)
+fontSmall = ImageFont.truetype('Font.ttf', 12)
 OLED_WIDTH = 128
 OLED_HEIGHT = 64
 
