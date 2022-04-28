@@ -132,6 +132,7 @@ def updateDisplay():
                 
          
         if state == "MODE_SETTINGS":
+            pass
             
          
         
