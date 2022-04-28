@@ -50,7 +50,11 @@ upButton = False
 downButton = False
 
 resetBEvent = mp.Event()
-playPauseCompleteEvent = mp.Event()
+playPauseCompleteBEvent = mp.Event()
+settingsBEvent = mp.Event()
+upBEvent = mp.Event()
+downBEvent = mp.Event()
+
 
 # ================================================ NEW CODE =======================================================
 
@@ -60,67 +64,73 @@ def checkResetB(): # PROCESS
         waitButton(pinB)
         resetBEvent.set()
       
-def checkPlayPauseComplete(): # PROCESS
-    global playPauseCompleteEvent
+def checkPlayPauseCompleteB(): # PROCESS
+    global playPauseCompleteBEvent
     while True:
         waitButton(pinA)
-        playPauseCompleteEvent.set()
+        playPauseCompleteBEvent.set()
+
+def checkSettingsB(): # PROCESS
+    global settingsBEvent
+    while True:
+        waitButton(pinC)
+        settingsBEvent.set()
+
+def checkUpB(): # PROCESS
+    global upBEvent
+    while True:
+        waitButton(pinD)
+        upBEvent.set()
+      
+def checkDownB(): # PROCESS
+    global downBEvent
+    while True:
+        waitButton(pinE)
+        downBEvent.set()
       
 def watchEvents(): # THREAD
     global resetBEvent
-    global playPauseCompleteEvent
+    global playPauseCompleteBEvent
+    global settingsBEvent
+    global upBEvent
+    global downBEvent
     
     while True:
         if resetBEvent.is_set():
+            # change mode and state
             print("Reset Button was pressed")
             resetBEvent.clear()
+          
         if playPauseCompleteEvent.is_set():
             print("Play Pause Complete Button was pressed")
             playPauseCompleteEvent.clear()
+           
+        if settingsBEvent.is_set():
+            print("Settings Button was pressed")
+            settingsBEvent.clear()
+           
+        if upBEvent.is_set():
+            print("Up Button was pressed")
+            upBEvent.clear()
+           
+        if downBEvent.is_set():
+            print("Down Button was pressed")
+            downBEvent.clear()
+           
+           
+           
+           
+           
+           
         time.sleep(0.01)
       
       
 # =================================================================================================================
     
 '''
-def checkPlayPauseComplete(): # Play pause check
-    global playPauseCheckB
-    debouncePinA = False
-    while True:
-        if readButton(pinA):
-            if debouncePinA == False:
-                debouncePinA = True
-                if settingsSaved == True:
-                    playPauseCheckB = not playPauseCheckB
-                else:
-                    playPauseCheckB = False
-                print("Play Pause Complete Button Pressed:", playPauseCheckB)
-        else:
-            debouncePinA = False
+
     
-def checkSettings():
-    global settingsButton
-    global settingsSaved 
-    global resetRequired
-    debouncePinC = False
-    while True:
-        if readButton(pinC):
-            if debouncePinC == False:
-                debouncePinC = True
-                settingsSaved = False # Whenever Settings button is pressed change settingsSaved to False
-                print("resetRequired:", resetRequired)
-                if resetRequired:
-                    print("settingButtons set to True")
-                    settingsButton = True
-#                     eventSettings.set()
-                else: 
-                    print("settingButtons set to False")
-                    settingsButton = False
-                print("Settings Button Pressed: " , settingsButton)
-                
-             
-        else:
-            debouncePinC = False
+
     
 def checkUp(): #thread
     print("Running thread: CheckUp")
@@ -793,14 +803,23 @@ def convertTime(value):  # given a number of seconds, returns string in HH:MM:SS
         
 '''         
 
-t1 = Process(target=checkResetB)
-t1.start()
-t2 = Process(target=checkPlayPauseComplete)
-t2.start()
+p1 = Process(target=checkResetB)
+p1.start()
+p2 = Process(target=checkPlayPauseCompleteB)
+p2.start()
+p3 = Process(target=checkSettingsB)
+p3.start()
+p4 = Process(target=checkUpB)
+p4.start()
+p5 = Process(target=checkDownB)
+p5.start()
 
-t3 = Thread(target=watchEvents)
-t3.start()
+t1 = Thread(target=watchEvents)
+t1.start()
 
 t1.join()
-t2.join()
-t3.join()
+p1.join()
+p2.join()
+p3.join()
+p4.join()
+p5.join()
