@@ -74,7 +74,7 @@ def watchEvents(): # THREAD
             playPauseCompleteBEvent.clear()
            
         if settingsBEvent.is_set():
-            if state == "WELCOME" or state == "OVERVIEW" or state == "MODE_SETTINGS_2":
+            if state == "WELCOME" or state == "OVERVIEW" or state == "MODE_SETTINGS_2" or state == "RUN":
                 state = "MODE_SELECT"
             elif state == "MODE_SELECT":
                 state = "MODE_SETTINGS"
