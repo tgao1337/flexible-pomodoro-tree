@@ -92,7 +92,47 @@ def updateDisplay():
         if state == "WELCOME":
             with canvas(device) as draw:
                 draw.line((0, 45, 127 ,45), fill="white")
-                draw.text((40, 43), "Welcome", fill="white")
+                draw.text((43, 43), "Welcome", fill="white")
+          
+        if state == "OVERVIEW":
+            with canvas(device) as draw:
+                draw.line((0, 45, 127 ,45), fill="white")
+                if mode == "POMODORO:
+                    draw.text((43, 43), "POM OVERVIEW", fill="white")
+                if mode == "TASK:
+                    draw.text((43, 43), "TASK OVERVIEW", fill="white")
+                if mode == "BUDGET:
+                    draw.text((43, 43), "BUDGET OVERVIEW", fill="white")
+                 
+        if state == "RUN":
+            with canvas(device) as draw:
+                draw.line((0, 45, 127 ,45), fill="white")
+                if mode == "POMODORO:
+                    draw.text((43, 43), "POM RUN", fill="white")
+                if mode == "TASK:
+                    draw.text((43, 43), "TASK RUN", fill="white")
+                if mode == "BUDGET:
+                    draw.text((43, 43), "BUDGET RUN", fill="white")
+                 
+        if state == "MODE_SELECT":
+            
+            with canvas(device) as draw:
+                draw.line((0, 45, 127 ,45), fill="white")
+                draw.text((30,45), "Select Mode", fill="white")
+                draw.text((32,0), "Pomodoro", fill="white")
+                draw.text((32,12), "Task", fill="white")
+                draw.text((32,24), "Budget", fill="white")
+
+                if mode == "POMODORO":
+                    draw.text((20,0), ">", fill="white")
+                if mode == "TASK":
+                    draw.text((20,12), ">", fill="white")
+                if mode == "BUDGET":
+                    draw.text((20,24), ">", fill="white")
+                
+         
+        if state == "MODE_SETTINGS":
+            
          
         
     
@@ -774,7 +814,9 @@ def convertTime(value):  # given a number of seconds, returns string in HH:MM:SS
 #             display.show()        
 #             time.sleep(1)
         
-'''         
+'''    
+
+
 
 p1 = Process(target=checkResetB)
 p1.start()
@@ -800,3 +842,12 @@ p2.join()
 p3.join()
 p4.join()
 p5.join()
+
+state = "MODE_SELECT"
+mode = "POMODORO"
+time.sleep(2)
+mode = "TASK"
+time.sleep(2)
+mode = "BUDGET"
+
+
