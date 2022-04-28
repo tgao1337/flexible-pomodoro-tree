@@ -180,8 +180,8 @@ def updateDisplay():
                     draw.text((30, 10), "00:25:00", font=fontBig, fill="white") #TODO Timing conversion printing
                 if mode == "TASK":
                     draw.text((30,45), "T | Settings", font=fontSmall, fill="white")
-                    draw.text((35, 0), "Set Tasks:", font=fontSmall, fill="white")
-                    draw.text((45, 10), "8", font=fontBig, fill="white") #TODO Task count manager
+                    draw.text((40, 0), "Set Tasks:", font=fontSmall, fill="white")
+                    draw.text((60, 10), "8", font=fontBig, fill="white") #TODO Task count manager
                 if mode == "BUDGET":
                     draw.text((30,45), "B | Settings", font=fontSmall, fill="white")
                     draw.text((25, 0), "Set Break Time:", font=fontSmall, fill="white")
