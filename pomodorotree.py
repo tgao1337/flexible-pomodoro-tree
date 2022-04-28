@@ -156,6 +156,7 @@ def updateDisplay():
                 
          
         if state == "MODE_SETTINGS":
+            print(state, mode)
             with canvas(device) as draw:
                 draw.line((0, 45, 127 ,45), fill="white")
             if mode == "POMODORO":
