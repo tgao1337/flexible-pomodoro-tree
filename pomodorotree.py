@@ -2,6 +2,8 @@
  
 from threading import Thread, Event, Lock
 from pomodoro import *
+from multiprocessing import Process
+import multiprocessing as mp
 
 global mode
 global pomoWorkTime
@@ -21,10 +23,6 @@ global uPomoWTime
 global uPomoBTime
 global uTaskNum
 global uBudgetTime
-
-# display = OLED()
-# display.setup()
-# display.clear()
 
 dispLock=Lock()
 eventSettings = Event()
@@ -51,24 +49,39 @@ settingsSaved = False
 upButton = False
 downButton = False
 
-def checkReset(): # Done for day button
-    global resetRequired
-    global settingsSaved 
-    debouncePinB = False
+resetBEvent = mp.Event()
+playPauseCompleteEvent = mp.Event()
+
+# ================================================ NEW CODE =======================================================
+
+def checkResetB(): # PROCESS
+    global resetBEvent
     while True:
-        if readButton(pinB):
-            if debouncePinB == False:
-                debouncePinB = True
-                resetRequired = not resetRequired
-                
-                if resetRequired:
-                    print("Start for the day")
-                    resetMode()
-                    settingsSaved = False
-                else:
-                    print("End for the day")
-        else:
-            debouncePinB = False
+        waitButton(pinB)
+        resetBEvent.set()
+      
+def checkPlayPauseComplete(): # PROCESS
+    global playPauseCompleteEvent
+    while True:
+        waitButton(pinA)
+        playPauseCompleteEvent.set()
+      
+def watchEvents(): # THREAD
+    global resetBEvent
+    global playPauseCompleteEvent
+    
+    for i in range(100):
+        print(i)
+        if resetBEvent.is_set():
+            print("Reset Button was pressed")
+            resetBEvent.clear()
+        if playPauseCompleteEvent.is_set():
+            print("Play Pause Complete Button was pressed")
+            playPauseCompleteEvent.clear()
+        time.sleep(1)
+      
+      
+# =================================================================================================================
     
 def checkPlayPauseComplete(): # Play pause check
     global playPauseCheckB
@@ -784,36 +797,15 @@ def convertTime(value):  # given a number of seconds, returns string in HH:MM:SS
 #             time.sleep(1)
         
             
-displayWelcome()
-t1 = Thread(target=checkReset)
-t1.start()
 
-t2 = Thread(target=checkPlayPauseComplete)
+t1 = Process(target=checkResetB)
+t1.start()
+t2 = Process(target=checkPlayPauseComplete)
 t2.start()
 
-t3 = Thread(target=checkSettings)
+t3 = Thread(target=watchEvents)
 t3.start()
-
-t4 = Thread(target=checkUp)
-t4.start()
-
-t5 = Thread(target=checkDown)
-t5.start()
-
-t6 = Thread(target=logic)
-t6.start()
-
-# t7 = Thread(target=updateDisplay)
-# t7.start()
-
-# t8 = Thread(target=Tree)
-# t8.start()
 
 t1.join()
 t2.join()
 t3.join()
-t4.join()
-t5.join()
-t6.join()
-# t7.join()
-# t8.join()
