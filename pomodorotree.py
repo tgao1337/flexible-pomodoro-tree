@@ -17,7 +17,7 @@ state = "WELCOME" # WELCOME, OVERVIEW, RUN, PAUSE, MODE_SELECT, MODE_SETTINGS
 
 pomoWorkTime = 25 * 60  # These are default values
 pomoBreakTime = 5 * 60  # These are default values
-taskNum = 8  # these are default values
+taskNum = 11  # these are default values
 budgetTime = 60 * 60  # these are default values
 
 resetBEvent = mp.Event()
@@ -188,7 +188,7 @@ def updateDisplay():
                 if mode == "BUDGET":
                     draw.text((31,45), "B | Settings", font=fontSmall, fill="white")
                     draw.text((23, 0), "Set Break Time:", font=fontSmall, fill="white")
-                    draw.text((23, 15), "00:55:00", font=fontBig, fill="white") # TODO Budget break timing
+                    draw.text((23, 10), "00:55:00", font=fontBig, fill="white") # TODO Budget break timing
                 
         if state == "MODE_SETTINGS_2":
             with canvas(device) as draw:
