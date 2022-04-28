@@ -7,11 +7,18 @@ import multiprocessing as mp
 
 global mode
 global state
+global pomoWorkTime
+global pomoBreakTime
+global taskNum
+global budgetTime
 
 mode = "POMODORO"
-state = "WELCOME" # WELCOME, OVERVIEW, RUN, MODE_SELECT, MODE_SETTINGS
+state = "WELCOME" # WELCOME, OVERVIEW, RUN, PAUSE, MODE_SELECT, MODE_SETTINGS
 
-# dispLock=Lock()
+pomoWorkTime = 25 * 60  # These are default values
+pomoBreakTime = 5 * 60  # These are default values
+taskNum = 8  # these are default values
+budgetTime = 60 * 60  # these are default values
 
 resetBEvent = mp.Event()
 playPauseCompleteBEvent = mp.Event()
@@ -70,7 +77,18 @@ def watchEvents(): # THREAD
           
         if playPauseCompleteBEvent.is_set():
             print("Play Pause Complete Button was pressed")
-            state = "RUN"
+            if state == "RUN" and not mode == "TASK":
+                state = "PAUSE"
+                #TODO pause timer
+            elif state == "PAUSE" and not mode == "TASK":
+                state = "RUN"
+                #TODO continue timer
+
+                
+
+            if mode == "TASK":
+                pass #TODO mark task as done
+            
             playPauseCompleteBEvent.clear()
            
         if settingsBEvent.is_set():
@@ -84,8 +102,6 @@ def watchEvents(): # THREAD
                 else:
                     state = "MODE_SELECT"
                   
-              
-            
             print("Settings Button was pressed")
             settingsBEvent.clear()
            
@@ -116,68 +132,68 @@ def updateDisplay():
         if state == "WELCOME":
             with canvas(device) as draw:
                 draw.line((0, 45, 127 ,45), fill="white")
-                draw.text((43, 43), "Welcome", fill="white")
+                draw.text((43, 43), "Welcome", font=fontSmall, fill="white")
           
         if state == "OVERVIEW":
             with canvas(device) as draw:
                 draw.line((0, 45, 127 ,45), fill="white")
                 if mode == "POMODORO":
-                    draw.text((43, 43), "POM OVERVIEW", fill="white")
+                    draw.text((43, 43), "POM OVERVIEW", font=fontSmall, fill="white")
                 if mode == "TASK":
-                    draw.text((43, 43), "TASK OVERVIEW", fill="white")
+                    draw.text((43, 43), "TASK OVERVIEW", font=fontSmall, fill="white")
                 if mode == "BUDGET":
-                    draw.text((43, 43), "BUDGET OVERVIEW", fill="white")
+                    draw.text((43, 43), "BUDGET OVERVIEW", font=fontSmall, fill="white")
                  
         if state == "RUN":
             with canvas(device) as draw:
                 draw.line((0, 45, 127 ,45), fill="white")
                 if mode == "POMODORO":
-                    draw.text((43, 43), "POM RUN", fill="white")
+                    draw.text((43, 43), "POM RUN", font=fontSmall, fill="white")
                 if mode == "TASK":
-                    draw.text((43, 43), "TASK RUN", fill="white")
+                    draw.text((43, 43), "TASK RUN", font=fontSmall, fill="white")
                 if mode == "BUDGET":
-                    draw.text((43, 43), "BUDGET RUN", fill="white")
+                    draw.text((43, 43), "BUDGET RUN", font=fontSmall, fill="white")
                  
         if state == "MODE_SELECT":
             
             with canvas(device) as draw:
                 draw.line((0, 45, 127 ,45), fill="white")
-                draw.text((30,45), "Select Mode", fill="white")
-                draw.text((32,0), "Pomodoro", fill="white")
-                draw.text((32,12), "Task", fill="white")
-                draw.text((32,24), "Budget", fill="white")
+                draw.text((30,45), "Select Mode", font=fontSmall, fill="white")
+                draw.text((32,0), "Pomodoro", font=fontSmall, fill="white")
+                draw.text((32,12), "Task", font=fontSmall, fill="white")
+                draw.text((32,24), "Budget", font=fontSmall, fill="white")
 
                 if mode == "POMODORO":
-                    draw.text((20,0), ">", fill="white")
+                    draw.text((20,0), ">", font=fontSmall, fill="white")
                 if mode == "TASK":
-                    draw.text((20,12), ">", fill="white")
+                    draw.text((20,12), ">", font=fontSmall, fill="white")
                 if mode == "BUDGET":
-                    draw.text((20,24), ">", fill="white")
+                    draw.text((20,24), ">", font=fontSmall, fill="white")
                 
          
         if state == "MODE_SETTINGS":
             with canvas(device) as draw:
                 draw.line((0, 45, 127 ,45), fill="white")
                 if mode == "POMODORO":
-                    draw.text((30,45), "P | Settings", fill="white")  # Removed cycles
-                    draw.text((25, 0), "Set Work Time:", fill="white")
+                    draw.text((30,45), "P | Settings", font=fontSmall, fill="white")  # Removed cycles
+                    draw.text((25, 0), "Set Work Time:", font=fontSmall, fill="white")
                     draw.text((30, 10), "00:25:00", font=fontBig, fill="white") #TODO Timing conversion printing
                 if mode == "TASK":
-                    draw.text((30,45), "T | Settings", fill="white")
-                    draw.text((30, 0), "Set Tasks:", fill="white")
-                    draw.text((30, 10), "8", fill="white") #TODO Task count manager
+                    draw.text((30,45), "T | Settings", font=fontSmall, fill="white")
+                    draw.text((30, 0), "Set Tasks:", font=fontSmall, fill="white")
+                    draw.text((30, 10), "8", font=fontBig, fill="white") #TODO Task count manager
                 if mode == "BUDGET":
-                    draw.text((20,45), "B | Settings", fill="white")
-                    draw.text((25, 0), "Set Break Time:", fill="white")
-                    draw.text((30, 10), "00:55:00", fill="white") # TODO Budget break timing
+                    draw.text((20,45), "B | Settings", font=fontSmall, fill="white")
+                    draw.text((25, 0), "Set Break Time:", font=fontSmall, fill="white")
+                    draw.text((30, 10), "00:55:00", font=fontBig, fill="white") # TODO Budget break timing
                 
         if state == "MODE_SETTINGS_2":
             with canvas(device) as draw:
                 draw.line((0, 45, 127 ,45), fill="white")
                 if mode == "POMODORO":
-                    draw.text((30,45), "P | Settings", fill="white")  # Removed cycles
-                    draw.text((25, 0), "Set Break Time:", fill="white")
-                    draw.text((30, 10), "00:05:00", fill="white") #TODO Timing conversion printing
+                    draw.text((30,45), "P | Settings", font=fontSmall, fill="white")  # Removed cycles
+                    draw.text((25, 0), "Set Break Time:", font=fontSmall, fill="white")
+                    draw.text((30, 10), "00:05:00", font=fontBig, fill="white") #TODO Timing conversion printing
             
             
          
