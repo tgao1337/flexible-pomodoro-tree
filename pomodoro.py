@@ -447,7 +447,7 @@ def waitButton(pin):
   return
 
 def waitRising(pin):
-  return GPIO.add_event_detect(pin, GPIO.RISING)
+  return GPIO.add_event_detect(pin, GPIO.RISING, bouncetime=200)
 
 '''with canvas(device) as draw:
     draw.line((0, 45, 127 ,45), fill="white")
