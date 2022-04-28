@@ -70,15 +70,14 @@ def watchEvents(): # THREAD
     global resetBEvent
     global playPauseCompleteEvent
     
-    for i in range(100):
-        print(i)
+    while True:
         if resetBEvent.is_set():
             print("Reset Button was pressed")
             resetBEvent.clear()
         if playPauseCompleteEvent.is_set():
             print("Play Pause Complete Button was pressed")
             playPauseCompleteEvent.clear()
-        time.sleep(1)
+        time.sleep(0.01)
       
       
 # =================================================================================================================
