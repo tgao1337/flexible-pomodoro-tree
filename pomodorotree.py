@@ -60,7 +60,7 @@ def watchEvents(): # THREAD
     global downBEvent
     global state
     global mode
-    
+  
     while True:
         if resetBEvent.is_set():
             # change mode and state
@@ -80,18 +80,27 @@ def watchEvents(): # THREAD
            
         if upBEvent.is_set():
             print("Up Button was pressed")
-            mode = "TASK"
+            if state = "MODE_SELECT":
+                if mode == "TASK":
+                    mode = "POMODORO"
+                if mode == "BUDGET":
+                    mode = "TASK"                
             upBEvent.clear()
            
         if downBEvent.is_set():
             print("Down Button was pressed")
-            mode = "BUDGET"
+            if state = "MODE_SELECT":
+                if mode == "POMODORO":
+                    mode = "TASK"
+                if mode == "TASK":
+                    mode = "BUDGET"   
+          
             downBEvent.clear()
         time.sleep(0.01)
         
         
 def updateDisplay():
-    
+
     while True:
         if state == "WELCOME":
             with canvas(device) as draw:
@@ -128,13 +137,10 @@ def updateDisplay():
                 draw.text((32,24), "Budget", fill="white")
 
                 if mode == "POMODORO":
-                    print("Pomodoro mode selected")
                     draw.text((20,0), ">", fill="white")
                 if mode == "TASK":
-                    print("TASK mode selected")
                     draw.text((20,12), ">", fill="white")
                 if mode == "BUDGET":
-                    print("Budget mode selected")
                     draw.text((20,24), ">", fill="white")
                 
          
