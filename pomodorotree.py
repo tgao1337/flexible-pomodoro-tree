@@ -80,7 +80,7 @@ def watchEvents(): # THREAD
            
         if upBEvent.is_set():
             print("Up Button was pressed")
-            if state = "MODE_SELECT":
+            if state == "MODE_SELECT":
                 if mode == "TASK":
                     mode = "POMODORO"
                 if mode == "BUDGET":
@@ -89,7 +89,7 @@ def watchEvents(): # THREAD
            
         if downBEvent.is_set():
             print("Down Button was pressed")
-            if state = "MODE_SELECT":
+            if state == "MODE_SELECT":
                 if mode == "POMODORO":
                     mode = "TASK"
                 if mode == "TASK":
