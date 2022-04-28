@@ -12,7 +12,8 @@ from luma.oled.device import sh1106
 serial = i2c(port=1, address = 0x3C)
 device = sh1106(serial)
 
-default_font = ImageFont.truetype('Font.ttf', 10)
+fontBig = ImageFont.truetype('Font.ttf', 18)
+fontSmall = ImageFont.truetype('Font.ttf', 18)
 OLED_WIDTH = 128
 OLED_HEIGHT = 64
 
