@@ -25,7 +25,7 @@ def test_display():
     display.draw_line(0,20,127,20)
 
 def test_leds():
-   setup()
+  setup()
 
   allOn()
   time.sleep(0.05)  
