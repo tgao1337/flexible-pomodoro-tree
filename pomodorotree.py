@@ -73,15 +73,18 @@ def watchEvents(): # THREAD
             playPauseCompleteBEvent.clear()
            
         if settingsBEvent.is_set():
+            state = "MODE_SELECT"
             print("Settings Button was pressed")
             settingsBEvent.clear()
            
         if upBEvent.is_set():
             print("Up Button was pressed")
+            mode = "TASK"
             upBEvent.clear()
            
         if downBEvent.is_set():
             print("Down Button was pressed")
+            mode = "BUDGET"
             downBEvent.clear()
         time.sleep(0.01)
         
@@ -843,12 +846,5 @@ p2.join()
 p3.join()
 p4.join()
 p5.join()
-
-state = "MODE_SELECT"
-mode = "POMODORO"
-time.sleep(2)
-mode = "TASK"
-time.sleep(2)
-mode = "BUDGET"
 
 
