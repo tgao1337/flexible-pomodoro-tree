@@ -73,16 +73,17 @@ def displayLED():
   d2=bin(int(ledList[16:7:-1],base=2))
   d3=bin(int(ledList[24:16:-1],base=2))
   d4=bin(int(ledList[:24:-1],base=2))
-  '''
-  spi.xfer(ledList[:24:-1])
-  spi.xfer(ledList[24:16:-1])
-  spi.xfer(ledList[16:7:-1])
-  spi.xfer(ledList[7::-1])
-  '''GPIO.output(RCLK, GPIO.LOW) #pulse RCLK after all the inputs are loaded for a given cluster
+  
+  spi.xfer2(ledList[:24:-1])
+  spi.xfer2(ledList[24:16:-1])
+  spi.xfer2(ledList[16:7:-1])
+  spi.xfer2(ledList[7::-1])
+  
+  GPIO.output(RCLK, GPIO.LOW) #pulse RCLK after all the inputs are loaded for a given cluster
   time.sleep(0.05)
   GPIO.output(RCLK, GPIO.HIGH)
   '''
-
+  spi.xfer(ledList)
 
 '''This function allows you to turn on the lowest currently off led in the chain or turn off the highedst currently on led in the chain
 Arguements: bool on or off'''
@@ -269,12 +270,14 @@ if __name__ == '__main__':
   print(ledList)
   time.sleep(5)
   
-  for i in range(32):
+  for i in range(24):
+   time.sleep(1)
    toggleNextLed(1,True)
    print(ledList)
   
 
-  for i in range(32):
+  for i in range(24):
+   time.sleep(1)
    toggleNextLed(1,False)
   
   toggleNextLed(4, True)
