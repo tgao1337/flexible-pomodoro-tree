@@ -156,4 +156,8 @@ if __name__ == '__main__':
   toggleNextLed(True,22)
   time.sleep(3)
   toggleNextLed( False,13)
+  time.sleep(3)
+  toggleNextLed(True,50)
+  time.sleep(3)
+  toggleNextLed(False,3)
 
