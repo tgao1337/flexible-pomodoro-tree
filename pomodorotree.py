@@ -84,6 +84,7 @@ def pomoRun():
             
             mode = "POMODORO_B"
             state = "PAUSE"
+            displayTime = pomoBreakTime
             
         if state == "RUN" and mode == "POMODORO_B":
             startTime = time.time()
@@ -94,6 +95,7 @@ def pomoRun():
                 displayTime = time.strftime("%H:%M:%S", x)
             mode = "POMODORO_W"
             state = "PAUSE"
+            displayTime = pomoWorkTime
                   
       
 def watchEvents(): # THREAD
