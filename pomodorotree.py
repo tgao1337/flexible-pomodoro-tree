@@ -71,6 +71,8 @@ def pomoRun():
     global startTime
     global endTime
     global displayTime
+    global mode
+    global state
     while True:
         if state == "RUN" and mode == "POMODORO_W":
             startTime = time.time()
