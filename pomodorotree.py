@@ -336,7 +336,7 @@ def updateDisplay():
             with canvas(device) as draw:
                 draw.line((0, 45, 127 ,45), fill="white")
                 if mode == "POMODORO_W" or mode == "POMODORO_B":
-                    draw.text((31,45), "P | Settings | "+displayTime", font=fontSmall, fill="white")  # Removed cycles
+                    draw.text((31,45), "P | Settings | "+displayTime, font=fontSmall, fill="white")  # Removed cycles
                     draw.text((23, 0), "Set Break Time:", font=fontSmall, fill="white")
                     draw.text((17, 10), "00:05:00", font=fontBig, fill="white") #TODO Timing conversion printing
             
