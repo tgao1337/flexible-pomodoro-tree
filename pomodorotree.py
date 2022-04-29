@@ -113,6 +113,7 @@ def watchEvents(): # THREAD
     global state
     global mode
     global displayTime
+    global taskDone
     
     while True:
         if resetBEvent.is_set():
