@@ -83,6 +83,8 @@ def watchEvents(): # THREAD
             elif state == "PAUSE" and not mode == "TASK":
                 state = "RUN"
                 #TODO continue timer
+            elif state == "WELCOME" or state == "MODE_SELECT" or state == "OVERVIEW" or state == "MODE_SETTINGS" or state == "MODE_SETTINGS_2":
+                state = "RUN"
 
                 
 
@@ -138,21 +140,21 @@ def updateDisplay():
             with canvas(device) as draw:
                 draw.line((0, 45, 127 ,45), fill="white")
                 if mode == "POMODORO":
-                    draw.text((43, 43), "POM OVERVIEW", font=fontSmall, fill="white")
+                    draw.text((42, 43), "POM OVERVIEW", font=fontSmall, fill="white")
                 if mode == "TASK":
-                    draw.text((43, 43), "TASK OVERVIEW", font=fontSmall, fill="white")
+                    draw.text((42, 43), "TASK OVERVIEW", font=fontSmall, fill="white")
                 if mode == "BUDGET":
-                    draw.text((43, 43), "BUDGET OVERVIEW", font=fontSmall, fill="white")
+                    draw.text((42, 43), "BUDGET OVERVIEW", font=fontSmall, fill="white")
                  
         if state == "RUN":
             with canvas(device) as draw:
                 draw.line((0, 45, 127 ,45), fill="white")
                 if mode == "POMODORO":
-                    draw.text((43, 43), "POM RUN", font=fontSmall, fill="white")
+                    draw.text((42, 43), "POM RUN", font=fontSmall, fill="white")
                 if mode == "TASK":
-                    draw.text((43, 43), "TASK RUN", font=fontSmall, fill="white")
+                    draw.text((42, 43), "TASK RUN", font=fontSmall, fill="white")
                 if mode == "BUDGET":
-                    draw.text((43, 43), "BUDGET RUN", font=fontSmall, fill="white")
+                    draw.text((42, 43), "BUDGET RUN", font=fontSmall, fill="white")
                  
         if state == "MODE_SELECT":
             
@@ -177,7 +179,7 @@ def updateDisplay():
                 if mode == "POMODORO":
                     draw.text((31,45), "P | Settings", font=fontSmall, fill="white")  # Removed cycles
                     draw.text((23, 0), "Set Work Time:", font=fontSmall, fill="white")
-                    draw.text((18, 10), "00:25:00", font=fontBig, fill="white") #TODO Timing conversion printing
+                    draw.text((17, 10), "00:25:00", font=fontBig, fill="white") #TODO Timing conversion printing
                 if mode == "TASK":
                     draw.text((31,45), "T | Settings", font=fontSmall, fill="white")
                     draw.text((40, 0), "Set Tasks:", font=fontSmall, fill="white")
@@ -188,7 +190,7 @@ def updateDisplay():
                 if mode == "BUDGET":
                     draw.text((31,45), "B | Settings", font=fontSmall, fill="white")
                     draw.text((23, 0), "Set Break Time:", font=fontSmall, fill="white")
-                    draw.text((18, 10), "00:55:00", font=fontBig, fill="white") # TODO Budget break timing
+                    draw.text((17, 10), "00:55:00", font=fontBig, fill="white") # TODO Budget break timing
                 
         if state == "MODE_SETTINGS_2":
             with canvas(device) as draw:
@@ -196,7 +198,7 @@ def updateDisplay():
                 if mode == "POMODORO":
                     draw.text((31,45), "P | Settings", font=fontSmall, fill="white")  # Removed cycles
                     draw.text((23, 0), "Set Break Time:", font=fontSmall, fill="white")
-                    draw.text((18, 10), "00:05:00", font=fontBig, fill="white") #TODO Timing conversion printing
+                    draw.text((17, 10), "00:05:00", font=fontBig, fill="white") #TODO Timing conversion printing
             
             
          
@@ -207,245 +209,6 @@ def updateDisplay():
 # =================================================================================================================
     
 '''
-
-    
-
-    
-def checkUp(): #thread
-    print("Running thread: CheckUp")
-    global upButton
-    global settingsButton
-    debouncePinD = False
-    while True:
-        if readButton(pinD):
-            if debouncePinD == False:
-                debouncePinD = True
-#                 if settingsButton:
-                upButton = True
-                print("Up Button Pressed")
-#                 else: 
-#                     upButton = False
-        else:
-            debouncePinD = False
-    
-def checkDown(): #thread
-    print("Running thread: CheckDown")
-    global downButton
-    debouncePinE = False
-    while True:
-        if readButton(pinE):
-            if debouncePinE == False:
-                debouncePinE = True
-#                 if settingsButton:
-                downButton = True
-                print("Down Button Pressed")
-#                 else:
-#                     downButton = False
-        else:
-            debouncePinE = False
-    
-def logic(): #thread
-    print("Thread running: logic")
-    global reset
-    global playPauseCheckB
-    global settingsButton
-    global upButton
-    global downButton 
-    isSure = False
-    
-    while True:
-        if settingsButton:
-            settingsButton = False
-            result = selection()
-            if result == 0:
-                pomSett()
-            elif result == 1:
-                taskSett()
-            elif result == 2:
-                budgSett()
-              
-#         print("playPauseCheckB:", playPauseCheckB, "settingsSaved:", settingsSaved, "resetRequired:", resetRequired)
-        if playPauseCheckB and settingsSaved and resetRequired: # If the playPauseCheckB has been pressed and settingsSaved start Tree
-            if mode == 0:
-                startPomodoro()
-                print("Starting Pomodoro now!")
-            elif mode == 1:
-                startTask()
-            elif mode == 2:
-                startBudget()
-        
-#         if reset: # Start for the day, begin with selecting mode but wait for settings button being pressed
-#             event.wait()
-#             if settingsButton: # if settings button pressed go into selection
-#                 settingsButton = False
-#                 result = selection()
-#                 if result == 0:
-#                     pomSett()
-#                 elif result == 1:
-#                     taskSett()
-#                 elif result == 2:
-#                     budgSett()
-
-#                 if settingsButton: #want to update settings more
-#                     settingsButton = False
-#                 if mode == 0:
-#                     pomSett()
-#                 elif mode == 1:
-#                     taskSett()
-#                 elif mode == 2:
-#                     budgSett()
-
-#                     isSure = check()
-                        
-#                     if isSure:
-#                         if mode==0:
-#                             goPomo()
-#                         if mode==1:
-#                             goTask()
-#                         if mode==2:
-#                             goBudget()
-#                     else:
-#                         selection()          
-            
-#             else: 
-#                 displayWelcome()  
-#         else:
-#             displayWelcome()
-           
-            
-def displayWelcome():
-    with dispLock:
-#         while not resetRequired:
-        print("Welcome! Press Start and Settings to select a mode")
-#         display.clear()
-# #         draw tree
-#         display.draw_line(0, 45, 127 ,45)
-#         display.text("Welcome", 40, 43, 12)
-#         display.show()
-        with canvas(device) as draw:
-            draw.line((0, 45, 127 ,45), fill="white")
-            draw.text((40, 43), "Welcome", fill="white")
-   
-def selection():
-    print("Please select a mode from the following:")
-    global mode
-    global upButton
-    global downButton
-    global settingsButton
-    global playPauseCheckB
-    global settingsSaved
-    
-    print("> Pomodoro \n  Task \n  Budget")
-    modeChangeDetected = False
-    while True:
-        with dispLock:
-            if mode == 0:
-                #display.clear()
-                #display.text("Select Mode:\n > Pomodoro \n    Task \n    Budget", 20,0,12)
-                #display.show()
-                with canvas(device) as draw:
-                    draw.text((20, 0), "Select Mode:\n > Pomodoro \n    Task \n    Budget", fill="white")
-                if modeChangeDetected:
-                    modeChangeDetected = False
-                    print("==========")
-                    print("> Pomodoro \n  Task \n  Budget")
-                      
-#                 display.draw_line(0, 45, 127 ,45)
-#                 display.text("Select Mode", 30,45,12)
-#                 display.text("> Pomodoro", 20,0,14)
-#                 display.text("Task", 32,12,14)
-#                 display.text("Budget", 32,24,14)
-                with canvas(device) as draw:
-                    draw.line((0, 45, 127 ,45), fill="white")
-                    draw.text((30,45), "Select Mode", fill="white")
-                    draw.text((20,0), "> Pomodoro", fill="white")
-                    draw.text((32,12), "Task", fill="white")
-                    draw.text((32,24), "Budget", fill="white")
- 
-                if downButton:
-                    mode = 1
-                    downButton = False
-                    modeChangeDetected = True
-                elif upButton:
-                    mode = 0
-                    upButton = False
-                    modeChangeDetected = True
-                if settingsButton:
-                    settingsButton = False
-                    print("POMODORO MODE SELECTED")
-                    return 0
-
-                
-            elif mode == 1:
-                #display.clear()
-                #display.text("Select Mode:\n    Pomodoro \n > Task \n    Budget", 20,0,12)
-                #display.show()
-                with canvas(device) as draw:
-                    draw.text((20, 0), "Select Mode:\n    Pomodoro \n > Task \n    Budget", fill="white")
-                if modeChangeDetected:
-                    modeChangeDetected = False
-                    print("==========")
-                    print("  Pomodoro \n> Task \n  Budget")
-#                 display.draw_line(0, 45, 127 ,45)
-#                 display.text("Select Mode", 30,45,12)
-#                 display.text("Pomodoro", 32,0,14)
-#                 display.text("> Task", 20,12,14)
-#                 display.text("Budget", 32,24,14)
-                with canvas(device) as draw:
-                    draw.line((0, 45, 127 ,45), fill="white")
-                    draw.text((30,45), "Select Mode", fill="white")
-                    draw.text((32,0), "Pomodoro", fill="white")
-                    draw.text((20,12), "> Task", fill="white")
-                    draw.text((32,24), "Budget", fill="white")
-                
-                if downButton:
-                    mode = 2
-                    downButton = False
-                    modeChangeDetected = True
-                elif upButton:
-                    mode = 0
-                    upButton = False
-                    modeChangeDetected = True
-                if settingsButton:
-                    settingsButton = False
-                    print("TASK MODE SELECTED")
-                    return 1
-              
-                
-            elif mode == 2:
-                #display.clear()
-                #display.text("Select Mode:\n    Pomodoro \n    Task \n > Budget", 20,0,12)
-                #display.show()
-                with canvas(device) as draw:
-                    draw.text((20, 0), "Select Mode:\n    Pomodoro \n    Task \n > Budget", fill="white")
-                if modeChangeDetected:
-                    modeChangeDetected = False
-                    print("==========")            
-                    print("  Pomodoro \n  Task \n> Budget")
-#                 display.draw_line(0, 45, 127 ,45)
-#                 display.text("Select Mode", 30,45,12)
-#                 display.text("Pomodoro", 32,0,14)
-#                 display.text("Task", 32,12,14)
-#                 display.text("> Budget", 20,24,14)
-                with canvas(device) as draw:
-                    draw.line((0, 45, 127 ,45), fill="white")
-                    draw.text((30,45), "Select Mode", fill="white")
-                    draw.text((32,0), "Pomodoro", fill="white")
-                    draw.text((32,12), "Task", fill="white")
-                    draw.text((20,24), "> Budget", fill="white")
-                
-                if downButton:
-                    mode=2
-                    downButton = False
-                    modeChangeDetected = True
-                elif upButton:
-                    mode = 1
-                    upButton = False
-                    modeChangeDetected = True
-                if settingsButton:
-                    settingsButton = False
-                    print("BUDGET MODE SELECTED")
-                    return 2
 
 def pomSett():
     print("In Pomodoro Settings")
