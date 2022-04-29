@@ -44,7 +44,7 @@ def displayLED():
   global ledList
   
   hex=hexList()
-  
+  print("HEX", hex)
   GPIO.output(RCLK, GPIO.LOW)
   spi.xfer(hex)
   time.sleep(0.05)
