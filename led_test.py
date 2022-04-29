@@ -62,7 +62,7 @@ def hexList():
       hexLEDList.append(int(byte,2))
       byte = ""
     i+=1
-  return hexLEDList
+  return hexLEDList[::-1]
       
   
   
