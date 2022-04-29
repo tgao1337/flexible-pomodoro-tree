@@ -119,7 +119,7 @@ def watchEvents(): # THREAD
         if resetBEvent.is_set():
             # change mode and state
             print("Reset Button was pressed")
-            state = "WELCOME"
+            state = "OVERVIEW"
             # TODO take care of reset
             if mode == "POMODORO_B":
                 mode = "POMODORO_W"
