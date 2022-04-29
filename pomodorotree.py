@@ -76,6 +76,7 @@ def pomoRun():
     global mode
     global state
     while True:
+        
         if state == "RUN" and mode == "POMODORO_W":
             startTime = time.time()
             endTime = startTime + pomoWorkTime
@@ -83,6 +84,9 @@ def pomoRun():
                 if state == "RUN":
                     timeLeft = endTime - time.time()
                     x = time.gmtime(timeLeft)
+                if state == "PAUSE":
+                    endTime = time.time() + timeLeft   
+                 
                 displayTime = time.strftime("%H:%M:%S", x)
             
             mode = "POMODORO_B"
@@ -97,6 +101,8 @@ def pomoRun():
                 if state == "RUN":
                     timeLeft = endTime - time.time()
                     x = time.gmtime(timeLeft)
+                if state == "PAUSE":
+                    endTime = time.time() + timeLeft   
                 displayTime = time.strftime("%H:%M:%S", x)
             mode = "POMODORO_W"
             state = "PAUSE"
