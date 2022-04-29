@@ -138,7 +138,7 @@ if __name__ == '__main__':
   print(ledList)
   time.sleep(5)
   
-  for i in range(32):
+  '''for i in range(32):
    time.sleep(2)
    toggleNextLed(True,1)
    print(ledList)
@@ -146,7 +146,7 @@ if __name__ == '__main__':
   
   for i in range(32):
    toggleNextLed(False,1)
-  
+  '''
   toggleNextLed( True,4)
   time.sleep(3)
   toggleNextLed(True,8)
