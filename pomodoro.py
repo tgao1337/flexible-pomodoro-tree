@@ -32,12 +32,7 @@ pinB = 6
 pinC = 16
 pinD = 24
 pinE = 26
-GPIO.setup(pinA, GPIO.IN)
-GPIO.setup(pinB, GPIO.IN)
-GPIO.setup(pinC, GPIO.IN)
-GPIO.setup(pinD, GPIO.IN)
-GPIO.setup(pinE, GPIO.IN)
-#GPIO.setup(pinF, GPIO.IN)
+
 
 # Pins used for driver
 SER = 10
@@ -94,6 +89,15 @@ G7 = 3136
 A7 = 3520
 B7 = 3951
 C8 = 4186
+
+
+def buttonSetup():
+  GPIO.setup(pinA, GPIO.IN)
+  GPIO.setup(pinB, GPIO.IN)
+  GPIO.setup(pinC, GPIO.IN)
+  GPIO.setup(pinD, GPIO.IN)
+  GPIO.setup(pinE, GPIO.IN)
+  #GPIO.setup(pinF, GPIO.IN)
 
 def buzzerSetup():
   global pi 
