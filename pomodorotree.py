@@ -75,17 +75,23 @@ def pomoRun():
     global displayTime
     global mode
     global state
+    
+    prevState = "NONE"
+    
     while True:
         
         if state == "RUN" and mode == "POMODORO_W":
+            prevState = "RUN"
             startTime = time.time()
             endTime = startTime + pomoWorkTime
             while time.time() <= endTime:
-                if state == "RUN":
+                if state == "RUN" or (prevState == "RUN" and not state=="RUN" and not state == "PAUSE"):
                     timeLeft = endTime - time.time()
                     x = time.gmtime(timeLeft)
-                if state == "PAUSE" or state == "MODE_SELECT" or state == "MODE_SETTINGS" or state == "MODE_SETTINGS_2":
-                    endTime = time.time() + timeLeft   
+                    prevState = "RUN"
+                if state == "PAUSE" or (prevState == "PAUSE" and not state=="RUN" and not state == "PAUSE"):
+                    endTime = time.time() + timeLeft
+                    prevState = "PAUSE"
                  
                 displayTime = time.strftime("%H:%M:%S", x)
             
@@ -95,14 +101,17 @@ def pomoRun():
             displayTime = time.strftime("%H:%M:%S", x)
             
         if state == "RUN" and mode == "POMODORO_B":
+            prevState = "RUN"
             startTime = time.time()
             endTime = startTime + pomoBreakTime
             while time.time() <= endTime:
-                if state == "RUN":
+                if state == "RUN" or (prevState == "RUN" and not state=="RUN" and not state == "PAUSE"):
                     timeLeft = endTime - time.time()
                     x = time.gmtime(timeLeft)
-                if state == "PAUSE" or state == "MODE_SELECT" or state == "MODE_SETTINGS" or state == "MODE_SETTINGS_2":
-                    endTime = time.time() + timeLeft   
+                    prevState = "RUN"
+                if state == "PAUSE" or (prevState == "PAUSE" and not state=="RUN" and not state == "PAUSE"):
+                    endTime = time.time() + timeLeft
+                    prevState = "PAUSE"
                 displayTime = time.strftime("%H:%M:%S", x)
             mode = "POMODORO_W"
             state = "PAUSE"
