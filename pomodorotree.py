@@ -131,7 +131,7 @@ def watchEvents(): # THREAD
               
               
                 #TODO continue timer
-            elif state == "WELCOME" or state == "MODE_SELECT" or state == "OVERVIEW" or state == "MODE_SETTINGS" or state == "MODE_SETTINGS_2":
+            elif state == "MODE_SELECT" or state == "OVERVIEW" or state == "MODE_SETTINGS" or state == "MODE_SETTINGS_2":
                 state = "RUN"
 
                 
