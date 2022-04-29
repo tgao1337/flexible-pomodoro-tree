@@ -36,6 +36,10 @@ upBEvent = mp.Event()
 downBEvent = mp.Event()
 pomoRunEvent = mp.Event()
 
+buttonSetup()
+buzzerSetup()
+led_setup()
+
 
 # ================================================ NEW CODE =======================================================
 
