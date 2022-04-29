@@ -38,7 +38,7 @@ pomoRunEvent = mp.Event()
 
 buttonSetup()
 # buzzerSetup() # no button for now
-led_setup()
+# led_setup()
 
 
 # ================================================ NEW CODE =======================================================
