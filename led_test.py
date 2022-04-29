@@ -48,7 +48,7 @@ def displayLED():
   GPIO.output(RCLK, GPIO.LOW)
   spi.xfer(hex)
   time.sleep(0.05)
-  GPIO.output(RCLK, GPIO.HIGH
+  GPIO.output(RCLK, GPIO.HIGH)
   
 
 def hexList():
@@ -156,60 +156,4 @@ if __name__ == '__main__':
   toggleNextLed(22,True)
   time.sleep(1)
   toggleNextLed(13, False)
-
-'''
-  toggleClusterColorGroup(1,'r',True)
-  toggleClusterColorGroup(2,'r',True)
-  toggleClusterColorGroup(3,'r',True)
-  toggleClusterColorGroup(4,'r',True)
-  print(ledDict)
-
-  toggleClusterColorGroup(1,'y',True)
-  toggleClusterColorGroup(2,'y',True)
-  toggleClusterColorGroup(3,'y',True)
-  toggleClusterColorGroup(4,'y',True)
-  print(ledDict)
-
-  toggleClusterColorGroup(1,'g',True)
-  toggleClusterColorGroup(2,'g',True)
-  toggleClusterColorGroup(3,'g',True)
-  toggleClusterColorGroup(4,'g',True)
-  print(ledDict)
-
-  toggleClusterColorGroup(1,'g',False)
-  toggleClusterColorGroup(2,'g',False)
-  toggleClusterColorGroup(3,'g',False)
-  toggleClusterColorGroup(4,'g',False)
-  print(ledDict)
-
-  toggleClusterColorGroup(1,'y',False)
-  toggleClusterColorGroup(2,'y',False)
-  toggleClusterColorGroup(3,'y',False)
-  toggleClusterColorGroup(4,'y',False)
-  print(ledDict)
-
-  toggleClusterColorGroup(1,'r',False)
-  toggleClusterColorGroup(2,'r',False)
-  toggleClusterColorGroup(3,'r',False)
-  toggleClusterColorGroup(4,'r',False)
-  print(ledDict)
-
-  toggleClusterColorGroup(2,'y',True)
-  toggleNextLed(False)
-  toggleNextLed(True)
-  toggleNextLed(True)
-  toggleNextLed(False)
-  toggleClusterColorGroup(1,'y',True)
-  toggleNextLed(False)
-  toggleClusterColorGroup(3,'r',True)
-  toggleNextLed(False)
-  toggleClusterColorGroup(2,'g',True)
-  allOn()
-  selectClusterOFF(2)
-  selectClusterOFF(4)
-  selectClusterOFF(3)
-  toggleNextLed(True)
-  selectClusterOFF(1)
-'''
-
 
