@@ -201,42 +201,44 @@ def updateDisplay():
                 if mode == "BUDGET":
                     draw.text((42, 43), "BUDGET OVERVIEW", font=fontSmall, fill="white")
                  
-        if state == "RUN" or state == "PAUSED":
+        if state == "RUN":
             with canvas(device) as draw:
                 draw.line((0, 45, 127 ,45), fill="white")
                   
                 if mode == "POMODORO_W":
-                    if state == "RUN":
-                        draw.text((31,45), "P | Work", font=fontSmall, fill="white")
-                    else:
-                        draw.text((31,45), "P | Work | Paused", font=fontSmall, fill="white")
+                    draw.text((31,45), "P | Work", font=fontSmall, fill="white")
                     draw.text((17, 10), displayTime, font=fontBig, fill="white")
                 elif mode == "POMODORO_B":
-                    if state == "RUN":
-                        draw.text((31,45), "P | Break", font=fontSmall, fill="white")
-                    else:
-                        draw.text((31,45), "P | Break | Paused", font=fontSmall, fill="white")
+                    draw.text((31,45), "P | Break", font=fontSmall, fill="white")
                     draw.text((17, 10), displayTime, font=fontBig, fill="white")
 
-                
                 if mode == "TASK":
                     taskString = taskDone + "/" + taskNum
                     draw.text((17, 10), taskString, font=fontBig, fill="white")
-                    draw.text((42, 43), "TASK RUN", font=fontSmall, fill="white")
+                    draw.text((31,45), "T | Task", font=fontSmall, fill="white")  # TODO add task name
                 if mode == "BUDGET":
-                    draw.text((42, 43), "BUDGET RUN", font=fontSmall, fill="white")
+                    draw.text((31,45), "B | Budget", font=fontSmall, fill="white")  # TODO add productivity time
+                    draw.text((17, 10), displayTime, font=fontBig, fill="white")
                   
                   
-#         if state == "PAUSE":
-#             with canvas(device) as draw:
-#                 draw.line((0, 45, 127 ,45), fill="white")
+        if state == "PAUSE":
+            with canvas(device) as draw:
+                draw.line((0, 45, 127 ,45), fill="white")
                   
-#                 if mode == "POMODORO_W":
-#                     draw.text((31,45), "P | Work | Paused", font=fontSmall, fill="white")
-#                     draw.text((17, 10), displayTime, font=fontBig, fill="white")
-#                 elif mode == "POMODORO_B":
-#                     draw.text((31,45), "P | Break | Paused", font=fontSmall, fill="white")
-#                     draw.text((17, 10), displayTime, font=fontBig, fill="white")
+                if mode == "POMODORO_W":
+                    draw.text((31,45), "P | Work | Paused", font=fontSmall, fill="white")
+                    draw.text((17, 10), displayTime, font=fontBig, fill="white")
+                elif mode == "POMODORO_B":
+                    draw.text((31,45), "P | Break | Paused", font=fontSmall, fill="white")
+                    draw.text((17, 10), displayTime, font=fontBig, fill="white")
+                   
+                if mode == "TASK":
+                    taskString = taskDone + "/" + taskNum
+                    draw.text((17, 10), taskString, font=fontBig, fill="white")
+                    draw.text((31,45), "T | Task", font=fontSmall, fill="white")  # TODO add task name
+                if mode == "BUDGET":
+                    draw.text((31,45), "B | Budget | Paused", font=fontSmall, fill="white")  # TODO add productivity time
+                    draw.text((17, 10), displayTime, font=fontBig, fill="white")
                    
                    
                    
