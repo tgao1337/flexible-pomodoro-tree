@@ -37,7 +37,7 @@ downBEvent = mp.Event()
 pomoRunEvent = mp.Event()
 
 buttonSetup()
-buzzerSetup()
+# buzzerSetup() # no button for now
 led_setup()
 
 
