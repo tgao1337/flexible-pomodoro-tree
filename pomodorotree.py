@@ -43,6 +43,13 @@ led_setup()
 
 # ================================================ NEW CODE =======================================================
 
+# reading and writing settings to file? or can i use pickle?
+# pickle may be easier with a struct of all settings then load it in later.
+# for file, need to edit strings and then rewrite file every time
+# f = open("settings.txt", "w+")
+
+
+
 def checkResetB(): # PROCESS
     global resetBEvent
     while True:
