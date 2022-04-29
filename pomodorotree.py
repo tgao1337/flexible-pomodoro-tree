@@ -155,7 +155,7 @@ def watchEvents(): # THREAD
             playPauseCompleteBEvent.clear()
            
         if settingsBEvent.is_set():
-            if state == "WELCOME" or state == "OVERVIEW" or state == "MODE_SETTINGS_2" or state == "RUN":
+            if state == "WELCOME" or state == "OVERVIEW" or state == "MODE_SETTINGS_2" or state == "RUN" or state == "PAUSE":
                 state = "MODE_SELECT"
             elif state == "MODE_SELECT":
                 state = "MODE_SETTINGS"
@@ -219,7 +219,7 @@ def updateDisplay():
                     draw.text((17, 10), displayTime, font=fontBig, fill="white")
 
                 if mode == "TASK":
-                    taskString = taskDone + "/" + taskNum
+                    taskString = str(taskDone) + "/" + str(taskNum)
                     draw.text((17, 10), taskString, font=fontBig, fill="white")
                     draw.text((31,45), "T | Task", font=fontSmall, fill="white")  # TODO add task name
                 if mode == "BUDGET":
@@ -239,7 +239,7 @@ def updateDisplay():
                     draw.text((17, 10), displayTime, font=fontBig, fill="white")
                    
                 if mode == "TASK":
-                    taskString = taskDone + "/" + taskNum
+                    taskString = str(taskDone) + "/" + str(taskNum)
                     draw.text((17, 10), taskString, font=fontBig, fill="white")
                     draw.text((31,45), "T | Task", font=fontSmall, fill="white")  # TODO add task name
                 if mode == "BUDGET":
