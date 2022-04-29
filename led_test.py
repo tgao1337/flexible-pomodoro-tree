@@ -59,7 +59,7 @@ def hexList():
     byte += str(bit)
     if (i%8 == 0):
       byte = byte[::-1]
-      hexLEDList.append(hex(int(byte,2)))
+      hexLEDList.append(int(byte,2))
       byte = ""
     i+=1
   return hexLEDList
