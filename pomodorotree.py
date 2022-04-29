@@ -11,20 +11,28 @@ global pomoWorkTime
 global pomoBreakTime
 global taskNum
 global budgetTime
+global startTime
+global endTime
+global displayTime
 
-mode = "POMODORO"
+mode = "POMODORO_W" # POMODORO_W, POMODORO_B, TASK, BUDGET
 state = "WELCOME" # WELCOME, OVERVIEW, RUN, PAUSE, MODE_SELECT, MODE_SETTINGS
 
-pomoWorkTime = 25 * 60  # These are default values
-pomoBreakTime = 5 * 60  # These are default values
+pomoWorkTime = 0.5 * 60  # These are default values
+pomoBreakTime = 0.25 * 60  # These are default values
 taskNum = 11  # these are default values
 budgetTime = 60 * 60  # these are default values
+
+startTime = 0
+endTime = 0
+displayTime = 0
 
 resetBEvent = mp.Event()
 playPauseCompleteBEvent = mp.Event()
 settingsBEvent = mp.Event()
 upBEvent = mp.Event()
 downBEvent = mp.Event()
+pomoRunEvent = mp.Event()
 
 
 # ================================================ NEW CODE =======================================================
@@ -59,6 +67,32 @@ def checkDownB(): # PROCESS
         waitButton(pinE)
         downBEvent.set()
       
+def pomoRun():
+    global startTime
+    global endTime
+    global displayTime
+    while True:
+        if state == "RUN" and mode == "POMODORO_W":
+            startTime = time.time()
+            endTime = startTime + pomoWorkTime
+            while time.time() <= endTime
+                timeLeft = endTime - time.time()
+                x = time.gmtime(timeLeft)
+                displayTime = time.strftime("%H:%M:%S", x))
+            mode = "POMODORO_B"
+            state = "PAUSE"
+            
+        if state == "RUN" and mode == "POMODORO_B":
+            startTime = time.time()
+            endTime = startTime + pomoWorkTime
+            while time.time() <= endTime
+                timeLeft = endTime - time.time()
+                x = time.gmtime(timeLeft)
+                displayTime = time.strftime("%H:%M:%S", x))
+            mode = "POMODORO_W"
+            state = "PAUSE"
+                  
+      
 def watchEvents(): # THREAD
     global resetBEvent
     global playPauseCompleteBEvent
@@ -67,12 +101,16 @@ def watchEvents(): # THREAD
     global downBEvent
     global state
     global mode
-  
+    global displayTime
+    
     while True:
         if resetBEvent.is_set():
             # change mode and state
             print("Reset Button was pressed")
             state = "WELCOME"
+            # TODO take care of reset
+            if mode == "POMODORO_B":
+                mode = "POMODORO_W"
             resetBEvent.clear()
           
         if playPauseCompleteBEvent.is_set():
@@ -80,8 +118,11 @@ def watchEvents(): # THREAD
             if state == "RUN" and not mode == "TASK":
                 state = "PAUSE"
                 #TODO pause timer
+            
             elif state == "PAUSE" and not mode == "TASK":
                 state = "RUN"
+              
+              
                 #TODO continue timer
             elif state == "WELCOME" or state == "MODE_SELECT" or state == "OVERVIEW" or state == "MODE_SETTINGS" or state == "MODE_SETTINGS_2":
                 state = "RUN"
@@ -99,7 +140,7 @@ def watchEvents(): # THREAD
             elif state == "MODE_SELECT":
                 state = "MODE_SETTINGS"
             elif state == "MODE_SETTINGS":
-                if mode == "POMODORO":
+                if mode == "POMODORO_W" or mode == "POMODORO_B":
                     state = "MODE_SETTINGS_2"
                 else:
                     state = "MODE_SELECT"
@@ -111,7 +152,7 @@ def watchEvents(): # THREAD
             print("Up Button was pressed")
             if state == "MODE_SELECT":
                 if mode == "TASK":
-                    mode = "POMODORO"
+                    mode = "POMODORO_W"
                 elif mode == "BUDGET":
                     mode = "TASK"                
             upBEvent.clear()
@@ -119,7 +160,7 @@ def watchEvents(): # THREAD
         if downBEvent.is_set():
             print("Down Button was pressed")
             if state == "MODE_SELECT":
-                if mode == "POMODORO":
+                if mode == "POMODORO_W":
                     mode = "TASK"
                 elif mode == "TASK":
                     mode = "BUDGET"   
@@ -139,7 +180,7 @@ def updateDisplay():
         if state == "OVERVIEW":
             with canvas(device) as draw:
                 draw.line((0, 45, 127 ,45), fill="white")
-                if mode == "POMODORO":
+                if mode == "POMODORO_W" or mode == "POMODORO_B":
                     draw.text((42, 43), "POM OVERVIEW", font=fontSmall, fill="white")
                 if mode == "TASK":
                     draw.text((42, 43), "TASK OVERVIEW", font=fontSmall, fill="white")
@@ -149,8 +190,15 @@ def updateDisplay():
         if state == "RUN":
             with canvas(device) as draw:
                 draw.line((0, 45, 127 ,45), fill="white")
-                if mode == "POMODORO":
-                    draw.text((42, 43), "POM RUN", font=fontSmall, fill="white")
+                  
+                if mode == "POMODORO_W":
+                    draw.text((31,45), "P | Work", font=fontSmall, fill="white")
+                    draw.text((17, 10), displayTime, font=fontBig, fill="white")
+                elif mode == "POMODORO_B":
+                    draw.text((31,45), "P | Break", font=fontSmall, fill="white")
+                    draw.text((17, 10), displayTime, font=fontBig, fill="white")
+
+                
                 if mode == "TASK":
                     draw.text((42, 43), "TASK RUN", font=fontSmall, fill="white")
                 if mode == "BUDGET":
@@ -165,7 +213,7 @@ def updateDisplay():
                 draw.text((32,12), "Task", font=fontSmall, fill="white")
                 draw.text((32,24), "Budget", font=fontSmall, fill="white")
 
-                if mode == "POMODORO":
+                if mode == "POMODORO_W" or mode == "POMODORO_B":
                     draw.text((20,0), ">", font=fontSmall, fill="white")
                 if mode == "TASK":
                     draw.text((20,12), ">", font=fontSmall, fill="white")
@@ -176,7 +224,7 @@ def updateDisplay():
         if state == "MODE_SETTINGS":
             with canvas(device) as draw:
                 draw.line((0, 45, 127 ,45), fill="white")
-                if mode == "POMODORO":
+                if mode == "POMODORO_W" or mode == "POMODORO_B":
                     draw.text((31,45), "P | Settings", font=fontSmall, fill="white")  # Removed cycles
                     draw.text((23, 0), "Set Work Time:", font=fontSmall, fill="white")
                     draw.text((17, 10), "00:25:00", font=fontBig, fill="white") #TODO Timing conversion printing
@@ -195,7 +243,7 @@ def updateDisplay():
         if state == "MODE_SETTINGS_2":
             with canvas(device) as draw:
                 draw.line((0, 45, 127 ,45), fill="white")
-                if mode == "POMODORO":
+                if mode == "POMODORO_W" or mode == "POMODORO_B":
                     draw.text((31,45), "P | Settings", font=fontSmall, fill="white")  # Removed cycles
                     draw.text((23, 0), "Set Break Time:", font=fontSmall, fill="white")
                     draw.text((17, 10), "00:05:00", font=fontBig, fill="white") #TODO Timing conversion printing
@@ -662,9 +710,12 @@ t1 = Thread(target=watchEvents)
 t1.start()
 t2 = Thread(target=updateDisplay)
 t2.start()
+t3 = Thread(target = pomoRun)
+t3.start()
 
 t1.join()
 t2.join()
+t3.join()
 
 p1.join()
 p2.join()
