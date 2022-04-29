@@ -9,6 +9,7 @@ global mode
 global state
 global pomoWorkTime
 global pomoBreakTime
+global taskDone
 global taskNum
 global budgetTime
 global startTime
@@ -18,8 +19,9 @@ global displayTime
 mode = "POMODORO_W" # POMODORO_W, POMODORO_B, TASK, BUDGET
 state = "WELCOME" # WELCOME, OVERVIEW, RUN, PAUSE, MODE_SELECT, MODE_SETTINGS
 
-pomoWorkTime = 0.5 * 60  # These are default values
+pomoWorkTime = 0.5 * 60  # These are default values  # TODO FIX because using testing values for now
 pomoBreakTime = 0.25 * 60  # These are default values
+taskDone = 0
 taskNum = 11  # these are default values
 budgetTime = 60 * 60  # these are default values
 
@@ -135,11 +137,13 @@ def watchEvents(): # THREAD
                 #TODO continue timer
             elif state == "MODE_SELECT" or state == "OVERVIEW" or state == "MODE_SETTINGS" or state == "MODE_SETTINGS_2":
                 state = "RUN"
+                # TODO what if settings into TASK mode?
 
                 
 
             if mode == "TASK":
-                pass #TODO mark task as done
+                taskDone = taskDone + 1
+                pass #TODO check if this will work for task mode?
             
             playPauseCompleteBEvent.clear()
            
@@ -215,6 +219,8 @@ def updateDisplay():
 
                 
                 if mode == "TASK":
+                    taskString = taskDone + "/" + taskNum
+                    draw.text((17, 10), taskString, font=fontBig, fill="white")
                     draw.text((42, 43), "TASK RUN", font=fontSmall, fill="white")
                 if mode == "BUDGET":
                     draw.text((42, 43), "BUDGET RUN", font=fontSmall, fill="white")
