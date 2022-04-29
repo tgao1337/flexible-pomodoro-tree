@@ -84,7 +84,7 @@ def pomoRun():
                 if state == "RUN":
                     timeLeft = endTime - time.time()
                     x = time.gmtime(timeLeft)
-                if state == "PAUSE":
+                else:
                     endTime = time.time() + timeLeft   
                  
                 displayTime = time.strftime("%H:%M:%S", x)
@@ -101,7 +101,7 @@ def pomoRun():
                 if state == "RUN":
                     timeLeft = endTime - time.time()
                     x = time.gmtime(timeLeft)
-                if state == "PAUSE":
+                else:
                     endTime = time.time() + timeLeft   
                 displayTime = time.strftime("%H:%M:%S", x)
             mode = "POMODORO_W"
