@@ -81,12 +81,13 @@ def pomoRun():
                 timeLeft = endTime - time.time()
                 x = time.gmtime(timeLeft)
                 displayTime = time.strftime("%H:%M:%S", x)
+            
             mode = "POMODORO_B"
             state = "PAUSE"
             
         if state == "RUN" and mode == "POMODORO_B":
             startTime = time.time()
-            endTime = startTime + pomoWorkTime
+            endTime = startTime + pomoBreakTime
             while time.time() <= endTime:
                 timeLeft = endTime - time.time()
                 x = time.gmtime(timeLeft)
@@ -205,6 +206,21 @@ def updateDisplay():
                     draw.text((42, 43), "TASK RUN", font=fontSmall, fill="white")
                 if mode == "BUDGET":
                     draw.text((42, 43), "BUDGET RUN", font=fontSmall, fill="white")
+                  
+                  
+        if state == "PAUSE":
+            with canvas(device) as draw:
+                draw.line((0, 45, 127 ,45), fill="white")
+                  
+                if mode == "POMODORO_W":
+                    draw.text((31,45), "P | Work", font=fontSmall, fill="white")
+                    draw.text((17, 10), displayTime, font=fontBig, fill="white")
+                elif mode == "POMODORO_B":
+                    draw.text((31,45), "P | Break", font=fontSmall, fill="white")
+                    draw.text((17, 10), displayTime, font=fontBig, fill="white")
+                   
+                   
+                   
                  
         if state == "MODE_SELECT":
             
