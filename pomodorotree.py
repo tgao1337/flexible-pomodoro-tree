@@ -242,11 +242,12 @@ def watchEvents(): # THREAD
                 if (mode == "BUDGET" or mode == "POMODORO_W" or mode == "POMODORO_B") and not prevState == None:
                     state = prevState  # this will put it back in the previous mode
                 else:
+                    if mode == "TASK":
+                        prevState = state
                     state = "RUN"
                 
             if mode == "TASK":
-             
-                if state == "RUN":
+                if not prevState == "RUN" and state == "RUN":
                     if (taskDone>=taskNum):
                         state = "WELCOME"
                     else:
