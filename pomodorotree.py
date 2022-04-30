@@ -12,8 +12,6 @@ global pomoBreakTime
 global taskDone
 global taskNum
 global budgetTime
-# global startTime
-# global endTime
 global displayTime
 global prevState
 
@@ -194,6 +192,13 @@ def watchEvents(): # THREAD
     global displayTime
     global taskDone
     global prevState
+    global taskDone
+    global taskNum
+    global pomoWorkTime
+    global pomoBreakTime
+    global budgetTime
+    
+    
     
     while True:
         if resetBEvent.is_set():
@@ -203,13 +208,17 @@ def watchEvents(): # THREAD
                 state = "OVERVIEW"
             else:
                 state = "WELCOME"
-               # TODO: RESET VALUES/TIME STUFF FROM FILE??
-
-                mode = "POMODORO_W"
-                x = time.gmtime(pomoWorkTime)
-                displayTime = time.strftime("%H:%M:%S", x)
-                prevState = None
-                
+                # TODO: RESET VALUES/TIME STUFF FROM FILE??
+                pomoWorkTime = 0.5 * 60 #read from the file
+                pomoBreakTime = 0.25 * 60 #read from the file
+                taskDone = 0
+                taskNum = 11  # read from file
+                budgetTime = 60*60 # read from the file
+                 
+#                 mode = "POMODORO_W"  # SHOULD GO TO LAST MODE WE USED DONT CHANGE MODE
+#                 x = time.gmtime(pomoWorkTime)
+#                 displayTime = time.strftime("%H:%M:%S", x)
+#                 prevState = None
                 
             resetBEvent.clear()
           
