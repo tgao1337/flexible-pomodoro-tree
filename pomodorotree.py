@@ -163,6 +163,8 @@ def pomoRun():
                     prevState = "PAUSE"
                  
                 displayTime = time.strftime("%H:%M:%S", x)
+                quantityON = pomoWork // available_leds
+                
             
             if mode == "POMODORO_W":
                 mode = "POMODORO_B"
