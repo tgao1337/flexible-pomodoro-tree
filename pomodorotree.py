@@ -96,6 +96,9 @@ def pomoRun():
             prevState = "RUN"
             startTime = time.time()
             endTime = startTime + pomoWorkTime
+            timeLeft = endTime - time.time()
+            x = time.gmtime(timeLeft)
+            displayTime = time.strftime("%H:%M:%S", x)
             while time.time() <= endTime:
                 if state == "RUN" or (prevState == "RUN" and not state=="RUN" and not state == "PAUSE"):
                     timeLeft = endTime - time.time()
@@ -116,6 +119,9 @@ def pomoRun():
             prevState = "RUN"
             startTime = time.time()
             endTime = startTime + pomoBreakTime
+            timeLeft = endTime - time.time()
+            x = time.gmtime(timeLeft)
+            displayTime = time.strftime("%H:%M:%S", x)
             while time.time() <= endTime:
                 if state == "RUN" or (prevState == "RUN" and not state=="RUN" and not state == "PAUSE"):
                     timeLeft = endTime - time.time()
@@ -134,7 +140,7 @@ def pomoRun():
             # prevState = "PAUSE"
             startTime = time.time()
             endTime = startTime + budgetTime
-            timeLeft = budgetTime
+            timeLeft = endTime - time.time()
             x = time.gmtime(timeLeft)
             displayTime = time.strftime("%H:%M:%S", x)
             while time.time() <= endTime:
@@ -183,7 +189,7 @@ def watchEvents(): # THREAD
                 state = "RUN"
               
             elif state == "MODE_SELECT" or state == "OVERVIEW" or state == "MODE_SETTINGS" or state == "MODE_SETTINGS_2":
-                if mode == "BUDGET":
+                if mode == "BUDGET" or mode == "POMODORO_W" or mode == "POMODORO_B":
                     state = prevState  # this will put it back in the previous mode
                 else:
                     state = "RUN"
@@ -224,7 +230,7 @@ def watchEvents(): # THREAD
         if downBEvent.is_set():
             print("Down Button was pressed")
             if state == "MODE_SELECT":
-                if mode == "POMODORO_W":
+                if mode == "POMODORO_W" or mode == "POMODORO_B":
                     mode = "TASK"
                 elif mode == "TASK":
                     mode = "BUDGET"   
