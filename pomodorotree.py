@@ -221,7 +221,7 @@ def watchEvents(): # THREAD
                 state == "OVERVIEW"
             else:
                 state = "WELCOME"
-                TODO: RESET VALUES/TIME STUFF FROM FILE??
+               # TODO: RESET VALUES/TIME STUFF FROM FILE??
                 
                 
 
