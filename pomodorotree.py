@@ -175,7 +175,7 @@ def watchEvents(): # THREAD
           
         if playPauseCompleteBEvent.is_set():
             print("Play Pause Complete Button was pressed")
-            if state == "RUN" and not mode == "TASK" and not :
+            if state == "RUN" and not mode == "TASK":
                 state = "PAUSE"
                 #TODO pause timer
             
