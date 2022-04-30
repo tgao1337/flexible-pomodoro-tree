@@ -30,7 +30,7 @@ startTime = 0
 endTime = 0
 x = time.gmtime(pomoWorkTime)
 displayTime = time.strftime("%H:%M:%S", x)
-prevState = "RUN"
+prevState = "NONE"
 
 resetBEvent = mp.Event()
 playPauseCompleteBEvent = mp.Event()
@@ -92,6 +92,7 @@ def pomoRun():
     global prevState
     
     while True:
+     
      
 #         if state == "PAUSE" and mode == "POMODORO_W":
 #             prevState = "PAUSE"
@@ -207,7 +208,7 @@ def watchEvents(): # THREAD
                 state = "RUN"
               
             elif state == "MODE_SELECT" or state == "OVERVIEW" or state == "MODE_SETTINGS" or state == "MODE_SETTINGS_2":
-                if mode == "BUDGET" or mode == "POMODORO_W" or mode == "POMODORO_B":
+                if (mode == "BUDGET" or mode == "POMODORO_W" or mode == "POMODORO_B") and non prevState == None :
                     state = prevState  # this will put it back in the previous mode
                 else:
                     state = "RUN"
