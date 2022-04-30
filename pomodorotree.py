@@ -105,6 +105,13 @@ def pomoRun():
             timeLeft = pomoWorkTime
             x = time.gmtime(timeLeft)
             displayTime = time.strftime("%H:%M:%S", x)
+            
+        if state == "MODE_SETTINGS" and mode == "BUDGET":
+            startTime = time.time()
+            endTime = startTime + budgetTime
+            timeLeft = pomoWorkTime
+            x = time.gmtime(timeLeft)
+            displayTime = time.strftime("%H:%M:%S", x)
        
        
        
