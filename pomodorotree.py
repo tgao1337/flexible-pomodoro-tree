@@ -24,7 +24,7 @@ pomoWorkTime = 0.5 * 60  # These are default values  # TODO FIX because using te
 pomoBreakTime = 0.25 * 60  # These are default values
 taskDone = 0
 taskNum = 11  # these are default values
-budgetTime = 60 * 60  # these are default values
+budgetTime = 0.25 * 60  # these are default values
 
 startTime = 0
 endTime = 0
@@ -162,7 +162,7 @@ def pomoRun():
             timeLeft = endTime - time.time()
             x = time.gmtime(timeLeft)
             displayTime = time.strftime("%H:%M:%S", x)
-            while time.time() <= endTime:
+            while time.time() <= endTime and mode == "BUDGET":
                 if state == "RUN" or (prevState == "RUN" and not state=="RUN" and not state == "PAUSE"):
                     endTime = time.time() + timeLeft
                     prevState = "RUN"
@@ -173,9 +173,10 @@ def pomoRun():
                  
                 displayTime = time.strftime("%H:%M:%S", x)   # if budget mode done then go to pomodoro, shows budget time, this will fix if displayTime = pomodorotime in start of pomodoro loop
             
-            state = "RUN"
-            x = time.gmtime(pomoBreakTime)
-            displayTime = time.strftime("%H:%M:%S", x)
+            if mode == "BUDGET":
+                state = "RUN"
+                x = time.gmtime(pomoBreakTime)
+                displayTime = time.strftime("%H:%M:%S", x)
                   
       
 def watchEvents(): # THREAD
