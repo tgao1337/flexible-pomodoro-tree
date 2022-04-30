@@ -243,15 +243,14 @@ def watchEvents(): # THREAD
                     state = prevState  # this will put it back in the previous mode
                 else:
                     if mode == "TASK":
-                        prevState = "RUN"
+                        taskDone = taskDone - 1
                     state = "RUN"
                 
             if mode == "TASK":
-                if prevState == "RUN" and state == "RUN":
-                    if (taskDone>=taskNum):
-                        state = "WELCOME"
-                    else:
-                        taskDone = taskDone + 1
+                if (taskDone>=taskNum):
+                    state = "WELCOME"
+                else:
+                    taskDone = taskDone + 1
                 
               
                 pass #TODO check if this will work for task mode?
