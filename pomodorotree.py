@@ -28,7 +28,8 @@ budgetTime = 60 * 60  # these are default values
 
 startTime = 0
 endTime = 0
-displayTime = 0
+x = time.gmtime(pomoWorkTime)
+displayTime = time.strftime("%H:%M:%S", x)
 prevState = "NONE"
 
 resetBEvent = mp.Event()
