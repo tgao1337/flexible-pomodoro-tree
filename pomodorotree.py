@@ -244,24 +244,24 @@ def updateDisplay():
         if state == "OVERVIEW":
             with canvas(device) as draw:
                 draw.line((0, 45, 127 ,45), fill="white")
-                draw.text((40, 43), "OVERVIEW", font=fontSmall, fill="white")
+                draw.text((38, 43), "OVERVIEW", font=fontSmall, fill="white")
                 if mode == "POMODORO_W" or mode == "POMODORO_B":
                     x = time.gmtime(pomoWorkTime)
                     displayWorkTime = time.strftime("%H:%M:%S", x)
                     y = time.gmtime(pomoBreakTime)
                     displayBreakTime = time.strftime("%H:%M:%S", y)
                     draw.text((13,0), "Mode: Pomodoro", font=fontSmall, fill="white")
-                    draw.text((5,15), "Work Time: "+displayWorkTime, font=fontSmall, fill="white")
-                    draw.text((5,25), "Break Time: "+displayBreakTime, font=fontSmall, fill="white")
+                    draw.text((5,14), "Work Time: "+displayWorkTime, font=fontSmall, fill="white")
+                    draw.text((5,28), "Break Time: "+displayBreakTime, font=fontSmall, fill="white")
 
                 if mode == "TASK":
-                    draw.text((30,0), "Mode: Task", font=fontSmall, fill="white")
-                    draw.text((20,20), "Total Tasks: " + str(taskNum), font=fontSmall, fill="white")
+                    draw.text((31,0), "Mode: Task", font=fontSmall, fill="white")
+                    draw.text((25,20), "Total Tasks: " + str(taskNum), font=fontSmall, fill="white")
 #                     draw.text((42, 43), "TASK OVERVIEW", font=fontSmall, fill="white")
                 if mode == "BUDGET":
                     x = time.gmtime(budgetTime)
                     displayBudTime = time.strftime("%H:%M:%S", x)
-                    draw.text((20,0), "Mode: Budget", font=fontSmall, fill="white")
+                    draw.text((21,0), "Mode: Budget", font=fontSmall, fill="white")
                     draw.text((0,20), "Budget Time: "+displayBudTime, font=fontSmall, fill="white")
 #                     draw.text((42, 43), "BUDGET OVERVIEW", font=fontSmall, fill="white")
                  
