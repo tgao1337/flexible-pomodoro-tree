@@ -130,20 +130,20 @@ def pomoRun():
             displayTime = time.strftime("%H:%M:%S", x)
             
         if mode == "BUDGET":   # show productivity time on budget
-            prevState = "RUN"
+            prevState = "PAUSE"
             startTime = time.time()
             endTime = startTime + budgetTime
             timeLeft = budgetTime
             x = time.gmtime(timeLeft)
             displayTime = time.strftime("%H:%M:%S", x)
             while time.time() <= endTime:
-                if state == "RUN" or (prevState == "RUN" and not state=="RUN" and not state == "PAUSE"):
-                    endTime = time.time() + timeLeft
-                    prevState = "RUN"
                 if state == "PAUSE" or (prevState == "PAUSE" and not state=="RUN" and not state == "PAUSE"):
+                    endTime = time.time() + timeLeft
+                    prevState = "PAUSE"
+                if state == "RUN" or (prevState == "RUN" and not state=="RUN" and not state == "PAUSE"):
                     timeLeft = endTime - time.time()
                     x = time.gmtime(timeLeft)
-                    prevState = "PAUSE"
+                    prevState = "RUN"
                  
                 displayTime = time.strftime("%H:%M:%S", x)   # if budget mode done then go to pomodoro, shows budget time, this will fix if displayTime = pomodorotime in start of pomodoro loop
             
@@ -175,7 +175,7 @@ def watchEvents(): # THREAD
           
         if playPauseCompleteBEvent.is_set():
             print("Play Pause Complete Button was pressed")
-            if state == "RUN" and not mode == "TASK":
+            if state == "RUN" and not mode == "TASK" and not :
                 state = "PAUSE"
                 #TODO pause timer
             
@@ -185,7 +185,9 @@ def watchEvents(): # THREAD
               
                 #TODO continue timer
             elif state == "MODE_SELECT" or state == "OVERVIEW" or state == "MODE_SETTINGS" or state == "MODE_SETTINGS_2":
+             
                 state = "RUN"
+
                 # TODO what if settings into TASK mode?
 
                 
