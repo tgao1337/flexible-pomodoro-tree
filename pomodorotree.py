@@ -129,8 +129,8 @@ def pomoRun():
             x = time.gmtime(pomoWorkTime)
             displayTime = time.strftime("%H:%M:%S", x)
             
-        if state == "PAUSE" and state == "BUDGET":   # show productivity time on budget
-            prevState = "RUN"
+        if state == "PAUSE" and mode == "BUDGET":   # show productivity time on budget
+            prevState = "PAUSE"
             startTime = time.time()
             endTime = startTime + budgetTime
             while time.time() <= endTime:
@@ -144,7 +144,6 @@ def pomoRun():
                  
                 displayTime = time.strftime("%H:%M:%S", x)   # if budget mode done then go to pomodoro, shows budget time, this will fix if displayTime = pomodorotime in start of pomodoro loop
             
-            mode = "POMODORO_B"
             state = "RUN"
             x = time.gmtime(pomoBreakTime)
             displayTime = time.strftime("%H:%M:%S", x)
