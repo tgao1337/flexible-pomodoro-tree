@@ -230,10 +230,12 @@ def watchEvents(): # THREAD
     global quantityON
     
     
+
+    
     
     while True:
         if mode == "TASK":
-             quantityON = available_led // taskNum
+            quantityON = available_led // taskNum
         
         if resetBEvent.is_set():
             # change mode and state
@@ -332,7 +334,7 @@ def watchEvents(): # THREAD
                         pomoWorkTime += 300
                   
                 if mode == "TASK":
-                    if taskNum < 100: #upper limit 100 tasks
+                    if taskNum < 32: #upper limit 100 tasks
                         taskNum += 1
 
                 if mode == "BUDGET":
