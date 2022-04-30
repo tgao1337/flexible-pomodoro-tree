@@ -231,20 +231,35 @@ def watchEvents(): # THREAD
             # change mode and state
             print("Reset Button was pressed")
             if state == "WELCOME":
+                f = open("userSettings.txt", "r")
+                mode = f.readline()
+                pomoWorkTime = int(f.readline())
+                pomoBreakTime = int(f.readline())
+                taskNum = int(f.readline())
+                budgetTime = int(f.readline())
+                f.close()
                 state = "OVERVIEW"
+            
+            
             else:
                 state = "WELCOME"
                 # TODO: RESET VALUES/TIME STUFF FROM FILE??
-                pomoWorkTime = 0.5 * 60 #read from the file
-                pomoBreakTime = 0.25 * 60 #read from the file
-                taskDone = 0
-                taskNum = 11  # read from file
-                budgetTime = 60*60 # read from the file
+                f = open("userSettings.txt", "w")
+                f.write(mode+"\n")
+                f.write((str(pomoWorkTime)+"\n"))
+                f.write((str(pomoBreakTime)+"\n"))
+                f.write((str(taskNum)+"\n"))
+                f.write((str(budgetTime)+"\n"))
+                f.close()
+                
+                
+#                 pomoWorkTime = 0.5 * 60 #read from the file
+#                 pomoBreakTime = 0.25 * 60 #read from the file
+#                 taskDone = 0
+#                 taskNum = 11  # read from file
+#                 budgetTime = 60*60 # read from the file
                  
-#                 mode = "POMODORO_W"  # SHOULD GO TO LAST MODE WE USED DONT CHANGE MODE
-#                 x = time.gmtime(pomoWorkTime)
-#                 displayTime = time.strftime("%H:%M:%S", x)
-#                 prevState = None
+
                 
             resetBEvent.clear()
           
