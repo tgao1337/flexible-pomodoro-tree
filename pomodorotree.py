@@ -211,7 +211,6 @@ def watchEvents(): # THREAD
     global displayTime
     global taskDone
     global prevState
-    day = 0
     
     while True:
         if resetBEvent.is_set():
@@ -222,22 +221,13 @@ def watchEvents(): # THREAD
             else:
                 state = "WELCOME"
                # TODO: RESET VALUES/TIME STUFF FROM FILE??
-                
-                
 
-#             if mode == "POMODORO_B":
-#                     mode = "POMODORO_W"
-
-            # I dont think the following is needed
-            if not day:
                 mode = "POMODORO_W"
                 x = time.gmtime(pomoWorkTime)
                 displayTime = time.strftime("%H:%M:%S", x)
                 prevState = None
-                state = "OVERVIEW"
-                # TODO take care of reset
-            elif day:
-                state = "WELCOME"
+                
+                
             resetBEvent.clear()
           
         if playPauseCompleteBEvent.is_set():
