@@ -242,6 +242,7 @@ def watchEvents(): # THREAD
                 pomoBreakTime = int(f.readline()[:-1])
                 taskNum = int(f.readline()[:-1])
                 budgetTime = int(f.readline()[:-1])
+                quantityON = int(f.readline()[:-1])
                 f.close()
                 clearAll()
                 state = "OVERVIEW"
@@ -256,14 +257,9 @@ def watchEvents(): # THREAD
                 f.write((str(pomoBreakTime)+"\n"))
                 f.write((str(taskNum)+"\n"))
                 f.write((str(budgetTime)+"\n"))
+                f.write((str(quantityON)+"\n"))
                 f.close()
                 
-                
-#                 pomoWorkTime = 0.5 * 60 #read from the file
-#                 pomoBreakTime = 0.25 * 60 #read from the file
-#                 taskDone = 0
-#                 taskNum = 11  # read from file
-#                 budgetTime = 60*60 # read from the file
                  
 
                 
