@@ -208,7 +208,7 @@ def watchEvents(): # THREAD
                 state = "RUN"
               
             elif state == "MODE_SELECT" or state == "OVERVIEW" or state == "MODE_SETTINGS" or state == "MODE_SETTINGS_2":
-                if (mode == "BUDGET" or mode == "POMODORO_W" or mode == "POMODORO_B") and non prevState == None :
+                if (mode == "BUDGET" or mode == "POMODORO_W" or mode == "POMODORO_B") and not prevState == None:
                     state = prevState  # this will put it back in the previous mode
                 else:
                     state = "RUN"
