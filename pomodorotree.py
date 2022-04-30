@@ -243,6 +243,7 @@ def watchEvents(): # THREAD
                 taskNum = int(f.readline()[:-1])
                 budgetTime = int(f.readline()[:-1])
                 quantityON = int(f.readline()[:-1])
+                taskDone = 0
                 f.close()
                 clearAll()
                 state = "OVERVIEW"
