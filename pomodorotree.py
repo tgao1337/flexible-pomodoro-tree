@@ -232,6 +232,9 @@ def watchEvents(): # THREAD
     
     
     while True:
+        if mode == "TASK":
+             quantityON = available_led // taskNum
+        
         if resetBEvent.is_set():
             # change mode and state
             print("Reset Button was pressed")
@@ -244,8 +247,8 @@ def watchEvents(): # THREAD
                 budgetTime = int(f.readline()[:-1])
 #                 quantityON = int(f.readline()[:-1])
                 taskDone = 0
-                if mode == "TASK":
-                    quantityON = available_led // taskNum
+#                 if mode == "TASK":
+#                     quantityON = available_led // taskNum
                 f.close()
                 clearAll()
                 state = "OVERVIEW"
@@ -323,7 +326,7 @@ def watchEvents(): # THREAD
                     mode = "POMODORO_W"
                 elif mode == "BUDGET":
                     mode = "TASK"
-                    quantityON = available_led // taskNum
+#                     quantityON = available_led // taskNum
                     
                    
                   
@@ -352,7 +355,7 @@ def watchEvents(): # THREAD
             if state == "MODE_SELECT":
                 if mode == "POMODORO_W" or mode == "POMODORO_B":
                     mode = "TASK"
-                    quantityON = available_led // taskNum
+#                     quantityON = available_led // taskNum
 
                 elif mode == "TASK":
                     mode = "BUDGET"
