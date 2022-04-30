@@ -30,7 +30,7 @@ startTime = 0
 endTime = 0
 x = time.gmtime(pomoWorkTime)
 displayTime = time.strftime("%H:%M:%S", x)
-prevState = "RUN"
+prevState = "NONE"
 
 resetBEvent = mp.Event()
 playPauseCompleteBEvent = mp.Event()
@@ -92,6 +92,22 @@ def pomoRun():
     global prevState
     
     while True:
+     
+        if state == "PAUSE" and mode == "POMODORO_W":
+            prevState = "PAUSE"
+            startTime = time.time()
+            endTime = startTime + pomoWorkTime
+            timeLeft = endTime - time.time()
+            x = time.gmtime(timeLeft)
+            displayTime = time.strftime("%H:%M:%S", x)
+            
+        if state == "PAUSE" and mode == "POMODORO_B":
+            prevState = "PAUSE"
+            startTime = time.time()
+            endTime = startTime + pomoBreakTime
+            timeLeft = endTime - time.time()
+            x = time.gmtime(timeLeft)
+            displayTime = time.strftime("%H:%M:%S", x)
         
         if state == "RUN" and mode == "POMODORO_W":
             prevState = "RUN"
@@ -170,6 +186,7 @@ def watchEvents(): # THREAD
     global mode
     global displayTime
     global taskDone
+    global prevState
     
     while True:
         if resetBEvent.is_set():
@@ -224,8 +241,10 @@ def watchEvents(): # THREAD
             if state == "MODE_SELECT":
                 if mode == "TASK":
                     mode = "POMODORO_W"
+                    prevState = "RUN"
                 elif mode == "BUDGET":
-                    mode = "TASK"                
+                    mode = "TASK"
+                    prevState = "RUN"
             upBEvent.clear()
            
         if downBEvent.is_set():
@@ -233,9 +252,10 @@ def watchEvents(): # THREAD
             if state == "MODE_SELECT":
                 if mode == "POMODORO_W" or mode == "POMODORO_B":
                     mode = "TASK"
+                    prevState = "RUN"
                 elif mode == "TASK":
-                    mode = "BUDGET"   
-          
+                    mode = "BUDGET"
+                    prevState = "RUN"
             downBEvent.clear()
         time.sleep(0.01)
         
