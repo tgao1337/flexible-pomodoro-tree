@@ -243,7 +243,7 @@ def watchEvents(): # THREAD
                     state = prevState  # this will put it back in the previous mode
                 else:
                     if mode == "TASK":
-                        prevState = state
+                        prevState = "RUN"
                     state = "RUN"
                 
             if mode == "TASK":
