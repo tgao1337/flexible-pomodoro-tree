@@ -250,18 +250,18 @@ def updateDisplay():
                     displayWorkTime = time.strftime("%H:%M:%S", x)
                     y = time.gmtime(pomoBreakTime)
                     displayBreakTime = time.strftime("%H:%M:%S", y)
-                    draw.text((12,0), "Mode: Pomodoro", font=fontSmall, fill="white")
-                    draw.text((10,15), "Work Time: "+displayWorkTime, font=fontSmall, fill="white")
-                    draw.text((10,25), "Break Time: "+displayBreakTime, font=fontSmall, fill="white")
+                    draw.text((13,0), "Mode: Pomodoro", font=fontSmall, fill="white")
+                    draw.text((0,15), "Work Time: "+displayWorkTime, font=fontSmall, fill="white")
+                    draw.text((0,25), "Break Time: "+displayBreakTime, font=fontSmall, fill="white")
 
                 if mode == "TASK":
-                    draw.text((15,0), "Mode: Task", font=fontSmall, fill="white")
-                    draw.text((15,11), "Total Tasks: " + str(taskNum), font=fontSmall, fill="white")
+                    draw.text((20,0), "Mode: Task", font=fontSmall, fill="white")
+                    draw.text((15,20), "Total Tasks: " + str(taskNum), font=fontSmall, fill="white")
 #                     draw.text((42, 43), "TASK OVERVIEW", font=fontSmall, fill="white")
                 if mode == "BUDGET":
                     x = time.gmtime(budgetTime)
                     displayBudTime = time.strftime("%H:%M:%S", x)
-                    draw.text((15,0), "Mode: Budget", font=fontSmall, fill="white")
+                    draw.text((18,0), "Mode: Budget", font=fontSmall, fill="white")
                     draw.text((0,20), "Budget Time: "+displayBudTime, font=fontSmall, fill="white")
 #                     draw.text((42, 43), "BUDGET OVERVIEW", font=fontSmall, fill="white")
                  
