@@ -288,12 +288,13 @@ def watchEvents(): # THREAD
                 else:
                     taskDone = taskDone + 1
                     remainingTasks = taskNum - taskDone
-                    quantityON = available_led // remainingTasks
                     
                     if remainingTasks == 0:
                         allOn()
                     else:
-                        toggleNextLed(True, quantityON)
+                        quantityON = available_led // remainingTasks
+                        if taskDone >=1:
+                            toggleNextLed(True, quantityON)
 
             
             playPauseCompleteBEvent.clear()
