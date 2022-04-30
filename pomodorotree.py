@@ -91,7 +91,7 @@ def pomoRun():
     global prevState
     
     while True:
-        if state == "PAUSE":
+        if state == "PAUSE" or state == "MODE_SETTINGS" or state == "MODE_SETTINGS_2":
             prevState = "PAUSE"
             startTime = time.time()
             if mode == "POMODORO_W":
