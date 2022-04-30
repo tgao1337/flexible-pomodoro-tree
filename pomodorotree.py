@@ -13,6 +13,7 @@ global taskDone
 global taskNum
 global budgetTime
 global displayTime
+global prodTime
 global prevState
 global quantityON
 global timeTillNextLed
@@ -92,6 +93,7 @@ def pomoRun():
 #     startTime = 0
 #     global endTime = 0
     global displayTime
+    global prodTime
     global mode
     global state
     global prevState
@@ -215,10 +217,13 @@ def pomoRun():
             timeLeft = budgetTime
             x = time.gmtime(timeLeft)
             displayTime = time.strftime("%H:%M:%S", x)
+            y = time.gmtime(timeLeft)
+            prodTime = time.strftime("%H:%M:%S", y)
             while time.time() <= endTime and mode == "BUDGET":
                 if state == "RUN" or (prevState == "RUN" and not state=="RUN" and not state == "PAUSE"):
                     endTime = time.time() + timeLeft
                     productivity_time = time.time()- startTime
+                    y = time.gmtime(productivity_time)
                     if productivity_time > timeTillNextLed: # turn on led when not in break
                         timeTillNextLed += timeTillNextLed
                         toggleNextLed(True,1)
@@ -230,7 +235,7 @@ def pomoRun():
                     
                     x = time.gmtime(timeLeft)
                     prevState = "PAUSE"
-                 
+                prodTime = time.strftime("%H:%M:%S", y)  # productivity time to display on OLED
                 displayTime = time.strftime("%H:%M:%S", x)   # if budget mode done then go to pomodoro, shows budget time, this will fix if displayTime = pomodorotime in start of pomodoro loop
                   
       
@@ -262,6 +267,8 @@ def watchEvents(): # THREAD
             quantityON = available_led // taskNum
         elif mode == "POMODORO_W":
             timeTillNextLed= pomoWorkTime// available_led
+#         elif mode == "BUDGET":    # does not have to change since we said 6 hrs default
+#             timeTillNextLed = 21600 // available_led
             
         
         if resetBEvent.is_set():
@@ -457,8 +464,11 @@ def updateDisplay():
                     draw.text((17, 10), taskString, font=fontBig, fill="white")
                     draw.text((31,45), "T | Task", font=fontSmall, fill="white")  # TODO add task name
                 if mode == "BUDGET":
-                    draw.text((12,45), "B | Budget | Work", font=fontSmall, fill="white")  # TODO add productivity time
-                    draw.text((17, 10), displayTime, font=fontBig, fill="white")
+                    draw.text((0,0), "Productive time:", font=fontSmall, fill="white")
+                    draw.text((17,10), prodTime, font=fontBig, fill="white")  # productivity time  TODO YOU NEED TO FIX THIS
+                    draw.text((12,45), "B | Budget | Work", font=fontSmall, fill="white")
+                    draw.text((0,20), "Break time remaining:", font=fontSmall, fill="white")
+                    draw.text((17, 30), displayTime, font=fontSmall, fill="white")  # change position to display
                   
                   
         if state == "PAUSE":
@@ -477,8 +487,11 @@ def updateDisplay():
                     draw.text((17, 10), taskString, font=fontBig, fill="white")
                     draw.text((31,45), "T | Task", font=fontSmall, fill="white")  # TODO add task name
                 if mode == "BUDGET":
+                    draw.text((0,0), "Productive time:", font=fontSmall, fill="white")
+                    draw.text((17,0), prodTime, font=fontSmall, fill="white")  # productivity time  TODO YOU NEED TO FIX THIS
                     draw.text((12,45), "B | Budget | Break", font=fontSmall, fill="white")  # TODO add productivity time
-                    draw.text((17, 10), displayTime, font=fontBig, fill="white")
+                    draw.text((0,10), "Break time remaining:", font=fontSmall, fill="white")
+                    draw.text((17, 20), displayTime, font=fontBig, fill="white")  # change position to display
                    
                    
                    
