@@ -183,7 +183,7 @@ def pomoRun():
                 x = time.gmtime(pomoWorkTime)
                 displayTime = time.strftime("%H:%M:%S", x)
             
-        if mode == "BUDGET":   # show productivity time on budget
+        if state == "RUN" and mode == "BUDGET":   # show productivity time on budget
             # prevState = "PAUSE"
             startTime = time.time()
             endTime = startTime + budgetTime
