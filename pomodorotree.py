@@ -232,11 +232,11 @@ def watchEvents(): # THREAD
             print("Reset Button was pressed")
             if state == "WELCOME":
                 f = open("userSettings.txt", "r")
-                mode = f.readline()
-                pomoWorkTime = int(f.readline())
-                pomoBreakTime = int(f.readline())
-                taskNum = int(f.readline())
-                budgetTime = int(f.readline())
+                mode = f.readline()[:-1]
+                pomoWorkTime = int(f.readline()[:-1])
+                pomoBreakTime = int(f.readline()[:-1])
+                taskNum = int(f.readline()[:-1])
+                budgetTime = int(f.readline()[:-1])
                 f.close()
                 state = "OVERVIEW"
             
