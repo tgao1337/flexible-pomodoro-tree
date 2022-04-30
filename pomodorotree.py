@@ -92,7 +92,58 @@ def pomoRun():
     global prevState
     
     while True:
-     
+    
+#         if state == "RUN":
+#             if mode == "POMODORO_W":
+#                 prevState = "RUN"
+#                 startTime = time.time()
+#                 endTime = startTime + pomoWorkTime
+#                 timeLeft = endTime - time.time()
+#                 x = time.gmtime(timeLeft)
+#                 displayTime = time.strftime("%H:%M:%S", x)
+#                 while time.time() <= endTime and mode == "POMODORO_W":
+#                     if state == "RUN" or (prevState == "RUN" and not state=="RUN" and not state == "PAUSE"):
+#                         timeLeft = endTime - time.time()
+#                         x = time.gmtime(timeLeft)
+#                         prevState = "RUN"
+#                     if state == "PAUSE" or (prevState == "PAUSE" and not state=="RUN" and not state == "PAUSE"):
+#                         endTime = time.time() + timeLeft
+#                         prevState = "PAUSE"
+
+#                     displayTime = time.strftime("%H:%M:%S", x)
+
+#                 mode = "POMODORO_B"
+#                 state = "PAUSE"
+#                 x = time.gmtime(pomoBreakTime)
+#                 displayTime = time.strftime("%H:%M:%S", x)
+            
+#             if mode == "POMODORO_B":
+#                 prevState = "RUN"
+#                 startTime = time.time()
+#                 endTime = startTime + pomoBreakTime
+#                 timeLeft = endTime - time.time()
+#                 x = time.gmtime(timeLeft)
+#                 displayTime = time.strftime("%H:%M:%S", x)
+#                 while time.time() <= endTime and mode == "POMODORO_B":
+#                     if state == "RUN" or (prevState == "RUN" and not state=="RUN" and not state == "PAUSE"):
+#                         timeLeft = endTime - time.time()
+#                         x = time.gmtime(timeLeft)
+#                         prevState = "RUN"
+#                     if state == "PAUSE" or (prevState == "PAUSE" and not state=="RUN" and not state == "PAUSE"):
+#                         endTime = time.time() + timeLeft
+#                         prevState = "PAUSE"
+#                     displayTime = time.strftime("%H:%M:%S", x)
+#                 mode = "POMODORO_W"
+#                 state = "PAUSE"
+#                 x = time.gmtime(pomoWorkTime)
+#                 displayTime = time.strftime("%H:%M:%S", x)
+             
+        
+        
+        
+        
+      
+      
      
 #         if state == "PAUSE" and mode == "POMODORO_W":
 #             prevState = "PAUSE"
@@ -117,7 +168,7 @@ def pomoRun():
             timeLeft = endTime - time.time()
             x = time.gmtime(timeLeft)
             displayTime = time.strftime("%H:%M:%S", x)
-            while time.time() <= endTime and mode == "POMODORO_W":
+            while time.time() <= endTime:
                 if state == "RUN" or (prevState == "RUN" and not state=="RUN" and not state == "PAUSE"):
                     timeLeft = endTime - time.time()
                     x = time.gmtime(timeLeft)
@@ -140,7 +191,7 @@ def pomoRun():
             timeLeft = endTime - time.time()
             x = time.gmtime(timeLeft)
             displayTime = time.strftime("%H:%M:%S", x)
-            while time.time() <= endTime and mode == "POMODORO_B":
+            while time.time() <= endTime:
                 if state == "RUN" or (prevState == "RUN" and not state=="RUN" and not state == "PAUSE"):
                     timeLeft = endTime - time.time()
                     x = time.gmtime(timeLeft)
