@@ -18,11 +18,11 @@ global prevState
 mode = "POMODORO_W" # POMODORO_W, POMODORO_B, TASK, BUDGET
 state = "WELCOME" # WELCOME, OVERVIEW, RUN, PAUSE, MODE_SELECT, MODE_SETTINGS, MODE_SETTINGS_2 (For Pomodoro Break Settings)
 
-# pomoWorkTime = 0.5 * 60  # These are default values  # TODO FIX because using testing values for now
-# pomoBreakTime = 0.25 * 60  # These are default values
-# taskDone = 0
-# taskNum = 11  # these are default values
-# budgetTime = 0.25 * 60  # these are default values
+pomoWorkTime = 0.5 * 60  # These are default values  # TODO FIX because using testing values for now
+pomoBreakTime = 0.25 * 60  # These are default values
+taskDone = 0
+taskNum = 4  # these are default values
+budgetTime = 0.25 * 60  # these are default values
 
 startTime = 0
 endTime = 0
@@ -38,8 +38,10 @@ downBEvent = mp.Event()
 pomoRunEvent = mp.Event()
 
 buttonSetup()
+setupLED()
+clearAll()
 # buzzerSetup() # no button for now
-# led_setup()
+
 
 
 # ================================================ NEW CODE =======================================================
@@ -238,6 +240,7 @@ def watchEvents(): # THREAD
                 taskNum = int(f.readline()[:-1])
                 budgetTime = int(f.readline()[:-1])
                 f.close()
+                clearAll()
                 state = "OVERVIEW"
             
             
@@ -284,9 +287,14 @@ def watchEvents(): # THREAD
                     state = "WELCOME"
                 else:
                     taskDone = taskDone + 1
-                
-              
-                pass #TODO check if this will work for task mode?
+                    remainingTasks = taskNum - taskDone
+                    quantityON = available_led // remainingTasks
+                    
+                    if remainingTasks == 0:
+                        allOn()
+                    else:
+                        toggleNextLed(True, quantityON)
+
             
             playPauseCompleteBEvent.clear()
            
