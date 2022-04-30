@@ -97,9 +97,10 @@ def pomoRun():
             startTime = time.time()
             if mode == "POMODORO_W":
                 endTime = startTime + pomoWorkTime
+                timeLeft = pomoWorkTime
             elif mode == "POMODORO_B":
                 endTime = startTime + pomoBreakTime
-            timeLeft = endTime - time.time()
+                timeLeft = pomoBreakTime
             x = time.gmtime(timeLeft)
             displayTime = time.strftime("%H:%M:%S", x)
              
@@ -125,7 +126,7 @@ def pomoRun():
             prevState = "PAUSE"
             startTime = time.time()
             endTime = startTime + budgetTime
-            timeLeft = endTime - time.time()
+            timeLeft = budgetTime
             x = time.gmtime(timeLeft)
             displayTime = time.strftime("%H:%M:%S", x)
         
@@ -133,7 +134,7 @@ def pomoRun():
             prevState = "RUN"
             startTime = time.time()
             endTime = startTime + pomoWorkTime
-            timeLeft = endTime - time.time()
+            timeLeft = pomoWorkTime
             x = time.gmtime(timeLeft)
             displayTime = time.strftime("%H:%M:%S", x)
             while time.time() <= endTime and mode == "POMODORO_W":
@@ -157,7 +158,7 @@ def pomoRun():
             prevState = "RUN"
             startTime = time.time()
             endTime = startTime + pomoBreakTime
-            timeLeft = endTime - time.time()
+            timeLeft = pomoBreakTime
             x = time.gmtime(timeLeft)
             displayTime = time.strftime("%H:%M:%S", x)
             while time.time() <= endTime and mode == "POMODORO_B":
@@ -179,7 +180,7 @@ def pomoRun():
             # prevState = "PAUSE"
             startTime = time.time()
             endTime = startTime + budgetTime
-            timeLeft = endTime - time.time()
+            timeLeft = budgetTime
             x = time.gmtime(timeLeft)
             displayTime = time.strftime("%H:%M:%S", x)
             while time.time() <= endTime and mode == "BUDGET":
@@ -210,15 +211,23 @@ def watchEvents(): # THREAD
     global displayTime
     global taskDone
     global prevState
+    day = 0
     
     while True:
         if resetBEvent.is_set():
             # change mode and state
             print("Reset Button was pressed")
-            state = "OVERVIEW"
-            # TODO take care of reset
-            if mode == "POMODORO_B":
+#             if mode == "POMODORO_B":
+#                     mode = "POMODORO_W"
+            if not day:
                 mode = "POMODORO_W"
+                x = time.gmtime(pomoWorkTime)
+                displayTime = time.strftime("%H:%M:%S", x)
+                prevState = None
+                state = "OVERVIEW"
+                # TODO take care of reset
+            elif day:
+                state = "WELCOME"
             resetBEvent.clear()
           
         if playPauseCompleteBEvent.is_set():
