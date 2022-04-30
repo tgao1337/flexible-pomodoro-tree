@@ -444,9 +444,9 @@ def updateDisplay():
                     draw.text((31,45), "T | Settings", font=fontSmall, fill="white")
                     draw.text((40, 0), "Set Tasks:", font=fontSmall, fill="white")
                     if taskNum > 9:
-                        draw.text((50, 10), "15", font=fontBig, fill="white") #TODO Task count manager
+                        draw.text((50, 10), str(taskNum), font=fontBig, fill="white") #TODO Task count manager
                     else:
-                        draw.text((60, 10), "8", font=fontBig, fill="white") #TODO Task count manager
+                        draw.text((60, 10), str(taskNum), font=fontBig, fill="white") #TODO Task count manager
                 if mode == "BUDGET":
                     draw.text((0,45), "B | Settings | "+ displayTime, font=fontSmall, fill="white")  # TODO do i add time to this while it's still playing?
                     draw.text((23, 0), "Set Break Time:", font=fontSmall, fill="white")
