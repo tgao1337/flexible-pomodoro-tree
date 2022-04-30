@@ -217,7 +217,7 @@ def watchEvents(): # THREAD
             # change mode and state
             print("Reset Button was pressed")
             if state == "WELCOME":
-                state == "OVERVIEW"
+                state = "OVERVIEW"
             else:
                 state = "WELCOME"
                # TODO: RESET VALUES/TIME STUFF FROM FILE??
