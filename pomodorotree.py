@@ -12,8 +12,8 @@ global pomoBreakTime
 global taskDone
 global taskNum
 global budgetTime
-global startTime
-global endTime
+# global startTime
+# global endTime
 global displayTime
 global prevState
 
@@ -83,9 +83,10 @@ def checkDownB(): # PROCESS
         waitButton(pinE)
         downBEvent.set()
       
-def pomoRun():
-    global startTime
-    global endTime
+def pomoRun(): 
+    
+#     startTime = 0
+#     global endTime = 0
     global displayTime
     global mode
     global state
@@ -103,24 +104,6 @@ def pomoRun():
                 timeLeft = pomoBreakTime
             x = time.gmtime(timeLeft)
             displayTime = time.strftime("%H:%M:%S", x)
-             
-                
-   
-#         if state == "PAUSE" and mode == "POMODORO_W":
-#             prevState = "PAUSE"
-#             startTime = time.time()
-#             endTime = startTime + pomoWorkTime
-#             timeLeft = endTime - time.time()
-#             x = time.gmtime(timeLeft)
-#             displayTime = time.strftime("%H:%M:%S", x)
-            
-#         if state == "PAUSE" and mode == "POMODORO_B":
-#             prevState = "PAUSE"
-#             startTime = time.time()
-#             endTime = startTime + pomoBreakTime
-#             timeLeft = endTime - time.time()
-#             x = time.gmtime(timeLeft)
-#             displayTime = time.strftime("%H:%M:%S", x)
             
         if state == "RUN" and mode == "BUDGET":
             prevState = "PAUSE"
