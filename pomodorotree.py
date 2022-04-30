@@ -183,10 +183,13 @@ def watchEvents(): # THREAD
                 state = "RUN"
               
             elif state == "MODE_SELECT" or state == "OVERVIEW" or state == "MODE_SETTINGS" or state == "MODE_SETTINGS_2":
-                state = prevState  # this will put it back in the previous mode
-
+                if mode == "BUDGET":
+                    state = prevState  # this will put it back in the previous mode
+                else:
+                    state = "RUN"
+                
             if mode == "TASK":
-                if (taskDone==taskNum):
+                if (taskDone>=taskNum):
                     state = "WELCOME"
                 else:
                     taskDone = taskDone + 1
