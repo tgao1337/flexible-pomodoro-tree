@@ -397,7 +397,7 @@ def updateDisplay():
                     draw.text((17, 10), taskString, font=fontBig, fill="white")
                     draw.text((31,45), "T | Task", font=fontSmall, fill="white")  # TODO add task name
                 if mode == "BUDGET":
-                    draw.text((31,45), "B | Budget | Work", font=fontSmall, fill="white")  # TODO add productivity time
+                    draw.text((19,45), "B | Budget | Work", font=fontSmall, fill="white")  # TODO add productivity time
                     draw.text((17, 10), displayTime, font=fontBig, fill="white")
                   
                   
@@ -417,7 +417,7 @@ def updateDisplay():
                     draw.text((17, 10), taskString, font=fontBig, fill="white")
                     draw.text((31,45), "T | Task", font=fontSmall, fill="white")  # TODO add task name
                 if mode == "BUDGET":
-                    draw.text((25,45), "B | Budget | Break", font=fontSmall, fill="white")  # TODO add productivity time
+                    draw.text((18,45), "B | Budget | Break", font=fontSmall, fill="white")  # TODO add productivity time
                     draw.text((17, 10), displayTime, font=fontBig, fill="white")
                    
                    
