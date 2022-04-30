@@ -245,7 +245,8 @@ def watchEvents(): # THREAD
                     state = "RUN"
                 
             if mode == "TASK":
-                if prevState == "RUN":
+             
+                if state == "RUN":
                     if (taskDone>=taskNum):
                         state = "WELCOME"
                     else:
