@@ -242,8 +242,10 @@ def watchEvents(): # THREAD
                 pomoBreakTime = int(f.readline()[:-1])
                 taskNum = int(f.readline()[:-1])
                 budgetTime = int(f.readline()[:-1])
-                quantityON = int(f.readline()[:-1])
+#                 quantityON = int(f.readline()[:-1])
                 taskDone = 0
+                if mode == "TASK":
+                    quantityON = available_led // taskNum
                 f.close()
                 clearAll()
                 state = "OVERVIEW"
@@ -258,7 +260,7 @@ def watchEvents(): # THREAD
                 f.write((str(pomoBreakTime)+"\n"))
                 f.write((str(taskNum)+"\n"))
                 f.write((str(budgetTime)+"\n"))
-                f.write((str(quantityON)+"\n"))
+#                 f.write((str(quantityON)+"\n"))
                 f.close()
                 
                  
