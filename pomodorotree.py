@@ -217,8 +217,18 @@ def watchEvents(): # THREAD
         if resetBEvent.is_set():
             # change mode and state
             print("Reset Button was pressed")
+            if state == "WELCOME":
+                state == "OVERVIEW"
+            else:
+                state = "WELCOME"
+                TODO: RESET VALUES/TIME STUFF FROM FILE??
+                
+                
+
 #             if mode == "POMODORO_B":
 #                     mode = "POMODORO_W"
+
+            # I dont think the following is needed
             if not day:
                 mode = "POMODORO_W"
                 x = time.gmtime(pomoWorkTime)
