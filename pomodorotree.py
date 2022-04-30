@@ -91,21 +91,26 @@ def pomoRun():
     global prevState
     
     while True:
-        if state == "MODE_SETTINGS" or state == "MODE_SETTINGS_2":
+     
+        if state == "MODE_SETTINGS_2":
             prevState = state
             startTime = time.time()
-            if state == "MODE_SETTINGS" and mode == "POMODORO_W":
-                endTime = startTime + pomoWorkTime
-                timeLeft = pomoWorkTime
-            if state == "MODE_SETTINGS_2":
-                endTime = startTime + pomoBreakTime
-                timeLeft = pomoBreakTime
+            endTime = startTime + pomoBreakTime
+            timeLeft = pomoBreakTime
+            x = time.gmtime(timeLeft)
+            displayTime = time.strftime("%H:%M:%S", x)
+       
+        if state == "MODE_SETTINGS" and (mode == "POMODORO_W" or mode == "POMODORO_B"):
+            prevState = state
+            startTime = time.time()
+            endTime = startTime + pomoWorkTime
+            timeLeft = pomoWorkTime
             x = time.gmtime(timeLeft)
             displayTime = time.strftime("%H:%M:%S", x)
        
        
        
-        if state == "PAUSE" or state == "MODE_SETTINGS" or state == "MODE_SETTINGS_2":
+        if state == "PAUSE":
             prevState = "PAUSE"
             startTime = time.time()
             if mode == "POMODORO_W":
