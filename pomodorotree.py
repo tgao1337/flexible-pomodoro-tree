@@ -15,6 +15,7 @@ global budgetTime
 global displayTime
 global prevState
 global quantityON
+global timeTillNextLed
 
 mode = "POMODORO_W" # POMODORO_W, POMODORO_B, TASK, BUDGET
 state = "WELCOME" # WELCOME, OVERVIEW, RUN, PAUSE, MODE_SELECT, MODE_SETTINGS, MODE_SETTINGS_2 (For Pomodoro Break Settings)
@@ -31,6 +32,7 @@ x = time.gmtime(pomoWorkTime)
 displayTime = time.strftime("%H:%M:%S", x)
 prevState = None
 quantityON = 0
+timeTillNextLed=60
 
 resetBEvent = mp.Event()
 playPauseCompleteBEvent = mp.Event()
@@ -93,6 +95,7 @@ def pomoRun():
     global mode
     global state
     global prevState
+    global timeTillNextLed
     
     while True:
      
@@ -147,6 +150,8 @@ def pomoRun():
             displayTime = time.strftime("%H:%M:%S", x)
         
         if state == "RUN" and mode == "POMODORO_W":
+            timeTillNextLed = pomoWorkTime // available_led
+         
             prevState = "RUN"
             startTime = time.time()
             endTime = startTime + pomoWorkTime
@@ -156,15 +161,21 @@ def pomoRun():
             while time.time() <= endTime and mode == "POMODORO_W":
                 if state == "RUN" or (prevState == "RUN" and not state=="RUN" and not state == "PAUSE"):
                     timeLeft = endTime - time.time()
+                    if (pomoWorkTime-timeLeft) > timeTillNextLed:
+                        timeTillNextLed += timeTillNextLed
+                        toggleNextLed(True,1)
+                  
                     x = time.gmtime(timeLeft)
                     prevState = "RUN"
                 if state == "PAUSE" or (prevState == "PAUSE" and not state=="RUN" and not state == "PAUSE"):
                     endTime = time.time() + timeLeft
                     prevState = "PAUSE"
-                 
+                   
+              
+                  
                 displayTime = time.strftime("%H:%M:%S", x)
-                quantityON = pomoWork // available_leds
                 
+                300 s  32 leds -> 1 led every 9.6
             
             if mode == "POMODORO_W":
                 mode = "POMODORO_B"
@@ -196,6 +207,9 @@ def pomoRun():
             
         if state == "RUN" and mode == "BUDGET":   # show productivity time on budget
             # prevState = "PAUSE"
+            productivity_time=0
+            timeTillNextLed = 21600 // available_led # 6 hour work time like wesaid
+           
             startTime = time.time()
             endTime = startTime + budgetTime
             timeLeft = budgetTime
@@ -204,9 +218,16 @@ def pomoRun():
             while time.time() <= endTime and mode == "BUDGET":
                 if state == "RUN" or (prevState == "RUN" and not state=="RUN" and not state == "PAUSE"):
                     endTime = time.time() + timeLeft
+                    productivity_time = time.time()- startTime
+                    if productivity_time > timeTillNextLed: # turn on led when not in break
+                        timeTillNextLed += timeTillNextLed
+                        toggleNextLed(True,1)
                     prevState = "RUN"
                 if state == "PAUSE" or (prevState == "PAUSE" and not state=="RUN" and not state == "PAUSE"):
                     timeLeft = endTime - time.time()
+                    
+                    startTime=time.time()- productivity_time
+                    
                     x = time.gmtime(timeLeft)
                     prevState = "PAUSE"
                  
@@ -230,6 +251,7 @@ def watchEvents(): # THREAD
     global pomoBreakTime
     global budgetTime
     global quantityON
+    global timeTillNextLed
     
     
 
@@ -238,6 +260,9 @@ def watchEvents(): # THREAD
     while True:
         if mode == "TASK":
             quantityON = available_led // taskNum
+        elif mode == "POMODORO_W":
+            timeTillNextLed= pomoWorkTime// available_led
+            
         
         if resetBEvent.is_set():
             # change mode and state
