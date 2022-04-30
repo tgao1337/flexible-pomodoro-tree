@@ -14,6 +14,7 @@ global taskNum
 global budgetTime
 global displayTime
 global prevState
+global quantityON
 
 mode = "POMODORO_W" # POMODORO_W, POMODORO_B, TASK, BUDGET
 state = "WELCOME" # WELCOME, OVERVIEW, RUN, PAUSE, MODE_SELECT, MODE_SETTINGS, MODE_SETTINGS_2 (For Pomodoro Break Settings)
@@ -29,6 +30,7 @@ endTime = 0
 x = time.gmtime(pomoWorkTime)
 displayTime = time.strftime("%H:%M:%S", x)
 prevState = None
+quantityON = 0
 
 resetBEvent = mp.Event()
 playPauseCompleteBEvent = mp.Event()
@@ -225,6 +227,7 @@ def watchEvents(): # THREAD
     global pomoWorkTime
     global pomoBreakTime
     global budgetTime
+    global quantityON
     
     
     
@@ -292,7 +295,8 @@ def watchEvents(): # THREAD
                     if remainingTasks == 0:
                         allOn()
                     else:
-                        quantityON = available_led // remainingTasks
+#                         quantityON = available_led // remainingTasks
+                        print("Quantity on:", quantityON)
                         if taskDone >=1:
                             toggleNextLed(True, quantityON)
 
@@ -320,6 +324,9 @@ def watchEvents(): # THREAD
                     mode = "POMODORO_W"
                 elif mode == "BUDGET":
                     mode = "TASK"
+                    quantityON = available_led // taskNum
+                    
+                   
                   
             if state == "MODE_SETTINGS":
                 if mode == "POMODORO_W" or mode == "POMODORO_B":
@@ -346,6 +353,8 @@ def watchEvents(): # THREAD
             if state == "MODE_SELECT":
                 if mode == "POMODORO_W" or mode == "POMODORO_B":
                     mode = "TASK"
+                    quantityON = available_led // taskNum
+
                 elif mode == "TASK":
                     mode = "BUDGET"
 
