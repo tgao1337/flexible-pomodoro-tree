@@ -145,7 +145,7 @@ def pomoRun():
                 displayTime = time.strftime("%H:%M:%S", x)
             
             mode = "POMODORO_B"
-            state = "PAUSE"
+            state = "RUN"
             x = time.gmtime(pomoBreakTime)
             displayTime = time.strftime("%H:%M:%S", x)
                   
@@ -241,17 +241,23 @@ def updateDisplay():
             with canvas(device) as draw:
                 draw.line((0, 45, 127 ,45), fill="white")
                 if mode == "POMODORO_W" or mode == "POMODORO_B":
+                    x = time.gmtime(pomoWorkTime)
+                    displayWorkTime = time.strftime("%H:%M:%S", x)
+                    y = time.gmtime(pomoBreakTime)
+                    displayBreakTime = time.strftime("%H:%M:%S", y)
                     draw.text((10,0), "Mode: Pomodoro", font=fontSmall, fill="white")
-                    draw.text((10,20), "Work Time: "+pomoWorkTime, font=fontSmall, fill="white")
-                    draw.text((10,30), "Break Time: "+pomoBreakTime, font=fontSmall, fill="white")
+                    draw.text((10,20), "Work Time: "+displayWorkTime, font=fontSmall, fill="white")
+                    draw.text((10,30), "Break Time: "+displayBreakTime, font=fontSmall, fill="white")
                     draw.text((42, 43), "POM OVERVIEW", font=fontSmall, fill="white")
                 if mode == "TASK":
                     draw.text((10,0), "Mode: Task", font=fontSmall, fill="white")
-                    draw.text((10,20), "Total Tasks: "+taskNum, font=fontSmall, fill="white")
+                    draw.text((10,20), "Total Tasks: "+str(taskNum), font=fontSmall, fill="white")
                     draw.text((42, 43), "TASK OVERVIEW", font=fontSmall, fill="white")
                 if mode == "BUDGET":
+                    x = time.gmtime(budgetTime)
+                    displayBudTime = time.strftime("%H:%M:%S", x)
                     draw.text((10,0), "Mode: Budget", font=fontSmall, fill="white")
-                    draw.text((10,20), "Budget Time: "+budgetTime, font=fontSmall, fill="white")
+                    draw.text((10,20), "Budget Time: "+displayBudTime, font=fontSmall, fill="white")
                     draw.text((42, 43), "BUDGET OVERVIEW", font=fontSmall, fill="white")
                  
         if state == "RUN":
