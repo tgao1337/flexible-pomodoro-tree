@@ -268,10 +268,27 @@ def watchEvents(): # THREAD
             if state == "MODE_SELECT":
                 if mode == "TASK":
                     mode = "POMODORO_W"
-#                     prevState = "RUN"
                 elif mode == "BUDGET":
                     mode = "TASK"
-#                     prevState = "RUN"
+                  
+            if state == "MODE_SETTINGS":
+                if mode == "POMODORO_W" or mode == "POMODORO_B":
+                    if pomoWorkTime < 7200:
+                        pomoWorkTime += 300
+                  
+                if mode == "TASK":
+                    if taskNum < 100: #upper limit 100 tasks
+                        taskNum += 1
+
+                if mode == "BUDGET":
+                    if budgetTime < 18000:
+                        budgetTime += 600
+                  
+            if state == "MODE_SETTINGS_2":
+                if mode == "POMODORO_W" or mode == "POMODORO_B":
+                    if pomoBreakTime < 3600:
+                        pomoBreakTime += 300
+            
             upBEvent.clear()
            
         if downBEvent.is_set():
@@ -279,10 +296,29 @@ def watchEvents(): # THREAD
             if state == "MODE_SELECT":
                 if mode == "POMODORO_W" or mode == "POMODORO_B":
                     mode = "TASK"
-#                     prevState = "RUN"
                 elif mode == "TASK":
                     mode = "BUDGET"
-#                     prevState = "RUN"
+
+            if state == "MODE_SETTINGS":
+                if mode == "POMODORO_W" or mode == "POMODORO_B":
+                    if pomoWorkTime >= 600:
+                        pomoWorkTime -= 300
+                  
+                if mode == "TASK":
+                    if taskNum > 1:
+                        taskNum -= 1
+
+                if mode == "BUDGET":
+                    if budgetTime > 600:
+                        budgetTime -= 600
+                  
+            if state == "MODE_SETTINGS_2":
+                if mode == "POMODORO_W" or mode == "POMODORO_B":
+                    if pomoBreakTime > 300:
+                        pomoBreakTime -= 300
+                  
+                  
+
             downBEvent.clear()
         time.sleep(0.01)
         
