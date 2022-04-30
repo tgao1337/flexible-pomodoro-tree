@@ -15,6 +15,7 @@ global budgetTime
 global startTime
 global endTime
 global displayTime
+global prevState
 
 mode = "POMODORO_W" # POMODORO_W, POMODORO_B, TASK, BUDGET
 state = "WELCOME" # WELCOME, OVERVIEW, RUN, PAUSE, MODE_SELECT, MODE_SETTINGS
@@ -28,6 +29,7 @@ budgetTime = 60 * 60  # these are default values
 startTime = 0
 endTime = 0
 displayTime = 0
+prevState = "NONE"
 
 resetBEvent = mp.Event()
 playPauseCompleteBEvent = mp.Event()
@@ -86,8 +88,7 @@ def pomoRun():
     global displayTime
     global mode
     global state
-    
-    prevState = "NONE"
+    global prevState
     
     while True:
         
@@ -177,23 +178,19 @@ def watchEvents(): # THREAD
             print("Play Pause Complete Button was pressed")
             if state == "RUN" and not mode == "TASK":
                 state = "PAUSE"
-                #TODO pause timer
             
             elif state == "PAUSE" and not mode == "TASK":
                 state = "RUN"
               
-              
-                #TODO continue timer
             elif state == "MODE_SELECT" or state == "OVERVIEW" or state == "MODE_SETTINGS" or state == "MODE_SETTINGS_2":
-             
-                state = "RUN"
-
-                # TODO what if settings into TASK mode?
-
-                
+                state = prevState  # this will put it back in the previous mode
 
             if mode == "TASK":
-                taskDone = taskDone + 1
+                if (taskDone==taskNum):
+                    state = "WELCOME"
+                else:
+                    taskDone = taskDone + 1
+              
                 pass #TODO check if this will work for task mode?
             
             playPauseCompleteBEvent.clear()
