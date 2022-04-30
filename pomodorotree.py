@@ -270,7 +270,7 @@ def updateDisplay():
                 draw.line((0, 45, 127 ,45), fill="white")
                   
                 if mode == "POMODORO_W":
-                    draw.text((31,45), "P | Work", font=fontSmall, fill="white")
+                    draw.text((38,45), "P | Work", font=fontSmall, fill="white")
                     draw.text((17, 10), displayTime, font=fontBig, fill="white")
                 elif mode == "POMODORO_B":
                     draw.text((31,45), "P | Break", font=fontSmall, fill="white")
@@ -290,10 +290,10 @@ def updateDisplay():
                 draw.line((0, 45, 127 ,45), fill="white")
                   
                 if mode == "POMODORO_W":
-                    draw.text((31,45), "P | Work | Paused", font=fontSmall, fill="white")
+                    draw.text((25,45), "P | Work | Paused", font=fontSmall, fill="white")
                     draw.text((17, 10), displayTime, font=fontBig, fill="white")
                 elif mode == "POMODORO_B":
-                    draw.text((31,45), "P | Break | Paused", font=fontSmall, fill="white")
+                    draw.text((25,45), "P | Break | Paused", font=fontSmall, fill="white")
                     draw.text((17, 10), displayTime, font=fontBig, fill="white")
                    
                 if mode == "TASK":
@@ -301,7 +301,7 @@ def updateDisplay():
                     draw.text((17, 10), taskString, font=fontBig, fill="white")
                     draw.text((31,45), "T | Task", font=fontSmall, fill="white")  # TODO add task name
                 if mode == "BUDGET":
-                    draw.text((31,45), "B | Budget | Break", font=fontSmall, fill="white")  # TODO add productivity time
+                    draw.text((25,45), "B | Budget | Break", font=fontSmall, fill="white")  # TODO add productivity time
                     draw.text((17, 10), displayTime, font=fontBig, fill="white")
                    
                    
@@ -328,7 +328,7 @@ def updateDisplay():
             with canvas(device) as draw:
                 draw.line((0, 45, 127 ,45), fill="white")
                 if mode == "POMODORO_W" or mode == "POMODORO_B":
-                    draw.text((31,45), "P | Settings | "+displayTime, font=fontSmall, fill="white")  # Removed cycles  # TODO do i add time to this while it's still playing?
+                    draw.text((15,45), "P | Settings | "+ displayTime, font=fontSmall, fill="white")  # Removed cycles  # TODO do i add time to this while it's still playing?
                     draw.text((23, 0), "Set Work Time:", font=fontSmall, fill="white")
                     draw.text((17, 10), "00:25:00", font=fontBig, fill="white") #TODO Timing conversion printing
                 if mode == "TASK":
@@ -339,7 +339,7 @@ def updateDisplay():
                     else:
                         draw.text((60, 10), "8", font=fontBig, fill="white") #TODO Task count manager
                 if mode == "BUDGET":
-                    draw.text((31,45), "B | Settings | "+displayTime, font=fontSmall, fill="white")  # TODO do i add time to this while it's still playing?
+                    draw.text((15,45), "B | Settings | "+ displayTime, font=fontSmall, fill="white")  # TODO do i add time to this while it's still playing?
                     draw.text((23, 0), "Set Break Time:", font=fontSmall, fill="white")
                     draw.text((17, 10), "00:55:00", font=fontBig, fill="white") # TODO Budget break timing
                 
