@@ -30,7 +30,7 @@ startTime = 0
 endTime = 0
 x = time.gmtime(pomoWorkTime)
 displayTime = time.strftime("%H:%M:%S", x)
-prevState = "NONE"
+prevState = None
 
 resetBEvent = mp.Event()
 playPauseCompleteBEvent = mp.Event()
