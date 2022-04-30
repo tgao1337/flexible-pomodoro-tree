@@ -93,7 +93,6 @@ def pomoRun():
     while True:
      
         if state == "MODE_SETTINGS_2":
-            prevState = state
             startTime = time.time()
             endTime = startTime + pomoBreakTime
             timeLeft = pomoBreakTime
@@ -101,7 +100,6 @@ def pomoRun():
             displayTime = time.strftime("%H:%M:%S", x)
        
         if state == "MODE_SETTINGS" and (mode == "POMODORO_W" or mode == "POMODORO_B"):
-            prevState = state
             startTime = time.time()
             endTime = startTime + pomoWorkTime
             timeLeft = pomoWorkTime
