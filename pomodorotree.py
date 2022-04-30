@@ -18,7 +18,7 @@ global displayTime
 global prevState
 
 mode = "POMODORO_W" # POMODORO_W, POMODORO_B, TASK, BUDGET
-state = "WELCOME" # WELCOME, OVERVIEW, RUN, PAUSE, MODE_SELECT, MODE_SETTINGS
+state = "WELCOME" # WELCOME, OVERVIEW, RUN, PAUSE, MODE_SELECT, MODE_SETTINGS, MODE_SETTINGS_2 (For Pomodoro Break Settings)
 
 pomoWorkTime = 0.5 * 60  # These are default values  # TODO FIX because using testing values for now
 pomoBreakTime = 0.25 * 60  # These are default values
@@ -244,25 +244,26 @@ def updateDisplay():
         if state == "OVERVIEW":
             with canvas(device) as draw:
                 draw.line((0, 45, 127 ,45), fill="white")
+                draw.text((20, 43), "OVERVIEW", font=fontSmall, fill="white")
                 if mode == "POMODORO_W" or mode == "POMODORO_B":
                     x = time.gmtime(pomoWorkTime)
                     displayWorkTime = time.strftime("%H:%M:%S", x)
                     y = time.gmtime(pomoBreakTime)
                     displayBreakTime = time.strftime("%H:%M:%S", y)
-                    draw.text((10,0), "Mode: Pomodoro", font=fontSmall, fill="white")
-                    draw.text((10,20), "Work Time: "+displayWorkTime, font=fontSmall, fill="white")
-                    draw.text((10,30), "Break Time: "+displayBreakTime, font=fontSmall, fill="white")
-                    draw.text((42, 43), "POM OVERVIEW", font=fontSmall, fill="white")
+                    draw.text((12,0), "Mode: Pomodoro", font=fontSmall, fill="white")
+                    draw.text((10,15), "Work Time: "+displayWorkTime, font=fontSmall, fill="white")
+                    draw.text((10,25), "Break Time: "+displayBreakTime, font=fontSmall, fill="white")
+
                 if mode == "TASK":
-                    draw.text((10,0), "Mode: Task", font=fontSmall, fill="white")
-                    draw.text((10,20), "Total Tasks: "+str(taskNum), font=fontSmall, fill="white")
-                    draw.text((42, 43), "TASK OVERVIEW", font=fontSmall, fill="white")
+                    draw.text((15,0), "Mode: Task", font=fontSmall, fill="white")
+                    draw.text((15,11), "Total Tasks: " + str(taskNum), font=fontSmall, fill="white")
+#                     draw.text((42, 43), "TASK OVERVIEW", font=fontSmall, fill="white")
                 if mode == "BUDGET":
                     x = time.gmtime(budgetTime)
                     displayBudTime = time.strftime("%H:%M:%S", x)
-                    draw.text((10,0), "Mode: Budget", font=fontSmall, fill="white")
-                    draw.text((10,20), "Budget Time: "+displayBudTime, font=fontSmall, fill="white")
-                    draw.text((42, 43), "BUDGET OVERVIEW", font=fontSmall, fill="white")
+                    draw.text((15,0), "Mode: Budget", font=fontSmall, fill="white")
+                    draw.text((0,20), "Budget Time: "+displayBudTime, font=fontSmall, fill="white")
+#                     draw.text((42, 43), "BUDGET OVERVIEW", font=fontSmall, fill="white")
                  
         if state == "RUN":
             with canvas(device) as draw:
