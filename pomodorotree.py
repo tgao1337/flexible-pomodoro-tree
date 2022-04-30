@@ -241,10 +241,10 @@ def watchEvents(): # THREAD
             if state == "MODE_SELECT":
                 if mode == "TASK":
                     mode = "POMODORO_W"
-                    prevState = "RUN"
+#                     prevState = "RUN"
                 elif mode == "BUDGET":
                     mode = "TASK"
-                    prevState = "RUN"
+#                     prevState = "RUN"
             upBEvent.clear()
            
         if downBEvent.is_set():
@@ -252,10 +252,10 @@ def watchEvents(): # THREAD
             if state == "MODE_SELECT":
                 if mode == "POMODORO_W" or mode == "POMODORO_B":
                     mode = "TASK"
-                    prevState = "RUN"
+#                     prevState = "RUN"
                 elif mode == "TASK":
                     mode = "BUDGET"
-                    prevState = "RUN"
+#                     prevState = "RUN"
             downBEvent.clear()
         time.sleep(0.01)
         
