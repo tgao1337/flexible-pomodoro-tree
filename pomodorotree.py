@@ -200,11 +200,6 @@ def pomoRun():
                     prevState = "PAUSE"
                  
                 displayTime = time.strftime("%H:%M:%S", x)   # if budget mode done then go to pomodoro, shows budget time, this will fix if displayTime = pomodorotime in start of pomodoro loop
-            
-            if mode == "BUDGET":
-                state = "RUN"
-                x = time.gmtime(pomoBreakTime)
-                displayTime = time.strftime("%H:%M:%S", x)
                   
       
 def watchEvents(): # THREAD
