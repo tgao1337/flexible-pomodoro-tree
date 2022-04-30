@@ -97,7 +97,7 @@ def pomoRun():
             if state == "MODE_SETTINGS" and mode == "POMODORO_W":
                 endTime = startTime + pomoWorkTime
                 timeLeft = pomoWorkTime
-            if state == "MODE_SETTINGS_2" and mode == "POMODORO_B":
+            if state == "MODE_SETTINGS_2":
                 endTime = startTime + pomoBreakTime
                 timeLeft = pomoBreakTime
             x = time.gmtime(timeLeft)
