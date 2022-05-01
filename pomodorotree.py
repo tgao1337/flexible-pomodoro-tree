@@ -343,6 +343,7 @@ def watchEvents(): # THREAD
                         print("Quantity on:", quantityON)
                         if taskDone >=1:
                             toggleNextLed(True, quantityON)
+                            print("AVAILABLE LEDS NOW:", available_led)
 
             
             playPauseCompleteBEvent.clear()
