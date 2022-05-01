@@ -287,7 +287,7 @@ def watchEvents(): # THREAD
                 f.close()
                 clearAll()
                 state = "OVERVIEW"
-                
+                resetAvailable()
                 if mode == "TASK":
                     quantityON = NUM_LEDS // taskNum
 
