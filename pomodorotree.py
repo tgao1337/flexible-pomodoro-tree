@@ -171,7 +171,7 @@ def pomoRun():
                     print((time.time() - startTime),  timeTillNextLed)
                     if ((time.time() - startTime) > timeTillNextLed):
 #                         timeTillNextLed += timeTillNextLed
-                        timeTillNextLed = timeTillNextLed +prevTimeTillNex 
+                        timeTillNextLed = timeTillNextLed + prevTimeTillNex 
                         toggleNextLed(True,1)
                   
                     x = time.gmtime(timeLeft)
@@ -183,7 +183,7 @@ def pomoRun():
           
                 if state == "MODE_SETTINGS" and (mode == "POMODORO_W" or mode == "POMODORO_B"):
                     startTime = time.time()
-                    endTime = startTime + pomoWorkTime
+                    endTime = startTime + pomoWorkTime - (endTime - timeLeft)
                     timeLeft = pomoWorkTime
                     x = time.gmtime(timeLeft)          
           
