@@ -95,9 +95,11 @@ def pomoRun():
     global state
     global prevState
     global timeTillNextLed
+    prevTimeTillNex = 0
+    
     
     while True:
-     
+        prevTimeTillNex = timeTillNextLed
         if state == "MODE_SETTINGS_2":
             startTime = time.time()
             endTime = startTime + pomoBreakTime
@@ -165,7 +167,8 @@ def pomoRun():
                
                     print((time.time() - startTime),  timeTillNextLed)
                     if ((time.time() - startTime) > timeTillNextLed):
-                        timeTillNextLed += timeTillNextLed
+#                         timeTillNextLed += timeTillNextLed
+                        timeTillNextLed = timeTillNextLed +prevTimeTillNex 
                         toggleNextLed(True,1)
                   
                     x = time.gmtime(timeLeft)
