@@ -76,7 +76,7 @@ def playFreqTime(freq, seconds):
     pwm_out = GPIO.PWM(pinnum, freq)
     pwm_out.start(50)
   time.sleep(seconds)
-  pi.hardware_PWM(13, freq, 0)
+  #pi.hardware_PWM(13, freq, 0)
   
 def playList(lst):
   # Given a list of [(freq, seconds), (freq, seconds), ... ], play through the list
