@@ -185,7 +185,7 @@ def pomoRun():
                     startTime = time.time()
                     endTime = startTime + pomoWorkTime - (endTime - timeLeft)
                     timeLeft = pomoWorkTime - (endTime - timeLeft)
-                    print(endTime, timeLeft)
+                    print(endTime, timeLeft, time.time())
                     x = time.gmtime(timeLeft)            
           
                       
