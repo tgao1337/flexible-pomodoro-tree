@@ -92,6 +92,6 @@ def playList(lst):
   #GPIO.setup(pinA, GPIO.IN)
 
 buzzerSetup(13)
-playFreqTime(A7, 1)
+playFreqTime(4000, 1)
 time.sleep(10)
-playFreqTime(C8, 1)
+playFreqTime(3800, 1)
