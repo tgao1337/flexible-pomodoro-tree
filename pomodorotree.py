@@ -110,6 +110,7 @@ def pomoRun():
             displayTime = time.strftime("%H:%M:%S", x)
        
         if state == "MODE_SETTINGS" and (mode == "POMODORO_W" or mode == "POMODORO_B"):
+            print("Hello i am in here")
             startTime = time.time()
             endTime = startTime + pomoWorkTime
             timeLeft = pomoWorkTime
