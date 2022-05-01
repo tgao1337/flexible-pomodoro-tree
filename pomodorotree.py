@@ -18,6 +18,7 @@ global prevState
 global quantityON
 global timeTillNextLed
 global prodTime
+global endTime
 
 mode = "POMODORO_W" # POMODORO_W, POMODORO_B, TASK, BUDGET
 state = "WELCOME" # WELCOME, OVERVIEW, RUN, PAUSE, MODE_SELECT, MODE_SETTINGS, MODE_SETTINGS_2 (For Pomodoro Break Settings)
@@ -98,6 +99,7 @@ def pomoRun():
     global prevState
     global timeTillNextLed
     prevTimeTillNex = 0
+    global endTime
     
     
     while True:
@@ -275,7 +277,7 @@ def watchEvents(): # THREAD
     global budgetTime
     global quantityON
     global timeTillNextLed
-    
+    global endTime
 
     
     
@@ -397,6 +399,7 @@ def watchEvents(): # THREAD
                 if mode == "POMODORO_W" or mode == "POMODORO_B":
                     if pomoWorkTime < 7200:
                         pomoWorkTime += 300
+                        endTime += 300
                         timeTillNextLed = pomoWorkTime // getAvailable()
                         print("----->", timeTillNextLed, pomoWorkTime, getAvailable())
                   
@@ -431,6 +434,7 @@ def watchEvents(): # THREAD
                 if mode == "POMODORO_W" or mode == "POMODORO_B":
                     if pomoWorkTime >= 600:
                         pomoWorkTime -= 300
+                        endTime -= 300
                         timeTillNextLed = pomoWorkTime // getAvailable()
                         print("----->", timeTillNextLed, pomoWorkTime, getAvailable())
                   
