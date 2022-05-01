@@ -379,8 +379,8 @@ def watchEvents(): # THREAD
                 if mode == "TASK":
                     if taskNum < 32: #upper limit 100 tasks
                         taskNum += 1
-                        quantityON = available_led // taskNum
-                        print("----->", quantityON, available_led, taskNum)
+                        quantityON = getAvailable() // taskNum
+                        print("----->", quantityON, getAvailable(), taskNum)
 
                 if mode == "BUDGET":
                     if budgetTime < 18000:
@@ -411,8 +411,8 @@ def watchEvents(): # THREAD
                 if mode == "TASK":
                     if taskNum > 1:
                         taskNum -= 1
-                        quantityON = available_led // taskNum
-                        print("----->", quantityON, available_led, taskNum)
+                        quantityON = getAvailable() // taskNum
+                        print("----->", quantityON, getAvailable(), taskNum)
 
                 if mode == "BUDGET":
                     if budgetTime > 600:
