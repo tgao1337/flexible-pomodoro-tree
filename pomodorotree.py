@@ -288,6 +288,8 @@ def watchEvents(): # THREAD
             if state == "WELCOME":
                 f = open("userSettings.txt", "r")
                 mode = f.readline()[:-1]
+                if mode == "POMODORO_B":
+                    mode = "POMODORO_W"
                 pomoWorkTime = int(f.readline()[:-1])
                 pomoBreakTime = int(f.readline()[:-1])
                 taskNum = int(f.readline()[:-1])
