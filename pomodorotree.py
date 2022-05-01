@@ -166,6 +166,19 @@ def pomoRun():
             displayTime = time.strftime("%H:%M:%S", x)
             
             while time.time() <= endTime and mode == "POMODORO_W":
+             
+                if state == "MODE_SETTINGS" and (mode == "POMODORO_W" or mode == "POMODORO_B"):
+                    timeLeft = (endTime - timeLeft) + pomoWorkTime
+                    
+#                     startTime = time.time()
+#                     endTime = startTime + pomoWorkTime - (endTime - timeLeft) + startTime
+# #                     timeLeft = pomoWorkTime - (endTime - timeLeft) +startTime
+#                     timeLeft = endTime - time.time()
+#                     print(endTime, timeLeft, time.time())
+                    x = time.gmtime(timeLeft)   
+             
+             
+             
                 if state == "RUN" or (prevState == "RUN" and not state=="RUN" and not state == "PAUSE"):
                     
                     timeLeft = endTime - time.time()
@@ -183,13 +196,7 @@ def pomoRun():
                     endTime = time.time() + timeLeft
                     prevState = "PAUSE"
           
-#                 if state == "MODE_SETTINGS" and (mode == "POMODORO_W" or mode == "POMODORO_B"):
-#                     startTime = time.time()
-#                     endTime = startTime + pomoWorkTime - (endTime - timeLeft) + startTime
-# #                     timeLeft = pomoWorkTime - (endTime - timeLeft) +startTime
-#                     timeLeft = endTime - time.time()
-#                     print(endTime, timeLeft, time.time())
-#                     x = time.gmtime(timeLeft)            
+         
           
                       
                 displayTime = time.strftime("%H:%M:%S", x)
@@ -399,7 +406,7 @@ def watchEvents(): # THREAD
                 if mode == "POMODORO_W" or mode == "POMODORO_B":
                     if pomoWorkTime < 7200:
                         pomoWorkTime += 300
-                        endTime = endTime+time.time()+ 300
+#                         endTime = endTime+time.time()+ 300
                         timeTillNextLed = pomoWorkTime // getAvailable()
                         print("----->", timeTillNextLed, pomoWorkTime, getAvailable())
                   
@@ -434,7 +441,7 @@ def watchEvents(): # THREAD
                 if mode == "POMODORO_W" or mode == "POMODORO_B":
                     if pomoWorkTime >= 600:
                         pomoWorkTime -= 300
-                        endTime -= 300
+#                         endTime -= 300
                         timeTillNextLed = pomoWorkTime // getAvailable()
                         print("----->", timeTillNextLed, pomoWorkTime, getAvailable())
                   
