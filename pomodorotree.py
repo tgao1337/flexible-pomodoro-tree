@@ -260,6 +260,7 @@ def watchEvents(): # THREAD
     global budgetTime
     global quantityON
     global timeTillNextLed
+    global available_led
     
     
 
