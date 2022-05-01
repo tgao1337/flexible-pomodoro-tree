@@ -185,7 +185,8 @@ def pomoRun():
                     startTime = time.time()
                     endTime = startTime + pomoWorkTime - (endTime - timeLeft)
                     timeLeft = pomoWorkTime
-                    x = time.gmtime(timeLeft)          
+#                     x = time.gmtime(timeLeft)          
+                    x = time.gmtime(endTime)          
           
                       
                 displayTime = time.strftime("%H:%M:%S", x)
