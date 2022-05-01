@@ -523,7 +523,7 @@ def updateDisplay():
                     draw.text((17, 10), taskString, font=fontBig, fill="white")
                     draw.text((31,45), "T | Task", font=fontSmall, fill="white")  # TODO add task name
                 if mode == "BUDGET":
-                    draw.text((18,0), "Break time remaining:", font=fontSmall, fill="white")
+                    draw.text((0,0), "Break time remaining:", font=fontSmall, fill="white")
                     draw.text((17, 10), displayTime, font=fontBig, fill="white")  # change position to display
                     draw.text((12,45), "B | Budget | Break", font=fontSmall, fill="white")  # TODO add productivity time
 
