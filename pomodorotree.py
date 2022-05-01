@@ -288,12 +288,12 @@ def watchEvents(): # THREAD
                 state = "OVERVIEW"
                 
                 resetAvailable()  # resetting available_leds back to 32
-                if mode == "TASK":
-                    quantityON = NUM_LEDS // taskNum
+#                 if mode == "TASK":
+                quantityON = NUM_LEDS // taskNum
                   
-                if mode == "POMODORO_W":
-                    timeTillNextLed = pomoWorkTime // NUM_LEDS
-                    print("timeTillNextLed in reset:", timeTillNextLed)
+#                 if mode == "POMODORO_W":
+                timeTillNextLed = pomoWorkTime // NUM_LEDS
+                print("timeTillNextLed in reset:", timeTillNextLed)
 
             
             
