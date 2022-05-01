@@ -399,7 +399,7 @@ def watchEvents(): # THREAD
                 if mode == "POMODORO_W" or mode == "POMODORO_B":
                     if pomoWorkTime < 7200:
                         pomoWorkTime += 300
-                        endTime += 300
+                        endTime = endTime+time.time()+ 300
                         timeTillNextLed = pomoWorkTime // getAvailable()
                         print("----->", timeTillNextLed, pomoWorkTime, getAvailable())
                   
