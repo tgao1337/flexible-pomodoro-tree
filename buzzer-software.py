@@ -32,7 +32,7 @@ A7 = 3520
 B7 = 3951
 C8 = 4186
 
-pinnum = 0
+pinnum = 12
 
 def buzzerSetup(pin):
   GPIO.setmode(GPIO.BCM)
@@ -84,3 +84,6 @@ def playList(lst):
 
   for elem in lst:
     playFreqTime(elem[0], elem[1])
+
+buzzerSetup(12)
+playFreqTime(A7, .5)

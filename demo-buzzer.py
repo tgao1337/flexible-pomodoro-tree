@@ -236,9 +236,9 @@ def playJingle():
          (rest, .000 ))
   playList(jingle)
 
-# buzzerSetup()
-# playMario()
+buzzerSetup()
+playMario()
 
 # playJingle() # sounds bad :( likely due to overlapping notes the buzzer cannot play correctly
 
-playScale() # This has the buzzerSetup already
+# playScale() # This has the buzzerSetup already
