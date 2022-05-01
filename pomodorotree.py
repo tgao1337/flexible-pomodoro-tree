@@ -177,7 +177,7 @@ def pomoRun():
                   
                 displayTime = time.strftime("%H:%M:%S", x)
                 
-                300 s  32 leds -> 1 led every 9.6
+#                 300 s  32 leds -> 1 led every 9.6
             
             if mode == "POMODORO_W":
                 mode = "POMODORO_B"
