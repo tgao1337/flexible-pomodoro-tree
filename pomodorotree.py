@@ -151,7 +151,6 @@ def pomoRun():
         
         if state == "RUN" and mode == "POMODORO_W":
             timeTillNextLed = pomoWorkTime // available_led
-            
          
             prevState = "RUN"
             startTime = time.time()
@@ -289,6 +288,7 @@ def watchEvents(): # THREAD
                 f.close()
                 clearAll()
                 state = "OVERVIEW"
+
             
             
             else:
@@ -318,13 +318,14 @@ def watchEvents(): # THREAD
             elif state == "MODE_SELECT" or state == "OVERVIEW" or state == "MODE_SETTINGS" or state == "MODE_SETTINGS_2":
                 if (mode == "BUDGET" or mode == "POMODORO_W" or mode == "POMODORO_B") and not prevState == None:
                     state = prevState  # this will put it back in the previous mode
-                else:
+                else: 
+                    prevState = state
                     if mode == "TASK":
                         taskDone = taskDone - 1
                     state = "RUN"
                 
             if mode == "TASK":
-                if (taskDone>=taskNum):
+                if (taskDone >= taskNum):
                     state = "WELCOME"
                 else:
                     taskDone = taskDone + 1
@@ -333,10 +334,10 @@ def watchEvents(): # THREAD
                     if remainingTasks == 0:
                         allOn()
                     else:
-#                         quantityON = available_led // remainingTasks
-                        print("Quantity on:", quantityON)
-                        if taskDone >=1:
-                            toggleNextLed(True, quantityON)
+                        if not prevState == "MODE_SELECT" and not prevState == "MODE_SETTINGS":
+                            print("Quantity on:", quantityON)
+                            if taskDone >=1:
+                                toggleNextLed(True, quantityON)
 
             
             playPauseCompleteBEvent.clear()
@@ -553,7 +554,7 @@ def treeLightUp():
         if mode == "TASK":
             quantityON = available_led // taskNum
         elif mode == "POMODORO_W":
-            timeTillNextLed= pomoWorkTime// available_led
+            timeTillNextLed= pomoWorkTime // 32
 #         elif mode == "BUDGET":    # does not have to change since we said 6 hrs default
 #             timeTillNextLed = 21600 // available_led
 
