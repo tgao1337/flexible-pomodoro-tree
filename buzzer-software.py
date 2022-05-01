@@ -87,3 +87,4 @@ def playList(lst):
 
 buzzerSetup(12)
 playFreqTime(A7, .5)
+playList([(0,1), (A7,.5),(B7,.5),(0,1), (G7,.5),(C8,.5),(0,1), (C8,.5),(F7,.5),])
