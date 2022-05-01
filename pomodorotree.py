@@ -501,11 +501,12 @@ def updateDisplay():
                     draw.text((17, 10), taskString, font=fontBig, fill="white")
                     draw.text((31,45), "T | Task", font=fontSmall, fill="white")  # TODO add task name
                 if mode == "BUDGET":
+                    if mode == "RUN":
                     draw.text((0,0), "Productive time:", font=fontSmall, fill="white")
                     draw.text((17,10), prodTime, font=fontBig, fill="white")  # productivity time  TODO YOU NEED TO FIX THIS
                     draw.text((12,45), "B | Budget | Work", font=fontSmall, fill="white")
-                    draw.text((0,20), "Break time remaining:", font=fontSmall, fill="white")
-                    draw.text((17, 30), displayTime, font=fontSmall, fill="white")  # change position to display
+#                     draw.text((0,20), "Break time remaining:", font=fontSmall, fill="white")
+#                     draw.text((17, 30), displayTime, font=fontSmall, fill="white")  # change position to display
                   
                   
         if state == "PAUSE":
@@ -524,8 +525,8 @@ def updateDisplay():
                     draw.text((17, 10), taskString, font=fontBig, fill="white")
                     draw.text((31,45), "T | Task", font=fontSmall, fill="white")  # TODO add task name
                 if mode == "BUDGET":
-                    draw.text((0,0), "Productive time:", font=fontSmall, fill="white")
-                    draw.text((17,0), prodTime, font=fontSmall, fill="white")  # productivity time  TODO YOU NEED TO FIX THIS
+#                     draw.text((0,0), "Productive time:", font=fontSmall, fill="white")
+#                     draw.text((17,0), prodTime, font=fontSmall, fill="white")  # productivity time  TODO YOU NEED TO FIX THIS
                     draw.text((12,45), "B | Budget | Break", font=fontSmall, fill="white")  # TODO add productivity time
                     draw.text((0,10), "Break time remaining:", font=fontSmall, fill="white")
                     draw.text((17, 20), displayTime, font=fontBig, fill="white")  # change position to display
