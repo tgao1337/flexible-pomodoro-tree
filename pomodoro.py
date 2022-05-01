@@ -322,6 +322,10 @@ def findNextLed(turnOn):
               
 def getAvailable():
   return available_led
+
+def resetAvailable():
+  global available_led
+  available_led = NUM_LEDS
   
 '''This function turns on all LEDs'''
 def allOn():
