@@ -168,7 +168,7 @@ def pomoRun():
                     
                     timeLeft = endTime - time.time()
                
-                    print((time.time() - startTime),  timeTillNextLed)
+#                     print((time.time() - startTime),  timeTillNextLed)
                     if ((time.time() - startTime) > timeTillNextLed):
 #                         timeTillNextLed += timeTillNextLed
                         timeTillNextLed = timeTillNextLed + prevTimeTillNex 
@@ -185,6 +185,7 @@ def pomoRun():
                     startTime = time.time()
                     endTime = startTime + pomoWorkTime - (endTime - timeLeft)
                     timeLeft = pomoWorkTime - (endTime - timeLeft)
+                    print(endTime, timeLeft)
                     x = time.gmtime(timeLeft)            
           
                       
