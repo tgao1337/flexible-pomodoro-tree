@@ -184,7 +184,8 @@ def pomoRun():
                 if state == "MODE_SETTINGS" and (mode == "POMODORO_W" or mode == "POMODORO_B"):
                     startTime = time.time()
                     endTime = startTime + pomoWorkTime - (endTime - timeLeft) + startTime
-                    timeLeft = pomoWorkTime - (endTime - timeLeft) +startTime
+#                     timeLeft = pomoWorkTime - (endTime - timeLeft) +startTime
+                    timeLeft = endTime - time.time()
                     print(endTime, timeLeft, time.time())
                     x = time.gmtime(timeLeft)            
           
