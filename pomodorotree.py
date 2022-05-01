@@ -293,6 +293,7 @@ def watchEvents(): # THREAD
                   
                 if mode == "POMODORO_W":
                     timeTillNextLed = pomoWorkTime // NUM_LEDS
+                    print("timeTillNextLed in reset:", timeTillNextLed)
 
             
             
