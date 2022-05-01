@@ -169,15 +169,15 @@ def pomoRun():
              
                 if state == "MODE_SETTINGS" and (mode == "POMODORO_W" or mode == "POMODORO_B"):
                     timeLeft = (endTime - timeLeft) + pomoWorkTime
-                    print("New Time left:", timeLeft)
+
                     
 #                     startTime = time.time()
 #                     endTime = startTime + pomoWorkTime - (endTime - timeLeft) + startTime
 # #                     timeLeft = pomoWorkTime - (endTime - timeLeft) +startTime
 #                     timeLeft = endTime - time.time()
 #                     print(endTime, timeLeft, time.time())
-                    x = time.gmtime(timeLeft)   
-             
+                    x = time.gmtime(timeLeft)
+                    print("New Time left:", x)
              
              
                 if state == "RUN" or (prevState == "RUN" and not state=="RUN" and not state == "PAUSE"):
