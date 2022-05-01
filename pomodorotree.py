@@ -160,7 +160,7 @@ def pomoRun():
             x = time.gmtime(timeLeft)
             displayTime = time.strftime("%H:%M:%S", x)
             
-            while time.time() <= endTime and mode == "POMODORO_W" and prevState == "RUN":
+            while time.time() <= endTime and mode == "POMODORO_W":
                 if state == "RUN" or (prevState == "RUN" and not state=="RUN" and not state == "PAUSE"):
                     
                     timeLeft = endTime - time.time()
@@ -177,14 +177,21 @@ def pomoRun():
                 if state == "PAUSE" or (prevState == "PAUSE" and not state=="RUN" and not state == "PAUSE"):
                     endTime = time.time() + timeLeft
                     prevState = "PAUSE"
-                   
-              
-                  
+          
+                if state == "MODE_SETTINGS" and (mode == "POMODORO_W" or mode == "POMODORO_B"):
+                    startTime = time.time()
+                    endTime = startTime + pomoWorkTime
+                    timeLeft = pomoWorkTime
+                    x = time.gmtime(timeLeft)          
+          
+                      
                 displayTime = time.strftime("%H:%M:%S", x)
+                
+
                 
 #                 300 s  32 leds -> 1 led every 9.6
             
-            if mode == "POMODORO_W" and prevState == "RUN":
+            if mode == "POMODORO_W":
                 mode = "POMODORO_B"
                 state = "PAUSE"
                 x = time.gmtime(pomoBreakTime)
