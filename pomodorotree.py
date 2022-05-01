@@ -150,7 +150,6 @@ def pomoRun():
         # ========================================================================
         
         if state == "RUN" and mode == "POMODORO_W":
-            timeTillNextLed = pomoWorkTime // available_led
          
             prevState = "RUN"
             startTime = time.time()
@@ -287,9 +286,13 @@ def watchEvents(): # THREAD
                 f.close()
                 clearAll()
                 state = "OVERVIEW"
-                resetAvailable()
+                
+                resetAvailable()  # resetting available_leds back to 32
                 if mode == "TASK":
                     quantityON = NUM_LEDS // taskNum
+                  
+                if mode == "POMODORO_W":
+                    timeTillNextLed = pomoWorkTime // NUM_LEDS
 
             
             
@@ -375,6 +378,8 @@ def watchEvents(): # THREAD
                 if mode == "POMODORO_W" or mode == "POMODORO_B":
                     if pomoWorkTime < 7200:
                         pomoWorkTime += 300
+                        timeTillNextLed = pomoWorkTime // getAvailable()
+                        print("----->", timeTillNextLed, pomoWorkTime, getAvailable())
                   
                 if mode == "TASK":
                     if taskNum < 32: #upper limit 100 tasks
@@ -398,7 +403,7 @@ def watchEvents(): # THREAD
             if state == "MODE_SELECT":
                 if mode == "POMODORO_W" or mode == "POMODORO_B":
                     mode = "TASK"
-#                     quantityON = available_led // taskNum
+
 
                 elif mode == "TASK":
                     mode = "BUDGET"
@@ -407,6 +412,8 @@ def watchEvents(): # THREAD
                 if mode == "POMODORO_W" or mode == "POMODORO_B":
                     if pomoWorkTime >= 600:
                         pomoWorkTime -= 300
+                        timeTillNextLed = pomoWorkTime // getAvailable()
+                        print("----->", timeTillNextLed, pomoWorkTime, getAvailable())
                   
                 if mode == "TASK":
                     if taskNum > 1:
@@ -453,13 +460,11 @@ def updateDisplay():
                 if mode == "TASK":
                     draw.text((31,0), "Mode: Task", font=fontSmall, fill="white")
                     draw.text((25,20), "Total Tasks: " + str(taskNum), font=fontSmall, fill="white")
-#                     draw.text((42, 43), "TASK OVERVIEW", font=fontSmall, fill="white")
                 if mode == "BUDGET":
                     x = time.gmtime(budgetTime)
                     displayBudTime = time.strftime("%H:%M:%S", x)
                     draw.text((21,0), "Mode: Budget", font=fontSmall, fill="white")
                     draw.text((0,20), "Budget Time: "+displayBudTime, font=fontSmall, fill="white")
-#                     draw.text((42, 43), "BUDGET OVERVIEW", font=fontSmall, fill="white")
                  
         if state == "RUN":
             with canvas(device) as draw:
@@ -553,19 +558,7 @@ def updateDisplay():
                     draw.text((23, 0), "Set Break Time:", font=fontSmall, fill="white")
                     draw.text((17, 10), displayTime, font=fontBig, fill="white") #TODO Timing conversion printing
             
-            
-# def treeLightUp():
-#     global quantityON
-#     global timeTillNextLed
-    
-#     while True:
-# #         if mode == "TASK":
-# #             quantityON = available_led // taskNum
-#         elif mode == "POMODORO_W":
-#             timeTillNextLed= pomoWorkTime // 32
-# #         elif mode == "BUDGET":    # does not have to change since we said 6 hrs default
-# #             timeTillNextLed = 21600 // available_led
-
+           
 
 
 p1 = Process(target=checkResetB)
@@ -585,13 +578,10 @@ t2 = Thread(target=updateDisplay)
 t2.start()
 t3 = Thread(target = pomoRun)
 t3.start()
-# t4 = Thread(target = treeLightUp)
-# t4.start()
 
 t1.join()
 t2.join()
 t3.join()
-# t4.join()
 
 p1.join()
 p2.join()
