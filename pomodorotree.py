@@ -177,7 +177,6 @@ def pomoRun():
 #                     timeLeft = endTime - time.time()
 #                     print(endTime, timeLeft, time.time())
                     x = time.gmtime(timeLeft)
-                    print("New Time left:", x)
              
              
                 if state == "RUN" or (prevState == "RUN" and not state=="RUN" and not state == "PAUSE"):
@@ -201,7 +200,7 @@ def pomoRun():
           
                       
                 displayTime = time.strftime("%H:%M:%S", x)
-#                 print("current time:", displayTime)
+                print("current time:", displayTime)
                 
 
                 
