@@ -71,7 +71,7 @@ def playFreqTime(freq, seconds):
 
   if freq == 0:
    pwm_out = GPIO.PWM(pinnum, 0)
-    pwm_out.start(0)
+   pwm_out.start(0)
   else:
     pwm_out = GPIO.PWM(pinnum, freq)
     pwm_out.start(50)
