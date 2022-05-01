@@ -73,7 +73,7 @@ def playFreqTime(freq, seconds):
   if not freq == 0:
     pwm_out = GPIO.PWM(pinnum, freq)
     pwm_out.start(50)
-  time.sleep(seconds)
+    time.sleep(seconds)
   pwm_out.start(0)
   #pi.hardware_PWM(13, freq, 0)
   
@@ -87,4 +87,4 @@ def playList(lst):
 
 buzzerSetup(12)
 playFreqTime(A7, .5)
-playList([(0,2), (A7,.5),(B7,.5),(0,2), (G7,.5),(C8,.5),(0,2), (C8,.5),(F7,.5),])
+playList([(0,2), (A7,.5),(B7,.5),(0,2), (G7,.5),(C8,.5),(0,2), (C8,.5),(F7,.5)])
