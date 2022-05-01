@@ -165,7 +165,7 @@ def pomoRun():
                     
                     timeLeft = endTime - time.time()
                
-                    print(((time.time() - startTime) % timeTillNextLed))
+                    print((time.time() - startTime),  timeTillNextLed)
                     if ((time.time() - startTime) > timeTillNextLed):
                         timeTillNextLed += timeTillNextLed
                         toggleNextLed(True,1)
