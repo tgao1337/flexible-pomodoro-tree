@@ -169,6 +169,7 @@ def pomoRun():
              
                 if state == "MODE_SETTINGS" and (mode == "POMODORO_W" or mode == "POMODORO_B"):
                     timeLeft = (endTime - timeLeft) + pomoWorkTime
+                    print("New Time left:", timeLeft)
                     
 #                     startTime = time.time()
 #                     endTime = startTime + pomoWorkTime - (endTime - timeLeft) + startTime
@@ -200,7 +201,7 @@ def pomoRun():
           
                       
                 displayTime = time.strftime("%H:%M:%S", x)
-                print("current time:", displayTime)
+#                 print("current time:", displayTime)
                 
 
                 
