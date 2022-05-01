@@ -17,6 +17,7 @@ global prodTime
 global prevState
 global quantityON
 global timeTillNextLed
+global prodTime
 
 mode = "POMODORO_W" # POMODORO_W, POMODORO_B, TASK, BUDGET
 state = "WELCOME" # WELCOME, OVERVIEW, RUN, PAUSE, MODE_SELECT, MODE_SETTINGS, MODE_SETTINGS_2 (For Pomodoro Break Settings)
@@ -26,6 +27,7 @@ pomoBreakTime = 0.25 * 60  # These are default values
 taskDone = 0
 taskNum = 4  # these are default values
 budgetTime = 0.25 * 60  # these are default values
+prodTime = 0
 
 startTime = 0
 endTime = 0
