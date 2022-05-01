@@ -288,6 +288,9 @@ def watchEvents(): # THREAD
                 f.close()
                 clearAll()
                 state = "OVERVIEW"
+                
+                if mode == "TASK":
+                    quantityON = NUM_LEDS // taskNum
 
             
             
@@ -376,6 +379,7 @@ def watchEvents(): # THREAD
                 if mode == "TASK":
                     if taskNum < 32: #upper limit 100 tasks
                         taskNum += 1
+                        quantityON = available_led // taskNum
 
                 if mode == "BUDGET":
                     if budgetTime < 18000:
@@ -406,6 +410,7 @@ def watchEvents(): # THREAD
                 if mode == "TASK":
                     if taskNum > 1:
                         taskNum -= 1
+                        quantityON = available_led // taskNum
 
                 if mode == "BUDGET":
                     if budgetTime > 600:
@@ -547,17 +552,17 @@ def updateDisplay():
                     draw.text((17, 10), displayTime, font=fontBig, fill="white") #TODO Timing conversion printing
             
             
-def treeLightUp():
-    global quantityON
-    global timeTillNextLed
+# def treeLightUp():
+#     global quantityON
+#     global timeTillNextLed
     
-    while True:
-        if mode == "TASK":
-            quantityON = available_led // taskNum
-        elif mode == "POMODORO_W":
-            timeTillNextLed= pomoWorkTime // 32
-#         elif mode == "BUDGET":    # does not have to change since we said 6 hrs default
-#             timeTillNextLed = 21600 // available_led
+#     while True:
+# #         if mode == "TASK":
+# #             quantityON = available_led // taskNum
+#         elif mode == "POMODORO_W":
+#             timeTillNextLed= pomoWorkTime // 32
+# #         elif mode == "BUDGET":    # does not have to change since we said 6 hrs default
+# #             timeTillNextLed = 21600 // available_led
 
 
 
@@ -578,13 +583,13 @@ t2 = Thread(target=updateDisplay)
 t2.start()
 t3 = Thread(target = pomoRun)
 t3.start()
-t4 = Thread(target = treeLightUp)
-t4.start()
+# t4 = Thread(target = treeLightUp)
+# t4.start()
 
 t1.join()
 t2.join()
 t3.join()
-t4.join()
+# t4.join()
 
 p1.join()
 p2.join()
