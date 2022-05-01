@@ -190,6 +190,7 @@ def pomoRun():
           
                       
                 displayTime = time.strftime("%H:%M:%S", x)
+                print("current time:", displayTime)
                 
 
                 
