@@ -32,7 +32,8 @@ A7 = 3520
 B7 = 3951
 C8 = 4186
 
-pinnum = 12
+global pinnum
+pinnum = 13
 
 def buzzerSetup(pin):
   GPIO.setwarnings(False)
@@ -92,4 +93,5 @@ def playList(lst):
 
 buzzerSetup(12)
 playFreqTime(A7, 1)
+time.sleep(10)
 playFreqTime(C8, 1)
