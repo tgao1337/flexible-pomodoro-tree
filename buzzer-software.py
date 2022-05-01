@@ -93,17 +93,13 @@ def playList(lst):
 
 buzzerSetup(13)
 playFreqTime(A5, 1)
-time.sleep(2)
 playFreqTime(B5, 1)
-time.sleep(2)
 playFreqTime(C6, 1)
+
 time.sleep(2)
-playFreqTime(0, 1)
-time.sleep(2)
+
 playFreqTime(C6, 1)
-time.sleep(2)
 playFreqTime(B5, 1)
-time.sleep(2)
 playFreqTime(A5, 1)
 time.sleep(2)
 
