@@ -35,6 +35,7 @@ C8 = 4186
 pinnum = 12
 
 def buzzerSetup(pin):
+  GPIO.setwarnings(False)
   GPIO.setmode(GPIO.BCM)
   global pinnum
   pinnum = pin
@@ -71,12 +72,13 @@ def playFreqTime(freq, seconds):
   # freq=0 is for a rest note.
   if freq == 0:
     pwm_out = GPIO.PWM(pinnum, 1000)
-    pwm_out.start(0)
+    pwm_out.stop()
+    time.sleep(1)
   else:
     pwm_out = GPIO.PWM(pinnum, freq)
     pwm_out.start(50)
     time.sleep(1)
-    pwm_out.start(0)
+    pwm_out.stop()
   
   #pi.hardware_PWM(13, freq, 0)
   
