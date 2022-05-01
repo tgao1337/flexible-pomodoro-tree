@@ -184,7 +184,7 @@ def pomoRun():
                 
 #                 300 s  32 leds -> 1 led every 9.6
             
-            if mode == "POMODORO_W":
+            if mode == "POMODORO_W" and prevState == "RUN":
                 mode = "POMODORO_B"
                 state = "PAUSE"
                 x = time.gmtime(pomoBreakTime)
