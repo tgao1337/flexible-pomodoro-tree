@@ -501,7 +501,6 @@ def updateDisplay():
                     draw.text((17, 10), taskString, font=fontBig, fill="white")
                     draw.text((31,45), "T | Task", font=fontSmall, fill="white")  # TODO add task name
                 if mode == "BUDGET":
-                    if mode == "RUN":
                     draw.text((0,0), "Productive time:", font=fontSmall, fill="white")
                     draw.text((17,10), prodTime, font=fontBig, fill="white")  # productivity time  TODO YOU NEED TO FIX THIS
                     draw.text((12,45), "B | Budget | Work", font=fontSmall, fill="white")
