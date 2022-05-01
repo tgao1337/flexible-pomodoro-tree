@@ -260,8 +260,6 @@ def watchEvents(): # THREAD
     global budgetTime
     global quantityON
     global timeTillNextLed
-    global available_led
-    
     
 
     
@@ -343,7 +341,7 @@ def watchEvents(): # THREAD
                         print("Quantity on:", quantityON)
                         if taskDone >=1:
                             toggleNextLed(True, quantityON)
-                            print("AVAILABLE LEDS NOW:", available_led)
+                            print("AVAILABLE LEDS NOW:", getAvailable())
 
             
             playPauseCompleteBEvent.clear()
