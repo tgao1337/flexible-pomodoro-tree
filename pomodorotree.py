@@ -319,9 +319,10 @@ def watchEvents(): # THREAD
                 if (mode == "BUDGET" or mode == "POMODORO_W" or mode == "POMODORO_B") and not prevState == None:
                     state = prevState  # this will put it back in the previous mode
                 else: 
-                    prevState = state
+#                     prevState = state
                     if mode == "TASK":
                         taskDone = taskDone - 1
+                        toggleNextLed(False, quantityON)
                     state = "RUN"
                 
             if mode == "TASK":
@@ -334,10 +335,10 @@ def watchEvents(): # THREAD
                     if remainingTasks == 0:
                         allOn()
                     else:
-                        if not prevState == "MODE_SELECT" and not prevState == "MODE_SETTINGS":
-                            print("Quantity on:", quantityON)
-                            if taskDone >=1:
-                                toggleNextLed(True, quantityON)
+#                         if not prevState == "MODE_SELECT" and not prevState == "MODE_SETTINGS" or state == "RUN":
+                        print("Quantity on:", quantityON)
+                        if taskDone >=1:
+                            toggleNextLed(True, quantityON)
 
             
             playPauseCompleteBEvent.clear()
