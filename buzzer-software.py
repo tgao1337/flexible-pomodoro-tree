@@ -71,8 +71,8 @@ def playFreqTime(freq, seconds):
   # This function plays a specified frequency for a specified time.
   # freq=0 is for a rest note.
   if freq == 0:
-    pwm_out = GPIO.PWM(pinnum, 1000)
-    pwm_out.stop()
+    #pwm_out = GPIO.PWM(pinnum, 1000)
+    #pwm_out.stop()
     time.sleep(1)
   else:
     pwm_out = GPIO.PWM(pinnum, freq)
