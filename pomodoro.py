@@ -320,7 +320,8 @@ def findNextLed(turnOn):
       print("NOT FOUND")
   return ind
               
-
+def getAvailable():
+  return available_led
   
 '''This function turns on all LEDs'''
 def allOn():
