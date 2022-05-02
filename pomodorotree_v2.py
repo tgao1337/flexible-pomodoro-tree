@@ -174,7 +174,6 @@ def pomoRun():
                 if state == "MODE_SELECT" or state == "MODE_SETTINGS" or state == "MODE_SETTINGS_2":
                     endTime = time.time() + (pomoWorkTime - timeElapsed)
                     timeRemaining = endTime - time.time()
-                    time.sleep(0.01)
                     print("IN SETTINGS", endTime)
 #                     x = time.gmtime(endTime)
 #                     displayTime = time.strftime("%H:%M:%S", x)
