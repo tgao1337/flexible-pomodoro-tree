@@ -168,8 +168,9 @@ def pomoRun():
             while time.time() <= endTime and mode == "POMODORO_W":
              
                 if state == "MODE_SETTINGS" and (mode == "POMODORO_W" or mode == "POMODORO_B"):
-                    timeLeft = (endTime - timeLeft) + pomoWorkTime
-
+                   #  timeLeft = (endTime - timeLeft) + pomoWorkTime
+                   #  timeLeft = (startTime + pomoWorkTime) - pomoWorkTime + pomoWorkTime = startTime + pomoWorkTime = endTime?
+                    timeLeft = endTime - time.time()
                     
 #                     startTime = time.time()
 #                     endTime = startTime + pomoWorkTime - (endTime - timeLeft) + startTime
