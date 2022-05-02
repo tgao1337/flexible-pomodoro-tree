@@ -212,7 +212,7 @@ def pomoRun():
                 if state == "PAUSE" or (prevState == "PAUSE" and not state=="RUN" and not state == "PAUSE"):
                     endTime = time.time() + timeLeft
                     prevState = "PAUSE"
-                    startTime = endTime - pomoWorkTime
+#                     startTime = endTime - pomoWorkTime
                       
                 displayTime = time.strftime("%H:%M:%S", x)
 #                 print("current time:", displayTime)
