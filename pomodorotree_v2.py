@@ -110,7 +110,7 @@ def pomoRun():
     timeElapsed = 0
     global settingsChanged
     global endTime
-    
+    startPause = 0
     
     while True:
         prevTimeTillNex = timeTillNextLed
@@ -185,14 +185,15 @@ def pomoRun():
                 
                 if state == "RUN" or (prevState == "RUN" and not state == "PAUSE"):
                     prevState = "RUN"
-                    timeRemaining = endTime - time.time()
+                    timeRemaining = endTime - time.time() 
+                    startPause = time.time()
 #                     timeElapsed = pomoWorkTime - timeRemaining
                     print("IN RUN", endTime, timeRemaining)
                     
                 if state == "PAUSE" or (prevState == "PAUSE" and not state == "RUN"): 
                     print("IN PAUSE")
                     prevState = "PAUSE"
-#                     timeRemaining = endTime - time.time()
+                    timeRemaining = endTime - startPause
 #                     endTime = endTime + timeRemaining
 
                 
