@@ -172,6 +172,7 @@ def pomoRun():
 
 
                 if settingsChanged:
+                    settingsChanged = False
                     timeElapsed = time.time() - startTime
                     timeLeft = pomoWorkTime - timeElapsed
                     endTime = time.time() + timeLeft
@@ -182,7 +183,7 @@ def pomoRun():
                     timeTillNextLed = timeLeft // getAvailable()
                     prevTimeTillNex = timeTillNextLed
                     print("CHANGES MADE:", timeTillNextLed, startTime, timeLeft, prevTimeTillNex, getAvailable())
-                    settingsChanged = False
+
                     
 
              
