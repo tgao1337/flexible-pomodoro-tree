@@ -196,7 +196,9 @@ def pomoRun():
                 if state == "PAUSE" or (prevState == "PAUSE" and not state == "RUN"): 
                     print("IN PAUSE")
                     prevState = "PAUSE"
+                    timeRemaining = endTime - time.time()
                     endTime = time.time() + timeRemaining
+
                 
                 x = time.gmtime(timeRemaining)
                 displayTime = time.strftime("%H:%M:%S", x)
@@ -419,7 +421,10 @@ def watchEvents(): # THREAD
                 if mode == "POMODORO_W" or mode == "POMODORO_B":
                     if pomoWorkTime < 7200:
                         pomoWorkTime += 300
+
                         endTime += 300
+                   
+                        
                         settingsChanged = True
                    
                         timeTillNextLed = pomoWorkTime // getAvailable()
