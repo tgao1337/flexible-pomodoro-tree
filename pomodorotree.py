@@ -177,7 +177,7 @@ def pomoRun():
                    
                         timeElapsed = endTime - timeLeft
                         a = time.gmtime(timeElapsed)
-                        print("TIME ELAPSED:", a)
+                        print("TIME ELAPSED:", time.strftime("%H:%M:%S", a))
 
 
 #                         settingsChanged = False
