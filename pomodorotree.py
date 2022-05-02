@@ -171,7 +171,7 @@ def pomoRun():
 #                     timeLeft = (time.time() - startTime) + pomoWorkTime
                     a = time.time() - startTime
                     b = time.gmtime(a)
-                    c = time.strftime("%H:%M:%S", c)
+                    c = time.strftime("%H:%M:%S", b)
                     print(c)
                    #  timeLeft = (startTime + pomoWorkTime) - pomoWorkTime + pomoWorkTime = startTime + pomoWorkTime = endTime?
                     timeLeft = endTime - time.time()
