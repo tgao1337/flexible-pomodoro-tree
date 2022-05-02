@@ -169,7 +169,7 @@ def pomoRun():
             displayTime = time.strftime("%H:%M:%S", x)
             
             while time.time() <= endTime and mode == "POMODORO_W":
-                print("----->", timeTillNextLed, timeLeft, getAvailable())
+
 
                 if settingsChanged:
                     timeElapsed = time.time() - startTime
@@ -187,10 +187,13 @@ def pomoRun():
              
                 if state == "RUN" or (prevState == "RUN" and not state=="RUN" and not state == "PAUSE"):
                     timeLeft = endTime - time.time()
+                    print("----->", (time.time() - startTime), timeTillNextLed, prevTimeTillNex, getAvailable())
                     if ((time.time() - startTime) > timeTillNextLed):
 #                     if (timeElapsed > timeTillNextLed):
                         timeTillNextLed = timeTillNextLed + prevTimeTillNex 
                         toggleNextLed(True,1)
+                        print("LED TURNED ON")
+
                     
                     x = time.gmtime(timeLeft)
                     prevState = "RUN"
