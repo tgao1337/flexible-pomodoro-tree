@@ -163,75 +163,50 @@ def pomoRun():
         if state == "RUN" and mode == "POMODORO_W":
          
             prevState = "RUN"
-            startTime = time.time()
-            endTime = startTime + pomoWorkTime
+            endTime = time.time() + pomoWorkTime
             timeLeft = pomoWorkTime
             x = time.gmtime(timeLeft)
             displayTime = time.strftime("%H:%M:%S", x)
+
             
-            while startTime <= endTime and mode == "POMODORO_W":
-
+            while time.time() <= endTime:
+                
                 if state == "MODE_SELECT" or state == "MODE_SETTINGS" or state == "MODE_SETTINGS_2":
-                    
-                    
-                    if settingsChanged:
-                        settingsChanged = False
-                        print(pomoWorkTime, (endTime - startTime))
-                        timeElapsed = pomoWorkTime - (endTime - startTime)
-                        a = time.gmtime(timeElapsed)
-                        print("TIME ELAPSED:", time.strftime("%H:%M:%S", a))
+                    endTime = time.time() + (pomoWorkTime - timeElapsed)
 
 
-
-# #                         startTime = endTime - pomoWorkTime
-# #                         timeElapsed = time.time() - startTime
-#                         timeElapsed = endTime - timeLeft
-#                         timeLeft = pomoWorkTime - timeElapsed
-#                         endTime = time.time() + timeLeft
-
-
-
-#                         endTime = time.time() + timeLeft
-
-
-#                         x = time.gmtime(timeLeft)
-#     #                     print("CHANGES MADE:", time.strftime("%H:%M:%S", x), startTime, timeLeft, endTime, timeElapsed)
-#                         a = time.gmtime(startTime)
-#                         b = time.gmtime(endTime)
-#                         c = time.gmtime(timeElapsed)
-#                         d = time.gmtime(time.time())
-#                         print("CHANGES MADE:", time.strftime("%H:%M:%S", x),time.strftime("%H:%M:%S", d),  time.strftime("%H:%M:%S", a), time.strftime("%H:%M:%S", b), time.strftime("%H:%M:%S", c))
-
-                        timeTillNextLed = timeLeft // getAvailable()
-                        prevTimeTillNex = timeTillNextLed
-    #                     print("CHANGES MADE:", timeTillNextLed, startTime, timeLeft, prevTimeTillNex, getAvailable())
-
-                    
-
-             
-                elif state == "RUN" or (prevState == "RUN" and not state=="RUN" and not state == "PAUSE"):
+                
+                if state == "RUN" or (prevState == "RUN" and not state == "PAUSE"):
                     prevState = "RUN"
-         
-                    timeLeft = endTime - time.time()
-                    x = time.gmtime(timeLeft)
-                    startTime = time.time()
+                    timeRemaining = endTime - time.time()
+
+                    timeElapsed = prevPWTime - timeRemaining
+                    
+                elif state == "PAUSE" or (prevState == "PAUSE" and not state == "RUN"): 
+                    prevState = "PAUSE"
+                    endTime = time.time() + timeRemaining
+                
+                x = time.gmtime(timeRemaining)
+                displayTime = time.strftime("%H:%M:%S", x)
+                print("current time:", displayTime)
+                    
+                 
+                 
            
 
-                    print("----->", (time.time() - startTime), timeTillNextLed, prevTimeTillNex, getAvailable())
-                    if ((time.time() - startTime) > timeTillNextLed):
-#                     if (timeElapsed > timeTillNextLed):
-                        timeTillNextLed = timeTillNextLed + prevTimeTillNex 
-                        toggleNextLed(True,1)
-                        print("LED TURNED ON")
+           
+           
+           
+#                     print("----->", (time.time() - startTime), timeTillNextLed, prevTimeTillNex, getAvailable())
+#                     if ((time.time() - startTime) > timeTillNextLed):
+# #                     if (timeElapsed > timeTillNextLed):
+#                         timeTillNextLed = timeTillNextLed + prevTimeTillNex 
+#                         toggleNextLed(True,1)
+#                         print("LED TURNED ON")
 
-                    
-                if state == "PAUSE" or (prevState == "PAUSE" and not state=="RUN" and not state == "PAUSE"):
-                    prevState = "PAUSE"
-                    startTime = time.time()
-                    endTime = startTime + timeLeft
                       
-                displayTime = time.strftime("%H:%M:%S", x)
-#                 print("current time:", displayTime)
+#                 displayTime = time.strftime("%H:%M:%S", x)
+
                 
             
             if mode == "POMODORO_W":
