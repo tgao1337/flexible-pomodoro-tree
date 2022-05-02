@@ -50,7 +50,7 @@ pomoRunEvent = mp.Event()
 buttonSetup()
 setupLED()
 clearAll()
-# buzzerSetup() # no button for now
+buzzerSetup() # no button for now
 
 
 
