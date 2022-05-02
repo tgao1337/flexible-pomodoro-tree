@@ -168,31 +168,35 @@ def pomoRun():
             x = time.gmtime(timeLeft)
             displayTime = time.strftime("%H:%M:%S", x)
             
-            while time.time() <= endTime and mode == "POMODORO_W":
+            while startTime <= endTime and mode == "POMODORO_W":
 
                 if state == "MODE_SELECT" or state == "MODE_SETTINGS" or state == "MODE_SETTINGS_2":
                     
                     
                     if settingsChanged:
-                        settingsChanged = False
-#                         startTime = endTime - pomoWorkTime
-#                         timeElapsed = time.time() - startTime
-                        timeElapsed = endTime - timeLeft
-                        timeLeft = pomoWorkTime - timeElapsed
-                        endTime = time.time() + timeLeft
+                   
+                       timeElapsed = endTime - timeLeft
+                       print("TIME ELAPSED:", timeElapsed)
+
+#                         settingsChanged = False
+# #                         startTime = endTime - pomoWorkTime
+# #                         timeElapsed = time.time() - startTime
+#                         timeElapsed = endTime - timeLeft
+#                         timeLeft = pomoWorkTime - timeElapsed
+#                         endTime = time.time() + timeLeft
 
 
 
 #                         endTime = time.time() + timeLeft
 
 
-                        x = time.gmtime(timeLeft)
-    #                     print("CHANGES MADE:", time.strftime("%H:%M:%S", x), startTime, timeLeft, endTime, timeElapsed)
-                        a = time.gmtime(startTime)
-                        b = time.gmtime(endTime)
-                        c = time.gmtime(timeElapsed)
-                        d = time.gmtime(time.time())
-                        print("CHANGES MADE:", time.strftime("%H:%M:%S", x),time.strftime("%H:%M:%S", d),  time.strftime("%H:%M:%S", a), time.strftime("%H:%M:%S", b), time.strftime("%H:%M:%S", c))
+#                         x = time.gmtime(timeLeft)
+#     #                     print("CHANGES MADE:", time.strftime("%H:%M:%S", x), startTime, timeLeft, endTime, timeElapsed)
+#                         a = time.gmtime(startTime)
+#                         b = time.gmtime(endTime)
+#                         c = time.gmtime(timeElapsed)
+#                         d = time.gmtime(time.time())
+#                         print("CHANGES MADE:", time.strftime("%H:%M:%S", x),time.strftime("%H:%M:%S", d),  time.strftime("%H:%M:%S", a), time.strftime("%H:%M:%S", b), time.strftime("%H:%M:%S", c))
 
                         timeTillNextLed = timeLeft // getAvailable()
                         prevTimeTillNex = timeTillNextLed
@@ -202,7 +206,13 @@ def pomoRun():
 
              
                 elif state == "RUN" or (prevState == "RUN" and not state=="RUN" and not state == "PAUSE"):
+                    prevState = "RUN"
+         
                     timeLeft = endTime - time.time()
+                    x = time.gmtime(timeLeft)
+                    startTime = time.time()
+           
+
                     print("----->", (time.time() - startTime), timeTillNextLed, prevTimeTillNex, getAvailable())
                     if ((time.time() - startTime) > timeTillNextLed):
 #                     if (timeElapsed > timeTillNextLed):
@@ -211,13 +221,10 @@ def pomoRun():
                         print("LED TURNED ON")
 
                     
-                    x = time.gmtime(timeLeft)
-                    prevState = "RUN"
-                    
                 if state == "PAUSE" or (prevState == "PAUSE" and not state=="RUN" and not state == "PAUSE"):
-                    endTime = time.time() + timeLeft
                     prevState = "PAUSE"
-#                     startTime = endTime - pomoWorkTime
+                    startTime = time.time()
+                    endTime = startTime + timeLeft
                       
                 displayTime = time.strftime("%H:%M:%S", x)
 #                 print("current time:", displayTime)
