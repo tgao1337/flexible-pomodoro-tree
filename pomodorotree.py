@@ -172,9 +172,10 @@ def pomoRun():
 
                 if state == "MODE_SELECT" or state == "MODE_SETTINGS" or state == "MODE_SETTINGS_2":
                     
+                    
                     if settingsChanged:
                         settingsChanged = False
-                        startTime = endTime - pomoWorkTime
+#                         startTime = endTime - pomoWorkTime
                         timeElapsed = time.time() - startTime
                         timeLeft = pomoWorkTime - timeElapsed
                         endTime = time.time() + timeLeft
@@ -207,7 +208,7 @@ def pomoRun():
                     x = time.gmtime(timeLeft)
                     prevState = "RUN"
                     
-                elif state == "PAUSE" or (prevState == "PAUSE" and not state=="RUN" and not state == "PAUSE"):
+                if state == "PAUSE" or (prevState == "PAUSE" and not state=="RUN" and not state == "PAUSE"):
                     endTime = time.time() + timeLeft
                     prevState = "PAUSE"
                     startTime = endTime - pomoWorkTime
