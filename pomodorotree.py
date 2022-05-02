@@ -47,10 +47,10 @@ upBEvent = mp.Event()
 downBEvent = mp.Event()
 pomoRunEvent = mp.Event()
 
-buttonSetup(12)
+buttonSetup()
 setupLED()
 clearAll()
-buzzerSetup() # no button for now
+buzzerSetup(13)
 
 
 
