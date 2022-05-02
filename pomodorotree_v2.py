@@ -173,6 +173,10 @@ def pomoRun():
                 
                 if state == "MODE_SELECT" or state == "MODE_SETTINGS" or state == "MODE_SETTINGS_2":
                     endTime = time.time() + (pomoWorkTime - timeElapsed)
+                    x = time.gmtime(endTime)
+                    displayTime = time.strftime("%H:%M:%S", x)
+                    print("end time:", displayTime)
+                    
 
 
                 
@@ -187,7 +191,7 @@ def pomoRun():
                 
                 x = time.gmtime(timeRemaining)
                 displayTime = time.strftime("%H:%M:%S", x)
-                print("current time:", displayTime)
+#                 print("current time:", displayTime)
                     
                  
                  
