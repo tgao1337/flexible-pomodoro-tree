@@ -181,7 +181,7 @@ def pomoRun():
                     
                     timeTillNextLed = timeLeft // getAvailable()
                     prevTimeTillNex = timeTillNextLed
-                    print("CHANGES MADE:", timeTillNextLed, prevTimeTillNex)
+                    print("CHANGES MADE:", timeTillNextLed, startTime, timeLeft, prevTimeTillNex, getAvailable())
                     settingsChanged = False
                     
 
