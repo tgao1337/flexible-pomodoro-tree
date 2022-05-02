@@ -18,6 +18,7 @@ global prevState
 global quantityON
 global timeTillNextLed
 global prodTime
+global settingsChanged
 # global endTime
 
 mode = "POMODORO_W" # POMODORO_W, POMODORO_B, TASK, BUDGET
@@ -29,6 +30,7 @@ taskDone = 0
 taskNum = 4  # these are default values
 budgetTime = 0.25 * 60  # these are default values
 prodTime = 0
+settingsChanged = False
 
 startTime = 0
 endTime = 0
@@ -101,6 +103,7 @@ def pomoRun():
     prevTimeTillNex = 0
 #     global endTime
     timeElapsed = 0
+    global settingsChanged
     
     
     while True:
@@ -167,24 +170,32 @@ def pomoRun():
             displayTime = time.strftime("%H:%M:%S", x)
             
             while time.time() <= endTime and mode == "POMODORO_W":
-              
-                print(state)
-                if (state == "MODE_SELECT" or state == "MODE_SETTINGS" or state == "MODE_SETTINGS_2") and (prevState == "RUN"):
+             
+                if settingsChanged:
                     timeElapsed = time.time() - startTime
                     timeLeft = pomoWorkTime - timeElapsed
                     endTime = time.time() + timeLeft
                     x = time.gmtime(timeLeft)
+                    settingsChanged = False
                    
-                elif (state == "MODE_SELECT" or state == "MODE_SETTINGS" or state == "MODE_SETTINGS_2") and (prevState == "PAUSE"):
-                    timeLeft = pomoWorkTime - timeElapsed
-                    endTime = time.time() + timeLeft
-                    x = time.gmtime(timeLeft)
+              
+#                 print(state)
+#                 if (state == "MODE_SELECT" or state == "MODE_SETTINGS" or state == "MODE_SETTINGS_2") and (prevState == "RUN"):
+#                     timeElapsed = time.time() - startTime
+#                     timeLeft = pomoWorkTime - timeElapsed
+#                     endTime = time.time() + timeLeft
+#                     x = time.gmtime(timeLeft)
+                   
+#                 elif (state == "MODE_SELECT" or state == "MODE_SETTINGS" or state == "MODE_SETTINGS_2") and (prevState == "PAUSE"):
+#                     timeLeft = pomoWorkTime - timeElapsed
+#                     endTime = time.time() + timeLeft
+#                     x = time.gmtime(timeLeft)
 
                     
 
 
              
-                elif state == "RUN" or (prevState == "RUN" and not state=="RUN" and not state == "PAUSE"):
+                if state == "RUN" or (prevState == "RUN" and not state=="RUN" and not state == "PAUSE"):
                     
                     timeLeft = endTime - time.time()
                
@@ -195,7 +206,7 @@ def pomoRun():
                     x = time.gmtime(timeLeft)
                     prevState = "RUN"
                     
-                elif state == "PAUSE" or (prevState == "PAUSE" and not state=="RUN" and not state == "PAUSE"):
+                if state == "PAUSE" or (prevState == "PAUSE" and not state=="RUN" and not state == "PAUSE"):
                     endTime = time.time() + timeLeft
                     prevState = "PAUSE"
                     startTime = endTime - pomoWorkTime
@@ -288,6 +299,7 @@ def watchEvents(): # THREAD
     global budgetTime
     global quantityON
     global timeTillNextLed
+    global settingsChanged
 #     global endTime
 
     
@@ -411,6 +423,7 @@ def watchEvents(): # THREAD
                 if mode == "POMODORO_W" or mode == "POMODORO_B":
                     if pomoWorkTime < 7200:
                         pomoWorkTime += 300
+                        settingsChanged = True
 #                         endTime = endTime+time.time()+ 300
                         timeTillNextLed = pomoWorkTime // getAvailable()
                         print("----->", timeTillNextLed, pomoWorkTime, getAvailable())
@@ -429,6 +442,7 @@ def watchEvents(): # THREAD
                 if mode == "POMODORO_W" or mode == "POMODORO_B":
                     if pomoBreakTime < 3600:
                         pomoBreakTime += 300
+                        settingsChanged = True
             
             upBEvent.clear()
            
@@ -446,6 +460,7 @@ def watchEvents(): # THREAD
                 if mode == "POMODORO_W" or mode == "POMODORO_B":
                     if pomoWorkTime >= 600:
                         pomoWorkTime -= 300
+                        settingsChanged = True
 #                         endTime -= 300
                         timeTillNextLed = pomoWorkTime // getAvailable()
                         print("----->", timeTillNextLed, pomoWorkTime, getAvailable())
@@ -464,6 +479,7 @@ def watchEvents(): # THREAD
                 if mode == "POMODORO_W" or mode == "POMODORO_B":
                     if pomoBreakTime > 300:
                         pomoBreakTime -= 300
+                        settingsChanged = True
                   
                   
 
