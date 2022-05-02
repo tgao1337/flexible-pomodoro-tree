@@ -181,7 +181,7 @@ def pomoRun():
 #                     if prevState == "RUN":
 #                         timeRemaining = endTime - time.time()
                     
-                    print("IN SETTINGS", endTime)
+#                     print("IN SETTINGS", endTime)
 #                     x = time.gmtime(endTime)
 #                     displayTime = time.strftime("%H:%M:%S", x)
 #                     print("end time:", displayTime)
