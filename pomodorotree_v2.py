@@ -180,14 +180,7 @@ def pomoRun():
                 while not queue.empty():
                     endTime = endTime + queue.get()
 
-                  
-#                     if prevState == "RUN":
-#                         timeRemaining = endTime - time.time()
-                    
-#                     print("IN SETTINGS", endTime)
-                    x = time.gmtime(endTime)
-#                     displayTime = time.strftime("%H:%M:%S", x)
-#                     print("end time:", displayTime)
+#                     x = time.gmtime(endTime)
                     
                 
                 if state == "RUN" or (prevState == "RUN" and not state == "PAUSE"):
