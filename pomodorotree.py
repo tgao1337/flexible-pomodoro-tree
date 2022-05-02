@@ -179,7 +179,8 @@ def pomoRun():
 #                     startTime = endTime - pomoWorkTime
 
                     x = time.gmtime(timeLeft)
-                    print("CHANGES MADE:", time.strftime("%H:%M:%S", x), startTime, timeLeft, endTime, timeElapsed)
+#                     print("CHANGES MADE:", time.strftime("%H:%M:%S", x), startTime, timeLeft, endTime, timeElapsed)
+                    print("CHANGES MADE:", time.strftime("%H:%M:%S", x), time.strftime("%H:%M:%S", startTime), time.strftime("%H:%M:%S", timeLeft), time.strftime("%H:%M:%S", endTime), time.strftime("%H:%M:%S", timeElapsed))
                     
                     timeTillNextLed = timeLeft // getAvailable()
                     prevTimeTillNex = timeTillNextLed
