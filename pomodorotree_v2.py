@@ -193,7 +193,7 @@ def pomoRun():
                     print("IN PAUSE")
                     prevState = "PAUSE"
 #                     timeRemaining = endTime - time.time()
-                    endTime = endTime + timeRemaining
+#                     endTime = endTime + timeRemaining
 
                 
                 x = time.gmtime(timeRemaining)
