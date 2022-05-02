@@ -1,4 +1,7 @@
 # This is the Flexible Pomodoro Tree official code
+# NOTES:
+# Use a queue to fix the latest issue, add the value that is pushed in queue in endTime
+# Or just make endTime global and change it -> store the pomoWorkTime everytime u channge it in the file for the next time
  
 from threading import Thread, Event, Lock
 from pomodoro import *
