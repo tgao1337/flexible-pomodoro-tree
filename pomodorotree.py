@@ -170,24 +170,24 @@ def pomoRun():
             
             while time.time() <= endTime and mode == "POMODORO_W":
 
+                if state == "MODE_SELECT" or mode == "MODE_SETTINGS" or mode == "MODE_SETTINGS_2":
+                    if settingsChanged:
+                        settingsChanged = False
+                        timeElapsed = time.time() - startTime
+                        timeLeft = pomoWorkTime - timeElapsed
+                        endTime = time.time() + timeLeft
+    #                     startTime = endTime - pomoWorkTime
 
-                if settingsChanged:
-                    settingsChanged = False
-                    timeElapsed = time.time() - startTime
-                    timeLeft = pomoWorkTime - timeElapsed
-                    endTime = time.time() + timeLeft
-#                     startTime = endTime - pomoWorkTime
+                        x = time.gmtime(timeLeft)
+    #                     print("CHANGES MADE:", time.strftime("%H:%M:%S", x), startTime, timeLeft, endTime, timeElapsed)
+                        a = time.gmtime(startTime)
+                        b = time.gmtime(endTime)
+                        c = time.gmtime(timeElapsed)
+                        print("CHANGES MADE:", time.strftime("%H:%M:%S", x), time.strftime("%H:%M:%S", a), time.strftime("%H:%M:%S", b), time.strftime("%H:%M:%S", c))
 
-                    x = time.gmtime(timeLeft)
-#                     print("CHANGES MADE:", time.strftime("%H:%M:%S", x), startTime, timeLeft, endTime, timeElapsed)
-                    a = time.gmtime(startTime)
-                    b = time.gmtime(endTime)
-                    c = time.gmtime(timeElapsed)
-                    print("CHANGES MADE:", time.strftime("%H:%M:%S", x), time.strftime("%H:%M:%S", a), time.strftime("%H:%M:%S", b), time.strftime("%H:%M:%S", c))
-                    
-                    timeTillNextLed = timeLeft // getAvailable()
-                    prevTimeTillNex = timeTillNextLed
-#                     print("CHANGES MADE:", timeTillNextLed, startTime, timeLeft, prevTimeTillNex, getAvailable())
+                        timeTillNextLed = timeLeft // getAvailable()
+                        prevTimeTillNex = timeTillNextLed
+    #                     print("CHANGES MADE:", timeTillNextLed, startTime, timeLeft, prevTimeTillNex, getAvailable())
 
                     
 
