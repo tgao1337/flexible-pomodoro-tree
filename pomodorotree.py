@@ -167,24 +167,12 @@ def pomoRun():
             
             while time.time() <= endTime and mode == "POMODORO_W":
              
-                if state == "MODE_SETTINGS" and (mode == "POMODORO_W" or mode == "POMODORO_B"):
-#                     timeLeft = (time.time() - startTime) + pomoWorkTime
-                    a = time.time() - startTime
-                    b = time.gmtime(a)
-                    c = time.strftime("%H:%M:%S", b)
-                    print(c)
-                   #  timeLeft = (startTime + pomoWorkTime) - pomoWorkTime + pomoWorkTime = startTime + pomoWorkTime = endTime?
-                    timeLeft = endTime - time.time()
-                    
-#                     startTime = time.time()
-#                     endTime = startTime + pomoWorkTime - (endTime - timeLeft) + startTime
-# #                     timeLeft = pomoWorkTime - (endTime - timeLeft) +startTime
-#                     timeLeft = endTime - time.time()
-#                     print(endTime, timeLeft, time.time())
+                if state == "MODE_SETTINGS":
+                    timeElapsed = time.time() - startTime
+                    timeLeft = pomoWorkTime - timeElapsed
                     x = time.gmtime(timeLeft)
              
-             
-                if state == "RUN" or (prevState == "RUN" and not state=="RUN" and not state == "PAUSE"):
+                elif state == "RUN" or (prevState == "RUN" and not state=="RUN" and not state == "PAUSE"):
                     
                     timeLeft = endTime - time.time()
                
@@ -197,7 +185,7 @@ def pomoRun():
                     x = time.gmtime(timeLeft)
                     prevState = "RUN"
                     
-                if state == "PAUSE" or (prevState == "PAUSE" and not state=="RUN" and not state == "PAUSE"):
+                elif state == "PAUSE" or (prevState == "PAUSE" and not state=="RUN" and not state == "PAUSE"):
                     endTime = time.time() + timeLeft
                     prevState = "PAUSE"
                     startTime = endTime - pomoWorkTime
@@ -206,7 +194,7 @@ def pomoRun():
           
                       
                 displayTime = time.strftime("%H:%M:%S", x)
-#                 print("current time:", displayTime)
+                print("current time:", displayTime)
                 
 
                 
