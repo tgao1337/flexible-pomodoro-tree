@@ -406,7 +406,6 @@ def watchEvents(): # THREAD
                 if mode == "POMODORO_W" or mode == "POMODORO_B":
                     if pomoWorkTime < 7200:
                         pomoWorkTime += 300
-                        endTime = endTime + 300
                         settingsChanged = True
                    
                         timeTillNextLed = pomoWorkTime // getAvailable()
@@ -427,7 +426,6 @@ def watchEvents(): # THREAD
                 if mode == "POMODORO_W" or mode == "POMODORO_B":
                     if pomoBreakTime < 3600:
                         pomoBreakTime += 300
-                        endTime = endTime + 300
                         settingsChanged = True
             
             upBEvent.clear()
@@ -447,7 +445,6 @@ def watchEvents(): # THREAD
                     if pomoWorkTime >= 600:
                         pomoWorkTime -= 300
                         settingsChanged = True
-                        endTime -= 300
                         timeTillNextLed = pomoWorkTime // getAvailable()
                         print("----->", timeTillNextLed, pomoWorkTime, getAvailable())
                   
@@ -465,7 +462,6 @@ def watchEvents(): # THREAD
                 if mode == "POMODORO_W" or mode == "POMODORO_B":
                     if pomoBreakTime > 300:
                         pomoBreakTime -= 300
-                        endTime = endTime - 300
                         settingsChanged = True
                   
                   
