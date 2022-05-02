@@ -176,7 +176,7 @@ def pomoRun():
                     timeElapsed = time.time() - startTime
                     timeLeft = pomoWorkTime - timeElapsed
                     endTime = time.time() + timeLeft
-                    startTime = endTime - pomoWorkTime
+#                     startTime = endTime - pomoWorkTime
 
                     x = time.gmtime(timeLeft)
                     print("CHANGES MADE:", time.strftime("%H:%M:%S", x), startTime, timeLeft, endTime, timeElapsed)
