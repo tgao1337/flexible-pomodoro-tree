@@ -167,7 +167,7 @@ def pomoRun():
             
             while time.time() <= endTime and mode == "POMODORO_W":
              
-                if state == "MODE_SETTINGS":
+                if state == "MODE_SELECT" or state == "MODE_SETTINGS" or state == "MODE_SETTINGS_2":
                     timeElapsed = time.time() - startTime
                     timeLeft = pomoWorkTime - timeElapsed
                     x = time.gmtime(timeLeft)
