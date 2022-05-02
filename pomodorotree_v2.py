@@ -7,6 +7,7 @@ from threading import Thread, Event, Lock
 from pomodoro import *
 from multiprocessing import Process
 import multiprocessing as mp
+import Queue
 
 global mode
 global state
@@ -49,6 +50,8 @@ settingsBEvent = mp.Event()
 upBEvent = mp.Event()
 downBEvent = mp.Event()
 pomoRunEvent = mp.Event()
+
+queue = Queue()
 
 buttonSetup()
 setupLED()
@@ -174,15 +177,15 @@ def pomoRun():
             
             while time.time() <= endTime:
                 
-#                 if state == "MODE_SELECT" or state == "MODE_SETTINGS" or state == "MODE_SETTINGS_2":
-#                     endTime = time.time() + (pomoWorkTime - timeElapsed)
+                if not queue.empty():
+                    endTime = endTime + queue.get()
 
                   
 #                     if prevState == "RUN":
 #                         timeRemaining = endTime - time.time()
                     
 #                     print("IN SETTINGS", endTime)
-#                     x = time.gmtime(endTime)
+                    x = time.gmtime(endTime)
 #                     displayTime = time.strftime("%H:%M:%S", x)
 #                     print("end time:", displayTime)
                     
@@ -421,8 +424,8 @@ def watchEvents(): # THREAD
                 if mode == "POMODORO_W" or mode == "POMODORO_B":
                     if pomoWorkTime < 7200:
                         pomoWorkTime += 300
-
-                        endTime += 300
+                        queue.put(300)
+#                         endTime += 300
                    
                         
                         settingsChanged = True
@@ -445,7 +448,8 @@ def watchEvents(): # THREAD
                 if mode == "POMODORO_W" or mode == "POMODORO_B":
                     if pomoBreakTime < 3600:
                         pomoBreakTime += 300
-                        endTime += 300
+                        queue.put(300)
+#                         endTime += 300
                         settingsChanged = True
             
             upBEvent.clear()
@@ -464,7 +468,8 @@ def watchEvents(): # THREAD
                 if mode == "POMODORO_W" or mode == "POMODORO_B":
                     if pomoWorkTime >= 600:
                         pomoWorkTime -= 300
-                        endTime -= 300
+#                         endTime -= 300
+                        queue.put(-300)
                         settingsChanged = True
                         timeTillNextLed = pomoWorkTime // getAvailable()
                         print("----->", timeTillNextLed, pomoWorkTime, getAvailable())
@@ -483,7 +488,8 @@ def watchEvents(): # THREAD
                 if mode == "POMODORO_W" or mode == "POMODORO_B":
                     if pomoBreakTime > 300:
                         pomoBreakTime -= 300
-                        endTime -= 300
+#                         endTime -= 300
+                        queue.put(-300)
                         settingsChanged = True
                   
                   
