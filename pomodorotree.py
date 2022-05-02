@@ -180,7 +180,7 @@ def pomoRun():
                         timeLeft = pomoWorkTime - timeElapsed
                         endTime = time.time() + timeLeft
 
-                        timeElapsed = endTime - timeLeft + time.time()
+                        timeElapsed = endTime - timeLeft
 
 #                         endTime = time.time() + timeLeft
 
