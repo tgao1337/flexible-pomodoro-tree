@@ -177,7 +177,7 @@ def pomoRun():
             
             while time.time() <= endTime:
                 
-                if not queue.empty():
+                while not queue.empty():
                     endTime = endTime + queue.get()
 
                   
