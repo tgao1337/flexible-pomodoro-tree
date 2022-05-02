@@ -176,9 +176,14 @@ def pomoRun():
                     x = time.gmtime(timeLeft)
                    
                 elif (state == "MODE_SELECT" or state == "MODE_SETTINGS" or state == "MODE_SETTINGS_2") and (prevState == "PAUSE"):
-                    endTime = time.time() + timeLeft
-                    startTime = endTime - pomoWorkTime
+#                     endTime = time.time() + timeLeft
+#                     startTime = endTime - pomoWorkTime
+#                     timeLeft = pomoWorkTime - timeElapsed
+#                     x = time.gmtime(timeLeft)
+                    
+                    timeElapsed = time.time() - startTime
                     timeLeft = pomoWorkTime - timeElapsed
+                    endTime = time.time() + timeLeft
                     x = time.gmtime(timeLeft)
 
                     
