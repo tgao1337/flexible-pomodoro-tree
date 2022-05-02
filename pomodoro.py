@@ -1,5 +1,4 @@
 # This will be the foo.py in the example slides Professor Fund showed.
-import pigpio
 import time
 import RPi.GPIO as GPIO
 from smbus import SMBus
@@ -34,6 +33,9 @@ pinC = 16
 pinD = 24
 pinE = 26
 
+# buzzer
+global pinnum
+pinnum = 13
 
 NUM_LEDS= 32
 global available_led
@@ -90,49 +92,42 @@ def buttonSetup():
   GPIO.setup(pinE, GPIO.IN)
   #GPIO.setup(pinF, GPIO.IN)
 
-def buzzerSetup():
-  global pi 
-  pi = pigpio.pi()
+def buzzerSetup(pin):
+  GPIO.setwarnings(False)
+  GPIO.setmode(GPIO.BCM)
+  global pinnum
+  pinnum = pin
+  GPIO.setup(pinnum, GPIO.OUT) # This sets pin number from parameters as an output
 
-def playTime(seconds):
-  # This will play the buzzer at the default 4kHz for 
-  # (seconds) amount of seconds.
-
-  # first arg is pin number,
-  # second arg is frequency in Hz,
-  # third arg is number of ON units out of 1000000
-  pi.hardware_PWM(13, 4000, 500000) 
-  time.sleep(seconds)
-  pi.hardware_PWM(13, 4000, 0)
-  
-def playFreq(freq):
-  # This will play buzzer at a given frequency. It will not be stopped unless playStop() is used.
-
-  pi.hardware_PWM(13, freq, 500000)
-  
-def playStop():
-  # This will stop any buzzer sounds.
-  
-  pi.hardware_PWM(13, 0, 0)
-  
 def playFreqTime(freq, seconds):
   # This function plays a specified frequency for a specified time.
   # freq=0 is for a rest note.
-
   if freq == 0:
-   pi.hardware_PWM(13, freq, 0)
+    #pwm_out = GPIO.PWM(pinnum, 1000)
+    #pwm_out.stop()
+    time.sleep(seconds)
   else:
-    pi.hardware_PWM(13, freq, 500000) 
-  time.sleep(seconds)
-  pi.hardware_PWM(13, freq, 0)
-  
-def playList(lst):
-  # Given a list of [(freq, seconds), (freq, seconds), ... ], play through the list
-  # list also works as ((freq, seconds), (freq, seconds), ... )
-
-  for elem in lst:
-    playFreqTime(elem[0], elem[1])
+    pwm_out = GPIO.PWM(pinnum, freq)
+    pwm_out.start(50)
+    time.sleep(seconds)
+    pwm_out.stop()
     
+def buzzUp():
+  playFreqTime(A5, .35)
+  time.sleep(.2)
+  playFreqTime(B5, .35)
+  time.sleep(.2)
+  playFreqTime(C6, .35)
+  time.sleep(.1)
+  
+def buzzDown():
+  playFreqTime(C6, .35)
+  time.sleep(.2)
+  playFreqTime(B5, .35)
+  time.sleep(.2)
+  playFreqTime(A5, .35)
+  time.sleep(.1)
+  
 # This section is for...
 
 '''
