@@ -167,7 +167,7 @@ def pomoRun():
             
             while time.time() <= endTime and mode == "POMODORO_W":
               
-
+                print(state)
                 if state == "MODE_SELECT" or state == "MODE_SETTINGS" or state == "MODE_SETTINGS_2" and (prevState == "RUN"):
                     timeElapsed = time.time() - startTime
                     timeLeft = pomoWorkTime - timeElapsed
@@ -183,9 +183,7 @@ def pomoRun():
                     
                     timeLeft = endTime - time.time()
                
-#                     print((time.time() - startTime),  timeTillNextLed)
                     if ((time.time() - startTime) > timeTillNextLed):
-#                         timeTillNextLed += timeTillNextLed
                         timeTillNextLed = timeTillNextLed + prevTimeTillNex 
                         toggleNextLed(True,1)
                   
