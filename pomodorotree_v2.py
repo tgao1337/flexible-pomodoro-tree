@@ -7,7 +7,7 @@ from threading import Thread, Event, Lock
 from pomodoro import *
 from multiprocessing import Process
 import multiprocessing as mp
-import Queue
+from queue import Queue
 
 global mode
 global state
