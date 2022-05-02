@@ -175,7 +175,12 @@ def pomoRun():
                     timeLeft = pomoWorkTime - timeElapsed
                     endTime = time.time() + timeLeft
                     x = time.gmtime(timeLeft)
+                   
+                    timeTillNextLed = timeLeft // getAvailable()
+                    print("----->", timeTillNextLed, timeLeft, getAvailable())
                     settingsChanged = False
+                    
+
              
                 if state == "RUN" or (prevState == "RUN" and not state=="RUN" and not state == "PAUSE"):
                     timeLeft = endTime - time.time()
@@ -191,7 +196,7 @@ def pomoRun():
                     startTime = endTime - pomoWorkTime
                       
                 displayTime = time.strftime("%H:%M:%S", x)
-                print("current time:", displayTime)
+#                 print("current time:", displayTime)
                 
             
             if mode == "POMODORO_W":
@@ -282,18 +287,9 @@ def watchEvents(): # THREAD
     global quantityON
     global timeTillNextLed
     global settingsChanged
-#     global endTime
 
-    
-    
     while True:
-#         if mode == "TASK":
-#             quantityON = available_led // taskNum
-#         elif mode == "POMODORO_W":
-#             timeTillNextLed= pomoWorkTime// available_led
-# #         elif mode == "BUDGET":    # does not have to change since we said 6 hrs default
-# #             timeTillNextLed = 21600 // available_led
-            
+
         
         if resetBEvent.is_set():
             # change mode and state
@@ -313,10 +309,8 @@ def watchEvents(): # THREAD
                 state = "OVERVIEW"
                 
                 resetAvailable()  # resetting available_leds back to 32
-#                 if mode == "TASK":
                 quantityON = NUM_LEDS // taskNum
                   
-#                 if mode == "POMODORO_W":
                 timeTillNextLed = pomoWorkTime // NUM_LEDS
                 print("timeTillNextLed in reset:", timeTillNextLed)
 
@@ -332,10 +326,7 @@ def watchEvents(): # THREAD
                 f.write((str(taskNum)+"\n"))
                 f.write((str(budgetTime)+"\n"))
                 f.close()
-                
-                 
 
-                
             resetBEvent.clear()
           
         if playPauseCompleteBEvent.is_set():
@@ -350,7 +341,6 @@ def watchEvents(): # THREAD
                 if (mode == "BUDGET" or mode == "POMODORO_W" or mode == "POMODORO_B") and not prevState == None:
                     state = prevState  # this will put it back in the previous mode
                 else: 
-#                     prevState = state
                     if mode == "TASK":
                         taskDone = taskDone - 1
                         toggleNextLed(False, quantityON)
@@ -367,7 +357,6 @@ def watchEvents(): # THREAD
                     if remainingTasks == 0:
                         allOn()
                     else:
-#                         if not prevState == "MODE_SELECT" and not prevState == "MODE_SETTINGS" or state == "RUN":
                         print("Quantity on:", quantityON)
                         if taskDone >=1:
                             toggleNextLed(True, quantityON)
@@ -397,7 +386,6 @@ def watchEvents(): # THREAD
                     mode = "POMODORO_W"
                 elif mode == "BUDGET":
                     mode = "TASK"
-#                     quantityON = available_led // taskNum
                     
                    
                   
@@ -406,8 +394,9 @@ def watchEvents(): # THREAD
                     if pomoWorkTime < 7200:
                         pomoWorkTime += 300
                         settingsChanged = True
-#                         endTime = endTime+time.time()+ 300
+                   
                         timeTillNextLed = pomoWorkTime // getAvailable()
+                    
                         print("----->", timeTillNextLed, pomoWorkTime, getAvailable())
                   
                 if mode == "TASK":
