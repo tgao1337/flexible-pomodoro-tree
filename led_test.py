@@ -147,7 +147,7 @@ if __name__ == '__main__':
   for i in range(32):
    toggleNextLed(False,1)
   '''
-  toggleNextLed( True,3)
+  toggleNextLed( True,4)
 #   time.sleep(3)
 #   toggleNextLed(True,8)
 #   time.sleep(3)
