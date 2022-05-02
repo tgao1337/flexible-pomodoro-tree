@@ -173,9 +173,10 @@ def pomoRun():
                 
                 if state == "MODE_SELECT" or state == "MODE_SETTINGS" or state == "MODE_SETTINGS_2":
                     endTime = time.time() + (pomoWorkTime - timeElapsed)
-                    x = time.gmtime(endTime)
-                    displayTime = time.strftime("%H:%M:%S", x)
-                    print("end time:", displayTime)
+                    timeRemaining = endTime - time.time()
+#                     x = time.gmtime(endTime)
+#                     displayTime = time.strftime("%H:%M:%S", x)
+#                     print("end time:", displayTime)
                     
                 
                 if state == "RUN" or (prevState == "RUN" and not state == "PAUSE"):
