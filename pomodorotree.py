@@ -169,19 +169,17 @@ def pomoRun():
             displayTime = time.strftime("%H:%M:%S", x)
             
             while time.time() <= endTime and mode == "POMODORO_W":
-
-
-             
                 if settingsChanged:
                     timeElapsed = time.time() - startTime
                     timeLeft = pomoWorkTime - timeElapsed
                     endTime = time.time() + timeLeft
                     startTime = endTime - pomoWorkTime
-                    prevTimeTillNex = timeTillNextLed
+
                     x = time.gmtime(timeLeft)
                     
                    
                     timeTillNextLed = timeLeft // getAvailable()
+                    prevTimeTillNex = timeTillNextLed
                     print("----->", timeTillNextLed, timeLeft, getAvailable())
                     settingsChanged = False
                     
