@@ -362,10 +362,11 @@ def watchEvents(): # THREAD
             if mode == "TASK":
                 if (taskDone >= taskNum):
                     state = "WELCOME"
+                    buzzUp3()
                 else:
                     taskDone = taskDone + 1
                     remainingTasks = taskNum - taskDone
-                    
+                    buzzUp2()
                     if remainingTasks == 0:
                         allOn()
                     else:
