@@ -112,7 +112,7 @@ def playFreqTime(freq, seconds):
     time.sleep(seconds)
     pwm_out.stop()
     
-def buzzUp():
+def buzzUp3():
   playFreqTime(A5, .35)
   time.sleep(.2)
   playFreqTime(B5, .35)
@@ -120,10 +120,22 @@ def buzzUp():
   playFreqTime(C6, .35)
   time.sleep(.1)
   
-def buzzDown():
+def buzzDown3():
   playFreqTime(C6, .35)
   time.sleep(.2)
   playFreqTime(B5, .35)
+  time.sleep(.2)
+  playFreqTime(A5, .35)
+  time.sleep(.1)
+
+def buzzUp2():
+  playFreqTime(A5, .35)
+  time.sleep(.2)
+  playFreqTime(C6, .35)
+  time.sleep(.1)
+  
+def buzzDown2():
+  playFreqTime(C6, .35)
   time.sleep(.2)
   playFreqTime(A5, .35)
   time.sleep(.1)
