@@ -171,12 +171,15 @@ def pomoRun():
             while time.time() <= endTime and mode == "POMODORO_W":
 
                 if state == "MODE_SELECT" or state == "MODE_SETTINGS" or state == "MODE_SETTINGS_2":
+                    if prevState == "PAUSE":
+                        startTime = endTime - pomoWorkTime
+                    
                     if settingsChanged:
                         settingsChanged = False
                         timeElapsed = time.time() - startTime
                         timeLeft = pomoWorkTime - timeElapsed
                         endTime = time.time() + timeLeft
-    #                     startTime = endTime - pomoWorkTime
+#                         startTime = endTime - pomoWorkTime
 
                         x = time.gmtime(timeLeft)
     #                     print("CHANGES MADE:", time.strftime("%H:%M:%S", x), startTime, timeLeft, endTime, timeElapsed)
