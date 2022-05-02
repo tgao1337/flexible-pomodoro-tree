@@ -179,8 +179,7 @@ def pomoRun():
                 if state == "RUN" or (prevState == "RUN" and not state == "PAUSE"):
                     prevState = "RUN"
                     timeRemaining = endTime - time.time()
-
-                    timeElapsed = prevPWTime - timeRemaining
+                    timeElapsed = pomoWorkTime - timeRemaining
                     
                 elif state == "PAUSE" or (prevState == "PAUSE" and not state == "RUN"): 
                     prevState = "PAUSE"
