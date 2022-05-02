@@ -100,6 +100,7 @@ def pomoRun():
     global timeTillNextLed
     prevTimeTillNex = 0
 #     global endTime
+    timeElapsed = 0
     
     
     while True:
