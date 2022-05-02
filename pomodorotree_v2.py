@@ -177,15 +177,15 @@ def pomoRun():
                     displayTime = time.strftime("%H:%M:%S", x)
                     print("end time:", displayTime)
                     
-
-
                 
                 if state == "RUN" or (prevState == "RUN" and not state == "PAUSE"):
+                    print("IN RUN")
                     prevState = "RUN"
                     timeRemaining = endTime - time.time()
                     timeElapsed = pomoWorkTime - timeRemaining
                     
                 elif state == "PAUSE" or (prevState == "PAUSE" and not state == "RUN"): 
+                    print("IN PAUSE")
                     prevState = "PAUSE"
                     endTime = time.time() + timeRemaining
                 
