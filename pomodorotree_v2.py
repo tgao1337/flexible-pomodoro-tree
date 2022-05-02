@@ -2,6 +2,7 @@
 # NOTES:
 # Use a queue to fix the latest issue, add the value that is pushed in queue in endTime
 # Or just make endTime global and change it -> store the pomoWorkTime everytime u channge it in the file for the next time
+# Fixed pomo. TODO: Budget and file storing
  
 from threading import Thread, Event, Lock
 from pomodoro import *
@@ -175,38 +176,28 @@ def pomoRun():
             displayTime = time.strftime("%H:%M:%S", x)
 
             
-            while time.time() <= endTime:
+            while time.time() <= endTime and mode == "POMODORO_W":
                 
                 while not queue.empty():
                     endTime = endTime + queue.get()
-
-#                     x = time.gmtime(endTime)
-                    
                 
                 if state == "RUN" or (prevState == "RUN" and not state == "PAUSE"):
                     prevState = "RUN"
                     timeRemaining = endTime - time.time() 
                     startPause = time.time()
-#                     timeElapsed = pomoWorkTime - timeRemaining
                     print("IN RUN", endTime, timeRemaining)
                     
                 if state == "PAUSE" or (prevState == "PAUSE" and not state == "RUN"): 
                     print("IN PAUSE")
                     prevState = "PAUSE"
                     timeRemaining = endTime - startPause
-#                     endTime = endTime + timeRemaining
 
                 
                 x = time.gmtime(timeRemaining)
                 displayTime = time.strftime("%H:%M:%S", x)
 #                 print("current time:", displayTime)
                     
-                 
-                 
-           
 
-           
-           
            
 #                     print("----->", (time.time() - startTime), timeTillNextLed, prevTimeTillNex, getAvailable())
 #                     if ((time.time() - startTime) > timeTillNextLed):
@@ -233,25 +224,25 @@ def pomoRun():
             timeLeft = pomoBreakTime
             x = time.gmtime(timeLeft)
             displayTime = time.strftime("%H:%M:%S", x)
+            
             while time.time() <= endTime and mode == "POMODORO_B":
-                if settingsChanged:
-                    timeElapsed = time.time() - startTime
-                    timeLeft = pomoWorkTime - timeElapsed
-                    endTime = time.time() + timeLeft
-
-
-                    x = time.gmtime(timeLeft)
-
-                    settingsChanged = False
-                    
-                if state == "RUN" or (prevState == "RUN" and not state=="RUN" and not state == "PAUSE"):
-                    timeLeft = endTime - time.time()
-                    x = time.gmtime(timeLeft)
+                
+                while not queue.empty():
+                    endTime = endTime + queue.get()
+                
+                if state == "RUN" or (prevState == "RUN" and not state == "PAUSE"):
                     prevState = "RUN"
+                    timeRemaining = endTime - time.time() 
+                    startPause = time.time()
+                    print("IN RUN", endTime, timeRemaining)
                     
-                if state == "PAUSE" or (prevState == "PAUSE" and not state=="RUN" and not state == "PAUSE"):
-                    endTime = time.time() + timeLeft
+                if state == "PAUSE" or (prevState == "PAUSE" and not state == "RUN"): 
+                    print("IN PAUSE")
                     prevState = "PAUSE"
+                    timeRemaining = endTime - startPause
+
+                
+                x = time.gmtime(timeRemaining)
                 displayTime = time.strftime("%H:%M:%S", x)
                 
             if mode == "POMODORO_B":
@@ -277,6 +268,7 @@ def pomoRun():
                     endTime = time.time() + timeLeft
                     productivity_time = time.time()- startTime
                     y = time.gmtime(productivity_time)
+                  
                     if productivity_time > timeTillNextLed: # turn on led when not in break
                         timeTillNextLed += timeTillNextLed
                         toggleNextLed(True,1)
