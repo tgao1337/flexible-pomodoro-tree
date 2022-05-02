@@ -170,7 +170,7 @@ def pomoRun():
             
             while time.time() <= endTime and mode == "POMODORO_W":
 
-                if state == "MODE_SELECT" or mode == "MODE_SETTINGS" or mode == "MODE_SETTINGS_2":
+                if state == "MODE_SELECT" or state == "MODE_SETTINGS" or state == "MODE_SETTINGS_2":
                     if settingsChanged:
                         settingsChanged = False
                         timeElapsed = time.time() - startTime
