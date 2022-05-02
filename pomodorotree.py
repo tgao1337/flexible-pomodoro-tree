@@ -176,7 +176,9 @@ def pomoRun():
                     if settingsChanged:
                    
                         timeElapsed = endTime - timeLeft
-                        print("TIME ELAPSED:", timeElapsed)
+                        a = time.gmtime(timeElapsed)
+                        print("TIME ELAPSED:", a)
+
 
 #                         settingsChanged = False
 # #                         startTime = endTime - pomoWorkTime
