@@ -175,6 +175,7 @@ def pomoRun():
                     timeLeft = pomoWorkTime - timeElapsed
                     endTime = time.time() + timeLeft
                     x = time.gmtime(timeLeft)
+                    
                    
                     timeTillNextLed = timeLeft // getAvailable()
                     print("----->", timeTillNextLed, timeLeft, getAvailable())
@@ -184,9 +185,12 @@ def pomoRun():
              
                 if state == "RUN" or (prevState == "RUN" and not state=="RUN" and not state == "PAUSE"):
                     timeLeft = endTime - time.time()
-                    if ((time.time() - startTime) > timeTillNextLed):
+                
+#                     if ((time.time() - startTime) > timeTillNextLed):
+                    if (timeElapsed > timeTillNextLed):
                         timeTillNextLed = timeTillNextLed + prevTimeTillNex 
                         toggleNextLed(True,1)
+                    
                     x = time.gmtime(timeLeft)
                     prevState = "RUN"
                     
