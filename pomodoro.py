@@ -236,6 +236,7 @@ class OLED(object):
 
 #setup the pins as outputs and set the clocks initally to low and the clear initially to high. 
 def setupLED():
+  GPIO.setwarnings(False)
   spi.open(0,0)
   spi.mode=0b00
   spi.max_speed_hz= 7629
