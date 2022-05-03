@@ -1,9 +1,3 @@
-# This is the Flexible Pomodoro Tree official code
-# NOTES:
-# Use a queue to fix the latest issue, add the value that is pushed in queue in endTime
-# Or just make endTime global and change it -> store the pomoWorkTime everytime u channge it in the file for the next time
-# Fixed pomo. TODO: Budget and file storing
- 
 from threading import Thread, Event, Lock
 from pomodoro import *
 from multiprocessing import Process
@@ -603,6 +597,3 @@ p2.join()
 p3.join()
 p4.join()
 p5.join()
-
-
-
