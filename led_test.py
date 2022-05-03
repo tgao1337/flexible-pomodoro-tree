@@ -130,7 +130,7 @@ def allOn():
 if __name__ == '__main__':
   setup()
 
-  allOn()
+#   allOn()
 #   print("ALLON")
 #   time.sleep(5)  
 #   clearAll()
@@ -147,7 +147,7 @@ if __name__ == '__main__':
   for i in range(32):
    toggleNextLed(False,1)
   '''
-#   toggleNextLed( True,32)
+  toggleNextLed( True,32)
 #   time.sleep(3)
 #   toggleNextLed(True,8)
 #   time.sleep(3)
