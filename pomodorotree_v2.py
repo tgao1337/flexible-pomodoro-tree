@@ -181,7 +181,7 @@ def runTree():
                 
                 if state == "RUN" or (prevState == "RUN" and not state == "PAUSE"):
                     prevState = "RUN"
-                    timeRemaining = endTime - time.time() 
+                    timeLeft = endTime - time.time() 
                     startPause = time.time()
                     
                     # LED TIMING
@@ -195,12 +195,12 @@ def runTree():
                     
                 if state == "PAUSE" or (prevState == "PAUSE" and not state == "RUN"): 
                     prevState = "PAUSE"
-#                     timeRemaining = endTime - startPause
+#                     timeLeft = endTime - startPause
                     endTime = time.time() + timeLeft
 #                     startRun = time.time()
 
                 
-                x = time.gmtime(timeRemaining)
+                x = time.gmtime(timeLeft)
                 displayTime = time.strftime("%H:%M:%S", x)
                     
 
