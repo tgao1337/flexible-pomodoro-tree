@@ -314,7 +314,6 @@ def watchEvents(): # THREAD
                 print("timeTillNextLed in reset:", timeTillNextLed)
 
             
-            
             else:
                 state = "WELCOME"
                 # TODO: RESET VALUES/TIME STUFF FROM FILE??
@@ -403,12 +402,14 @@ def watchEvents(): # THREAD
                 if mode == "BUDGET":
                     if budgetTime < 18000:
                         budgetTime += 600
+                writeSettings()
                   
             if state == "MODE_SETTINGS_2":
                 if mode == "POMODORO_W" or mode == "POMODORO_B":
                     if pomoBreakTime < 3600:
                         pomoBreakTime += 300
                         queue.put(300)
+                writeSettings()
             
             upBEvent.clear()
            
@@ -439,12 +440,14 @@ def watchEvents(): # THREAD
                 if mode == "BUDGET":
                     if budgetTime > 600:
                         budgetTime -= 600
-                  
+                writeSettings()
+                
             if state == "MODE_SETTINGS_2":
                 if mode == "POMODORO_W" or mode == "POMODORO_B":
                     if pomoBreakTime > 300:
                         pomoBreakTime -= 300
                         queue.put(-300)
+                writeSettings()
                   
 
             downBEvent.clear()
