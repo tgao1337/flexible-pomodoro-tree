@@ -23,8 +23,6 @@ global prevState
 global quantityON
 global timeTillNextLed
 global prodTime
-global settingsChanged
-global endTime
 
 mode = "POMODORO_W" # POMODORO_W, POMODORO_B, TASK, BUDGET
 state = "WELCOME" # WELCOME, OVERVIEW, RUN, PAUSE, MODE_SELECT, MODE_SETTINGS, MODE_SETTINGS_2 (For Pomodoro Break Settings)
@@ -35,12 +33,10 @@ taskDone = 0
 taskNum = 4  # these are default values
 budgetTime = 0.25 * 60  # these are default values
 prodTime = 0
-settingsChanged = False
 
-startTime = 0
-endTime = 0
 x = time.gmtime(pomoWorkTime)
 displayTime = time.strftime("%H:%M:%S", x)
+
 prevState = None
 quantityON = 0
 timeTillNextLed=60
@@ -58,6 +54,29 @@ buttonSetup()
 setupLED()
 clearAll()
 buzzerSetup(13)
+
+def readSettings():
+    global mode, pomoWorkTime, pomoBreakTime, taskNum, budgetTime
+    userFile = open("userSettings.txt", "r")
+    mode = userFile.readline()[:-1]
+    if mode == "POMODORO_B":
+        mode = "POMODORO_W"
+    pomoWorkTime = int(f.readline()[:-1])
+    pomoBreakTime = int(f.readline()[:-1])
+    taskNum = int(f.readline()[:-1])
+    budgetTime = int(f.readline()[:-1])
+    userFile.close()
+ 
+def writeSettings():
+    userFile = open("userSettings.txt", "w")
+    userFile.write(mode+"\n")
+    userFile.write((str(pomoWorkTime)+"\n"))
+    userFile.write((str(pomoBreakTime)+"\n"))
+    userFile.write((str(taskNum)+"\n"))
+    userFile.write((str(budgetTime)+"\n"))
+    userFile.close()
+ 
+ 
 
 
 
@@ -312,22 +331,22 @@ def watchEvents(): # THREAD
             # change mode and state
             print("Reset Button was pressed")
             if state == "WELCOME":
-                f = open("userSettings.txt", "r")
-                mode = f.readline()[:-1]
-                if mode == "POMODORO_B":
-                    mode = "POMODORO_W"
-                pomoWorkTime = int(f.readline()[:-1])
-                pomoBreakTime = int(f.readline()[:-1])
-                taskNum = int(f.readline()[:-1])
-                budgetTime = int(f.readline()[:-1])
-                taskDone = 0
-                f.close()
+                readSettings()
+#                 f = open("userSettings.txt", "r")
+#                 mode = f.readline()[:-1]
+#                 if mode == "POMODORO_B":
+#                     mode = "POMODORO_W"
+#                 pomoWorkTime = int(f.readline()[:-1])
+#                 pomoBreakTime = int(f.readline()[:-1])
+#                 taskNum = int(f.readline()[:-1])
+#                 budgetTime = int(f.readline()[:-1])
+#                 taskDone = 0
+#                 f.close()
+
                 clearAll()
-                state = "OVERVIEW"
-                
+                state = "OVERVIEW"                
                 resetAvailable()  # resetting available_leds back to 32
                 quantityON = NUM_LEDS // taskNum
-                  
                 timeTillNextLed = pomoWorkTime // NUM_LEDS
                 print("timeTillNextLed in reset:", timeTillNextLed)
 
@@ -336,13 +355,14 @@ def watchEvents(): # THREAD
             else:
                 state = "WELCOME"
                 # TODO: RESET VALUES/TIME STUFF FROM FILE??
-                f = open("userSettings.txt", "w")
-                f.write(mode+"\n")
-                f.write((str(pomoWorkTime)+"\n"))
-                f.write((str(pomoBreakTime)+"\n"))
-                f.write((str(taskNum)+"\n"))
-                f.write((str(budgetTime)+"\n"))
-                f.close()
+                writeSettings()
+#                 f = open("userSettings.txt", "w")
+#                 f.write(mode+"\n")
+#                 f.write((str(pomoWorkTime)+"\n"))
+#                 f.write((str(pomoBreakTime)+"\n"))
+#                 f.write((str(taskNum)+"\n"))
+#                 f.write((str(budgetTime)+"\n"))
+#                 f.close()
 
             resetBEvent.clear()
           
