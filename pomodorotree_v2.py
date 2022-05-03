@@ -113,6 +113,7 @@ def runTree():
     prevTimeTillNextLed = 0
     timeElapsed = 0
     startPause = 0
+    startRun = 0
     
     while True:
         prevTimeTillNextLed = timeTillNextLed
