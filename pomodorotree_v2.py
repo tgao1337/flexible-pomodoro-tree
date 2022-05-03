@@ -46,7 +46,6 @@ playPauseCompleteBEvent = mp.Event()
 settingsBEvent = mp.Event()
 upBEvent = mp.Event()
 downBEvent = mp.Event()
-pomoRunEvent = mp.Event()
 
 queue = Queue()
 
@@ -109,21 +108,14 @@ def checkDownB(): # PROCESS
         downBEvent.set()
       
 # ============================ TREE EXECUTION ============================
-def pomoRun(): 
-    global displayTime
-    global prodTime
-    global mode
-    global state
-    global prevState
-    global timeTillNextLed
-    prevTimeTillNex = 0
+def runTree(): 
+    global displayTime, prodTime, mode, state, prevState, timeTillNextLed
+    prevTimeTillNextLed = 0
     timeElapsed = 0
-    global settingsChanged
-    global endTime
     startPause = 0
     
     while True:
-        prevTimeTillNex = timeTillNextLed
+        prevTimeTillNextLed = timeTillNextLed
         if state == "MODE_SETTINGS_2":
             startTime = time.time()
             endTime = startTime + pomoBreakTime
@@ -145,9 +137,7 @@ def pomoRun():
             timeLeft = budgetTime
             x = time.gmtime(timeLeft)
             displayTime = time.strftime("%H:%M:%S", x)
-       
-       
-       
+
         if state == "PAUSE":
             prevState = "PAUSE"
             startTime = time.time()
@@ -174,19 +164,16 @@ def pomoRun():
             x = time.gmtime(timeLeft)
             displayTime = time.strftime("%H:%M:%S", x)
         
-        # ========================================================================
+        # ============================== RUN/PAUSE POMODORO, BUDGET ==========================================
         
         if state == "RUN" and mode == "POMODORO_W":
-         
             prevState = "RUN"
             endTime = time.time() + pomoWorkTime
             timeLeft = pomoWorkTime
             x = time.gmtime(timeLeft)
             displayTime = time.strftime("%H:%M:%S", x)
 
-            
             while time.time() <= endTime and mode == "POMODORO_W":
-                
                 while not queue.empty():
                     endTime = endTime + queue.get()
                 
@@ -194,29 +181,25 @@ def pomoRun():
                     prevState = "RUN"
                     timeRemaining = endTime - time.time() 
                     startPause = time.time()
-                    print("IN RUN", endTime, timeRemaining)
+                    
+#                     if ((time.time() - startTime) > timeTillNextLed):
+                    if ((time.time() - startRun) > timeTillNextLed):
+#                     if (timeElapsed > timeTillNextLed):
+                        timeTillNextLed = timeTillNextLed + prevTimeTillNextLed 
+                        toggleNextLed(True,1)
+                        print("LED TURNED ON")
                     
                 if state == "PAUSE" or (prevState == "PAUSE" and not state == "RUN"): 
-                    print("IN PAUSE")
                     prevState = "PAUSE"
                     timeRemaining = endTime - startPause
+                    startRun = time.time()
 
                 
                 x = time.gmtime(timeRemaining)
                 displayTime = time.strftime("%H:%M:%S", x)
-#                 print("current time:", displayTime)
                     
 
-           
-#                     print("----->", (time.time() - startTime), timeTillNextLed, prevTimeTillNex, getAvailable())
-#                     if ((time.time() - startTime) > timeTillNextLed):
-# #                     if (timeElapsed > timeTillNextLed):
-#                         timeTillNextLed = timeTillNextLed + prevTimeTillNex 
-#                         toggleNextLed(True,1)
-#                         print("LED TURNED ON")
 
-                      
-#                 displayTime = time.strftime("%H:%M:%S", x)
 
                 
             
@@ -311,8 +294,7 @@ def watchEvents(): # THREAD
     global budgetTime
     global quantityON
     global timeTillNextLed
-    global settingsChanged
-    global endTime
+
 
     while True:
 
@@ -601,7 +583,7 @@ t1 = Thread(target=watchEvents)
 t1.start()
 t2 = Thread(target=updateDisplay)
 t2.start()
-t3 = Thread(target = pomoRun)
+t3 = Thread(target = runTree)
 t3.start()
 
 t1.join()
