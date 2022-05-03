@@ -55,6 +55,7 @@ setupLED()
 clearAll()
 buzzerSetup(13)
 
+# ============================ READ/WRITE USER SETTINGS ============================
 def readSettings():
     global mode, pomoWorkTime, pomoBreakTime, taskNum, budgetTime
     userFile = open("userSettings.txt", "r")
@@ -76,19 +77,7 @@ def writeSettings():
     userFile.write((str(budgetTime)+"\n"))
     userFile.close()
  
- 
-
-
-
-# ================================================ NEW CODE =======================================================
-
-# reading and writing settings to file? or can i use pickle?
-# pickle may be easier with a struct of all settings then load it in later.
-# for file, need to edit strings and then rewrite file every time
-# f = open("settings.txt", "w+")
-
-
-
+# ============================ BUTTON PROCESS ============================
 def checkResetB(): # PROCESS
     global resetBEvent
     while True:
@@ -119,6 +108,7 @@ def checkDownB(): # PROCESS
         waitButton(pinE)
         downBEvent.set()
       
+# ============================ TREE EXECUTION ============================
 def pomoRun(): 
     global displayTime
     global prodTime
@@ -302,7 +292,7 @@ def pomoRun():
                 prodTime = time.strftime("%H:%M:%S", y)  # productivity time to display on OLED
                 displayTime = time.strftime("%H:%M:%S", x)   # if budget mode done then go to pomodoro, shows budget time, this will fix if displayTime = pomodorotime in start of pomodoro loop
                   
-      
+# ============================ WATCH BUTTON PRESSES ============================
 def watchEvents(): # THREAD
     global resetBEvent
     global playPauseCompleteBEvent
@@ -332,16 +322,6 @@ def watchEvents(): # THREAD
             print("Reset Button was pressed")
             if state == "WELCOME":
                 readSettings()
-#                 f = open("userSettings.txt", "r")
-#                 mode = f.readline()[:-1]
-#                 if mode == "POMODORO_B":
-#                     mode = "POMODORO_W"
-#                 pomoWorkTime = int(f.readline()[:-1])
-#                 pomoBreakTime = int(f.readline()[:-1])
-#                 taskNum = int(f.readline()[:-1])
-#                 budgetTime = int(f.readline()[:-1])
-#                 taskDone = 0
-#                 f.close()
 
                 clearAll()
                 state = "OVERVIEW"                
@@ -356,13 +336,6 @@ def watchEvents(): # THREAD
                 state = "WELCOME"
                 # TODO: RESET VALUES/TIME STUFF FROM FILE??
                 writeSettings()
-#                 f = open("userSettings.txt", "w")
-#                 f.write(mode+"\n")
-#                 f.write((str(pomoWorkTime)+"\n"))
-#                 f.write((str(pomoBreakTime)+"\n"))
-#                 f.write((str(taskNum)+"\n"))
-#                 f.write((str(budgetTime)+"\n"))
-#                 f.close()
 
             resetBEvent.clear()
           
@@ -431,10 +404,8 @@ def watchEvents(): # THREAD
                     if pomoWorkTime < 7200:
                         pomoWorkTime += 300
                         queue.put(300)
-#                         endTime += 300
                    
                         
-                        settingsChanged = True
                    
                         timeTillNextLed = pomoWorkTime // getAvailable()
                     
@@ -455,8 +426,6 @@ def watchEvents(): # THREAD
                     if pomoBreakTime < 3600:
                         pomoBreakTime += 300
                         queue.put(300)
-#                         endTime += 300
-                        settingsChanged = True
             
             upBEvent.clear()
            
@@ -474,9 +443,7 @@ def watchEvents(): # THREAD
                 if mode == "POMODORO_W" or mode == "POMODORO_B":
                     if pomoWorkTime >= 600:
                         pomoWorkTime -= 300
-#                         endTime -= 300
                         queue.put(-300)
-                        settingsChanged = True
                         timeTillNextLed = pomoWorkTime // getAvailable()
                         print("----->", timeTillNextLed, pomoWorkTime, getAvailable())
                   
@@ -494,16 +461,13 @@ def watchEvents(): # THREAD
                 if mode == "POMODORO_W" or mode == "POMODORO_B":
                     if pomoBreakTime > 300:
                         pomoBreakTime -= 300
-#                         endTime -= 300
                         queue.put(-300)
-                        settingsChanged = True
-                  
                   
 
             downBEvent.clear()
         time.sleep(0.01)
         
-        
+# ============================ UPDATE DISPLAY BASED ON CURRENT STATE AND MODE ============================
 def updateDisplay():
 
     while True:
@@ -575,11 +539,7 @@ def updateDisplay():
                     draw.text((0,0), "Break time remaining:", font=fontSmall, fill="white")
                     draw.text((17, 10), displayTime, font=fontBig, fill="white")  # change position to display
                     draw.text((12,45), "B | Budget | Break", font=fontSmall, fill="white")  # TODO add productivity time
-
-                   
-                   
-                   
-                 
+                  
         if state == "MODE_SELECT":
             
             with canvas(device) as draw:
@@ -595,7 +555,6 @@ def updateDisplay():
                     draw.text((20,12), ">", font=fontSmall, fill="white")
                 if mode == "BUDGET":
                     draw.text((20,24), ">", font=fontSmall, fill="white")
-                
          
         if state == "MODE_SETTINGS":
             with canvas(device) as draw:
@@ -626,7 +585,7 @@ def updateDisplay():
             
            
 
-
+# ============================ MAIN ============================
 p1 = Process(target=checkResetB)
 p1.start()
 p2 = Process(target=checkPlayPauseCompleteB)
