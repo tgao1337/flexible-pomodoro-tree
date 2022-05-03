@@ -196,7 +196,7 @@ def runTree():
                 if state == "PAUSE" or (prevState == "PAUSE" and not state == "RUN"): 
                     prevState = "PAUSE"
                     timeRemaining = endTime - startPause
-                    startRun = time.time()
+#                     startRun = time.time()
 
                 
                 x = time.gmtime(timeRemaining)
