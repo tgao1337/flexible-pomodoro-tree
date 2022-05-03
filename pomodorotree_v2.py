@@ -173,6 +173,7 @@ def runTree():
             timeLeft = pomoWorkTime
             x = time.gmtime(timeLeft)
             displayTime = time.strftime("%H:%M:%S", x)
+            startRun = time.time()
 
             while time.time() <= endTime and mode == "POMODORO_W":
                 while not queue.empty():
@@ -182,6 +183,8 @@ def runTree():
                     prevState = "RUN"
                     timeRemaining = endTime - time.time() 
                     startPause = time.time()
+                    
+                    # LED TIMING
                     
 #                     if ((time.time() - startTime) > timeTillNextLed):
                     if ((time.time() - startRun) > timeTillNextLed):
