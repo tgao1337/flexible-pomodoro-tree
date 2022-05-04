@@ -328,7 +328,7 @@ def findNextLed(turnOn):
       print("NOT FOUND")
   return ind
               
-def getAvailableLED():
+def getAvailable():
   return available_led
 
 def resetAvailableLED():
