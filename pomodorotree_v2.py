@@ -45,10 +45,10 @@ def readSettings():
     mode = userFile.readline()[:-1]
     if mode == "POMODORO_B":
         mode = "POMODORO_W"
-    pomoWorkTime = int(userFile.readline()[:-1])
-    pomoBreakTime = int(userFile.readline()[:-1])
-    taskNum = int(userFile.readline()[:-1])
-    budgetTime = int(userFile.readline()[:-1])
+    pomoWorkTime = int(userFile.readline())
+    pomoBreakTime = int(userFile.readline())
+    taskNum = int(userFile.readline())
+    budgetTime = int(userFile.readline())
     userFile.close()
  
 def writeSettings():
