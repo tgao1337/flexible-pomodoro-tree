@@ -4,29 +4,19 @@ from multiprocessing import Process
 import multiprocessing as mp
 from queue import Queue
 
-global mode
-global state
-global pomoWorkTime
-global pomoBreakTime
-global taskDone
-global taskNum
-global budgetTime
-global displayTime
-global prodTime
+global mode, state, pomoWorkTime, pomoBreakTime, taskNum, taskDone, budgetTime
+global displayTime, prodTime, quantityON, timeTillNextLed
 global prevState
-global quantityON
-global timeTillNextLed
-global prodTime
 
 mode = "POMODORO_W" # POMODORO_W, POMODORO_B, TASK, BUDGET
 state = "WELCOME" # WELCOME, OVERVIEW, RUN, PAUSE, MODE_SELECT, MODE_SETTINGS, MODE_SETTINGS_2 (For Pomodoro Break Settings)
 
-pomoWorkTime = 0.5 * 60  # These are default values  # TODO FIX because using testing values for now
-pomoBreakTime = 0.25 * 60  # These are default values
-taskDone = 0
-taskNum = 4  # these are default values
-budgetTime = 0.25 * 60  # these are default values
-prodTime = 0
+pomoWorkTime = 25 * 60 # 25 minutes of work, starting pomoWorkTime
+pomoBreakTime = 5 * 60 # 5 minutes of break, starting pomoBreakTime
+taskNum = 4 # 4 total tasks
+taskDone = 0 # Number of tasks completed
+budgetTime = 2 * 60 * 60  # 2 hours of break / day
+prodTime = 0 # Total produtivity time for budget mode. Must be >= budgetTime
 
 x = time.gmtime(pomoWorkTime)
 displayTime = time.strftime("%H:%M:%S", x)
@@ -276,54 +266,30 @@ def runTree():
                   
 # ============================ WATCH BUTTON PRESSES ============================
 def watchEvents(): # THREAD
-    global resetBEvent
-    global playPauseCompleteBEvent
-    global settingsBEvent
-    global upBEvent
-    global downBEvent
-    global state
-    global mode
-    global displayTime
-    global taskDone
-    global prevState
-    global taskDone
-    global taskNum
-    global pomoWorkTime
-    global pomoBreakTime
-    global budgetTime
-    global quantityON
-    global timeTillNextLed
-
+    global resetBEvent, playPauseCompleteBEvent, settingsBEvent, upBEvent, downBEvent
+    global state, mode, displayTime, pomoWorkTime, pomoBreakTime, taskNum, taskDone, budgetTime,  prevState
+    global quantityON, timeTillNextLed
 
     while True:
-
-        
         if resetBEvent.is_set():
-            # change mode and state
-            print("Reset Button was pressed")
             if state == "WELCOME":
-                readSettings()
+                readSettings() # Read user settings
+                clearAll() # Reset LEDs
+                state = "OVERVIEW"            
+                resetAvailableLED()  # Resetting available_leds back to 32 in pomodoro.py
+                quantityON = NUM_LEDS // taskNum # Calculate the number of LEDs to be on per Task
+                timeTillNextLed = pomoWorkTime // NUM_LEDS # # Calculate the number of LEDs to be on every timeTillNextLed seconds
 
-                clearAll()
-                state = "OVERVIEW"                
-                resetAvailable()  # resetting available_leds back to 32
-                quantityON = NUM_LEDS // taskNum
-                timeTillNextLed = pomoWorkTime // NUM_LEDS
-                print("timeTillNextLed in reset:", timeTillNextLed)
-
-            
             else:
                 state = "WELCOME"
-                # TODO: RESET VALUES/TIME STUFF FROM FILE??
-                writeSettings()
+                writeSettings() # Store current user settings to file
 
             resetBEvent.clear()
           
         if playPauseCompleteBEvent.is_set():
-            print("Play Pause Complete Button was pressed")
             if state == "RUN" and not mode == "TASK":
                 state = "PAUSE"
-            
+                
             elif state == "PAUSE" and not mode == "TASK":
                 state = "RUN"
               
@@ -338,7 +304,7 @@ def watchEvents(): # THREAD
                 
             if mode == "TASK":
                 if (taskDone >= taskNum):
-                    state = "WELCOME"
+                    state = "OVERVIEW"
 #                     buzzUp3()
                 else:
                     taskDone = taskDone + 1
@@ -347,16 +313,13 @@ def watchEvents(): # THREAD
                     if remainingTasks == 0:
                         allOn()
                     else:
-                        print("Quantity on:", quantityON)
                         if taskDone >=1:
                             toggleNextLed(True, quantityON)
-                            print("AVAILABLE LEDS NOW:", getAvailable())
-
-            
             playPauseCompleteBEvent.clear()
            
         if settingsBEvent.is_set():
-            if state == "WELCOME" or state == "OVERVIEW" or state == "MODE_SETTINGS_2" or state == "RUN" or state == "PAUSE":
+#             if state == "WELCOME" or state == "OVERVIEW" or state == "MODE_SETTINGS_2" or state == "RUN" or state == "PAUSE":
+            if state == "OVERVIEW" or state == "MODE_SETTINGS_2" or state == "RUN" or state == "PAUSE":
                 state = "MODE_SELECT"
             elif state == "MODE_SELECT":
                 state = "MODE_SETTINGS"
@@ -365,37 +328,30 @@ def watchEvents(): # THREAD
                     state = "MODE_SETTINGS_2"
                 else:
                     state = "MODE_SELECT"
-                  
-            print("Settings Button was pressed")
             settingsBEvent.clear()
            
         if upBEvent.is_set():
-            print("Up Button was pressed")
+            # Swtiching modes
             if state == "MODE_SELECT":
                 if mode == "TASK":
                     mode = "POMODORO_W"
                 elif mode == "BUDGET":
                     mode = "TASK"
-                    
-                   
-                  
+
+            # Changing settings       
             if state == "MODE_SETTINGS":
                 if mode == "POMODORO_W" or mode == "POMODORO_B":
                     if pomoWorkTime < 7200:
                         pomoWorkTime += 300
                         queue.put(300)
                    
-                        
-                   
-                        timeTillNextLed = pomoWorkTime // getAvailable()
-                    
-                        print("----->", timeTillNextLed, pomoWorkTime, getAvailable())
+                        timeTillNextLed = pomoWorkTime // getAvailable() # Calculate new LED time
+#                         print("----->", timeTillNextLed, pomoWorkTime, getAvailable())
                   
                 if mode == "TASK":
-                    if taskNum < 32: #upper limit 100 tasks
+                    if taskNum < 32: # Max 32 tasks because 32 LEDs
                         taskNum += 1
                         quantityON = getAvailable() // taskNum
-                        print("----->", quantityON, getAvailable(), taskNum)
 
                 if mode == "BUDGET":
                     if budgetTime < 18000:
@@ -408,32 +364,30 @@ def watchEvents(): # THREAD
                         pomoBreakTime += 300
                         queue.put(300)
                 writeSettings()
-            
             upBEvent.clear()
            
         if downBEvent.is_set():
-            print("Down Button was pressed")
+            # Switching modes
             if state == "MODE_SELECT":
                 if mode == "POMODORO_W" or mode == "POMODORO_B":
                     mode = "TASK"
-
-
                 elif mode == "TASK":
                     mode = "BUDGET"
-
+                    
+            # Changing settings
             if state == "MODE_SETTINGS":
                 if mode == "POMODORO_W" or mode == "POMODORO_B":
                     if pomoWorkTime >= 600:
                         pomoWorkTime -= 300
                         queue.put(-300)
                         timeTillNextLed = pomoWorkTime // getAvailable()
-                        print("----->", timeTillNextLed, pomoWorkTime, getAvailable())
+#                         print("----->", timeTillNextLed, pomoWorkTime, getAvailable())
                   
                 if mode == "TASK":
                     if taskNum > 1:
                         taskNum -= 1
                         quantityON = getAvailable() // taskNum
-                        print("----->", quantityON, getAvailable(), taskNum)
+#                         print("----->", quantityON, getAvailable(), taskNum)
 
                 if mode == "BUDGET":
                     if budgetTime > 600:
@@ -446,8 +400,6 @@ def watchEvents(): # THREAD
                         pomoBreakTime -= 300
                         queue.put(-300)
                 writeSettings()
-                  
-
             downBEvent.clear()
         time.sleep(0.01)
         
@@ -544,7 +496,7 @@ def updateDisplay():
             with canvas(device) as draw:
                 draw.line((0, 45, 127 ,45), fill="white")
                 if mode == "POMODORO_W" or mode == "POMODORO_B":
-                    draw.text((15,45), "P | Settings | "+ displayTime, font=fontSmall, fill="white")  # Removed cycles  # TODO do i add time to this while it's still playing?
+                    draw.text((0,45), "P | Settings | "+ displayTime, font=fontSmall, fill="white")  # Removed cycles  # TODO do i add time to this while it's still playing?
                     draw.text((23, 0), "Set Work Time:", font=fontSmall, fill="white")
                     draw.text((17, 10), displayTime, font=fontBig, fill="white") #TODO Timing conversion printing
                 if mode == "TASK":
@@ -563,12 +515,10 @@ def updateDisplay():
             with canvas(device) as draw:
                 draw.line((0, 45, 127 ,45), fill="white")
                 if mode == "POMODORO_W" or mode == "POMODORO_B":
-                    draw.text((31,45), "P | Settings | "+displayTime, font=fontSmall, fill="white")  # Removed cycles
+                    draw.text((0,45), "P | Settings | "+displayTime, font=fontSmall, fill="white")  # Removed cycles
                     draw.text((23, 0), "Set Break Time:", font=fontSmall, fill="white")
                     draw.text((17, 10), displayTime, font=fontBig, fill="white") #TODO Timing conversion printing
             
-           
-
 # ============================ MAIN ============================
 p1 = Process(target=checkResetB)
 p1.start()
