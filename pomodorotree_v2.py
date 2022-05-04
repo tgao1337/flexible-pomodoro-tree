@@ -275,7 +275,8 @@ def watchEvents(): # THREAD
             if state == "WELCOME":
                 readSettings() # Read user settings
                 clearAll() # Reset LEDs
-                state = "OVERVIEW"            
+                state = "OVERVIEW"   
+                taskDone = 0
                 resetAvailableLED()  # Resetting available_leds back to 32 in pomodoro.py
                 quantityON = NUM_LEDS // taskNum # Calculate the number of LEDs to be on per Task
                 timeTillNextLed = pomoWorkTime // NUM_LEDS # # Calculate the number of LEDs to be on every timeTillNextLed seconds
