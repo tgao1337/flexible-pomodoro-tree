@@ -328,10 +328,10 @@ def findNextLed(turnOn):
       print("NOT FOUND")
   return ind
               
-def getAvailable():
+def getAvailableLED():
   return available_led
 
-def resetAvailable():
+def resetAvailableLED():
   global available_led
   available_led = NUM_LEDS
   
