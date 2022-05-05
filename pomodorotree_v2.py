@@ -200,7 +200,7 @@ def runTree():
                 x = time.gmtime(pomoBreakTime)
                 displayTime = time.strftime("%H:%M:%S", x)
             
-        if state == "RUN" and mode == "POMODORO_B" and not state == "WELCOME":
+        if state == "RUN" and mode == "POMODORO_B":
             prevState = "RUN"
             startTime = time.time()
             endTime = startTime + pomoBreakTime
@@ -208,7 +208,7 @@ def runTree():
             x = time.gmtime(timeLeft)
             displayTime = time.strftime("%H:%M:%S", x)
             
-            while time.time() <= endTime and mode == "POMODORO_B":
+            while time.time() <= endTime and mode == "POMODORO_B" and not state == "WELCOME":
                 
                 while not queue.empty():
                     endTime = endTime + queue.get()
