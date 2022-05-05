@@ -404,6 +404,7 @@ def watchEvents(): # THREAD
                         queue.put(-300)
                 writeSettings()
             downBEvent.clear()
+        print(state)
         time.sleep(0.01)
         
 # ============================ UPDATE DISPLAY BASED ON CURRENT STATE AND MODE ============================
