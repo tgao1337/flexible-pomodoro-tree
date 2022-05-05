@@ -162,6 +162,8 @@ def runTree():
             while time.time() <= endTime and mode == "POMODORO_W":
                 while not queue.empty():
                     endTime = endTime + queue.get()
+                    timeLeft = endTime - time.time() 
+
                 
                 if state == "RUN" or (prevState == "RUN" and not state == "PAUSE"):
                     prevState = "RUN"
