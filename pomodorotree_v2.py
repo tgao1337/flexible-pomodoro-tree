@@ -159,7 +159,7 @@ def runTree():
             displayTime = time.strftime("%H:%M:%S", x)
             startRun = time.time()
 
-            while time.time() <= endTime and mode == "POMODORO_W":
+            while time.time() <= endTime and mode == "POMODORO_W" and not state == "WELCOME":
                 while not queue.empty():
                     endTime = endTime + queue.get()
                     timeLeft = endTime - time.time() 
