@@ -285,6 +285,7 @@ def watchEvents(): # THREAD
                 timeTillNextLed = pomoWorkTime // NUM_LEDS # # Calculate the number of LEDs to be on every timeTillNextLed seconds
 
             else:
+                print("CHANGING STATE TO WELCOME")
                 state = "WELCOME"
                 writeSettings() # Store current user settings to file
 
