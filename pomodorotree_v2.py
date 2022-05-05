@@ -180,11 +180,10 @@ def runTree():
                 if state == "PAUSE" or (prevState == "PAUSE" and not state == "RUN"): 
                     prevState = "PAUSE"
                     timeLeft = endTime - startPause
-                    print("Time left: ", timeLeft)
-#                     endTime = time.time() + timeLeft
+                    endTime = time.time() + timeLeft
 #                     startRun = time.time()
 
-                
+                print("Time left: ", timeLeft)
                 x = time.gmtime(timeLeft)
                 displayTime = time.strftime("%H:%M:%S", x)
                     
