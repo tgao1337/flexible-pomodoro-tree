@@ -189,12 +189,8 @@ def runTree():
                 x = time.gmtime(timeLeft)
                 displayTime = time.strftime("%H:%M:%S", x)
                     
-
-
-
-                
             
-            if mode == "POMODORO_W":
+            if mode == "POMODORO_W" and not state == "WELCOME":
                 mode = "POMODORO_B"
                 state = "PAUSE"
                 x = time.gmtime(pomoBreakTime)
@@ -228,7 +224,7 @@ def runTree():
                 x = time.gmtime(timeRemaining)
                 displayTime = time.strftime("%H:%M:%S", x)
                 
-            if mode == "POMODORO_B":
+            if mode == "POMODORO_B"  and not state == "WELCOME":
                 mode = "POMODORO_W"
                 state = "PAUSE"
                 x = time.gmtime(pomoWorkTime)
