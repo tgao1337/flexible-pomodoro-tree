@@ -274,6 +274,7 @@ def watchEvents(): # THREAD
 
     while True:
         if resetBEvent.is_set():
+            print("DAY BUTTON PRESSED")
             if state == "WELCOME":
                 readSettings() # Read user settings
                 clearAll() # Reset LEDs
