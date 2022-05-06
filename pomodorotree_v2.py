@@ -587,7 +587,11 @@ def task_template():
             print("No description provided. Adding description to current task!")
             taskDescr[result] = request.form['taskDescr']
         else:
-            taskDescr.append(request.form['taskDescr'])
+            newDescr = request.form['taskDescr']
+            if newDescr == ""
+                taskDescr.append(empty)
+            else:
+                taskDescr.append(newDescr)
             taskNum = taskNum + 1
         
         
