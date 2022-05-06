@@ -164,7 +164,7 @@ def runTree():
                     endTime = endTime + queue.get()
                     timeLeft = endTime - time.time() 
 
-                print((time.time() - startRun), timeTillNextLed)
+                print((pomoWorkTime - timeLeft), timeTillNextLed)
                 if state == "RUN" or (prevState == "RUN" and not state == "PAUSE"):
                     prevState = "RUN"
                     timeLeft = endTime - time.time() 
@@ -174,7 +174,8 @@ def runTree():
                     
 #                     if ((time.time() - startTime) > timeTillNextLed):
 
-                    if ((time.time() - startRun) > timeTillNextLed):
+#                     if ((time.time() - startRun) > timeTillNextLed):
+                    if (pomoWorkTime - timeLeft) > timeTillNextLed):
 #                     if (timeElapsed > timeTillNextLed):
                         timeTillNextLed = timeTillNextLed + prevTimeTillNextLed 
                         toggleNextLed(True,1)
@@ -184,7 +185,7 @@ def runTree():
                     prevState = "PAUSE"
 #                     timeLeft = endTime - startPause
                     endTime = time.time() + timeLeft
-                    startRun = time.time()
+#                     startRun = time.time()
 
                 x = time.gmtime(timeLeft)
                 displayTime = time.strftime("%H:%M:%S", x)
