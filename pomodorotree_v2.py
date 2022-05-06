@@ -190,6 +190,7 @@ def runTree():
                     
             
             if mode == "POMODORO_W" and not state == "WELCOME":
+                allOn()
                 mode = "POMODORO_B"
                 state = "PAUSE"
                 x = time.gmtime(pomoBreakTime)
