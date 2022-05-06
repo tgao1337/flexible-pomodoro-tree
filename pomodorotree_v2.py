@@ -173,6 +173,7 @@ def runTree():
                     # LED TIMING
                     
 #                     if ((time.time() - startTime) > timeTillNextLed):
+                    print((time.time() - startRun))
                     if ((time.time() - startRun) > timeTillNextLed):
 #                     if (timeElapsed > timeTillNextLed):
                         timeTillNextLed = timeTillNextLed + prevTimeTillNextLed 
