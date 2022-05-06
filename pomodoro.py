@@ -262,7 +262,7 @@ def displayLED():
   global ledList
   
   hex=hexList()
-  print("HEX", hex)
+#   print("HEX", hex)
   GPIO.output(RCLK, GPIO.LOW)
   spi.xfer(hex)
   time.sleep(0.05)
@@ -325,7 +325,7 @@ def findNextLed(turnOn):
     else:
       ind= NUM_LEDS - 1 - ledList[::-1].index(1)
   except ValueError as e:
-      print("NOT FOUND")
+#       print("NOT FOUND")
   return ind
               
 def getAvailable():
