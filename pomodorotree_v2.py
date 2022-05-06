@@ -171,9 +171,7 @@ def runTree():
                     startPause = time.time()
                     
                     # LED TIMING
-                    
 #                     if ((time.time() - startTime) > timeTillNextLed):
-
 #                     if ((time.time() - startRun) > timeTillNextLed):
                     if ((pomoWorkTime - timeLeft) > timeTillNextLed):
 #                     if (timeElapsed > timeTillNextLed):
@@ -243,7 +241,14 @@ def runTree():
             displayTime = time.strftime("%H:%M:%S", x)
             y = time.gmtime(timeLeft)
             prodTime = time.strftime("%H:%M:%S", y)
-            while time.time() <= endTime and mode == "BUDGET":
+            
+            while time.time() <= endTime and mode == "BUDGET" and not state == "WELCOME":
+
+                while not queue.empty():
+                    endTime = endTime + queue.get()
+                    timeLeft = endTime - time.time() 
+
+                
                 if state == "RUN" or (prevState == "RUN" and not state=="RUN" and not state == "PAUSE"):
                     endTime = time.time() + timeLeft
                     productivity_time = time.time()- startTime
