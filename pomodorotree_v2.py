@@ -581,7 +581,7 @@ def home_template():
 def task_template():
     if request.method == "POST":
         taskList.append(request.form['taskDescr'])
-    return render_template("task.html", taskList=pomodorotree_v2.taskList, taskDone=pomodorotree_v2.taskDone, task$
+    return render_template("task.html", taskList=taskList, taskDone=taskDone, taskNum=taskNum)
 
 if __name__ == "__main__":
     app.run(host='0.0.0.0', port=80, debug=True, threaded=True)
