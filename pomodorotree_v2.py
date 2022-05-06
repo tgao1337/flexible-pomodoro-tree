@@ -578,11 +578,11 @@ def task_template():
         mode = "TASK"
         state = "RUN"
     if request.method == "POST":
-            if taskDescr[taskDone] == "No Description":
-                task = request.form['taskDescr']
-            else:
-                taskDescr.append(request.form['taskDescr'])
-                taskNum = taskNum + 1
+        if taskDescr[taskDone] == "No Description":
+            task = request.form['taskDescr']
+        else:
+            taskDescr.append(request.form['taskDescr'])
+            taskNum = taskNum + 1
         
         
     return render_template("task.html", taskList=taskDescr, taskDone=taskDone, taskNum=taskNum)
