@@ -164,7 +164,7 @@ def runTree():
                     endTime = endTime + queue.get()
                     timeLeft = endTime - time.time() 
 
-                
+                print((time.time() - startRun))
                 if state == "RUN" or (prevState == "RUN" and not state == "PAUSE"):
                     prevState = "RUN"
                     timeLeft = endTime - time.time() 
@@ -173,7 +173,7 @@ def runTree():
                     # LED TIMING
                     
 #                     if ((time.time() - startTime) > timeTillNextLed):
-                    print((time.time() - startRun))
+
                     if ((time.time() - startRun) > timeTillNextLed):
 #                     if (timeElapsed > timeTillNextLed):
                         timeTillNextLed = timeTillNextLed + prevTimeTillNextLed 
@@ -184,7 +184,7 @@ def runTree():
                     prevState = "PAUSE"
 #                     timeLeft = endTime - startPause
                     endTime = time.time() + timeLeft
-#                     startRun = time.time()
+                    startRun = time.time()
 
                 x = time.gmtime(timeLeft)
                 displayTime = time.strftime("%H:%M:%S", x)
