@@ -245,9 +245,10 @@ def runTree():
             while time.time() <= endTime and mode == "BUDGET" and not state == "WELCOME":
                 
                 while not queueBudget.empty():
-                    print("END TIME UPDATED")
+
                     endTime = endTime + queueBudget.get()
                     timeLeft = endTime - time.time() 
+                    print("New time left:", timeLeft)
 
                 
                 if state == "RUN" or (prevState == "RUN" and not state=="RUN" and not state == "PAUSE"): 
