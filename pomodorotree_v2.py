@@ -575,10 +575,12 @@ def task_template():
     global state
     global taskNum
     global taskDescr
+    global quantityON
     if not mode == "TASK":
         print("Changing mode to TASK and state RUN")
         mode = "TASK"
         state = "RUN"
+        quantityON = getAvailable() // taskNum
         
     if request.method == "POST":
 
@@ -617,6 +619,7 @@ def task_pop():
         state = "WELCOME"
     else:
         taskDone = taskDone + 1
+        quantityON = getAvailable() // taskNum
         taskDescr.pop(0)
     remainingTasks = taskNum - taskDone
     
