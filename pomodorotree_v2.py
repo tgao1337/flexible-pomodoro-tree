@@ -556,7 +556,7 @@ t3.start()
 # ============================ FLASK ============================
 
 app = Flask(__name__, static_folder='assets')
-taskDescr = ["No Description"] * taskNum
+global taskDescr = ["No Description"] * taskNum
 
 @app.route("/")
 def home():
@@ -572,13 +572,13 @@ def task_template():
     global mode
     global state
     global taskNum
+    global taskDescr
     if not mode == "TASK":
         print("Changing mode to TASK and state RUN")
         mode = "TASK"
         state = "RUN"
     if request.method == "POST":
-        for task in taskDescr:
-            if task == "No Description":
+            if taskDescr[taskDone] == "No Description":
                 task = request.form['taskDescr']
             else:
                 taskDescr.append(request.form['taskDescr'])
