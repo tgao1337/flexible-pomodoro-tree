@@ -32,6 +32,7 @@ upBEvent = mp.Event()
 downBEvent = mp.Event()
 
 queuePom = Queue()
+queueBudget = Queue()
 
 buttonSetup()
 setupLED()
@@ -242,9 +243,9 @@ def runTree():
             prodTime = time.strftime("%H:%M:%S", y)
             
             while time.time() <= endTime and mode == "BUDGET" and not state == "WELCOME":
-
-                while not queuePom.empty():
-                    endTime = endTime + queuePom.get()
+                
+                while not queueBudget.empty():
+                    endTime = endTime + queueBudget.get()
                     timeLeft = endTime - time.time() 
 
                 
@@ -360,6 +361,7 @@ def watchEvents(): # THREAD
                 if mode == "BUDGET":
                     if budgetTime < 18000:
                         budgetTime += 600
+                        queueBudget.put(600)
 
                 writeSettings()
                   
@@ -397,6 +399,7 @@ def watchEvents(): # THREAD
                 if mode == "BUDGET":
                     if budgetTime > 600:
                         budgetTime -= 600
+                        queueBudget.put(-600)
                 writeSettings()
                 
             if state == "MODE_SETTINGS_2":
