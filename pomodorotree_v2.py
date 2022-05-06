@@ -577,12 +577,17 @@ def task_template():
     global taskDone
     global taskDescr
     global quantityON
-    if not mode == "TASK" or (taskDone == taskNum):
+    if not mode == "TASK":
         print("Changing mode to TASK and state RUN")
         mode = "TASK"
         state = "RUN"
         taskDone = 0
         quantityON = getAvailable() // taskNum
+    if (taskDone == taskNum):
+        taskDone = 0
+        taskDescr = [empty] * taskNum 
+        return redirect("/templates/index")
+        
         
     if request.method == "POST":
 
