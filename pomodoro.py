@@ -287,32 +287,32 @@ Arguements: bool on or off and amount of leds you want to toggle'''
 def toggleNextLed(turnOn,amount=1):
   global available_led
   global ledList
-  print("in toggle")
+#   print("in toggle")
   ledNum= findNextLed(turnOn)
-  print("Led found is ", ledNum)
+#   print("Led found is ", ledNum)
   if(ledNum != -1):
     if turnOn:
       if amount > available_led:
         for i in range(ledNum,NUM_LEDS):
           ledList[i]=1
         available_led =0
-        print("O N: amnt ",amount, " available ", available_led)
+#         print("O N: amnt ",amount, " available ", available_led)
       else:
         for i in range(ledNum,ledNum+amount):
           ledList[i] =1
         available_led -= amount
-        print("ON: amnt ",amount, " available ", available_led)
+#         print("ON: amnt ",amount, " available ", available_led)
     else:
       if amount > (NUM_LEDS-available_led):
         for i in range(ledNum,-1,-1):
           ledList[i]=0
         available_led =NUM_LEDS
-        print("O FF: amnt ",amount, " available ", available_led)
+#         print("O FF: amnt ",amount, " available ", available_led)
       else:
         for i in range(ledNum,ledNum-amount,-1):
           ledList[i] =0
         available_led += amount
-        print("OFF: amnt ",amount, " available ", available_led)
+#         print("OFF: amnt ",amount, " available ", available_led)
 
     displayLED()
 
