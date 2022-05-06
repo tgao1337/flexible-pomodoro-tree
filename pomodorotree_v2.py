@@ -185,7 +185,6 @@ def runTree():
                     endTime = time.time() + timeLeft
 #                     startRun = time.time()
 
-                print("Time left: ", timeLeft)
                 x = time.gmtime(timeLeft)
                 displayTime = time.strftime("%H:%M:%S", x)
                     
@@ -208,20 +207,19 @@ def runTree():
                 
                 while not queue.empty():
                     endTime = endTime + queue.get()
+                    timeLeft = endTime - time.time() 
+
                 
                 if state == "RUN" or (prevState == "RUN" and not state == "PAUSE"):
                     prevState = "RUN"
-                    timeRemaining = endTime - time.time() 
+                    timeLeft = endTime - time.time() 
                     startPause = time.time()
-                    print("IN RUN", endTime, timeRemaining)
                     
                 if state == "PAUSE" or (prevState == "PAUSE" and not state == "RUN"): 
-                    print("IN PAUSE")
                     prevState = "PAUSE"
-                    timeRemaining = endTime - startPause
+                    endTime = time.time() + timeLeft
 
-                
-                x = time.gmtime(timeRemaining)
+                x = time.gmtime(timeLeft)
                 displayTime = time.strftime("%H:%M:%S", x)
                 
             if mode == "POMODORO_B"  and not state == "WELCOME":
