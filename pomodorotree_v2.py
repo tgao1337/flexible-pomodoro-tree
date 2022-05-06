@@ -569,8 +569,14 @@ def home_template():
 
 @app.route("/templates/task", methods=['POST', 'GET'])
 def task_template():
+    if not mode == "TASK":
+        mode = "TASK"
     if request.method == "POST":
         taskDescr.append(request.form['taskDescr'])
+        
+    for i in range(taskDone):
+        taskDescr.pop(0)
+        
     return render_template("task.html", taskList=taskDescr, taskDone=taskDone, taskNum=taskNum)
 
 if __name__ == "__main__":
