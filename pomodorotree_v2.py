@@ -556,7 +556,8 @@ t3.start()
 # ============================ FLASK ============================
 
 app = Flask(__name__, static_folder='assets')
-global taskDescr = ["No Description"] * taskNum
+global taskDescr
+taskDescr = ["No Description"] * taskNum
 
 @app.route("/")
 def home():
