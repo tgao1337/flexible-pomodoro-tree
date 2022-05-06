@@ -109,7 +109,6 @@ def runTree():
             displayTime = time.strftime("%H:%M:%S", x)
        
         if state == "MODE_SETTINGS" and (mode == "POMODORO_W" or mode == "POMODORO_B"):
-            print("Hello i am in here")
             startTime = time.time()
             endTime = startTime + pomoWorkTime
             timeLeft = pomoWorkTime
@@ -178,7 +177,7 @@ def runTree():
 #                     if (timeElapsed > timeTillNextLed):
                         timeTillNextLed = timeTillNextLed + prevTimeTillNextLed 
                         toggleNextLed(True,1)
-                        print("LED TURNED ON")
+#                         print("LED TURNED ON")
                     
                 if state == "PAUSE" or (prevState == "PAUSE" and not state == "RUN"): 
                     prevState = "PAUSE"
@@ -270,7 +269,6 @@ def watchEvents(): # THREAD
 
     while True:
         if resetBEvent.is_set():
-            print("DAY BUTTON PRESSED")
             if state == "WELCOME":
                 readSettings() # Read user settings
                 clearAll() # Reset LEDs
@@ -281,7 +279,6 @@ def watchEvents(): # THREAD
                 timeTillNextLed = pomoWorkTime // NUM_LEDS # # Calculate the number of LEDs to be on every timeTillNextLed seconds
 
             else:
-                print("CHANGING STATE TO WELCOME")
                 state = "WELCOME"
                 writeSettings() # Store current user settings to file
 
@@ -402,7 +399,6 @@ def watchEvents(): # THREAD
                         queue.put(-300)
                 writeSettings()
             downBEvent.clear()
-        print(state)
         time.sleep(0.01)
         
 # ============================ UPDATE DISPLAY BASED ON CURRENT STATE AND MODE ============================
