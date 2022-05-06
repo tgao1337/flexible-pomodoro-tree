@@ -561,4 +561,31 @@ p3.join()
 p4.join()
 p5.join()
 
+# ============================ FLASK ============================
+
+
+
+app = Flask(__name__, static_folder='assets')
+taskList = []
+
+@app.route("/")
+def home():
+    return redirect("/templates/index")
+
+@app.route("/templates/index")
+def home_template():
+    return render_template("index.html")
+
+
+@app.route("/templates/task", methods=['POST', 'GET'])
+def task_template():
+    if request.method == "POST":
+        taskList.append(request.form['taskDescr'])
+    return render_template("task.html", taskList=pomodorotree_v2.taskList, taskDone=pomodorotree_v2.taskDone, task$
+
+if __name__ == "__main__":
+    app.run(host='0.0.0.0', port=80, debug=True, threaded=True)
+
+
+
 
