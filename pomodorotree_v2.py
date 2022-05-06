@@ -31,7 +31,7 @@ settingsBEvent = mp.Event()
 upBEvent = mp.Event()
 downBEvent = mp.Event()
 
-queue = Queue()
+queuePom = Queue()
 
 buttonSetup()
 setupLED()
@@ -160,8 +160,8 @@ def runTree():
             startRun = time.time()
 
             while time.time() <= endTime and mode == "POMODORO_W" and not state == "WELCOME":
-                while not queue.empty():
-                    endTime = endTime + queue.get()
+                while not queuePom.empty():
+                    endTime = endTime + queuePom.get()
                     timeLeft = endTime - time.time() 
 
                 print((pomoWorkTime - timeLeft), timeTillNextLed)
@@ -206,8 +206,8 @@ def runTree():
             
             while time.time() <= endTime and mode == "POMODORO_B" and not state == "WELCOME":
                 
-                while not queue.empty():
-                    endTime = endTime + queue.get()
+                while not queuePom.empty():
+                    endTime = endTime + queuePom.get()
 #                     timeLeft = endTime - time.time() 
                 
                 if state == "RUN" or (prevState == "RUN" and not state == "PAUSE"):
@@ -243,8 +243,8 @@ def runTree():
             
             while time.time() <= endTime and mode == "BUDGET" and not state == "WELCOME":
 
-                while not queue.empty():
-                    endTime = endTime + queue.get()
+                while not queuePom.empty():
+                    endTime = endTime + queuePom.get()
                     timeLeft = endTime - time.time() 
 
                 
@@ -347,7 +347,7 @@ def watchEvents(): # THREAD
                 if mode == "POMODORO_W" or mode == "POMODORO_B":
                     if pomoWorkTime < 7200:
                         pomoWorkTime += 300
-                        queue.put(300)
+                        queuePom.put(300)
                    
                         timeTillNextLed = pomoWorkTime // getAvailable() # Calculate new LED time
 #                         print("----->", timeTillNextLed, pomoWorkTime, getAvailable())
@@ -367,7 +367,7 @@ def watchEvents(): # THREAD
                 if mode == "POMODORO_W" or mode == "POMODORO_B":
                     if pomoBreakTime < 3600:
                         pomoBreakTime += 300
-                        queue.put(300)
+                        queuePom.put(300)
                 writeSettings()
             upBEvent.clear()
            
@@ -384,7 +384,7 @@ def watchEvents(): # THREAD
                 if mode == "POMODORO_W" or mode == "POMODORO_B":
                     if pomoWorkTime >= 600:
                         pomoWorkTime -= 300
-                        queue.put(-300)
+                        queuePom.put(-300)
                         timeTillNextLed = pomoWorkTime // getAvailable()
 #                         print("----->", timeTillNextLed, pomoWorkTime, getAvailable())
                   
@@ -403,7 +403,7 @@ def watchEvents(): # THREAD
                 if mode == "POMODORO_W" or mode == "POMODORO_B":
                     if pomoBreakTime > 300:
                         pomoBreakTime -= 300
-                        queue.put(-300)
+                        queuePom.put(-300)
                 writeSettings()
             downBEvent.clear()
         time.sleep(0.01)
