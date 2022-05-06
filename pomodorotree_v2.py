@@ -613,6 +613,7 @@ def task_pop():
     global taskDescr
     
     if (taskDone >= taskNum):
+        print("Changing state to welcome")
         state = "WELCOME"
     else:
         taskDone = taskDone + 1
@@ -620,9 +621,11 @@ def task_pop():
     remainingTasks = taskNum - taskDone
     
     if remainingTasks == 0:
+        
         allOn()
     else:
         if taskDone >=1:
+            print("Turning on", quantityON, "LEDS")
             toggleNextLed(True, quantityON)
     
    
