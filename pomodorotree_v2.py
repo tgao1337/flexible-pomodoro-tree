@@ -247,7 +247,7 @@ def runTree():
                 while not queueBudget.empty():
 
                     endTime = endTime + queueBudget.get()
-                    timeLeft = endTime - time.time() 
+                    timeLeft = round(endTime - time.time())
                     print("New time left:", timeLeft)
 
                 
