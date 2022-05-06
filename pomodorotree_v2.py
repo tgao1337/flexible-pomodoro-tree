@@ -175,7 +175,7 @@ def runTree():
 #                     if ((time.time() - startTime) > timeTillNextLed):
 
 #                     if ((time.time() - startRun) > timeTillNextLed):
-                    if (pomoWorkTime - timeLeft) > timeTillNextLed):
+                    if ((pomoWorkTime - timeLeft) > timeTillNextLed):
 #                     if (timeElapsed > timeTillNextLed):
                         timeTillNextLed = timeTillNextLed + prevTimeTillNextLed 
                         toggleNextLed(True,1)
