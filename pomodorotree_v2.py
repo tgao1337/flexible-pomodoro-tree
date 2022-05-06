@@ -554,6 +554,12 @@ t3 = Thread(target = runTree)
 t3.start()
 
 # ============================ FLASK ============================
+def convertTime(value):  # given a number of seconds, returns string in HH:MM:SS format
+    hours = value // 3600
+    minutes = (value % 3600) // 60
+    seconds = value % 60
+    time = str(hours).rjust(2,'0') + ':' + str(minutes).rjust(2,'0') + ':' + str(seconds).rjust(2,'0')
+    return time
 
 app = Flask(__name__, static_folder='assets')
 global taskDescr, empty
@@ -571,14 +577,14 @@ def home_template():
     val2 = 0
     if mode == "POMODORO_W" or mode == "POMODORO_B":
         displayMode = "Pomodoro"
-        val = pomoWorkTime
-        val2 = pomoBreakTime
+        val = convertTime(pomoWorkTime)
+        val2 = convertTime(pomoBreakTime)
     elif mode == "TASK":
         displayMode = "Task"
         val = taskNum
     elif mode == "BUDGET":
         displayMode = "Budget"
-        val = budgetTime
+        val = convertTime(budgetTime)
     return render_template("index.html", displayCurrentMode=displayMode,displayVal=val, displayVal2=val2)
 
 
