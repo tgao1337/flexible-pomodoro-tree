@@ -164,7 +164,7 @@ def runTree():
                     endTime = endTime + queue.get()
                     timeLeft = endTime - time.time() 
 
-                print((time.time() - startRun))
+                print((time.time() - startRun), timeTillNextLed)
                 if state == "RUN" or (prevState == "RUN" and not state == "PAUSE"):
                     prevState = "RUN"
                     timeLeft = endTime - time.time() 
