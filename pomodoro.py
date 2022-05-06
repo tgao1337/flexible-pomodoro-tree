@@ -325,7 +325,7 @@ def findNextLed(turnOn):
     else:
       ind= NUM_LEDS - 1 - ledList[::-1].index(1)
   except ValueError as e:
-#       print("NOT FOUND")
+      print("NOT FOUND")
   return ind
               
 def getAvailable():
