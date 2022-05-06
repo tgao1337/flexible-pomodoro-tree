@@ -556,8 +556,9 @@ t3.start()
 # ============================ FLASK ============================
 
 app = Flask(__name__, static_folder='assets')
-global taskDescr
-taskDescr = ["No Description"] * taskNum
+global taskDescr, empty
+empty = "No Description"
+taskDescr = [empty] * taskNum
 
 @app.route("/")
 def home():
@@ -580,9 +581,11 @@ def task_template():
         state = "RUN"
         
     if request.method == "POST":
-        if taskDescr[taskDone] == "No Description":
+
+        if empty in taskDescr:
+            result = taskDescr.index(empty)
             print("No description provided. Adding description to current task!")
-            taskDescr[taskDone] = request.form['taskDescr']
+            taskDescr[result] = request.form['taskDescr']
         else:
             taskDescr.append(request.form['taskDescr'])
             taskNum = taskNum + 1
