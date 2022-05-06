@@ -572,6 +572,7 @@ def task_template():
     global mode
     global state
     if not mode == "TASK":
+        print("Changing mode to TASK and state RUN")
         mode = "TASK"
         state = "RUN"
     if request.method == "POST":
