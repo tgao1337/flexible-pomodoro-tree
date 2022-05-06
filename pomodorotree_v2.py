@@ -249,7 +249,8 @@ def runTree():
                     timeLeft = endTime - time.time() 
 
                 
-                if state == "RUN" or (prevState == "RUN" and not state=="RUN" and not state == "PAUSE"):
+                if state == "RUN" or (prevState == "RUN" and not state=="RUN" and not state == "PAUSE"): 
+                    print("PRODUCTIVE MODE")
                     endTime = time.time() + timeLeft
                     productivity_time = time.time() - startTime
                     y = time.gmtime(productivity_time)
@@ -260,6 +261,7 @@ def runTree():
                     prevState = "RUN"
                     
                 if state == "PAUSE" or (prevState == "PAUSE" and not state=="RUN" and not state == "PAUSE"):
+                    print("BREAK MODE")
                     timeLeft = endTime - time.time()
                     
                     startTime = time.time() - productivity_time
