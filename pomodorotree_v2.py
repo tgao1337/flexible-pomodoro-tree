@@ -172,19 +172,13 @@ def runTree():
                     startPause = time.time()
                     
                     # LED TIMING
-#                     if ((time.time() - startTime) > timeTillNextLed):
-#                     if ((time.time() - startRun) > timeTillNextLed):
                     if ((pomoWorkTime - timeLeft) > timeTillNextLed):
-#                     if (timeElapsed > timeTillNextLed):
                         timeTillNextLed = timeTillNextLed + prevTimeTillNextLed 
                         toggleNextLed(True,1)
-#                         print("LED TURNED ON")
                     
                 if state == "PAUSE" or (prevState == "PAUSE" and not state == "RUN"): 
                     prevState = "PAUSE"
-#                     timeLeft = endTime - startPause
                     endTime = time.time() + timeLeft
-#                     startRun = time.time()
 
                 x = time.gmtime(timeLeft)
                 displayTime = time.strftime("%H:%M:%S", x)
@@ -209,7 +203,6 @@ def runTree():
                 
                 while not queuePom.empty():
                     endTime = endTime + queuePom.get()
-#                     timeLeft = endTime - time.time() 
                 
                 if state == "RUN" or (prevState == "RUN" and not state == "PAUSE"):
                     prevState = "RUN"
