@@ -570,8 +570,10 @@ def home_template():
 @app.route("/templates/task", methods=['POST', 'GET'])
 def task_template():
     global mode
+    global state
     if not mode == "TASK":
         mode = "TASK"
+        state = "RUN"
     if request.method == "POST":
         taskDescr.append(request.form['taskDescr'])
         
