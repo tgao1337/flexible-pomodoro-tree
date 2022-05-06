@@ -4,7 +4,7 @@ from multiprocessing import Process
 import multiprocessing as mp
 from queue import Queue
 
-tree = Image.open("tree.png").convert("1")
+tree = Image.open("tree.png").resize((32,32)).convert("1")
 
 global mode, state, pomoWorkTime, pomoBreakTime, taskNum, taskDone, budgetTime
 global displayTime, prodTime, quantityON, timeTillNextLed
