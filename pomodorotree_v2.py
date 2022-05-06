@@ -266,9 +266,9 @@ def runTree():
                     
                     startTime = time.time() - productivity_time
                     
-                    x = time.gmtime(timeLeft)
+
                     prevState = "PAUSE"
-                    
+                x = time.gmtime(timeLeft)
                 prodTime = time.strftime("%H:%M:%S", y)  # productivity time to display on OLED
                 displayTime = time.strftime("%H:%M:%S", x)   # if budget mode done then go to pomodoro, shows budget time, this will fix if displayTime = pomodorotime in start of pomodoro loop
                   
