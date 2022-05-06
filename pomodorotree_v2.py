@@ -576,10 +576,11 @@ def task_template():
     global taskNum
     global taskDescr
     global quantityON
-    if not mode == "TASK":
+    if not mode == "TASK" or (taskDone == taskNum):
         print("Changing mode to TASK and state RUN")
         mode = "TASK"
         state = "RUN"
+        taskDone = 0
         quantityON = getAvailable() // taskNum
         
     if request.method == "POST":
