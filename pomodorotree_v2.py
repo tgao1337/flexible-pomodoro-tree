@@ -152,6 +152,7 @@ def runTree():
         # ============================== RUN/PAUSE POMODORO, BUDGET ==========================================
         
         if state == "RUN" and mode == "POMODORO_W":
+            clearAll() # Reset LEDs
             prevState = "RUN"
             endTime = time.time() + pomoWorkTime
             timeLeft = pomoWorkTime
