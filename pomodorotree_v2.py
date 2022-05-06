@@ -344,6 +344,7 @@ def watchEvents(): # THREAD
                     mode = "POMODORO_W"
                 elif mode == "BUDGET":
                     mode = "TASK"
+                    taskDone = 0
 
             # Changing settings       
             if state == "MODE_SETTINGS":
@@ -380,6 +381,7 @@ def watchEvents(): # THREAD
             if state == "MODE_SELECT":
                 if mode == "POMODORO_W" or mode == "POMODORO_B":
                     mode = "TASK"
+                    taskDone = 0
                 elif mode == "TASK":
                     mode = "BUDGET"
                     
@@ -552,8 +554,6 @@ t3 = Thread(target = runTree)
 t3.start()
 
 # ============================ FLASK ============================
-
-
 
 app = Flask(__name__, static_folder='assets')
 taskList = []
