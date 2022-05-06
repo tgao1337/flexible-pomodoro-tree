@@ -4,6 +4,8 @@ from multiprocessing import Process
 import multiprocessing as mp
 from queue import Queue
 
+tree = Image.open("tree.png").convert("1")
+
 global mode, state, pomoWorkTime, pomoBreakTime, taskNum, taskDone, budgetTime
 global displayTime, prodTime, quantityON, timeTillNextLed
 global prevState
@@ -416,6 +418,7 @@ def updateDisplay():
             with canvas(device) as draw:
                 draw.line((0, 45, 127 ,45), fill="white")
                 draw.text((40, 43), "Welcome", font=fontSmall, fill="white")
+                draw.bitmap(32,0), tree, fill="white")
           
         if state == "OVERVIEW":
             with canvas(device) as draw:
