@@ -581,11 +581,12 @@ def task_template():
         print("Changing mode to TASK and state RUN")
         mode = "TASK"
         state = "RUN"
-        taskDone = 0
+        clearAll()
         quantityON = getAvailable() // taskNum
     if (taskDone == taskNum):
         taskDone = 0
         taskDescr = [empty] * taskNum 
+        state = "WELCOME"
         return redirect("/templates/index")
         
         
