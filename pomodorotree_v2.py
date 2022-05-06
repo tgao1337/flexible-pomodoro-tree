@@ -556,7 +556,7 @@ t3.start()
 # ============================ FLASK ============================
 
 app = Flask(__name__, static_folder='assets')
-taskList = []
+taskDescr = []
 
 @app.route("/")
 def home():
@@ -570,8 +570,8 @@ def home_template():
 @app.route("/templates/task", methods=['POST', 'GET'])
 def task_template():
     if request.method == "POST":
-        taskList.append(request.form['taskDescr'])
-    return render_template("task.html", taskList=taskList, taskDone=taskDone, taskNum=taskNum)
+        taskDescr.append(request.form['taskDescr'])
+    return render_template("task.html", taskList=taskDescr, taskDone=taskDone, taskNum=taskNum)
 
 if __name__ == "__main__":
     app.run(host='0.0.0.0', port=80, debug=False, threaded=True)
