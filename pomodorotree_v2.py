@@ -208,8 +208,7 @@ def runTree():
                 
                 while not queue.empty():
                     endTime = endTime + queue.get()
-                    timeLeft = endTime - time.time() 
-
+#                     timeLeft = endTime - time.time() 
                 
                 if state == "RUN" or (prevState == "RUN" and not state == "PAUSE"):
                     prevState = "RUN"
@@ -361,6 +360,7 @@ def watchEvents(): # THREAD
                 if mode == "BUDGET":
                     if budgetTime < 18000:
                         budgetTime += 600
+
                 writeSettings()
                   
             if state == "MODE_SETTINGS_2":
