@@ -566,7 +566,8 @@ def home():
 
 @app.route("/templates/index")
 def home_template():
-    return render_template("index.html")
+    global mode
+    return render_template("index.html", displayCurrentMode=mode)
 
 
 @app.route("/templates/task", methods=['POST', 'GET'])
