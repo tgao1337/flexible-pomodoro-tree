@@ -170,7 +170,7 @@ def runTree():
                     endTime = endTime + queuePom.get()
                     timeLeft = endTime - time.time() 
 
-                print((pomoWorkTime - timeLeft), timeTillNextLed)
+#                 print((pomoWorkTime - timeLeft), timeTillNextLed)
                 if state == "RUN" or (prevState == "RUN" and not state == "PAUSE"):
                     prevState = "RUN"
                     timeLeft = endTime - time.time() 
