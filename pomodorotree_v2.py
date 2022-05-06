@@ -577,9 +577,11 @@ def task_template():
         print("Changing mode to TASK and state RUN")
         mode = "TASK"
         state = "RUN"
+        
     if request.method == "POST":
         if taskDescr[taskDone] == "No Description":
-            task = request.form['taskDescr']
+            print("No description provided. Adding description to current task!")
+            taskDescr[taskDone] = request.form['taskDescr']
         else:
             taskDescr.append(request.form['taskDescr'])
             taskNum = taskNum + 1
