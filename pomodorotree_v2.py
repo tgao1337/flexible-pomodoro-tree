@@ -589,7 +589,7 @@ def task_template():
             if False in whitespace:
                 taskDescr[result] = newDescr
             else:
-                taskDescr.append(empty)
+                taskDescr[result] = empty
             
 
         
