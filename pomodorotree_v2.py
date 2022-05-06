@@ -581,7 +581,7 @@ def home_template():
 def task_template():
     if request.method == "POST":
         taskDesc.append(request.form['taskDescr'])
-return render_template("task.html", taskList=taskDesc, taskDone=taskDone, taskNum=taskNum)
+    return render_template("task.html", taskList=taskDesc, taskDone=taskDone, taskNum=taskNum)
 
 if __name__ == "__main__":
     app.run(host='0.0.0.0', port=80, debug=True, threaded=True)
