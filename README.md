@@ -8,6 +8,10 @@
 
 * Tommy Gao (tg1759@nyu.edu)
 
+![20220504_161000](https://user-images.githubusercontent.com/12534586/167075178-8a8a6e3d-c0ac-4ab7-9d44-adc641548c58.jpg)
+![67340912056__6E616274-5E5B-47D8-BBE3-11464CD60560](https://user-images.githubusercontent.com/12534586/167075188-3ff7740c-901c-42d5-83a8-6f66b76af45f.jpg)
+
+
 ## Description
 
 A tree shaped device for flexible studying habits. 
