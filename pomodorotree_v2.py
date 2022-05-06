@@ -578,8 +578,8 @@ def task_template():
     if request.method == "POST":
         taskDescr.append(request.form['taskDescr'])
         
-    for i in range(taskDone):
-        taskDescr.pop(0)
+#     for i in range(taskDone):
+#         taskDescr.pop(0)
         
     return render_template("task.html", taskList=taskDescr, taskDone=taskDone, taskNum=taskNum)
 
@@ -587,11 +587,13 @@ def task_template():
 def task_pop():
     global taskDone
     global state
+    global taskDescr
     
     if (taskDone >= taskNum):
         state = "WELCOME"
     else:
         taskDone = taskDone + 1
+        taskDescr.pop(0)
     remainingTasks = taskNum - taskDone
     
     if remainingTasks == 0:
