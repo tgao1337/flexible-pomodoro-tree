@@ -425,7 +425,7 @@ def updateDisplay():
                 draw.bitmap((50,0), tree, fill="white")
                 draw.bitmap((80,0), tree, fill="white")
           
-        if state == "OVERVIEW":
+        elif state == "OVERVIEW":
             with canvas(device) as draw:
                 draw.line((0, 45, 127 ,45), fill="white")
                 draw.text((38, 43), "OVERVIEW", font=fontSmall, fill="white")
@@ -447,7 +447,7 @@ def updateDisplay():
                     draw.text((21,0), "Mode: Budget", font=fontSmall, fill="white")
                     draw.text((0,20), "Budget Time: "+displayBudTime, font=fontSmall, fill="white")
                  
-        if state == "RUN":
+        elif state == "RUN":
             with canvas(device) as draw:
                 draw.line((0, 45, 127 ,45), fill="white")
                   
@@ -469,7 +469,7 @@ def updateDisplay():
 
                   
                   
-        if state == "PAUSE":
+        elif state == "PAUSE":
             with canvas(device) as draw:
                 draw.line((0, 45, 127 ,45), fill="white")
                   
@@ -489,7 +489,7 @@ def updateDisplay():
                     draw.text((17, 10), displayTime, font=fontBig, fill="white")  # change position to display
                     draw.text((12,45), "B | Budget | Break", font=fontSmall, fill="white")  # TODO add productivity time
                   
-        if state == "MODE_SELECT":
+        elif state == "MODE_SELECT":
             
             with canvas(device) as draw:
                 draw.line((0, 45, 127 ,45), fill="white")
@@ -505,7 +505,7 @@ def updateDisplay():
                 if mode == "BUDGET":
                     draw.text((20,24), ">", font=fontSmall, fill="white")
          
-        if state == "MODE_SETTINGS":
+        elif state == "MODE_SETTINGS":
             with canvas(device) as draw:
                 draw.line((0, 45, 127 ,45), fill="white")
                 if mode == "POMODORO_W" or mode == "POMODORO_B":
@@ -524,7 +524,7 @@ def updateDisplay():
                     draw.text((23, 0), "Set Break Time:", font=fontSmall, fill="white")
                     draw.text((17, 10), displayTime, font=fontBig, fill="white") # TODO Budget break timing
                 
-        if state == "MODE_SETTINGS_2":
+        elif state == "MODE_SETTINGS_2":
             with canvas(device) as draw:
                 draw.line((0, 45, 127 ,45), fill="white")
                 if mode == "POMODORO_W" or mode == "POMODORO_B":
@@ -574,7 +574,7 @@ def task_template():
     return render_template("task.html", taskList=taskList, taskDone=taskDone, taskNum=taskNum)
 
 if __name__ == "__main__":
-    app.run(host='0.0.0.0', port=80, debug=True, threaded=True)
+    app.run(host='0.0.0.0', port=80, debug=False, threaded=True)
 
 
 
