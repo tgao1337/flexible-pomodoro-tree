@@ -567,7 +567,19 @@ def home():
 @app.route("/templates/index")
 def home_template():
     global mode
-    return render_template("index.html", displayCurrentMode=mode)
+    val = 0
+    val2 = 0
+    if mode == "POMODORO_W" or mode == "POMODORO_B":
+        displayMode = "Pomodoro"
+        val = pomoWorkTime
+        val2 = pomoBreakTime
+    elif mode == "TASK":
+        displayMode = "Task"
+        val = taskNum
+    elif mode == "BUDGET":
+        displayMode = "Budget"
+        val = budgetTime
+    return render_template("index.html", displayCurrentMode=displayMode,displayVal=val, displayVal2=val2)
 
 
 @app.route("/templates/task", methods=['POST', 'GET'])
