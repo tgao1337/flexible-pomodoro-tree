@@ -583,6 +583,26 @@ def task_template():
         
     return render_template("task.html", taskList=taskDescr, taskDone=taskDone, taskNum=taskNum)
 
+@app.route("/task/pop")
+def task_pop():
+    global taskDone
+    global state
+    
+    if (taskDone >= taskNum):
+        state = "WELCOME"
+    else:
+        taskDone = taskDone + 1
+    remainingTasks = taskNum - taskDone
+    
+    if remainingTasks == 0:
+        allOn()
+    else:
+        if taskDone >=1:
+            toggleNextLed(True, quantityON)
+    
+   
+    return redirect("/templates/task")
+
 if __name__ == "__main__":
     app.run(host='0.0.0.0', port=80, debug=False, threaded=True)
 
