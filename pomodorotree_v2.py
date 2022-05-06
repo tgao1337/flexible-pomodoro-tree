@@ -574,6 +574,7 @@ def task_template():
     global mode
     global state
     global taskNum
+    global taskDone
     global taskDescr
     global quantityON
     if not mode == "TASK" or (taskDone == taskNum):
@@ -652,7 +653,3 @@ p2.join()
 p3.join()
 p4.join()
 p5.join()
-
-
-
-
