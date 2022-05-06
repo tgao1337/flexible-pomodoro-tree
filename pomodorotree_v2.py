@@ -588,10 +588,16 @@ def task_template():
             taskDescr[result] = request.form['taskDescr']
         else:
             newDescr = request.form['taskDescr']
-            if newDescr == ""
-                taskDescr.append(empty)
-            else:
+            whitespace = [not char or char.isspace() for char in newDescr]
+            if False in whitespace:
                 taskDescr.append(newDescr)
+            else:
+                taskDescr.append(empty)
+            
+#             if newDescr == "":
+#                 taskDescr.append(empty)
+#             else:
+#                 taskDescr.append(newDescr)
             taskNum = taskNum + 1
         
         
