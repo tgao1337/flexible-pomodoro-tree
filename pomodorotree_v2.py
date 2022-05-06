@@ -308,7 +308,7 @@ def watchEvents(): # THREAD
                 
             if mode == "TASK":
                 if (taskDone >= taskNum):
-                    state = "OVERVIEW"
+                    state = "WELCOME"
 #                     buzzUp3()
                 else:
                     taskDone = taskDone + 1
