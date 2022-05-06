@@ -569,6 +569,7 @@ def home_template():
 
 @app.route("/templates/task", methods=['POST', 'GET'])
 def task_template():
+    global mode
     if not mode == "TASK":
         mode = "TASK"
     if request.method == "POST":
