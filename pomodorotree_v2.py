@@ -551,16 +551,6 @@ t2.start()
 t3 = Thread(target = runTree)
 t3.start()
 
-t1.join()
-t2.join()
-t3.join()
-
-p1.join()
-p2.join()
-p3.join()
-p4.join()
-p5.join()
-
 # ============================ FLASK ============================
 
 
@@ -585,6 +575,21 @@ def task_template():
 
 if __name__ == "__main__":
     app.run(host='0.0.0.0', port=80, debug=True, threaded=True)
+
+
+
+# ========================================================
+
+
+t1.join()
+t2.join()
+t3.join()
+
+p1.join()
+p2.join()
+p3.join()
+p4.join()
+p5.join()
 
 
 
