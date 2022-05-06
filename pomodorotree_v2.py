@@ -584,20 +584,23 @@ def task_template():
 
         if empty in taskDescr:
             result = taskDescr.index(empty)
-            print("No description provided. Adding description to current task!")
-            taskDescr[result] = request.form['taskDescr']
-        else:
             newDescr = request.form['taskDescr']
-            whitespace = [not char or char.isspace() for char in newDescr]
+            whitespace = [not char or char.isspace() for char in newDescr] # Checking if nothing input then append empty string message
+            if False in whitespace:
+                taskDescr[result] = newDescr
+            else:
+                taskDescr.append(empty)
+            
+
+        
+        else:    
+            newDescr = request.form['taskDescr']
+            whitespace = [not char or char.isspace() for char in newDescr] # Checking if nothing input then append empty string message
             if False in whitespace:
                 taskDescr.append(newDescr)
             else:
                 taskDescr.append(empty)
             
-#             if newDescr == "":
-#                 taskDescr.append(empty)
-#             else:
-#                 taskDescr.append(newDescr)
             taskNum = taskNum + 1
         
         
