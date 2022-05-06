@@ -418,7 +418,7 @@ def updateDisplay():
             with canvas(device) as draw:
                 draw.line((0, 45, 127 ,45), fill="white")
                 draw.text((40, 43), "Welcome", font=fontSmall, fill="white")
-                draw.bitmap(32,0), tree, fill="white")
+                draw.bitmap((32,0), tree, fill="white")
           
         if state == "OVERVIEW":
             with canvas(device) as draw:
