@@ -736,8 +736,7 @@ def budget_template():
         clearAll()
         timeTillNextLed = budgetTime // getAvailable()
         
-
-    return render_template("pomodoro.html", displayCurrentMode=mode, displayVal=displayTime, displayPWorkTime=pomoWorkTime, displayPBreakTime=pomoBreakTime)
+    return render_template("budget.html", currentBudgetTime=displayTime, currentProdTime=prodTime)
 
 
 
