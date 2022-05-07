@@ -601,6 +601,11 @@ def pomodoro_template():
         state = "RUN"
         clearAll()
         timeTillNextLed = pomoWorkTime // getAvailable()
+        
+        
+    if request.method == "POST":
+        pomoWorkTime = request.form['pBreakTime']
+        pomoBreakTime = request.form['pBreakTime']
 
     return render_template("pomodoro.html", displayCurrentMode=mode, displayVal=displayTime)
 
@@ -609,12 +614,28 @@ def pomodoro_template():
 @app.route("/pomodoro/<int:action>")
 def pomodoro_action(action):
     global state
+    global pomoWorkTime
+    global pomoBreakTime
+    global queuePom
     if action == 1:
         state = "RUN"
         print("state set to RUN")
     elif action == 0:
         state = "PAUSE"
         print("state set to PAUSE")
+    
+    elif action == 2:
+        pomoWorkTime += 300
+        queuePom.put(300)
+    elif action == 3:
+        pomoWorkTime -= 300
+        queuePom.put(-300)
+    elif action == 4:
+        pomoBreakTime += 300
+        queuePom.put(300)
+    elif action == 5:
+        pomoBreakTime -= 300
+        queuePom.put(-300)
     return redirect("/templates/pomodoro")
 
 
