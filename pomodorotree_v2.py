@@ -562,6 +562,7 @@ def convertTime(value):  # given a number of seconds, returns string in HH:MM:SS
     return time
 
 app = Flask(__name__, static_folder='assets')
+readSettings()
 global taskDescr, empty
 empty = "No Description"
 taskDescr = [empty] * taskNum
