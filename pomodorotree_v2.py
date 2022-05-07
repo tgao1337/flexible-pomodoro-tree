@@ -736,7 +736,7 @@ def budget_template():
         clearAll()
         timeTillNextLed = budgetTime // getAvailable()
         
-    return render_template("budget.html", currentBudgetTime=displayTime, currentProdTime=prodTime)
+    return render_template("budget.html", currentBudgetTime=displayTime, currentProdTime=prodTime, displayBudgetTime=convertTime(budgetTime))
 
 
 
