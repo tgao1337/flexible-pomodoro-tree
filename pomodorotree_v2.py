@@ -718,6 +718,60 @@ def task_pop():
    
     return redirect("/templates/task")
 
+
+
+@app.route("/templates/budget")
+def budget_template():
+    global mode
+    global state
+    global displayTime
+    global timeTillNextLed
+    global budgetTime
+    global prodTime
+    
+    if not mode == "BUDGET":
+        print("Changing mode to BUDGET")
+        mode = "BUDGET"
+        state = "RUN"
+        clearAll()
+        timeTillNextLed = budgetTime // getAvailable()
+        
+
+    return render_template("pomodoro.html", displayCurrentMode=mode, displayVal=displayTime, displayPWorkTime=pomoWorkTime, displayPBreakTime=pomoBreakTime)
+
+
+
+@app.route("/budget/<int:action>")
+def bugdet_action(action):
+    global mode
+    global state
+    global displayTime
+    global timeTillNextLed
+    global budgetTime
+    global prodTime
+    global queueBugdet
+    
+    if action == 1:
+        state = "RUN"
+        print("state set to RUN")
+    elif action == 0:
+        state = "PAUSE"
+        print("state set to PAUSE")
+    
+    elif action == 2:
+        if budgetTime < 18000:
+            budgetTime += 600
+            queueBudget.put(600)
+        
+    elif action == 3:
+        if budgetTime > 600:
+            budgetTime -= 600
+            queueBudget.put(-600)
+
+
+    writeSettings()
+    return redirect("/templates/bugdet")
+
 if __name__ == "__main__":
     app.run(host='0.0.0.0', port=80, debug=False, threaded=True)
 
