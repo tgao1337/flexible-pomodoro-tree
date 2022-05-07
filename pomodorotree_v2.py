@@ -769,7 +769,7 @@ def bugdet_action(action):
 
 
     writeSettings()
-    return redirect("/templates/bugdet")
+    return redirect("/templates/budget")
 
 if __name__ == "__main__":
     app.run(host='0.0.0.0', port=80, debug=False, threaded=True)
