@@ -594,6 +594,7 @@ def pomodoro_template():
     global state
     global displayTime
     global timeTillNextLed
+    global pomoWorkTime
     
     if not mode == "POMODORO_W" or not mode == "POMODORO_B":
         print("Changing mode to POMODORO_W and state RUN")
