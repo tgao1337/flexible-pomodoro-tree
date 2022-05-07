@@ -588,6 +588,37 @@ def home_template():
     return render_template("index.html", displayCurrentMode=displayMode,displayVal=val, displayVal2=val2)
 
 
+@app.route("/templates/pomodoro", methods=['POST', 'GET'])
+def pomodoro_template():
+    global mode
+    global state
+    global displayTime
+    global timeTillNextLed
+    
+    if not mode == "POMODORO_W" or not mode == "POMODORO_B":
+        print("Changing mode to POMODORO_W and state RUN")
+        mode = "POMODORO_W"
+        state = "RUN"
+        clearAll()
+        timeTillNextLed = pomoWorkTime // getAvailable()
+
+    return render_template("pomodoro.html", displayCurrentMode=mode, displayVal=displayTime)
+
+
+
+@app.route("/pomodoro/<int:action>")
+def pomodoro_action(action):
+    global state
+    if action == 1:
+        state = "RUN"
+        print("Mode set to RUN")
+    elif action == 0:
+        state = "PAUSE"
+        print("Mode set to PAUSE")
+    return redirect("/templates/pomodoro")
+
+
+
 @app.route("/templates/task", methods=['POST', 'GET'])
 def task_template():
     global mode
@@ -610,7 +641,6 @@ def task_template():
         
         
     if request.method == "POST":
-
         if empty in taskDescr:
             result = taskDescr.index(empty)
             newDescr = request.form['taskDescr']
@@ -619,9 +649,6 @@ def task_template():
                 taskDescr[result] = newDescr
             else:
                 taskDescr[result] = empty
-            
-
-        
         else:    
             newDescr = request.form['taskDescr']
             whitespace = [not char or char.isspace() for char in newDescr] # Checking if nothing input then append empty string message
@@ -629,9 +656,7 @@ def task_template():
                 taskDescr.append(newDescr)
             else:
                 taskDescr.append(empty)
-            
             taskNum = taskNum + 1
-        
         
     return render_template("task.html", taskList=taskDescr, taskDone=taskDone, taskNum=taskNum)
 
