@@ -646,6 +646,7 @@ def pomodoro_action(action):
         if pomoBreakTime > 300:
             pomoBreakTime -= 300
             queuePom.put(-300)
+    writeSettings()
     return redirect("/templates/pomodoro")
 
 
