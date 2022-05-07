@@ -609,7 +609,7 @@ def pomodoro_template():
         pomoWorkTime = request.form['pBreakTime']
         pomoBreakTime = request.form['pBreakTime']
 
-    return render_template("pomodoro.html", displayCurrentMode=mode, displayVal=displayTime, displayPWorkTime=pomoWorkTime, displayPBreakTime=pomoBreakTime)
+    return render_template("pomodoro.html", displayCurrentMode=mode, displayVal=displayTime, displayPWorkTime=convertTime(pomoWorkTime), displayPBreakTime=convertTime(pomoBreakTime))
 
 
 
