@@ -611,10 +611,10 @@ def pomodoro_action(action):
     global state
     if action == 1:
         state = "RUN"
-        print("Mode set to RUN")
+        print("state set to RUN")
     elif action == 0:
         state = "PAUSE"
-        print("Mode set to PAUSE")
+        print("state set to PAUSE")
     return redirect("/templates/pomodoro")
 
 
