@@ -627,17 +627,25 @@ def pomodoro_action(action):
         print("state set to PAUSE")
     
     elif action == 2:
-        pomoWorkTime += 300
-        queuePom.put(300)
+        if pomoWorkTime < 7200:
+            pomoWorkTime += 300
+            queuePom.put(300)
+        
     elif action == 3:
-        pomoWorkTime -= 300
-        queuePom.put(-300)
+        if pomoWorkTime >= 600:
+            pomoWorkTime -= 300
+            queuePom.put(-300)
+
     elif action == 4:
-        pomoBreakTime += 300
-        queuePom.put(300)
+        if pomoBreakTime < 3600:
+            pomoBreakTime += 300
+            queuePom.put(300)
+        
+        
     elif action == 5:
-        pomoBreakTime -= 300
-        queuePom.put(-300)
+        if pomoBreakTime > 300:
+            pomoBreakTime -= 300
+            queuePom.put(-300)
     return redirect("/templates/pomodoro")
 
 
