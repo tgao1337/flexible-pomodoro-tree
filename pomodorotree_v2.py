@@ -595,6 +595,7 @@ def pomodoro_template():
     global displayTime
     global timeTillNextLed
     global pomoWorkTime
+    global pomoBreakTime
     
     if not mode == "POMODORO_W" or not mode == "POMODORO_B":
         print("Changing mode to POMODORO_W and state RUN")
@@ -608,7 +609,7 @@ def pomodoro_template():
         pomoWorkTime = request.form['pBreakTime']
         pomoBreakTime = request.form['pBreakTime']
 
-    return render_template("pomodoro.html", displayCurrentMode=mode, displayVal=displayTime)
+    return render_template("pomodoro.html", displayCurrentMode=mode, displayVal=displayTime, displayPWorkTime=pomoWorkTime, displayPBreakTime=pomoBreakTime)
 
 
 
