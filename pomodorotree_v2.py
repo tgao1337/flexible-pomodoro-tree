@@ -312,7 +312,7 @@ def watchEvents(): # THREAD
             if mode == "TASK":
                 if (taskDone >= taskNum):
                     state = "WELCOME"
-#                     buzzUp3()
+                    buzzUp2()
                 else:
                     taskDone = taskDone + 1
                     remainingTasks = taskNum - taskDone
@@ -322,6 +322,7 @@ def watchEvents(): # THREAD
                     else:
                         if taskDone >=1:
                             toggleNextLed(True, quantityON)
+                            playFreqTime(A5, .35)
             playPauseCompleteBEvent.clear()
            
         if settingsBEvent.is_set():
