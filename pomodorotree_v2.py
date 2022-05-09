@@ -42,7 +42,7 @@ queueBudget = Queue()
 buttonSetup()
 setupLED()
 clearAll()
-buzzerSetup(13)
+buzzerSetup()
 
 # ============================ READ/WRITE USER SETTINGS ============================
 def readSettings():
