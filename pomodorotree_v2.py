@@ -603,7 +603,7 @@ def pomodoro_template():
     global pomoWorkTime
     global pomoBreakTime
     
-    if (not mode == "POMODORO_W" and not mode == "POMODORO_B") or (state == "WELCOME" or state == "PAUSE" or state == "RUN"):
+    if (not mode == "POMODORO_W" and not mode == "POMODORO_B") or (state == "WELCOME"):
         print("Changing mode to POMODORO_W and state RUN")
         mode = "POMODORO_W"
         state = "PAUSE"
