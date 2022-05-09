@@ -312,6 +312,7 @@ def watchEvents(): # THREAD
             if mode == "TASK":
                 if (taskDone >= taskNum):
                     state = "WELCOME"
+                    writeSettings()
                     buzzUp2()
                 else:
                     taskDone = taskDone + 1
