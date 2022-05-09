@@ -578,6 +578,7 @@ def home_template():
     global mode
     val = 0
     val2 = 0
+    state = "WELCOME"
     if mode == "POMODORO_W" or mode == "POMODORO_B":
         displayMode = "Pomodoro"
         val = convertTime(pomoWorkTime)
@@ -600,7 +601,7 @@ def pomodoro_template():
     global pomoWorkTime
     global pomoBreakTime
     
-    if not mode == "POMODORO_W" and not mode == "POMODORO_B":
+    if not mode == "POMODORO_W" and not mode == "POMODORO_B" and state == "WELCOME":
         print("Changing mode to POMODORO_W and state RUN")
         mode = "POMODORO_W"
         state = "RUN"
