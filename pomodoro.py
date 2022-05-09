@@ -92,25 +92,20 @@ def buttonSetup():
   GPIO.setup(pinE, GPIO.IN)
   #GPIO.setup(pinF, GPIO.IN)
 
-def buzzerSetup(pin):
-  GPIO.setwarnings(False)
-  GPIO.setmode(GPIO.BCM)
-  global pinnum
-  pinnum = pin
-  GPIO.setup(pinnum, GPIO.OUT) # This sets pin number from parameters as an output
+def buzzerSetup():
+  global pi 
+  pi = pigpio.pi()
 
 def playFreqTime(freq, seconds):
   # This function plays a specified frequency for a specified time.
   # freq=0 is for a rest note.
+
   if freq == 0:
-    #pwm_out = GPIO.PWM(pinnum, 1000)
-    #pwm_out.stop()
-    time.sleep(seconds)
+   pi.hardware_PWM(13, freq, 0)
   else:
-    pwm_out = GPIO.PWM(pinnum, freq)
-    pwm_out.start(50)
-    time.sleep(seconds)
-    pwm_out.stop()
+    pi.hardware_PWM(13, freq, 500000) 
+  time.sleep(seconds)
+  pi.hardware_PWM(13, freq, 0)
     
 def buzzUp3():
   playFreqTime(A5, .35)
