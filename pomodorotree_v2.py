@@ -729,6 +729,14 @@ def task_pop():
    
     return redirect("/templates/task")
 
+@app.route("/task/remove")
+def task_pop():
+    global taskNum
+    global taskDone
+    if taskDone < taskNum:
+        taskNum = taskNum - 1
+    return redirect("/templates/task")
+
 
 
 @app.route("/templates/budget")
