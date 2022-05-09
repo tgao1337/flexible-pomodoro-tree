@@ -662,7 +662,7 @@ def task_template():
     global taskDone
     global taskDescr
     global quantityON
-    if not mode == "TASK":
+    if not mode == "TASK" and not state == "RUN":
         print("Changing mode to TASK and state RUN")
         mode = "TASK"
         state = "RUN"
