@@ -576,8 +576,10 @@ def home():
 @app.route("/templates/index")
 def home_template():
     global mode
+    global state
     val = 0
     val2 = 0
+
     state = "WELCOME"
     if mode == "POMODORO_W" or mode == "POMODORO_B":
         displayMode = "Pomodoro"
