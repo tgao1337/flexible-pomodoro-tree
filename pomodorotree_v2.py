@@ -608,9 +608,9 @@ def pomodoro_template():
         timeTillNextLed = pomoWorkTime // getAvailable()
         
         
-    if request.method == "POST":
-        pomoWorkTime = request.form['pBreakTime']
-        pomoBreakTime = request.form['pBreakTime']
+#     if request.method == "POST":
+#         pomoWorkTime = request.form['pBreakTime']
+#         pomoBreakTime = request.form['pBreakTime']
 
     return render_template("pomodoro.html", displayCurrentMode=mode, displayVal=displayTime, displayPWorkTime=convertTime(pomoWorkTime), displayPBreakTime=convertTime(pomoBreakTime))
 
@@ -662,7 +662,7 @@ def task_template():
     global taskDone
     global taskDescr
     global quantityON
-    if not mode == "TASK" and not state == "RUN":
+    if not mode == "TASK" or not state == "RUN":
         print("Changing mode to TASK and state RUN")
         mode = "TASK"
         state = "RUN"
