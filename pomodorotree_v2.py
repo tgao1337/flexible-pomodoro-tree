@@ -579,8 +579,13 @@ def home_template():
     global state
     val = 0
     val2 = 0
+    
+    if state == "WELCOME":
+        state = "OVERVIEW"
+    elif state == "OVERVIEW":
+        state = "WELCOME"
+#     state = "WELCOME"
 
-    state = "WELCOME"
     if mode == "POMODORO_W" or mode == "POMODORO_B":
         displayMode = "Pomodoro"
         val = convertTime(pomoWorkTime)
@@ -708,7 +713,7 @@ def task_pop():
     
     if (taskDone >= taskNum):
         print("Changing state to welcome")
-        state = "WELCOME"
+        state = "OVERVIEW"
         buzzUp2()
     else:
         taskDone = taskDone + 1
