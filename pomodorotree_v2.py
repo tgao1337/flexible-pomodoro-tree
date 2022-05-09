@@ -5,17 +5,12 @@ import multiprocessing as mp
 from queue import Queue
 from flask import Flask, render_template, redirect, request
 
-# ========================================================
-
-tree = Image.open("tree.png").resize((32,32)).convert("1")
-
 global mode, state, pomoWorkTime, pomoBreakTime, taskNum, taskDone, budgetTime
 global displayTime, prodTime, quantityON, timeTillNextLed
 global prevState
 
 mode = "POMODORO_W" # POMODORO_W, POMODORO_B, TASK, BUDGET
 state = "WELCOME" # WELCOME, OVERVIEW, RUN, PAUSE, MODE_SELECT, MODE_SETTINGS, MODE_SETTINGS_2 (For Pomodoro Break Settings)
-
 pomoWorkTime = 25 * 60 # 25 minutes of work, starting pomoWorkTime
 pomoBreakTime = 5 * 60 # 5 minutes of break, starting pomoBreakTime
 taskNum = 4 # 4 total tasks
@@ -28,7 +23,7 @@ displayTime = time.strftime("%H:%M:%S", x)
 
 prevState = None
 quantityON = 0
-timeTillNextLed=60
+timeTillNextLed = 60
 
 resetBEvent = mp.Event()
 playPauseCompleteBEvent = mp.Event()
@@ -39,12 +34,14 @@ downBEvent = mp.Event()
 queuePom = Queue()
 queueBudget = Queue()
 
+tree = Image.open("tree.png").resize((32,32)).convert("1")
+
 buttonSetup()
 setupLED()
 clearAll()
 buzzerSetup()
 
-# ============================ READ/WRITE USER SETTINGS ============================
+# ============================================= READ/WRITE USER SETTINGS ====================================================
 def readSettings():
     global mode, pomoWorkTime, pomoBreakTime, taskNum, budgetTime
     userFile = open("userSettings.txt", "r")
@@ -65,8 +62,8 @@ def writeSettings():
     userFile.write((str(taskNum)+"\n"))
     userFile.write((str(budgetTime)+"\n"))
     userFile.close()
- 
-# ============================ BUTTON PROCESS ============================
+    
+# ============================================== BUTTON PRCOCESS / EVENT SET ================================================
 def checkResetB(): # PROCESS
     global resetBEvent
     while True:
@@ -96,8 +93,8 @@ def checkDownB(): # PROCESS
     while True:
         waitButton(pinE)
         downBEvent.set()
-      
-# ============================ TREE EXECUTION ============================
+
+# ================================================== MODE EXECUTION =========================================================
 def runTree(): 
     global displayTime, prodTime, mode, state, prevState, timeTillNextLed
     prevTimeTillNextLed = 0
@@ -145,7 +142,6 @@ def runTree():
             x = time.gmtime(timeLeft)
             displayTime = time.strftime("%H:%M:%S", x)
             
-            
         if state == "RUN" and mode == "BUDGET":
             prevState = "PAUSE"
             startTime = time.time()
@@ -153,8 +149,8 @@ def runTree():
             timeLeft = budgetTime
             x = time.gmtime(timeLeft)
             displayTime = time.strftime("%H:%M:%S", x)
-        
-        # ============================== RUN/PAUSE POMODORO, BUDGET ==========================================
+
+        # ============================================== RUN/PAUSE POMODORO, BUDGET =================================================
         
         if state == "RUN" and mode == "POMODORO_W":
             clearAll() # Reset LEDs
@@ -170,7 +166,6 @@ def runTree():
                     endTime = endTime + queuePom.get()
                     timeLeft = endTime - time.time() 
 
-#                 print((pomoWorkTime - timeLeft), timeTillNextLed)
                 if state == "RUN" or (prevState == "RUN" and not state == "PAUSE"):
                     prevState = "RUN"
                     timeLeft = endTime - time.time() 
@@ -230,7 +225,7 @@ def runTree():
         if state == "RUN" and mode == "BUDGET":   # show productivity time on budget
             prevState = "RUN"
             productivity_time = 0
-            timeTillNextLed = 21600 // available_led # 6 hour work time like wesaid
+            timeTillNextLed = 21600 // available_led # 6 hour work time
            
             startTime = time.time()
             endTime = startTime + budgetTime
@@ -246,9 +241,7 @@ def runTree():
 
                     endTime = endTime + queueBudget.get()
                     timeLeft = round(endTime - time.time())
-                    print("New time left:", timeLeft)
 
-                
                 if state == "RUN" or (prevState == "RUN" and not state=="RUN" and not state == "PAUSE"): 
                     endTime = time.time() + timeLeft
                     productivity_time = time.time() - startTime
@@ -261,16 +254,14 @@ def runTree():
                     
                 if state == "PAUSE" or (prevState == "PAUSE" and not state=="RUN" and not state == "PAUSE"):
                     timeLeft = endTime - time.time()
-                    
                     startTime = time.time() - productivity_time
-                    
-
                     prevState = "PAUSE"
                 x = time.gmtime(timeLeft)
                 prodTime = time.strftime("%H:%M:%S", y)  # productivity time to display on OLED
                 displayTime = time.strftime("%H:%M:%S", x)   # if budget mode done then go to pomodoro, shows budget time, this will fix if displayTime = pomodorotime in start of pomodoro loop
                   
-# ============================ WATCH BUTTON PRESSES ============================
+
+# ===================================================== WATCH BUTTON PRESSES ================================================
 def watchEvents(): # THREAD
     global resetBEvent, playPauseCompleteBEvent, settingsBEvent, upBEvent, downBEvent
     global state, mode, displayTime, pomoWorkTime, pomoBreakTime, taskNum, taskDone, budgetTime,  prevState
@@ -327,7 +318,6 @@ def watchEvents(): # THREAD
             playPauseCompleteBEvent.clear()
            
         if settingsBEvent.is_set():
-#             if state == "WELCOME" or state == "OVERVIEW" or state == "MODE_SETTINGS_2" or state == "RUN" or state == "PAUSE":
             if state == "OVERVIEW" or state == "MODE_SETTINGS_2" or state == "RUN" or state == "PAUSE":
                 state = "MODE_SELECT"
             elif state == "MODE_SELECT":
@@ -356,7 +346,6 @@ def watchEvents(): # THREAD
                         queuePom.put(300)
                    
                         timeTillNextLed = pomoWorkTime // getAvailable() # Calculate new LED time
-#                         print("----->", timeTillNextLed, pomoWorkTime, getAvailable())
                   
                 if mode == "TASK":
                     if taskNum < 32: # Max 32 tasks because 32 LEDs
@@ -394,13 +383,11 @@ def watchEvents(): # THREAD
                         pomoWorkTime -= 300
                         queuePom.put(-300)
                         timeTillNextLed = pomoWorkTime // getAvailable()
-#                         print("----->", timeTillNextLed, pomoWorkTime, getAvailable())
                   
                 if mode == "TASK":
                     if taskNum > 1:
                         taskNum -= 1
                         quantityON = getAvailable() // taskNum
-#                         print("----->", quantityON, getAvailable(), taskNum)
 
                 if mode == "BUDGET":
                     if budgetTime > 600:
@@ -417,7 +404,8 @@ def watchEvents(): # THREAD
             downBEvent.clear()
         time.sleep(0.01)
         
-# ============================ UPDATE DISPLAY BASED ON CURRENT STATE AND MODE ============================
+
+# ======================================== UPDATE DISPLAY BASED ON CURRENT STATE AND MODE ===================================
 def updateDisplay():
 
     while True:
@@ -465,10 +453,10 @@ def updateDisplay():
                 if mode == "TASK":
                     taskString = str(taskDone) + "/" + str(taskNum)
                     draw.text((17, 10), taskString, font=fontBig, fill="white")
-                    draw.text((31,45), "T | Task", font=fontSmall, fill="white")  # TODO add task name
+                    draw.text((31,45), "T | Task", font=fontSmall, fill="white") 
                 if mode == "BUDGET":
                     draw.text((18,0), "Productive time:", font=fontSmall, fill="white")
-                    draw.text((17,10), prodTime, font=fontBig, fill="white")  # productivity time  TODO YOU NEED TO FIX THIS
+                    draw.text((17,10), prodTime, font=fontBig, fill="white")  
                     draw.text((12,45), "B | Budget | Work", font=fontSmall, fill="white")
 
                   
@@ -487,11 +475,11 @@ def updateDisplay():
                 if mode == "TASK":
                     taskString = str(taskDone) + "/" + str(taskNum)
                     draw.text((17, 10), taskString, font=fontBig, fill="white")
-                    draw.text((31,45), "T | Task", font=fontSmall, fill="white")  # TODO add task name
+                    draw.text((31,45), "T | Task", font=fontSmall, fill="white") 
                 if mode == "BUDGET":
                     draw.text((0,0), "Break time remaining:", font=fontSmall, fill="white")
-                    draw.text((17, 10), displayTime, font=fontBig, fill="white")  # change position to display
-                    draw.text((12,45), "B | Budget | Break", font=fontSmall, fill="white")  # TODO add productivity time
+                    draw.text((17, 10), displayTime, font=fontBig, fill="white")  
+                    draw.text((12,45), "B | Budget | Break", font=fontSmall, fill="white")  
                   
         elif state == "MODE_SELECT":
             
@@ -513,30 +501,30 @@ def updateDisplay():
             with canvas(device) as draw:
                 draw.line((0, 45, 127 ,45), fill="white")
                 if mode == "POMODORO_W" or mode == "POMODORO_B":
-                    draw.text((0,45), "P | Settings | "+ displayTime, font=fontSmall, fill="white")  # Removed cycles  # TODO do i add time to this while it's still playing?
+                    draw.text((0,45), "P | Settings | "+ displayTime, font=fontSmall, fill="white") 
                     draw.text((23, 0), "Set Work Time:", font=fontSmall, fill="white")
-                    draw.text((17, 10), displayTime, font=fontBig, fill="white") #TODO Timing conversion printing
+                    draw.text((17, 10), displayTime, font=fontBig, fill="white")
                 if mode == "TASK":
                     draw.text((31,45), "T | Settings", font=fontSmall, fill="white")
                     draw.text((40, 0), "Set Tasks:", font=fontSmall, fill="white")
                     if taskNum > 9:
-                        draw.text((50, 10), str(taskNum), font=fontBig, fill="white") #TODO Task count manager
+                        draw.text((50, 10), str(taskNum), font=fontBig, fill="white")
                     else:
-                        draw.text((60, 10), str(taskNum), font=fontBig, fill="white") #TODO Task count manager
+                        draw.text((60, 10), str(taskNum), font=fontBig, fill="white")
                 if mode == "BUDGET":
-                    draw.text((0,45), "B | Settings | "+ displayTime, font=fontSmall, fill="white")  # TODO do i add time to this while it's still playing?
+                    draw.text((0,45), "B | Settings | "+ displayTime, font=fontSmall, fill="white") 
                     draw.text((23, 0), "Set Break Time:", font=fontSmall, fill="white")
-                    draw.text((17, 10), displayTime, font=fontBig, fill="white") # TODO Budget break timing
+                    draw.text((17, 10), displayTime, font=fontBig, fill="white") 
                 
         elif state == "MODE_SETTINGS_2":
             with canvas(device) as draw:
                 draw.line((0, 45, 127 ,45), fill="white")
                 if mode == "POMODORO_W" or mode == "POMODORO_B":
-                    draw.text((0,45), "P | Settings | "+displayTime, font=fontSmall, fill="white")  # Removed cycles
+                    draw.text((0,45), "P | Settings | "+displayTime, font=fontSmall, fill="white")
                     draw.text((23, 0), "Set Break Time:", font=fontSmall, fill="white")
-                    draw.text((17, 10), displayTime, font=fontBig, fill="white") #TODO Timing conversion printing
-            
-# ============================ MAIN ============================
+                    draw.text((17, 10), displayTime, font=fontBig, fill="white") 
+
+# ============================================================== MAIN =======================================================
 p1 = Process(target=checkResetB)
 p1.start()
 p2 = Process(target=checkPlayPauseCompleteB)
@@ -555,7 +543,7 @@ t2.start()
 t3 = Thread(target = runTree)
 t3.start()
 
-# ============================ FLASK ============================
+# ======================================================== FLASK ============================================================
 def convertTime(value):  # given a number of seconds, returns string in HH:MM:SS format
     hours = value // 3600
     minutes = (value % 3600) // 60
@@ -799,9 +787,8 @@ if __name__ == "__main__":
     app.run(host='0.0.0.0', port=80, debug=False, threaded=True)
 
 
-
-# ========================================================
-
+# ===========================================================================================================================
+# ====================================================== JOIN THREADS =======================================================
 
 t1.join()
 t2.join()
