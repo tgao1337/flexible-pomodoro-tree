@@ -740,7 +740,7 @@ def budget_template():
     global budgetTime
     global prodTime
     
-    if not mode == "BUDGET":
+    if not mode == "BUDGET" or state == "WELCOME":
         print("Changing mode to BUDGET")
         mode = "BUDGET"
         state = "RUN"
