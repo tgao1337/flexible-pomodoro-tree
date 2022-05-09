@@ -606,10 +606,9 @@ def pomodoro_template():
     if (not mode == "POMODORO_W" and not mode == "POMODORO_B") or (state == "WELCOME" or state == "PAUSE" or state == "RUN"):
         print("Changing mode to POMODORO_W and state RUN")
         mode = "POMODORO_W"
-        state = "RUN"
         clearAll()
         timeTillNextLed = pomoWorkTime // getAvailable()
-        
+        displayTime = convertTime(pomoWorkTime)
         
 #     if request.method == "POST":
 #         pomoWorkTime = request.form['pBreakTime']
