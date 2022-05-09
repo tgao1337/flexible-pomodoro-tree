@@ -313,11 +313,11 @@ def watchEvents(): # THREAD
                 if (taskDone >= taskNum):
                     state = "WELCOME"
                     writeSettings()
-                    buzzUp3()
+                    buzzUp2()
                 else:
                     taskDone = taskDone + 1
                     if taskDone >=1:
-                        buzzUp2()
+                        playFreqTime(A5, .35)
                     remainingTasks = taskNum - taskDone
                     if remainingTasks == 0:
                         allOn()
@@ -704,8 +704,11 @@ def task_pop():
     if (taskDone >= taskNum):
         print("Changing state to welcome")
         state = "WELCOME"
+        buzzUp2()
     else:
         taskDone = taskDone + 1
+        if taskDone >=1:
+            playFreqTime(A5, .35)
         quantityON = getAvailable() // taskNum
         taskDescr.pop(0)
     remainingTasks = taskNum - taskDone
