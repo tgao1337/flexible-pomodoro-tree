@@ -603,6 +603,7 @@ def pomodoro_template():
     if (not mode == "POMODORO_W" and not mode == "POMODORO_B") or (state == "WELCOME"):
         print("Changing mode to POMODORO_W and state RUN")
         mode = "POMODORO_W"
+        writeSettings()
         state = "PAUSE"
         clearAll()
         timeTillNextLed = pomoWorkTime // getAvailable()
@@ -668,6 +669,7 @@ def task_template():
         print("Changing mode to TASK and state RUN")
         mode = "TASK"
         state = "RUN"
+        writeSettings()
         taskDone = 0
         clearAll()
         quantityON = getAvailable() // taskNum
@@ -754,6 +756,7 @@ def budget_template():
     if not mode == "BUDGET" or state == "WELCOME":
         print("Changing mode to BUDGET")
         mode = "BUDGET"
+        writeSettings()
         state = "RUN"
         clearAll()
         timeTillNextLed = budgetTime // getAvailable()
