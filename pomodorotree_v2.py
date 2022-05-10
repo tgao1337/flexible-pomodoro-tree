@@ -186,11 +186,12 @@ def runTree():
             
             if mode == "POMODORO_W" and not state == "WELCOME":
                 allOn()
-                playFreqTime(A5, .35)
+                playFreqTime(C6, .35)
                 mode = "POMODORO_B"
                 state = "PAUSE"
                 x = time.gmtime(pomoBreakTime)
                 displayTime = time.strftime("%H:%M:%S", x)
+                
             
         if state == "RUN" and mode == "POMODORO_B":
             prevState = "RUN"
@@ -222,6 +223,7 @@ def runTree():
                 state = "PAUSE"
                 x = time.gmtime(pomoWorkTime)
                 displayTime = time.strftime("%H:%M:%S", x)
+                playFreqTime(A5, .35)
             
         if state == "RUN" and mode == "BUDGET":   # show productivity time on budget
             prevState = "RUN"
