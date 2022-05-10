@@ -574,9 +574,9 @@ def home_template():
     
     if state == "WELCOME":
         state = "OVERVIEW"
-    elif state == "OVERVIEW":
+    else:
         state = "WELCOME"
-#     state = "WELCOME"
+
 
     if mode == "POMODORO_W" or mode == "POMODORO_B":
         displayMode = "Pomodoro"
