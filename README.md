@@ -37,3 +37,8 @@ Parts:
 Parts:
 - Buzzer
   - PS1240 [datasheet https://www.jp.tdk.com/tefe02/ef532_ps.pdf]
+
+## Usage
+Run 'sudo pigpiod' then 'sudo python3 pomodorotree.py'
+
+'sudo python3 setup.py' may be required for first time installation.
