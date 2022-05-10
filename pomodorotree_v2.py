@@ -723,7 +723,7 @@ def task_pop():
     return redirect("/templates/task")
 
 @app.route("/task/remove")
-def task_pop():
+def task_remove():
     global taskNum
     global taskDone
     if taskDone < taskNum:
