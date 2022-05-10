@@ -729,7 +729,7 @@ def task_remove():
     global taskNum
     global taskDone
     global taskDescr
-    if taskDone < taskNum:
+    if taskDone < taskNum and not ((taskNum - 1) == 0):
         taskNum = taskNum - 1
         taskDescr = taskDescr[1:]
         
