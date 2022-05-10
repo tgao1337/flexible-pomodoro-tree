@@ -23,7 +23,7 @@ displayTime = time.strftime("%H:%M:%S", x)
 
 prevState = None
 quantityON = 0
-timeTillNextLed = 60
+timeTillNextLed = 10
 
 resetBEvent = mp.Event()
 playPauseCompleteBEvent = mp.Event()
@@ -618,6 +618,7 @@ def pomodoro_action(action):
     global pomoWorkTime
     global pomoBreakTime
     global queuePom
+    global timeTillNextLed
     if action == 1:
         state = "RUN"
         print("state set to RUN")
@@ -629,17 +630,18 @@ def pomodoro_action(action):
         if pomoWorkTime < 7200:
             pomoWorkTime += 300
             queuePom.put(300)
+            timeTillNextLed = pomoWorkTime // getAvailable()
         
     elif action == 3:
         if pomoWorkTime >= 600:
             pomoWorkTime -= 300
             queuePom.put(-300)
+            timeTillNextLed = pomoWorkTime // getAvailable()
 
     elif action == 4:
         if pomoBreakTime < 3600:
             pomoBreakTime += 300
             queuePom.put(300)
-        
         
     elif action == 5:
         if pomoBreakTime > 300:
