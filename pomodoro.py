@@ -321,7 +321,7 @@ def findNextLed(turnOn):
     else:
       ind= NUM_LEDS - 1 - ledList[::-1].index(1)
   except ValueError as e:
-      print("NOT FOUND")
+      print("LED NOT FOUND")
   return ind
               
 def getAvailable():
@@ -336,7 +336,7 @@ def allOn():
 
   for i in range(NUM_LEDS):
     ledList[i]=1
-  print("IN ALL ON, disp List:", ledList)
+#   print("IN ALL ON, disp List:", ledList)
   displayLED()
   
 
