@@ -728,8 +728,12 @@ def task_pop():
 def task_remove():
     global taskNum
     global taskDone
+    global taskDescr
     if taskDone < taskNum:
         taskNum = taskNum - 1
+        taskDescr = taskDescr[1:]
+        
+     
     return redirect("/templates/task")
 
 
